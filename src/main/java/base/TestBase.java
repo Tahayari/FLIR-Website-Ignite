@@ -19,7 +19,7 @@ public class TestBase {
     public TestBase() {
 
         try {
-            Properties prop = new Properties();
+            prop = new Properties();
             FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + "/src/main/java/config/config.properties");
             prop.load(ip);
 
@@ -36,10 +36,10 @@ public class TestBase {
         browserName = prop.getProperty("browser");
 
         if (browserName.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "C:/Users/dhosman/IdeaProjects/Drivers/Chrome/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/java/drivers/Chrome/77/chromedriver.exe"); // atentie la versiune !!
             driver = new ChromeDriver();
         } else if (browserName.equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "C:/Users/dhosman/IdeaProjects/Drivers/Firefox/geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/main/java/drivers/Firefox/geckodriver.exe");
             driver = new FirefoxDriver();
         }
 

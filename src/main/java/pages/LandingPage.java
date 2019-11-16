@@ -13,16 +13,16 @@ public class LandingPage extends TestBase {
     WebElement signup_BTN;
 
     //Class constructor
-    public LandingPage(){
-        PageFactory.initElements(driver,this); // "this" points to the current class object(s)
+    public LandingPage() {
+        PageFactory.initElements(driver, this); // "this" points to the current class object(s)
     }
 
     //Actions
-    public String getPageTitle(){
+    public String getPageTitle() {
         return driver.getTitle();
     }
 
-    public LoginPage login_btn_click(){
+    public LoginPage login_btn_click() {
         login_BTN.click();
         return new LoginPage();
     }
