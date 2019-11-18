@@ -1,0 +1,7 @@
+<suite name="FLIR Tools - Login Page tests">
+    <test name="FLIR Tools Test case">
+        <classes>
+            <class name="testCases.LoginPageTest"></class>
+        </classes>
+    </test>
+</suite>
