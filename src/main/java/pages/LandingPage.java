@@ -7,10 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LandingPage extends TestBase {
 
-    @FindBy(xpath = "//span[contains(text(),'LOG IN')]")
-    WebElement login_BTN;
+    @FindBy(xpath = "//span[contains(text(),'LOG IN ------')]")
+    public WebElement login_BTN;
     @FindBy(xpath = "//span[contains(text(),'SIGN UP')]")
-    WebElement signup_BTN;
+    public WebElement signup_BTN;
 
     //Class constructor
     public LandingPage() {

@@ -9,11 +9,13 @@ import org.testng.annotations.Test;
 import pages.LandingPage;
 import pages.LibraryPage;
 import pages.LoginPage;
+import utils.TestUtil;
 
 public class LoginPageTest extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
     LibraryPage libraryPage;
+    TestUtil testUtil;
 
     public LoginPageTest() {
         super();
@@ -23,38 +25,35 @@ public class LoginPageTest extends TestBase {
     public void setUp() {
         initialization();
         landingPage = new LandingPage();
+        testUtil = new TestUtil();
     }
 
     @Test(priority = 1)
     public void titleTest() {
-        landingPage.login_btn_click();
-        String title = landingPage.getPageTitle();
+        loginPage = landingPage.login_btn_click();
+        testUtil.waitForElementToLoad(driver,loginPage.login_btn);
+        String title = loginPage.getPageTitle();
         Assert.assertEquals(title, "FLIR Log in");
-        System.out.println(landingPage.getPageTitle());
     }
 
-    @Test
+    @Test(priority = 2)
     public void blankEmailTest() {
         loginPage = landingPage.login_btn_click();
         loginPage.email_field.clear();
         loginPage.login_btn.click();
         boolean errorMsg = driver.findElement(By.xpath("//p[contains(text(),'Please enter your email')]")).isDisplayed();
-        Assert.assertTrue(errorMsg,true);
+        Assert.assertTrue(errorMsg, "true");
     }
 
-    @Test (priority = 2)
-    public void LoginTest(){
+    @Test(priority = 3)
+    public void LoginTest() {
         loginPage = landingPage.login_btn_click();
         System.out.println("Am dat click pe butonul de Login");
-        libraryPage = loginPage.login(prop.getProperty("email"),prop.getProperty("password"));
-        System.out.println("Am facut logarea");
+        libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
     }
 
     @AfterMethod
     public void tearDown() {
         driver.quit();
-
     }
-
-
 }

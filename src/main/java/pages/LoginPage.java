@@ -20,11 +20,13 @@ public class LoginPage extends TestBase {
 
     //Initialize the Page Objects
     public LoginPage() {
+
         PageFactory.initElements(driver, this);
     }
 
     //Actions
     public String getPageTitle() {
+
         return driver.getTitle();
     }
 
