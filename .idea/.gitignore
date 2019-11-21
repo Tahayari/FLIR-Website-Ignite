@@ -1,0 +1,13 @@
+# Default ignored files
+/workspace.xml
+/screenshots/
+/test-output/
+
+
+/.idea/
+/target/
+/.settings/
+/bin/
+*.project
+*.png
+*.apk
