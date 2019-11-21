@@ -28,7 +28,6 @@ public class TestUtil extends TestBase {
     public static void takeScreenshotAtEndOfTest() throws IOException {
         SimpleDateFormat time_formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String current_time_str = time_formatter.format(System.currentTimeMillis());
-        System.out.println("---------------------Aici este formatul de timp pe care il doresc : "+current_time_str);
 
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String currentDir = System.getProperty("user.dir");

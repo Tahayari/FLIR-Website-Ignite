@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LandingPage extends TestBase {
 
-    @FindBy(xpath = "//span[contains(text(),'LOG IN ------')]")
+    @FindBy(xpath = "//span[contains(text(),'LOG IN')]")
     public WebElement login_BTN;
     @FindBy(xpath = "//span[contains(text(),'SIGN UP')]")
     public WebElement signup_BTN;

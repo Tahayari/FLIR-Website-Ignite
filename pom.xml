@@ -62,6 +62,16 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+        <!-- End of Apache POI dependency -->
+
+        <!-- Extent Reports -->
+        <dependency>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.41.2</version>
+        </dependency>
+        <!-- End of Extent Reports dependency-->
+
 
     </dependencies>
 
