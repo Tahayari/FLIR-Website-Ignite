@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestUtil extends TestBase {
 
@@ -37,6 +38,17 @@ public class TestUtil extends TestBase {
         else {
             FileUtils.copyFile(scrFile, new File(currentDir + "/screenshots/" + current_time_str + ".png"));
         }
+    }
+
+    public static String getScreenshot(WebDriver driver, String screenshotName) throws IOException{
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        // after execution, you could see a folder "FailedTestsScreenshots"
+        // under src folder
+        String destination = System.getProperty("user.dir") + "/screenshots/" + screenshotName + dateName + ".jpeg";
+        File finalDestination = new File(destination);
+        FileUtils.copyFile(source, finalDestination);
+        return destination;
     }
 
 }

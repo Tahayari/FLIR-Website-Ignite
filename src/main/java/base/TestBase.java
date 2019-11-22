@@ -1,5 +1,7 @@
 package base;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,6 +24,8 @@ public class TestBase {
     public static Properties prop;
     public static EventFiringWebDriver e_driver;
     public static WebEventListener eventListener;
+    public static ExtentReports extent;
+    public ExtentTest extentTest;
 
     public TestBase() {
 
@@ -80,6 +84,7 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 
         driver.get(prop.getProperty("url"));
+
     }
 
 }
