@@ -4,6 +4,7 @@
     <listeners>
         <listener class-name="ExtentReportListener.ExtentReporterNG" />
     </listeners>
+
 -->
     <test name="FLIR Tools Test case">
         <classes>
