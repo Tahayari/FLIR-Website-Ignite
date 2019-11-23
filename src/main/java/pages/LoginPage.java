@@ -36,7 +36,6 @@ public class LoginPage extends TestBase {
         return driver.getTitle();
     }
 
-    //TODO : click on SignUp
     public SignUpPage click_SignUp() {
         signup_link.click();
         return new SignUpPage();

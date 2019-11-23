@@ -46,7 +46,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void title_Test() {
-        extentTest = extent.startTest("title_test");
+        extentTest = extent.startTest("SIGN UP PAGE - title_test");
         signUpPage = landingPage.signUp_btn_click();
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");

@@ -51,7 +51,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void title_Test() {
-        extentTest = extent.startTest("title_test");
+        extentTest = extent.startTest("LOGIN PAGE - Verify the page title");
         loginPage = landingPage.login_btn_click();
         testUtil.waitForElementToLoad(driver, loginPage.login_btn);
         String title = loginPage.getPageTitle();
@@ -60,7 +60,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void blank_email_Test() {
-        extentTest = extent.startTest("blank_email_test");
+        extentTest = extent.startTest("LOGIN PAGE - Create an account with a blank email");
         loginPage = landingPage.login_btn_click();
         loginPage.email_field.clear();
         loginPage.login_btn.click();
@@ -70,7 +70,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void valid_credentials_Test() {
-        extentTest = extent.startTest("login_test");
+        extentTest = extent.startTest("LOGIN PAGE - Login with valid credentials");
         loginPage = landingPage.login_btn_click();
         libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
         testUtil.waitForElementToLoad(driver, libraryPage.newFolder_btn);
@@ -79,7 +79,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void click_SignUpLink_Test() {
-        extentTest = extent.startTest("Click on Sign Up Hyperlink");
+        extentTest = extent.startTest("LOGIN PAGE - Click on Sign Up Hyperlink");
         loginPage = landingPage.login_btn_click();
         signUpPage = loginPage.click_SignUp();
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
