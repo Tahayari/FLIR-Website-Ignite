@@ -3,27 +3,22 @@ package testCases;
 import base.TestBase;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.LandingPage;
-import pages.LibraryPage;
-import pages.LoginPage;
 import pages.SignUpPage;
 import utils.TestUtil;
 
 import java.io.IOException;
 
-public class LoginPageTest extends TestBase {
+public class SignUpPageTest extends TestBase {
     LandingPage landingPage;
-    LoginPage loginPage;
-    LibraryPage libraryPage;
-    SignUpPage signUpPage;
     TestUtil testUtil;
+    SignUpPage signUpPage;
 
 
-    public LoginPageTest() {
+    public SignUpPageTest() {
         super();
     }
 
@@ -52,38 +47,9 @@ public class LoginPageTest extends TestBase {
     @Test
     public void title_Test() {
         extentTest = extent.startTest("title_test");
-        loginPage = landingPage.login_btn_click();
-        testUtil.waitForElementToLoad(driver, loginPage.login_btn);
-        String title = loginPage.getPageTitle();
-        Assert.assertEquals(title, "FLIR Log in");
-    }
-
-    @Test
-    public void blank_email_Test() {
-        extentTest = extent.startTest("blank_email_test");
-        loginPage = landingPage.login_btn_click();
-        loginPage.email_field.clear();
-        loginPage.login_btn.click();
-        boolean errorMsg = driver.findElement(By.xpath("//p[contains(text(),'Please enter your email')]")).isDisplayed();
-        Assert.assertTrue(errorMsg, "true");
-    }
-
-    @Test
-    public void valid_credentials_Test() {
-        extentTest = extent.startTest("login_test");
-        loginPage = landingPage.login_btn_click();
-        libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
-        testUtil.waitForElementToLoad(driver, libraryPage.newFolder_btn);
-        Assert.assertEquals(loginPage.getPageTitle(), "FLIR Tools");
-    }
-
-    @Test
-    public void click_SignUpLink_Test() {
-        extentTest = extent.startTest("Click on Sign Up Hyperlink");
-        loginPage = landingPage.login_btn_click();
-        signUpPage = loginPage.click_SignUp();
+        signUpPage = landingPage.signUp_btn_click();
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
-        Assert.assertEquals(signUpPage.getPageTitle(),"FLIR Sign up");
+        Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
     }
 
     @AfterMethod
