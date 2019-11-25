@@ -1,7 +1,9 @@
 package base;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,12 +22,14 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
+    //TODO : Change access type from public to private
     public static WebDriver driver;
     public static Properties prop;
     public static EventFiringWebDriver e_driver;
     public static WebEventListener eventListener;
+    public static ExtentHtmlReporter htmlReporter;
     public static ExtentReports extent;
-    public ExtentTest extentTest;
+    public static ExtentTest extentTest;
 
     public TestBase() {
 
@@ -85,6 +89,19 @@ public class TestBase {
 
         driver.get(prop.getProperty("url"));
 
+    }
+
+    public static void extentInitialization() {
+        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
+        htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
+        htmlReporter.config().setReportName("Sanity Report or whatever"); // Name of the report
+        htmlReporter.config().setTheme(Theme.DARK);
+        extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+        extent.setSystemInfo("Host Name", "Dan's Laptop");
+        extent.setSystemInfo("User Name", "Dan Hosman");
+        extent.setSystemInfo("Environment", "DEV");
+        extent.setSystemInfo("Browser",prop.getProperty("browser"));
     }
 
 }

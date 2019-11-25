@@ -73,9 +73,9 @@
 
         <!-- Extent Reports -->
         <dependency>
-            <groupId>com.relevantcodes</groupId>
+            <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>2.41.2</version>
+            <version>4.0.9</version>
         </dependency>
         <!-- End of Extent Reports dependency-->
 

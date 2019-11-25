@@ -1,8 +1,9 @@
 package testCases;
 
 import base.TestBase;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -24,17 +25,12 @@ public class SignUpPageTest extends TestBase {
 
     @BeforeTest
     public void setExtent() {
-        extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ExtentReport.html", true);
-        extent.addSystemInfo("Host Name", "Dan's Laptop");
-        extent.addSystemInfo("User Name", "Dan Hosman");
-        extent.addSystemInfo("Environment", "DEV");
-
+        extentInitialization();
     }
 
     @AfterTest
     public void endReport() {
         extent.flush();
-        extent.close();
     }
 
     @BeforeMethod
@@ -46,7 +42,8 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void title_Test() {
-        extentTest = extent.startTest("SIGN UP PAGE - title_test");
+        extentTest = extent.createTest("SIGN UP PAGE - title_test");
+
         signUpPage = landingPage.signUp_btn_click();
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
@@ -56,20 +53,21 @@ public class SignUpPageTest extends TestBase {
     public void tearDown(ITestResult result) throws IOException {
 
         if (result.getStatus() == ITestResult.FAILURE) {
-            extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS " + result.getName()); //to add name in extent report
-            extentTest.log(LogStatus.FAIL, "REASON : " + result.getThrowable()); //to add error/exception in extent report
+//            extentTest.log(Status.FAIL, "TEST CASE FAILED IS " + result.getName()); //to add name in extent report
+//            extentTest.log(Status.FAIL, "REASON : " + result.getThrowable()); //to add error/exception in extent report
+            extentTest.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
+            extentTest.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
 
             String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
-            extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath)); //to add screenshot in extent report
+            System.out.println(screenshotPath);
+            extentTest.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
 
         } else if (result.getStatus() == ITestResult.SKIP) {
-            extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
+            extentTest.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
         } else if (result.getStatus() == ITestResult.SUCCESS) {
-            extentTest.log(LogStatus.PASS, "Test Case PASSED IS " + result.getName());
+            extentTest.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
         }
 
-        extent.endTest(extentTest); //ending test and ends the current test and prepare to create html report
         driver.quit();
-
     }
 }
