@@ -43,29 +43,33 @@ public class SignUpPageTest extends TestBase {
     @Test
     public void title_Test() {
         extentTest = extent.createTest("SIGN UP PAGE - title_test");
+        extentTestChild = extentTest.createNode("Verify the title of the page");
 
         signUpPage = landingPage.signUp_btn_click();
+        extentTestChild.log(Status.PASS,"Clicked on Sign Up button in Index page");
+
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
+        extentTestChild.log(Status.PASS,"Sign Up page has loaded");
+
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
+        extentTestChild.log(Status.PASS,"Page title is " + signUpPage.getPageTitle());
     }
 
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
 
         if (result.getStatus() == ITestResult.FAILURE) {
-//            extentTest.log(Status.FAIL, "TEST CASE FAILED IS " + result.getName()); //to add name in extent report
-//            extentTest.log(Status.FAIL, "REASON : " + result.getThrowable()); //to add error/exception in extent report
-            extentTest.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
-            extentTest.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
+            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
+            extentTestChild.log(Status.FAIL, result.getThrowable());
 
             String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
             System.out.println(screenshotPath);
-            extentTest.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
+            extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
 
         } else if (result.getStatus() == ITestResult.SKIP) {
-            extentTest.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
+            extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
         } else if (result.getStatus() == ITestResult.SUCCESS) {
-            extentTest.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
+            extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
         }
 
         driver.quit();

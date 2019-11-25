@@ -30,6 +30,7 @@ public class TestBase {
     public static ExtentHtmlReporter htmlReporter;
     public static ExtentReports extent;
     public static ExtentTest extentTest;
+    public static ExtentTest extentTestChild;
 
     public TestBase() {
 

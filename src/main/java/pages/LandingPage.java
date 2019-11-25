@@ -11,7 +11,7 @@ public class LandingPage extends TestBase {
     @FindBy(xpath = "//span[contains(text(),'LOG IN')]")
     @CacheLookup
     public WebElement login_BTN;
-    @FindBy(xpath = "//span[contains(text(),'SIGN UP----')]")
+    @FindBy(xpath = "//span[contains(text(),'SIGN UP')]")
     @CacheLookup
     public WebElement signup_BTN;
 
