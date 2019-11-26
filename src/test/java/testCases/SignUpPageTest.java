@@ -14,9 +14,9 @@ import utils.TestUtil;
 import java.io.IOException;
 
 public class SignUpPageTest extends TestBase {
-    LandingPage landingPage;
-    TestUtil testUtil;
-    SignUpPage signUpPage;
+    private LandingPage landingPage;
+    private TestUtil testUtil;
+    private SignUpPage signUpPage;
 
 
     public SignUpPageTest() {

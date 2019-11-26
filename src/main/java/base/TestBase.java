@@ -15,7 +15,6 @@ import utils.TestUtil;
 import utils.WebEventListener;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -25,28 +24,26 @@ public class TestBase {
     //TODO : Change access type from public to private
     public static WebDriver driver;
     public static Properties prop;
-    public static EventFiringWebDriver e_driver;
-    public static WebEventListener eventListener;
-    public static ExtentHtmlReporter htmlReporter;
+    private static EventFiringWebDriver e_driver;
+    private static WebEventListener eventListener;
+    private static ExtentHtmlReporter htmlReporter;
     public static ExtentReports extent;
     public static ExtentTest extentTest;
     public static ExtentTest extentTestChild;
 
-    public TestBase() {
+    protected TestBase() {
 
         try {
             prop = new Properties();
             FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + "/src/main/java/config/config.properties");
             prop.load(ip);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void initialization() {
+    protected static void initialization() {
 
         String browserName;
         browserName = prop.getProperty("browser");
@@ -92,7 +89,7 @@ public class TestBase {
 
     }
 
-    public static void extentInitialization() {
+    protected static void extentInitialization() {
         htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Sanity Report or whatever"); // Name of the report

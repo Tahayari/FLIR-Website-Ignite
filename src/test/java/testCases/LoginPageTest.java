@@ -17,11 +17,11 @@ import utils.TestUtil;
 import java.io.IOException;
 
 public class LoginPageTest extends TestBase {
-    LandingPage landingPage;
-    LoginPage loginPage;
-    LibraryPage libraryPage;
-    SignUpPage signUpPage;
-    TestUtil testUtil;
+    private LandingPage landingPage;
+    private LoginPage loginPage;
+    private LibraryPage libraryPage;
+    private SignUpPage signUpPage;
+    private TestUtil testUtil;
 
 
     public LoginPageTest() {
@@ -48,15 +48,15 @@ public class LoginPageTest extends TestBase {
     @Test
     public void title_Test() {
         extentTest = extent.createTest("LOGIN PAGE - Verify the page title");
-        extentTestChild=extentTest.createNode("Verify the page title");
+        extentTestChild = extentTest.createNode("Verify the page title");
 
         loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS,"Navigated to Login page");
+        extentTestChild.log(Status.PASS, "Navigated to Login page");
 
         testUtil.waitForElementToLoad(driver, loginPage.login_btn);
         String title = loginPage.getPageTitle();
         Assert.assertEquals(title, "FLIR Log in");
-        extentTestChild.log(Status.PASS,"Page title is " + signUpPage.getPageTitle());
+        extentTestChild.log(Status.PASS, "Page title is " + signUpPage.getPageTitle());
     }
 
     @Test
@@ -65,17 +65,17 @@ public class LoginPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Verify the title of the page");
 
         loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS,"Navigated to Login page");
+        extentTestChild.log(Status.PASS, "Navigated to Login page");
 
         loginPage.email_field.clear();
-        extentTestChild.log(Status.PASS,"Leave the email field blank");
+        extentTestChild.log(Status.PASS, "Leave the email field blank");
 
         loginPage.login_btn.click();
-        extentTestChild.log(Status.PASS,"Click on Login button");
+        extentTestChild.log(Status.PASS, "Click on Login button");
 
         boolean errorMsg = driver.findElement(By.xpath("//p[contains(text(),'Please enter your email')]")).isDisplayed();
         Assert.assertTrue(errorMsg, "true");
-        extentTestChild.log(Status.PASS,"Error message is displayed");
+        extentTestChild.log(Status.PASS, "Error message is displayed");
     }
 
     @Test
@@ -84,14 +84,14 @@ public class LoginPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Login with valid credentials");
 
         loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS,"Navigated to Login page");
+        extentTestChild.log(Status.PASS, "Navigated to Login page");
 
         libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
-        extentTestChild.log(Status.PASS,"Enter valid email and pass then login");
+        extentTestChild.log(Status.PASS, "Enter valid email and pass then login");
 
         testUtil.waitForElementToLoad(driver, libraryPage.newFolder_btn);
         Assert.assertEquals(loginPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS,"Library Page is displayed/ user is logged in successfully");
+        extentTestChild.log(Status.PASS, "Library Page is displayed/ user is logged in successfully");
     }
 
     @Test
@@ -100,14 +100,14 @@ public class LoginPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Redirect to Sign Up page");
 
         loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS,"Navigated to Login page");
+        extentTestChild.log(Status.PASS, "Navigated to Login page");
 
         signUpPage = loginPage.click_SignUp();
-        extentTestChild.log(Status.PASS,"Click on Sign Up button");
+        extentTestChild.log(Status.PASS, "Click on Sign Up button");
 
         testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
-        Assert.assertEquals(signUpPage.getPageTitle(),"FLIR Sign up");
-        extentTestChild.log(Status.PASS,"Sign Up Page is displayed");
+        Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
+        extentTestChild.log(Status.PASS, "Sign Up Page is displayed");
     }
 
     @AfterMethod
