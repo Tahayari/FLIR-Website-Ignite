@@ -18,16 +18,19 @@ public class LoginPage extends TestBase {
 
     @FindBy(xpath = "//button[@id='next']")
     @CacheLookup
-    public WebElement login_btn;
+    public WebElement signIn_BTN;
 
     @FindBy(id = "createAccount")
-    public WebElement signup_link;
+    @CacheLookup
+    private WebElement signUpLink;
 
     @FindBy(id = "forgotPassword")
-    public WebElement forgotPass_link;
+    @CacheLookup
+    private WebElement forgotPasswordLink;
+
 
     //Initialize the Page Objects
-    LoginPage() {
+    public LoginPage() {
         PageFactory.initElements(driver, this);
     }
 
@@ -36,19 +39,22 @@ public class LoginPage extends TestBase {
         return driver.getTitle();
     }
 
-    public SignUpPage click_SignUp() {
-        signup_link.click();
+    public SignUpPage signUpLink_click() {
+        signUpLink.click();
         return new SignUpPage();
     }
 
-    //TODO : Click on Recover Password
+    public RecoverPasswordPage forgotPasswordLink_click(){
+        forgotPasswordLink.click();
+        return new RecoverPasswordPage();
+    }
 
     public LibraryPage login(String email, String pass) {
         email_field.click();
         email_field.sendKeys(email);
         pass_field.click();
         pass_field.sendKeys(pass);
-        login_btn.click();
+        signIn_BTN.click();
         return new LibraryPage();
     }
 }

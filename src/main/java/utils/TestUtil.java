@@ -44,7 +44,8 @@ public class TestUtil extends TestBase {
 
         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName + "_" + current_time_str + ".png";
+//        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName + "_" + current_time_str + ".jpeg";
+        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName + ".jpeg";
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);
         return destination;

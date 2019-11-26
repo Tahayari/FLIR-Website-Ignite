@@ -45,6 +45,9 @@ public class SignUpPageTest extends TestBase {
         extentTest = extent.createTest("SIGN UP PAGE - title_test");
         extentTestChild = extentTest.createNode("Verify the title of the page");
 
+        Assert.assertEquals(landingPage.getPageTitle(),"FLIR Tools");
+        extentTestChild.log(Status.PASS,"Navigated to landing page");
+
         signUpPage = landingPage.signUp_btn_click();
         extentTestChild.log(Status.PASS,"Clicked on Sign Up button in Index page");
 
