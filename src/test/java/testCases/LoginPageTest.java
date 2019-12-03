@@ -26,22 +26,17 @@ public class LoginPageTest extends TestBase {
         super();
     }
 
-    @BeforeTest
-    public void setExtent() {
-        extentInitialization();
-    }
-
-    @AfterTest
-    public void endReport() {
-        extent.flush();
-    }
-
     @BeforeMethod
     public void setUp() {
         initialization();
         landingPage = new LandingPage();
         recoverPasswordPage = new RecoverPasswordPage();
         testUtil = new TestUtil();
+    }
+
+    @BeforeTest
+    public void setExtent() {
+        extentInitialization();
     }
 
     @Test
@@ -181,7 +176,7 @@ public class LoginPageTest extends TestBase {
         libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
         extentTestChild.log(Status.PASS, "Enter valid email and pass then login");
 
-        testUtil.waitForElementToLoad(driver, libraryPage.newFolder_btn);
+        testUtil.waitForElementToLoad(driver, libraryPage.getNewFolder_btn());
         Assert.assertEquals(loginPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Library Page is displayed/ user is logged in successfully");
     }
@@ -200,7 +195,7 @@ public class LoginPageTest extends TestBase {
         signUpPage = loginPage.signUpLink_click();
         extentTestChild.log(Status.PASS, "Click on Sign Up button");
 
-        testUtil.waitForElementToLoad(driver, signUpPage.create_btn);
+        testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
         extentTestChild.log(Status.PASS, "Sign Up Page is displayed");
     }
@@ -224,6 +219,10 @@ public class LoginPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Recover password page is displayed");
     }
 
+    @AfterTest
+    public void endReport() {
+        extent.flush();
+    }
 
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {

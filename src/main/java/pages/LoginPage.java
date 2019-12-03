@@ -16,7 +16,7 @@ public class LoginPage extends TestBase {
     @CacheLookup
     public WebElement pass_field;
 
-    @FindBy(xpath = "//button[@id='next']")
+    @FindBy(id = "next")
     @CacheLookup
     public WebElement signIn_BTN;
 
