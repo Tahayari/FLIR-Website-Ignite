@@ -8,19 +8,39 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LandingPage extends TestBase {
 
-    @FindBy(xpath = "//span[contains(text(),'LOG IN')]")
-    @CacheLookup
-    public WebElement login_BTN;
-    @FindBy(xpath = "//span[contains(text(),'SIGN UP')]")
-    @CacheLookup
-    public WebElement signup_BTN;
+    //-------PATHS-------
+    private final String loginButton_xpath = "//span[contains(text(),'SIGN UP')]";
+    private final String signUpButton_xpath = "//span[contains(text(),'SIGN UP')]";
+    //--------------
 
-    //Class constructor
+
+    //-------Locators-------
+    @FindBy(xpath = loginButton_xpath)    @CacheLookup    private WebElement login_BTN;
+    @FindBy(xpath = signUpButton_xpath)    @CacheLookup    private WebElement signup_BTN;
+    //--------------
+
+    //Constructor
     public LandingPage() {
         PageFactory.initElements(driver, this); // "this" points to the current class object(s)
     }
 
-    //Actions
+
+    //-----------GETTERS
+    public WebElement getLogin_BTN(){
+        return login_BTN;
+    }
+
+    public WebElement getSignup_BTN(){
+        return signup_BTN;
+    }
+    //-----------
+
+
+    //-----------SETTERS
+    //-----------
+
+
+    //-----------Actions
     public String getPageTitle() {
         return driver.getTitle();
     }
@@ -34,4 +54,5 @@ public class LandingPage extends TestBase {
         signup_BTN.click();
         return new SignUpPage();
     }
+    //-----------
 }

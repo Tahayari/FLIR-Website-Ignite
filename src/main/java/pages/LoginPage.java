@@ -8,33 +8,39 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends TestBase {
 
-    @FindBy(id = "logonIdentifier")
-    @CacheLookup
-    public WebElement email_field;
+    //-------PATHS-------
+    private final String emailField_ID = "logonIdentifier";
+    private final String passField_ID = "password";
+    private final String signIn_BTN_ID = "next";
+    private final String signUpLink_ID = "createAccount";
+    private final String forgotPasswordLink_ID = "forgotPassword";
+    //--------------
 
-    @FindBy(id = "password")
-    @CacheLookup
-    public WebElement pass_field;
-
-    @FindBy(id = "next")
-    @CacheLookup
-    public WebElement signIn_BTN;
-
-    @FindBy(id = "createAccount")
-    @CacheLookup
-    private WebElement signUpLink;
-
-    @FindBy(id = "forgotPassword")
-    @CacheLookup
-    private WebElement forgotPasswordLink;
+    //-------Locators-------
+    @FindBy(id = emailField_ID)    @CacheLookup    public WebElement email_field;
+    @FindBy(id = passField_ID)    @CacheLookup    public WebElement pass_field;
+    @FindBy(id = signIn_BTN_ID)    @CacheLookup    public WebElement signIn_BTN;
+    @FindBy(id = signUpLink_ID)    @CacheLookup    private WebElement signUpLink;
+    @FindBy(id = forgotPasswordLink_ID)    @CacheLookup    private WebElement forgotPasswordLink;
+    //--------------
 
 
-    //Initialize the Page Objects
+    //Constructor
     public LoginPage() {
         PageFactory.initElements(driver, this);
     }
+    //--------------
 
-    //Actions
+
+    //-----------GETTERS
+    //-----------
+
+
+    //-----------SETTERS
+    //-----------
+
+
+    //-----------Actions
     public String getPageTitle() {
         return driver.getTitle();
     }
@@ -44,7 +50,7 @@ public class LoginPage extends TestBase {
         return new SignUpPage();
     }
 
-    public RecoverPasswordPage forgotPasswordLink_click(){
+    public RecoverPasswordPage forgotPasswordLink_click() {
         forgotPasswordLink.click();
         return new RecoverPasswordPage();
     }
@@ -57,4 +63,5 @@ public class LoginPage extends TestBase {
         signIn_BTN.click();
         return new LibraryPage();
     }
+    //-----------
 }
