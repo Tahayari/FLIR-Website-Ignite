@@ -21,6 +21,9 @@ public class RecoverPasswordPage extends TestBase {
     //-----------
 
     //-----------GETTERS
+    public WebElement getEmail_field(){
+        return email_field;
+    }
     //--------------
 
     //-----------SETTERS

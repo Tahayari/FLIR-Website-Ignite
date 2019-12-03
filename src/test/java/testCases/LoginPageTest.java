@@ -214,7 +214,7 @@ public class LoginPageTest extends TestBase {
         recoverPasswordPage = loginPage.forgotPasswordLink_click();
         extentTestChild.log(Status.PASS, "Clicked on Forgot your password link");
 
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.email_field);
+        testUtil.waitForElementToLoad(driver, recoverPasswordPage.getEmail_field());
         Assert.assertEquals(recoverPasswordPage.getPageTitle(), "FLIR Reset Password");
         extentTestChild.log(Status.PASS, "Recover password page is displayed");
     }

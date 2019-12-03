@@ -11,6 +11,7 @@ public class LandingPage extends TestBase {
     //-------PATHS-------
     private final String loginButton_xpath = "//span[contains(text(),'SIGN UP')]";
     private final String signUpButton_xpath = "//span[contains(text(),'SIGN UP')]";
+    
     //--------------
 
 
