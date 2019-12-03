@@ -4,21 +4,23 @@ import base.TestBase;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.LandingPage;
+import pages.LibraryPage;
 import pages.SignUpPage;
 import utils.TestUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Random;
 
 public class SignUpPageTest extends TestBase {
     private LandingPage landingPage;
     private TestUtil testUtil;
     private SignUpPage signUpPage;
+    private LibraryPage libraryPage;
 
 
     public SignUpPageTest() {
@@ -62,6 +64,11 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void registerNewAccount_test() {
+        String email = "testaaaaa";
+        String password = "QAZxsw123";
+        String firstName = "FirstName";
+        String lastName = "LastName";
+
         extentTest = extent.createTest("SIGN UP PAGE - create a new user");
         extentTestChild = extentTest.createNode("Create a new user");
 
@@ -69,42 +76,55 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Navigated to landing page");
 
         signUpPage = landingPage.signUp_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Sign Up button in Index page");
+        extentTestChild.log(Status.PASS, "Clicked on Sign Up button from Index page");
 
         testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
+        Assert.assertTrue(signUpPage.getCreate_BTN().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Sign Up page has loaded");
 
-        signUpPage.setEmailAddress("testaaaaaa@mailinator.com");
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        Assert.assertEquals(signUpPage.getEmail_field().getAttribute("value"), email + "@mailinator.com");
+        extentTestChild.log(Status.PASS, "Entered the email address");
+
         signUpPage.getSendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver,signUpPage.getVerificationCode_field());
+        extentTestChild.log(Status.PASS, "Clicked on Send verification code button");
 
-        //TODO: open new tab with mailinator and get the token. TBD in Utils class
-        String a = "window.open('','_blank');";  // replace link with your desired link
-        ((JavascriptExecutor)driver).executeScript(a);
+        testUtil.waitForElementToLoad(driver, signUpPage.getVerificationCode_field());
+        Assert.assertTrue(signUpPage.getVerificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1)); //switches to new tab
-        driver.get("https://www.mailinator.com/v3/index.jsp?zone=public&query=dantest#/#msgpane");
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
 
-
-
-        signUpPage.getVerificationCode_field().sendKeys("123456"); // get the code from the Utils class
         signUpPage.getVerifyCode_BTN().click();
-        signUpPage.setNewPassword("QAZxsw123");
-        signUpPage.setConfirmNewPassword("QAZxsw123");
-        signUpPage.setFirstName("FirstName");
-        signUpPage.setLastName("LastName");
-        //TODO: select one of the countries from the dropdown list
-        //TODO: select one of the two consent options
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        signUpPage.getCreate_BTN().click();
+        signUpPage.setNewPassword(password);
+        extentTestChild.log(Status.PASS, "Entered a password");
 
+        signUpPage.setConfirmNewPassword(password);
+        extentTestChild.log(Status.PASS, "Re-entered the same password in the Confirm New Password field");
 
+        signUpPage.setFirstName(firstName);
+        extentTestChild.log(Status.PASS, "Entered a first name");
+
+        signUpPage.setLastName(lastName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        Select country_select = new Select(signUpPage.getCountry_dropdown());
+//        System.out.println("################# Number of countries from the dropdown list is: " + country_select.getOptions().size());
+        Random random = new Random();
+        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
+
+        if (random.nextInt(1) % 2 == 0) signUpPage.getConsentNo().click();
+        else signUpPage.getConsentYes().click();
+        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
+
+        libraryPage = signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver,libraryPage.getTermsAndConditions());
+        Assert.assertTrue(libraryPage.getTermsAndConditions().isDisplayed(),"true");
+        extentTestChild.log(Status.PASS,"Created a new account, Terms and conditions page is displayed");
     }
 
     @AfterMethod
