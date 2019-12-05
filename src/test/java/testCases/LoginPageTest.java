@@ -39,6 +39,8 @@ public class LoginPageTest extends TestBase {
         extentInitialization();
     }
 
+    long startTime = System.nanoTime();
+
     @Test
     public void title_Test() {
         extentTest = extent.createTest("LOGIN PAGE - Verify the page title");
@@ -52,7 +54,7 @@ public class LoginPageTest extends TestBase {
 
         testUtil.waitForElementToLoad(driver, loginPage.signIn_BTN);
         Assert.assertEquals(loginPage.getPageTitle(), "FLIR Log in");
-        extentTestChild.log(Status.PASS, "Page title is " + signUpPage.getPageTitle());
+        extentTestChild.log(Status.PASS, "Page title is " + loginPage.getPageTitle());
     }
 
     @Test
@@ -141,7 +143,7 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
-    public void nonExistingAccount_Test() {
+    public void loginWithNonExistingAccount_Test() {
         extentTest = extent.createTest("LOGIN PAGE - Login with a email account who doesn't have an account associated");
         extentTestChild = extentTest.createNode("Error message is displayed when logging in with a email account who doesn't have an account associated");
 
@@ -163,7 +165,7 @@ public class LoginPageTest extends TestBase {
 
 
     @Test
-    public void validCredentials_Test() {
+    public void loginWithValidCredentials_Test() {
         extentTest = extent.createTest("LOGIN PAGE - Login with valid credentials");
         extentTestChild = extentTest.createNode("Login with valid credentials");
 
@@ -219,6 +221,9 @@ public class LoginPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Recover password page is displayed");
     }
 
+    long endTime = System.nanoTime();
+
+
     @AfterTest
     public void endReport() {
         extent.flush();
@@ -242,6 +247,7 @@ public class LoginPageTest extends TestBase {
         }
 
         driver.quit();
+        System.out.println("################Total time is : " + (endTime-startTime));
 
     }
 }

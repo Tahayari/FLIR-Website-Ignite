@@ -9,15 +9,19 @@ import org.openqa.selenium.support.PageFactory;
 public class LandingPage extends TestBase {
 
     //-------PATHS-------
-    private final String loginButton_xpath = "//span[contains(text(),'SIGN UP')]";
+    private final String loginButton_xpath = "//button[@class='flir-button medium outline sign-in']";
     private final String signUpButton_xpath = "//span[contains(text(),'SIGN UP')]";
-    
+
     //--------------
 
 
     //-------Locators-------
-    @FindBy(xpath = loginButton_xpath)    @CacheLookup    private WebElement login_BTN;
-    @FindBy(xpath = signUpButton_xpath)    @CacheLookup    private WebElement signup_BTN;
+    @FindBy(xpath = loginButton_xpath)
+    @CacheLookup
+    private WebElement login_BTN;
+    @FindBy(xpath = signUpButton_xpath)
+    @CacheLookup
+    private WebElement signup_BTN;
     //--------------
 
     //Constructor
@@ -27,11 +31,11 @@ public class LandingPage extends TestBase {
 
 
     //-----------GETTERS
-    public WebElement getLogin_BTN(){
+    public WebElement getLogin_BTN() {
         return login_BTN;
     }
 
-    public WebElement getSignup_BTN(){
+    public WebElement getSignup_BTN() {
         return signup_BTN;
     }
     //-----------
@@ -51,7 +55,7 @@ public class LandingPage extends TestBase {
         return new LoginPage();
     }
 
-    public SignUpPage signUp_btn_click(){
+    public SignUpPage signUp_btn_click() {
         signup_BTN.click();
         return new SignUpPage();
     }

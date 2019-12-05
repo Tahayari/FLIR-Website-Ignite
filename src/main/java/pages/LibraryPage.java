@@ -8,14 +8,14 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LibraryPage extends TestBase {
     //-------PATHS-------
-    private final String newFolderBTN_class = "//button[@class='flir-button inverted outline has-icon create-folder']";
+    private final String newFolderBTN_xpath = "//button[@class='flir-button inverted outline has-icon create-folder']";
 
     private final String termsAndConditions_xpath = "//h1[contains(text(),'Terms and Conditions')]";
     //--------------
 
 
     //-------Locators-------
-    @FindBy(className = newFolderBTN_class)
+    @FindBy(xpath = newFolderBTN_xpath)
     @CacheLookup
     private WebElement newFolder_btn;
     @FindBy(xpath = termsAndConditions_xpath)
