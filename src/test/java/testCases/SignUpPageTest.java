@@ -22,6 +22,8 @@ public class SignUpPageTest extends TestBase {
     private SignUpPage signUpPage;
     private LibraryPage libraryPage;
 
+    String sheetName = "Sheet1";
+
 
     public SignUpPageTest() {
         super();
@@ -62,12 +64,18 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Page title is " + signUpPage.getPageTitle());
     }
 
-    @Test
-    public void registerNewAccount_test() {
-        String email = "testaaaaa";
-        String password = "QAZxsw123";
-        String firstName = "FirstName";
-        String lastName = "LastName";
+    @DataProvider
+    public Object[][] getTestData(){
+        Object data[][] = TestUtil.getTestaData(sheetName);
+        return data;
+    }
+
+    @Test(dataProvider = "getTestData")
+    public void registerNewAccount_test(String email,String password,String firstName,String lastName) {
+//        String email = "testaaaaa";
+//        String password = "QAZxsw123";
+//        String firstName = "FirstName";
+//        String lastName = "LastName";
 
         extentTest = extent.createTest("SIGN UP PAGE - create a new user");
         extentTestChild = extentTest.createNode("Create a new user");
