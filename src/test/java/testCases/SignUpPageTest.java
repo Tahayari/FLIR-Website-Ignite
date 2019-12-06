@@ -4,6 +4,7 @@ import base.TestBase;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -20,7 +21,6 @@ public class SignUpPageTest extends TestBase {
     private LandingPage landingPage;
     private TestUtil testUtil;
     private SignUpPage signUpPage;
-    private LibraryPage libraryPage;
 
     String sheetName = "Sheet1";
 
@@ -46,8 +46,7 @@ public class SignUpPageTest extends TestBase {
         testUtil = new TestUtil();
     }
 
-    @Test
-    public void title_Test() {
+    public void goToSignUpPage() {
         extentTest = extent.createTest("SIGN UP PAGE - title_test");
         extentTestChild = extentTest.createNode("Verify the title of the page");
 
@@ -59,36 +58,25 @@ public class SignUpPageTest extends TestBase {
 
         testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
         extentTestChild.log(Status.PASS, "Sign Up page has loaded");
+    }
+
+    @Test
+    public void title_Test() {
+        goToSignUpPage();
 
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
         extentTestChild.log(Status.PASS, "Page title is " + signUpPage.getPageTitle());
     }
 
     @DataProvider
-    public Object[][] getTestData(){
-        Object data[][] = TestUtil.getTestaData(sheetName);
-        return data;
+    public Object[][] getTestData() {
+        return TestUtil.getTestaData(sheetName);
     }
 
     @Test(dataProvider = "getTestData")
-    public void registerNewAccount_test(String email,String password,String firstName,String lastName) {
-//        String email = "testaaaaa";
-//        String password = "QAZxsw123";
-//        String firstName = "FirstName";
-//        String lastName = "LastName";
+    public void registerNewAccount_Test(String email, String password, String firstName, String lastName) {
 
-        extentTest = extent.createTest("SIGN UP PAGE - create a new user");
-        extentTestChild = extentTest.createNode("Create a new user");
-
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to landing page");
-
-        signUpPage = landingPage.signUp_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Sign Up button from Index page");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
-        Assert.assertTrue(signUpPage.getCreate_BTN().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Sign Up page has loaded");
+        goToSignUpPage();
 
         signUpPage.setEmailAddress(email + "@mailinator.com");
         Assert.assertEquals(signUpPage.getEmail_field().getAttribute("value"), email + "@mailinator.com");
@@ -120,7 +108,6 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Entered a last name");
 
         Select country_select = new Select(signUpPage.getCountry_dropdown());
-//        System.out.println("################# Number of countries from the dropdown list is: " + country_select.getOptions().size());
         Random random = new Random();
         country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
         extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
@@ -129,10 +116,43 @@ public class SignUpPageTest extends TestBase {
         else signUpPage.getConsentYes().click();
         extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
 
-        libraryPage = signUpPage.createButton_click();
-        testUtil.waitForElementToLoad(driver,libraryPage.getTermsAndConditions());
-        Assert.assertTrue(libraryPage.getTermsAndConditions().isDisplayed(),"true");
-        extentTestChild.log(Status.PASS,"Created a new account, Terms and conditions page is displayed");
+        LibraryPage libraryPage = signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver, libraryPage.getTermsAndConditions());
+        Assert.assertTrue(libraryPage.getTermsAndConditions().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Created a new account, Terms and conditions page is displayed");
+    }
+
+    @Test
+    public void blankEmail_Test() {
+        String invalidEmail = "invalid.email@email";
+        String error_xpath = "//div[@class='helpText show']";
+
+        goToSignUpPage();
+
+        signUpPage.setEmailAddress(invalidEmail);
+        extentTestChild.log(Status.PASS, "Entered an invalid email address");
+
+        signUpPage.getSendVerCode_BTN().click();
+        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_xpath)));
+        Assert.assertEquals(driver.findElement(By.xpath(error_xpath)).getText(), "Please enter a valid email address.");
+        extentTestChild.log(Status.PASS, "Clicked on send verification code and an error message is displayed");
+    }
+
+    @Test
+    public void invalidToken_Test(){
+        String email = "testemail@mailinator.com";
+        String error_id = "email_fail_retry";
+
+        goToSignUpPage();
+
+        signUpPage.setEmailAddress(email);
+        extentTestChild.log(Status.PASS, "Entered an invalid email address");
+
+        signUpPage.getSendVerCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.getVerifyCode_BTN());
+
+
+
     }
 
     @AfterMethod
