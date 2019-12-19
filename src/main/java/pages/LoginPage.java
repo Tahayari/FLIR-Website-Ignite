@@ -11,17 +11,27 @@ public class LoginPage extends TestBase {
     //-------PATHS-------
     private final String emailField_ID = "logonIdentifier";
     private final String passField_ID = "password";
-    private final String signIn_BTN_xpath = "//button[@id='next']";
+    private final String signInBTN_ID = "next";
     private final String signUpLink_ID = "createAccount";
     private final String forgotPasswordLink_ID = "forgotPassword";
     //--------------
 
     //-------Locators-------
-    @FindBy(id = emailField_ID)    @CacheLookup    public WebElement email_field;
-    @FindBy(id = passField_ID)    @CacheLookup    public WebElement pass_field;
-    @FindBy(xpath = signIn_BTN_xpath)    @CacheLookup    public WebElement signIn_BTN;
-    @FindBy(id = signUpLink_ID)    @CacheLookup    private WebElement signUpLink;
-    @FindBy(id = forgotPasswordLink_ID)    @CacheLookup    private WebElement forgotPasswordLink;
+    @FindBy(id = emailField_ID)
+    @CacheLookup
+    public WebElement email_field;
+    @FindBy(id = passField_ID)
+    @CacheLookup
+    public WebElement pass_field;
+    @FindBy(id = signInBTN_ID)
+    @CacheLookup
+    public WebElement signIn_BTN;
+    @FindBy(id = signUpLink_ID)
+    @CacheLookup
+    private WebElement signUpLink;
+    @FindBy(id = forgotPasswordLink_ID)
+    @CacheLookup
+    private WebElement forgotPasswordLink;
     //--------------
 
 

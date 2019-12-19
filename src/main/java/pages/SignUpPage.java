@@ -27,21 +27,37 @@ public class SignUpPage extends TestBase {
 
 
     //-------Locators-------
-    @FindBy(id = email_ID)    private WebElement email_field;
-    @FindBy(id = verificationCodeField_ID)    private WebElement verificationCode_field;
-    @FindBy(id = sendVerificationCodeBTN_ID)    private WebElement sendVerCode_BTN;
-    @FindBy(id = verifyCodeBTN_ID)    private WebElement verifyCode_BTN;
-    @FindBy(id = changeEmailBTN_ID)    private WebElement changeEmail_BTN;
-    @FindBy(id = sendNewCodeBTN_ID)    private WebElement sendNewCode_BTN;
-    @FindBy(id = newPasswordField_ID)    private WebElement newPassword_field;
-    @FindBy(id = confirmNewPasswordField_ID)    private WebElement confNewPassword_field;
-    @FindBy(id = firstNameField_ID)    private WebElement firstName_field;
-    @FindBy(id = lastNameField_ID)    private WebElement lastName_field;
-    @FindBy(id = countrySelector_ID)    private WebElement country_dropdown;
-    @FindBy(id = consentYes_ID)    private WebElement consentYes;
-    @FindBy(id = consentNo_ID)    private WebElement consentNo;
-    @FindBy(id = createBTN_ID)    @CacheLookup    private WebElement create_BTN;
-    @FindBy(id = cancelBTN_ID)    private WebElement cancel_BTN;
+    @FindBy(id = email_ID)
+    private WebElement email_field;
+    @FindBy(id = verificationCodeField_ID)
+    private WebElement verificationCode_field;
+    @FindBy(id = sendVerificationCodeBTN_ID)
+    private WebElement sendVerCode_BTN;
+    @FindBy(id = verifyCodeBTN_ID)
+    private WebElement verifyCode_BTN;
+    @FindBy(id = changeEmailBTN_ID)
+    private WebElement changeEmail_BTN;
+    @FindBy(id = sendNewCodeBTN_ID)
+    private WebElement sendNewCode_BTN;
+    @FindBy(id = newPasswordField_ID)
+    private WebElement newPassword_field;
+    @FindBy(id = confirmNewPasswordField_ID)
+    private WebElement confNewPassword_field;
+    @FindBy(id = firstNameField_ID)
+    private WebElement firstName_field;
+    @FindBy(id = lastNameField_ID)
+    private WebElement lastName_field;
+    @FindBy(id = countrySelector_ID)
+    private WebElement country_dropdown;
+    @FindBy(id = consentYes_ID)
+    private WebElement consentYes;
+    @FindBy(id = consentNo_ID)
+    private WebElement consentNo;
+    @FindBy(id = createBTN_ID)
+    @CacheLookup
+    private WebElement create_BTN;
+    @FindBy(id = cancelBTN_ID)
+    private WebElement cancel_BTN;
     //--------------
 
     //Constructor
@@ -68,9 +84,13 @@ public class SignUpPage extends TestBase {
         return verifyCode_BTN;
     }
 
-    public WebElement getChangeEmail_BTN() { return changeEmail_BTN;    }
+    public WebElement getChangeEmail_BTN() {
+        return changeEmail_BTN;
+    }
 
-    public WebElement getSendNewCode_BTN() { return sendNewCode_BTN;    }
+    public WebElement getSendNewCode_BTN() {
+        return sendNewCode_BTN;
+    }
 
     public WebElement getCreate_BTN() {
         return create_BTN;
@@ -80,11 +100,17 @@ public class SignUpPage extends TestBase {
         return country_dropdown;
     }
 
-    public WebElement getConsentNo() { return consentNo;  }
+    public WebElement getConsentNo() {
+        return consentNo;
+    }
 
-    public WebElement getConsentYes() { return consentYes;  }
+    public WebElement getConsentYes() {
+        return consentYes;
+    }
 
-    public WebElement getCancel_BTN() { return cancel_BTN;  }
+    public WebElement getCancel_BTN() {
+        return cancel_BTN;
+    }
     //-----------
 
     //-----------SETTERS
@@ -111,7 +137,6 @@ public class SignUpPage extends TestBase {
     public void setLastName(String text) {
         lastName_field.sendKeys(text);
     }
-
     //-----------
 
     //Actions
@@ -124,6 +149,5 @@ public class SignUpPage extends TestBase {
         create_BTN.click();
         return new LibraryPage();
     }
-
 
 }

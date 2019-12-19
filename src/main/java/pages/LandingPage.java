@@ -9,9 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 public class LandingPage extends TestBase {
 
     //-------PATHS-------
-    private final String loginButton_xpath = "//button[@class='flir-button medium outline sign-in']";
+    private final String loginButton_xpath = "//span[contains(text(),'LOG IN')]";
     private final String signUpButton_xpath = "//span[contains(text(),'SIGN UP')]";
-
     //--------------
 
 
