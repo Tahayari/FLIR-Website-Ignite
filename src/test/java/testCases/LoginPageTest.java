@@ -2,22 +2,16 @@ package testCases;
 
 import base.TestBase;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.ExtentColor;
-import com.aventstack.extentreports.markuputils.MarkupHelper;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import pages.*;
 import utils.TestUtil;
-
-import java.io.IOException;
 
 public class LoginPageTest extends TestBase {
     private LandingPage landingPage;
     private LoginPage loginPage;
-    private LibraryPage libraryPage;
-    private SignUpPage signUpPage;
     private RecoverPasswordPage recoverPasswordPage;
     private TestUtil testUtil;
 
@@ -34,24 +28,24 @@ public class LoginPageTest extends TestBase {
         testUtil = new TestUtil();
     }
 
-    @BeforeTest
-    public void setExtent() {
-        extentInitialization();
-    }
 
     long startTime = System.nanoTime();
 
-    @Test
-    public void title_Test() {
-        extentTest = extent.createTest("LOGIN PAGE - Verify the page title");
-        extentTestChild = extentTest.createNode("Verify the page title");
+    public void goToLoginPage() {
 
         Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Navigated to Landing page");
 
         loginPage = landingPage.login_btn_click();
         extentTestChild.log(Status.PASS, "Navigated to Login page");
+    }
 
+    @Test
+    public void title_Test() {
+        extentTest = extent.createTest("LOGIN PAGE - Verify the page title");
+        extentTestChild = extentTest.createNode("Verify the page title");
+
+        goToLoginPage();
         testUtil.waitForElementToLoad(driver, loginPage.signIn_BTN);
         Assert.assertEquals(loginPage.getPageTitle(), "FLIR Log in");
         extentTestChild.log(Status.PASS, "Page title is " + loginPage.getPageTitle());
@@ -62,11 +56,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Create an account with a blank email");
         extentTestChild = extentTest.createNode("Error message is displayed if email filed is blank");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
+        goToLoginPage();
 
         loginPage.email_field.clear();
         extentTestChild.log(Status.PASS, "Leave the email field blank");
@@ -84,11 +74,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Enter an invalid email address");
         extentTestChild = extentTest.createNode("Error message is displayed if an invalid email address is entered");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Login button");
+        goToLoginPage();
 
         loginPage.email_field.click();
         loginPage.email_field.sendKeys("dan@");
@@ -106,11 +92,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Enter an incorrect password");
         extentTestChild = extentTest.createNode("Error message is displayed if an incorrect password is entered");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Login button");
+        goToLoginPage();
 
         loginPage.email_field.sendKeys(prop.getProperty("email"));
         loginPage.signIn_BTN.click();
@@ -126,11 +108,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Enter an incorrect password");
         extentTestChild = extentTest.createNode("Error message is displayed if an incorrect password is entered");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Login button");
+        goToLoginPage();
 
         loginPage.email_field.sendKeys(prop.getProperty("email"));
         loginPage.pass_field.sendKeys(prop.getProperty("password") + "TEST"); //Incorrect password addendum
@@ -147,11 +125,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Login with a email account who doesn't have an account associated");
         extentTestChild = extentTest.createNode("Error message is displayed when logging in with a email account who doesn't have an account associated");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Clicked on Login button");
+        goToLoginPage();
 
         loginPage.email_field.sendKeys(prop.getProperty("email") + "TEST"); //Incorrect password addendum
         loginPage.pass_field.sendKeys(prop.getProperty("password") + "TEST"); //Incorrect password addendum
@@ -169,13 +143,9 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Login with valid credentials");
         extentTestChild = extentTest.createNode("Login with valid credentials");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
+        goToLoginPage();
 
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
-
-        libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
+        LibraryPage libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
         extentTestChild.log(Status.PASS, "Enter valid email and pass then login");
 
         testUtil.waitForElementToLoad(driver, libraryPage.getNewFolder_btn());
@@ -188,13 +158,9 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Click on Sign Up Hyperlink");
         extentTestChild = extentTest.createNode("Redirect to Sign Up page");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
+        goToLoginPage();
 
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
-
-        signUpPage = loginPage.signUpLink_click();
+        SignUpPage signUpPage = loginPage.signUpLink_click();
         extentTestChild.log(Status.PASS, "Click on Sign Up button");
 
         testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
@@ -207,11 +173,7 @@ public class LoginPageTest extends TestBase {
         extentTest = extent.createTest("LOGIN PAGE - Click on Sign Up Hyperlink");
         extentTestChild = extentTest.createNode("Redirect to Sign Up page");
 
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
+        goToLoginPage();
 
         recoverPasswordPage = loginPage.forgotPasswordLink_click();
         extentTestChild.log(Status.PASS, "Clicked on Forgot your password link");
@@ -224,30 +186,30 @@ public class LoginPageTest extends TestBase {
     long endTime = System.nanoTime();
 
 
-    @AfterTest
-    public void endReport() {
-        extent.flush();
-    }
+//    @AfterTest
+//    public void endReport() {
+//        extent.flush();
+//    }
 
-    @AfterMethod
-    public void tearDown(ITestResult result) throws IOException {
+//    @AfterMethod
+//    public void tearDown(ITestResult result) throws IOException {
+//
+//        if (result.getStatus() == ITestResult.FAILURE) {
+//            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
+//            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
+//
+//            String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
+//            System.out.println(screenshotPath);
+//            extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
+//
+//        } else if (result.getStatus() == ITestResult.SKIP) {
+//            extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
+//        } else if (result.getStatus() == ITestResult.SUCCESS) {
+//            extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
+//        }
+//
+//        driver.quit();
+//        System.out.println("################Total time is : " + (endTime-startTime));
 
-        if (result.getStatus() == ITestResult.FAILURE) {
-            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
-            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
-
-            String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
-            System.out.println(screenshotPath);
-            extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
-
-        } else if (result.getStatus() == ITestResult.SKIP) {
-            extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
-        } else if (result.getStatus() == ITestResult.SUCCESS) {
-            extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
-        }
-
-        driver.quit();
-        System.out.println("################Total time is : " + (endTime-startTime));
-
-    }
+//    }
 }

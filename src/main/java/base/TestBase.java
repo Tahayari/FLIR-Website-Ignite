@@ -2,6 +2,9 @@ package base;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -11,6 +14,10 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import utils.TestUtil;
 import utils.WebEventListener;
 
@@ -100,6 +107,36 @@ public class TestBase {
         extent.setSystemInfo("User Name", "Dan Hosman");
         extent.setSystemInfo("Environment", "DEV");
         extent.setSystemInfo("Browser",prop.getProperty("browser"));
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) throws IOException {
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
+            extentTestChild.log(Status.FAIL, result.getThrowable());
+
+            String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
+            System.out.println(screenshotPath);
+            extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
+
+        } else if (result.getStatus() == ITestResult.SKIP) {
+            extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
+        } else if (result.getStatus() == ITestResult.SUCCESS) {
+            extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
+        }
+
+        driver.quit();
+    }
+
+    @AfterTest
+    public void endReport() {
+        extent.flush();
+    }
+
+    @BeforeTest
+    public void setExtent() {
+        extentInitialization();
     }
 
 }
