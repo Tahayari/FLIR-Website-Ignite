@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-    //TODO : Change access type from public to private
     public static WebDriver driver;
     public static Properties prop;
     private static EventFiringWebDriver e_driver;
