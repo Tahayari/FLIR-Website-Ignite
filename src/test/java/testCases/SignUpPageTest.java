@@ -127,18 +127,70 @@ public class SignUpPageTest extends TestBase {
     }
 
     @Test
-    public void invalidToken_Test(){
+    public void invalidEmail_Test() {
+        String expectedMsg = "Please enter a valid email address.";
+        goToSignUpPage();
+
+        signUpPage.setEmailAddress("test123");
+        extentTestChild.log(Status.PASS, "Entered an invalid email address");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.getInvalidEmailWebelement());
+        Assert.assertEquals(signUpPage.getInvalidEmailMsg(), expectedMsg);
+        extentTestChild.log(Status.PASS, "Invalid email address error message is displayed");
+    }
+
+    @Test
+    public void invalidToken_Test() {
         String email = "testemail@mailinator.com";
-        String error_id = "email_fail_retry";
+        String error_id = "That code is incorrect. Please try again.";
 
         goToSignUpPage();
 
         signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an invalid email address");
+        extentTestChild.log(Status.PASS, "Entered an email address");
 
         signUpPage.getSendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver,signUpPage.getVerifyCode_BTN());
+        testUtil.waitForElementToLoad(driver, signUpPage.getVerifyCode_BTN());
+        extentTestChild.log(Status.PASS, "Verify code button is displayed");
 
+        signUpPage.setVerificationCode_field("123456");
+        signUpPage.getVerifyCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered an invalid Verification code");
+
+        Assert.assertEquals(signUpPage.getIncorrectVerCode(), error_id);
+        extentTestChild.log(Status.PASS, "Error message is displayed");
     }
+
+    @Test
+    public void expiredToken_Test() throws InterruptedException {
+        String email = "testemail@mailinator.com";
+        String expiredError = "That code is expired. Please request a new code.";
+        long waitTime = 5; // expressed in minutes
+
+        goToSignUpPage();
+
+        signUpPage.setEmailAddress(email);
+        extentTestChild.log(Status.PASS, "Entered an email address");
+
+        signUpPage.getSendVerCode_BTN().click();
+        testUtil.waitForElementToLoad(driver, signUpPage.getVerifyCode_BTN());
+        extentTestChild.log(Status.PASS, "Verify code button is displayed");
+
+        Thread.sleep(waitTime * 60 * 1000); // wait for waitTime minutes + 3 seconds
+        extentTestChild.log(Status.PASS, "Waited for the Verification code to expire");
+
+        signUpPage.setVerificationCode_field("123456");
+        signUpPage.getVerifyCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the Verification code after it expired");
+
+
+        testUtil.waitForElementToLoad(driver, signUpPage.getExpiredVerCodeWebelement());
+        Assert.assertEquals(signUpPage.getExpiredVerCode(), expiredError);
+        extentTestChild.log(Status.PASS, "Error message is displayed");
+    }
+
+    //TODO: incorrectPasswordFormat_Test 3-4 types of incorrect passwords
+    //TODO: incorrectPasswordFormatConfirmPassField_Test 3-4 types of incorrect passwords
+    //TODO: mismatchingPasswords_Test
 
 }

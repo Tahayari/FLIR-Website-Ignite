@@ -23,6 +23,9 @@ public class SignUpPage extends TestBase {
     private final String consentNo_ID = "extension_Consent_2";
     private final String createBTN_ID = "continue";
     private final String cancelBTN_ID = "cancel";
+    private final String incorrectVerificationCode_ID = "email_fail_retry";
+    private final String expiredVerificationCode_ID = "email_fail_code_expired";
+    private final String invalidEmail_XPATH = "//div[@id='attributeList']//*[contains(text(),'Please enter a valid email address.')]";
     //--------------
 
 
@@ -58,6 +61,12 @@ public class SignUpPage extends TestBase {
     private WebElement create_BTN;
     @FindBy(id = cancelBTN_ID)
     private WebElement cancel_BTN;
+    @FindBy(id = incorrectVerificationCode_ID)
+    private WebElement incorrectVerCode;
+    @FindBy(id = expiredVerificationCode_ID)
+    private WebElement expiredVerCode;
+    @FindBy(xpath = invalidEmail_XPATH )
+    private WebElement invalidEmailMsg;
     //--------------
 
     //Constructor
@@ -110,6 +119,27 @@ public class SignUpPage extends TestBase {
 
     public WebElement getCancel_BTN() {
         return cancel_BTN;
+    }
+
+    public String getIncorrectVerCode(){
+        return incorrectVerCode.getText();
+    }
+
+    public String getExpiredVerCode(){
+        return expiredVerCode.getText();
+    }
+
+    public WebElement getExpiredVerCodeWebelement(){
+        return expiredVerCode;
+    }
+
+    public String getInvalidEmailMsg(){
+        String text = invalidEmailMsg.getText();
+        return text;
+    }
+
+    public WebElement getInvalidEmailWebelement(){
+        return invalidEmailMsg;
     }
     //-----------
 

@@ -10,9 +10,12 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -30,9 +33,6 @@ public class TestBase {
 
     public static WebDriver driver;
     public static Properties prop;
-    private static EventFiringWebDriver e_driver;
-    private static WebEventListener eventListener;
-    private static ExtentHtmlReporter htmlReporter;
     public static ExtentReports extent;
     public static ExtentTest extentTest;
     public static ExtentTest extentTestChild;
@@ -50,29 +50,37 @@ public class TestBase {
     }
 
     protected static void initialization() {
-
-        String browserName;
-        browserName = prop.getProperty("browser");
-//
-//        OLD SETUP
-//        if (browserName.equals("chrome")) {
-//            //System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/java/drivers/Chrome/78/chromedriver.exe"); // atentie la versiune !!
-//            WebDriverManager.chromedriver().setup();
-//            driver = new ChromeDriver();
-//        } else if (browserName.equals("firefox")) {
-//            //System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/main/java/drivers/Firefox/geckodriver.exe");
-//            WebDriverManager.firefoxdriver().setup();
-//            driver = new FirefoxDriver();
-//        }
+        String browserName = prop.getProperty("browser");
 
         if ("chrome".equals(browserName)) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else if ("firefox".equals(browserName)) {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        } else if ("edge".equals(browserName)) {
 
+            ChromeOptions options = new ChromeOptions();
+            System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
+            System.setProperty("webdriver.chrome.verboseLogging", "true");
+
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("enable-automation");
+            options.addArguments("disable-infobars"); // disabling infobars
+            options.addArguments("--disable-extensions"); // disabling extensions
+            options.addArguments("--disable-gpu"); // applicable to windows os only
+            options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            driver = new ChromeDriver(options);
+        } else if ("firefox".equals(browserName)) {
+
+            WebDriverManager.firefoxdriver().setup();
+
+            FirefoxOptions options = new FirefoxOptions();
+            options.setAcceptInsecureCerts(true);
+            options.setHeadless(true);
+            options.setLogLevel(FirefoxDriverLogLevel.TRACE);
+            WebDriverManager.firefoxdriver().clearCache();
+
+            driver = new FirefoxDriver(options);
+            driver.manage().deleteAllCookies();
+
+        } else if ("edge".equals(browserName)) {
             WebDriverManager.edgedriver().setup();
             //Edge doesn't obey the driver.manage().deleteAllCookies() command like all of the other normal browsers
             // as a workaround it works if you open it in Private mode
@@ -81,11 +89,10 @@ public class TestBase {
             driver = new EdgeDriver(options);
         }
 
-        e_driver = new EventFiringWebDriver(driver);
-        eventListener = new WebEventListener();
+        EventFiringWebDriver e_driver = new EventFiringWebDriver(driver);
+        WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
         driver = e_driver;
-
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
@@ -96,7 +103,7 @@ public class TestBase {
     }
 
     protected static void extentInitialization() {
-        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
+        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Sanity Report or whatever"); // Name of the report
         htmlReporter.config().setTheme(Theme.DARK);
@@ -105,12 +112,12 @@ public class TestBase {
         extent.setSystemInfo("Host Name", "Dan's Laptop");
         extent.setSystemInfo("User Name", "Dan Hosman");
         extent.setSystemInfo("Environment", "DEV");
-        extent.setSystemInfo("Browser",prop.getProperty("browser"));
+        extent.setSystemInfo("Browser", prop.getProperty("browser"));
     }
+
 
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
-
         if (result.getStatus() == ITestResult.FAILURE) {
             extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
             extentTestChild.log(Status.FAIL, result.getThrowable());
@@ -124,7 +131,6 @@ public class TestBase {
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
         }
-
         driver.quit();
     }
 

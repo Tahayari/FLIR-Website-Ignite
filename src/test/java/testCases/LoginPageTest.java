@@ -15,7 +15,6 @@ public class LoginPageTest extends TestBase {
     private RecoverPasswordPage recoverPasswordPage;
     private TestUtil testUtil;
 
-
     public LoginPageTest() {
         super();
     }
@@ -28,8 +27,6 @@ public class LoginPageTest extends TestBase {
         testUtil = new TestUtil();
     }
 
-
-    long startTime = System.nanoTime();
 
     public void goToLoginPage() {
 
@@ -148,8 +145,8 @@ public class LoginPageTest extends TestBase {
         LibraryPage libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
         extentTestChild.log(Status.PASS, "Enter valid email and pass then login");
 
-        testUtil.waitForElementToLoad(driver, libraryPage.getNewFolder_btn());
-        Assert.assertEquals(loginPage.getPageTitle(), "FLIR Tools");
+        testUtil.waitForElementToLoad(driver, libraryPage.getMyFiles_BTN());
+        Assert.assertEquals(libraryPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Library Page is displayed/ user is logged in successfully");
     }
 
@@ -183,33 +180,4 @@ public class LoginPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Recover password page is displayed");
     }
 
-    long endTime = System.nanoTime();
-
-
-//    @AfterTest
-//    public void endReport() {
-//        extent.flush();
-//    }
-
-//    @AfterMethod
-//    public void tearDown(ITestResult result) throws IOException {
-//
-//        if (result.getStatus() == ITestResult.FAILURE) {
-//            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
-//            extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
-//
-//            String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
-//            System.out.println(screenshotPath);
-//            extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
-//
-//        } else if (result.getStatus() == ITestResult.SKIP) {
-//            extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
-//        } else if (result.getStatus() == ITestResult.SUCCESS) {
-//            extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
-//        }
-//
-//        driver.quit();
-//        System.out.println("################Total time is : " + (endTime-startTime));
-
-//    }
 }
