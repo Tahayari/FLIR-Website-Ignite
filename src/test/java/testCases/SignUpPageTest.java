@@ -42,8 +42,6 @@ public class SignUpPageTest extends TestBase {
 
         signUpPage = landingPage.signUp_btn_click();
         testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
-
-        extentTestChild.log(Status.PASS, "Navigated to the SignUp page");
     }
 
     @Test(groups = {"smoke"})
