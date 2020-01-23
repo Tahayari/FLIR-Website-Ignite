@@ -14,7 +14,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
@@ -56,11 +55,15 @@ public class TestBase {
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions options = new ChromeOptions();
-            System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
-            System.setProperty("webdriver.chrome.verboseLogging", "true");
+//            System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
+//            System.setProperty("webdriver.chrome.verboseLogging", "true");
 
-            options.addArguments("--headless");
+            if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
+                options.addArguments("--headless");
+            }
+
             options.addArguments("--no-sandbox");
+            options.addArguments("--window-size=1920,1080");
             options.addArguments("enable-automation");
             options.addArguments("disable-infobars"); // disabling infobars
             options.addArguments("--disable-extensions"); // disabling extensions
@@ -73,9 +76,11 @@ public class TestBase {
 
             FirefoxOptions options = new FirefoxOptions();
             options.setAcceptInsecureCerts(true);
-            options.setHeadless(true);
-            options.setLogLevel(FirefoxDriverLogLevel.TRACE);
-            WebDriverManager.firefoxdriver().clearCache();
+            options.addArguments("--width=1920");
+            options.addArguments("--height=1080");
+            if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
+                options.setHeadless(true);
+            }
 
             driver = new FirefoxDriver(options);
             driver.manage().deleteAllCookies();
@@ -116,7 +121,7 @@ public class TestBase {
     }
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
             extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
@@ -134,12 +139,12 @@ public class TestBase {
         driver.quit();
     }
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void endReport() {
         extent.flush();
     }
 
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public void setExtent() {
         extentInitialization();
     }

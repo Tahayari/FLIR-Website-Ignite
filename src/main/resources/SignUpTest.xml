@@ -1,7 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="FLIR Tools - Login Page tests">
-
     <test name="FLIR Tools Test case">
+        <groups>
+            <run>
+                <include name="smoke" />
+            </run>
+        </groups>
         <classes>
             <class name="testCases.SignUpPageTest"></class>
         </classes>

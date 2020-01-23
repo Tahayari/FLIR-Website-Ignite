@@ -65,7 +65,7 @@ public class SignUpPage extends TestBase {
     private WebElement incorrectVerCode;
     @FindBy(id = expiredVerificationCode_ID)
     private WebElement expiredVerCode;
-    @FindBy(xpath = invalidEmail_XPATH )
+    @FindBy(xpath = invalidEmail_XPATH)
     private WebElement invalidEmailMsg;
     //--------------
 
@@ -121,26 +121,28 @@ public class SignUpPage extends TestBase {
         return cancel_BTN;
     }
 
-    public String getIncorrectVerCode(){
-        return incorrectVerCode.getText();
-    }
+    public String getIncorrectVerCode() { return incorrectVerCode.getText(); }
 
-    public String getExpiredVerCode(){
+    public WebElement getIncorrectVerCodeWebElement() { return incorrectVerCode; }
+
+    public String getExpiredVerCode() {
         return expiredVerCode.getText();
     }
 
-    public WebElement getExpiredVerCodeWebelement(){
-        return expiredVerCode;
-    }
+    public WebElement getExpiredVerCodeWebelement() { return expiredVerCode;    }
 
-    public String getInvalidEmailMsg(){
+    public String getInvalidEmailMsg() {
         String text = invalidEmailMsg.getText();
         return text;
     }
 
-    public WebElement getInvalidEmailWebelement(){
+    public WebElement getInvalidEmailWebelement() {
         return invalidEmailMsg;
     }
+
+    public WebElement getNewPassword_field(){ return newPassword_field;}
+
+    public WebElement getConfNewPassword_field() {return newPassword_field;}
     //-----------
 
     //-----------SETTERS
