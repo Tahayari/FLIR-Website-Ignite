@@ -2,7 +2,9 @@ package testCases;
 
 import base.TestBase;
 import com.aventstack.extentreports.Status;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -108,11 +110,23 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
 
         LibraryPage libraryPage = signUpPage.createButton_click();
-        testUtil.waitForElementToLoad(driver, libraryPage.getTermsAndConditions());
-        Assert.assertTrue(libraryPage.getTermsAndConditions().isDisplayed(), "true");
+        testUtil.waitForElementToLoad(driver, libraryPage.termsAndCondCheckbox());
+        Assert.assertTrue(driver.getCurrentUrl().contains("terms"));
         extentTestChild.log(Status.PASS, "Created a new account, Terms and conditions page is displayed");
 
-        //TODO: to add accept T&C and skip over the tutorial/welcome screen?
+        libraryPage.termsAndCondCheckbox().click();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(libraryPage.termsAndCondAccept_BTN()));
+        Assert.assertTrue(libraryPage.termsAndCondAccept_BTN().isEnabled());
+        extentTestChild.log(Status.PASS, "Ticked the checkbox and the Accept button is now enabled");
+
+        libraryPage.termsAndCondAccept_BTN().click();
+        wait.until(ExpectedConditions.urlContains("library"));
+        extentTestChild.log(Status.PASS, "Clicked on the Accept button and was redirected to the Library page");
+
+        libraryPage.welcomeScreenSkip_BTN().click();
+        testUtil.waitForElementToLoad(driver,libraryPage.getNewFolder_btn());
+        extentTestChild.log(Status.PASS, "Clicked on SKIP button from the Welcome screen, Library page is displayed");
     }
 
     @Test()
@@ -494,10 +508,256 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Password mismatch error is displayed");
     }
 
-    //TODO: noCountrySelected_Test
-    //TODO: noConsent_Test
-    //TODO: noFirstName_Test
-    //TODO: noLastName_Test
-    //TODO: declineTOS_Test
+    @Test
+    public void noCountrySelected_Test(){
+        String email = "dummyEmailForFlir2";
+        String pass = "PASSWORD123!";
+        String firstName = "firstName";
+        String lastName = "lastName";
 
+        extentTest = extent.createTest("SIGNUP PAGE - SignUp without selecting a country from the dropdown list");
+        extentTestChild = extentTest.createNode("Error message is displayed if no country is selected from the dropdown list");
+
+        goToSignUpPage();
+        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.sendVerCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
+        Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
+
+        signUpPage.verifyCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.changeEmail_BTN());
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
+
+        signUpPage.setFirstName(firstName);
+        extentTestChild.log(Status.PASS, "Entered a first name");
+
+        signUpPage.setLastName(lastName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        Random random = new Random();
+        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
+        else signUpPage.consentYes().click();
+        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
+
+        signUpPage.setNewPassword(pass);
+        signUpPage.setConfirmNewPassword(pass);
+        extentTestChild.log(Status.PASS, "Entered matching passwords");
+
+        signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver,signUpPage.blankCountry_err());
+        Assert.assertTrue(signUpPage.blankCountry_err().getText().contains("Missing required element: Country/Region"));
+        extentTestChild.log(Status.PASS, "No country was selected error message is displayed");
+    }
+
+    @Test
+    public void noConsent_Test(){
+        String email = "dummyEmailForFlir3";
+        String pass = "PASSWORD123!";
+        String firstName = "firstName";
+        String lastName = "lastName";
+        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
+
+        extentTest = extent.createTest("SIGNUP PAGE - SignUp without selecting any consent option");
+        extentTestChild = extentTest.createNode("Error message is displayed if no consent option is selected");
+
+        goToSignUpPage();
+        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.sendVerCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
+        Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
+
+        signUpPage.verifyCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.changeEmail_BTN());
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
+
+        signUpPage.setFirstName(firstName);
+        extentTestChild.log(Status.PASS, "Entered a first name");
+
+        signUpPage.setLastName(lastName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        signUpPage.setNewPassword(pass);
+        signUpPage.setConfirmNewPassword(pass);
+        extentTestChild.log(Status.PASS, "Entered matching passwords");
+
+        Select country_select = new Select(signUpPage.country_dropdown());
+        Random random = new Random();
+        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
+
+        signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver,signUpPage.requiredFieldMissing_err());
+        Assert.assertTrue(signUpPage.requiredFieldMissing_err().getText().contains(error_msg));
+        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed");
+    }
+
+    @Test
+    public void noFirstName_Test(){
+        String email = "dummyEmailForFlir4";
+        String pass = "PASSWORD123!";
+        String lastName = "lastName";
+        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
+
+        extentTest = extent.createTest("SIGNUP PAGE - SignUp without entering a firstName");
+        extentTestChild = extentTest.createNode("Error message is displayed if the first Name field is left blank");
+
+        goToSignUpPage();
+        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.sendVerCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
+        Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
+
+        signUpPage.verifyCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.changeEmail_BTN());
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
+
+        signUpPage.setLastName(lastName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        signUpPage.setNewPassword(pass);
+        signUpPage.setConfirmNewPassword(pass);
+        extentTestChild.log(Status.PASS, "Entered matching passwords");
+
+        Select country_select = new Select(signUpPage.country_dropdown());
+        Random random = new Random();
+        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
+
+        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
+        else signUpPage.consentYes().click();
+        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
+
+        signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver,signUpPage.requiredFieldMissing_err());
+        Assert.assertTrue(signUpPage.requiredFieldMissing_err().getText().contains(error_msg));
+        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed");
+    }
+
+    @Test
+    public void noLastName_Test(){
+        String email = "dummyEmailForFlir5";
+        String pass = "PASSWORD123!";
+        String firstName = "firstName";
+        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
+
+        extentTest = extent.createTest("SIGNUP PAGE - SignUp without entering a lastName");
+        extentTestChild = extentTest.createNode("Error message is displayed if the last Name field is left blank");
+
+        goToSignUpPage();
+        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.sendVerCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
+        Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
+
+        signUpPage.verifyCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.changeEmail_BTN());
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
+
+        signUpPage.setFirstName(firstName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        signUpPage.setNewPassword(pass);
+        signUpPage.setConfirmNewPassword(pass);
+        extentTestChild.log(Status.PASS, "Entered matching passwords");
+
+        Select country_select = new Select(signUpPage.country_dropdown());
+        Random random = new Random();
+        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
+
+        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
+        else signUpPage.consentYes().click();
+        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
+
+        signUpPage.createButton_click();
+        testUtil.waitForElementToLoad(driver,signUpPage.requiredFieldMissing_err());
+        Assert.assertTrue(signUpPage.requiredFieldMissing_err().getText().contains(error_msg));
+        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed");
+    }
+
+    @Test
+    public void cancelRegistration_Test(){
+        String email = "dummyEmailForFlir6";
+        String pass = "PASSWORD123!";
+        String firstName = "firstName";
+        String lastName = "lastName";
+
+        extentTest = extent.createTest("SIGNUP PAGE - Click on the Cancel button at the end of the SignUp flow");
+        extentTestChild = extentTest.createNode("SignUp Flow is cancelled and user is redirected to the landing page");
+
+        goToSignUpPage();
+        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+
+        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.sendVerCode_BTN().click();
+        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
+
+        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
+        Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
+        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        extentTestChild.log(Status.PASS, "Entered the token received via email");
+
+        signUpPage.verifyCode_BTN().click();
+        testUtil.waitForElementToLoad(driver,signUpPage.changeEmail_BTN());
+        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
+
+        signUpPage.setFirstName(firstName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        signUpPage.setLastName(lastName);
+        extentTestChild.log(Status.PASS, "Entered a last name");
+
+        signUpPage.setNewPassword(pass);
+        signUpPage.setConfirmNewPassword(pass);
+        extentTestChild.log(Status.PASS, "Entered matching passwords");
+
+        Select country_select = new Select(signUpPage.country_dropdown());
+        Random random = new Random();
+        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
+
+        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
+        else signUpPage.consentYes().click();
+        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
+
+        signUpPage.cancel_BTN().click();
+        testUtil.waitForElementToLoad(driver,landingPage.getLogin_BTN());
+        extentTestChild.log(Status.PASS, "Clicked and the Cancel button and was redirected to Landing page");
+    }
+
+    //TODO: Click on Cancel button in the Terms and Conditions page? maybe not
 }

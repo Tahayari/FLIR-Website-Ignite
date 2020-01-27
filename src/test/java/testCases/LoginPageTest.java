@@ -145,7 +145,7 @@ public class LoginPageTest extends TestBase {
         LibraryPage libraryPage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
         extentTestChild.log(Status.PASS, "Enter valid email and pass then login");
 
-        testUtil.waitForElementToLoad(driver, libraryPage.getMyFiles_BTN());
+        testUtil.waitForElementToLoad(driver, libraryPage.myFiles_LINK());
         Assert.assertEquals(libraryPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Library Page is displayed/ user is logged in successfully");
     }

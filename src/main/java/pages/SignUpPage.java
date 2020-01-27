@@ -29,6 +29,8 @@ public class SignUpPage extends TestBase {
     private final String invalidPass_XPATH = "//li[2]//descendant::div[1]//descendant::div[1]";
     private final String invalidConfirmPass_XPATH = "//li[3]//descendant::div[1]//descendant::div[1]";
     private final String passMismatch_ID = "passwordEntryMismatch";
+    private final String blankCountry_ID = "claimVerificationServerError";
+    private final String requiredField_ID = "requiredFieldMissing";
     //--------------
 
 
@@ -76,6 +78,10 @@ public class SignUpPage extends TestBase {
     private WebElement invalidConfirmPass_err;
     @FindBy(id = passMismatch_ID)
     private WebElement passMismatch_err;
+    @FindBy(id = blankCountry_ID)
+    private WebElement blankCountry_err;
+    @FindBy(id = requiredField_ID)
+    private WebElement requiredFieldMissing_err;
     //--------------
 
     //Constructor
@@ -160,6 +166,14 @@ public class SignUpPage extends TestBase {
 
     public WebElement passMismatch_err() {
         return passMismatch_err;
+    }
+
+    public WebElement blankCountry_err() {
+        return blankCountry_err;
+    }
+
+    public WebElement requiredFieldMissing_err() {
+        return requiredFieldMissing_err;
     }
 
     //-----------
