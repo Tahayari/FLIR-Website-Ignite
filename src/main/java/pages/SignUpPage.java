@@ -26,16 +26,19 @@ public class SignUpPage extends TestBase {
     private final String incorrectVerificationCode_ID = "email_fail_retry";
     private final String expiredVerificationCode_ID = "email_fail_code_expired";
     private final String invalidEmail_XPATH = "//div[@id='attributeList']//*[contains(text(),'Please enter a valid email address.')]";
+    private final String invalidPass_XPATH = "//li[2]//descendant::div[1]//descendant::div[1]";
+    private final String invalidConfirmPass_XPATH = "//li[3]//descendant::div[1]//descendant::div[1]";
+    private final String passMismatch_ID = "passwordEntryMismatch";
     //--------------
 
 
     //-------Locators-------
     @FindBy(id = email_ID)
-    private WebElement email_field;
+    private WebElement emailaddress_field;
     @FindBy(id = verificationCodeField_ID)
     private WebElement verificationCode_field;
     @FindBy(id = sendVerificationCodeBTN_ID)
-    private WebElement sendVerCode_BTN;
+    private WebElement sendVerificationCode_BTN;
     @FindBy(id = verifyCodeBTN_ID)
     private WebElement verifyCode_BTN;
     @FindBy(id = changeEmailBTN_ID)
@@ -67,6 +70,12 @@ public class SignUpPage extends TestBase {
     private WebElement expiredVerCode;
     @FindBy(xpath = invalidEmail_XPATH)
     private WebElement invalidEmailMsg;
+    @FindBy(xpath = invalidPass_XPATH)
+    private WebElement invalidPass_err;
+    @FindBy(xpath = invalidConfirmPass_XPATH)
+    private WebElement invalidConfirmPass_err;
+    @FindBy(id = passMismatch_ID)
+    private WebElement passMismatch_err;
     //--------------
 
     //Constructor
@@ -77,77 +86,87 @@ public class SignUpPage extends TestBase {
 
 
     //-----------GETTERS
-    public WebElement getEmail_field() {
-        return email_field;
+    public WebElement email_field() {
+        return emailaddress_field;
     }
 
-    public WebElement getVerificationCode_field() {
+    public WebElement verificationCode_field() {
         return verificationCode_field;
     }
 
-    public WebElement getSendVerCode_BTN() {
-        return sendVerCode_BTN;
+    public WebElement sendVerCode_BTN() {
+        return sendVerificationCode_BTN;
     }
 
-    public WebElement getVerifyCode_BTN() {
+    public WebElement verifyCode_BTN() {
         return verifyCode_BTN;
     }
 
-    public WebElement getChangeEmail_BTN() {
+    public WebElement changeEmail_BTN() {
         return changeEmail_BTN;
     }
 
-    public WebElement getSendNewCode_BTN() {
+    public WebElement sendNewCode_BTN() {
         return sendNewCode_BTN;
     }
 
-    public WebElement getCreate_BTN() {
+    public WebElement create_BTN() {
         return create_BTN;
     }
 
-    public WebElement getCountry_dropdown() {
+    public WebElement country_dropdown() {
         return country_dropdown;
     }
 
-    public WebElement getConsentNo() {
+    public WebElement consentNo() {
         return consentNo;
     }
 
-    public WebElement getConsentYes() {
+    public WebElement consentYes() {
         return consentYes;
     }
 
-    public WebElement getCancel_BTN() {
+    public WebElement cancel_BTN() {
         return cancel_BTN;
     }
 
-    public String getIncorrectVerCode() { return incorrectVerCode.getText(); }
-
-    public WebElement getIncorrectVerCodeWebElement() { return incorrectVerCode; }
-
-    public String getExpiredVerCode() {
-        return expiredVerCode.getText();
+    public WebElement incorrectVerCode_err() {
+        return incorrectVerCode;
     }
 
-    public WebElement getExpiredVerCodeWebelement() { return expiredVerCode;    }
-
-    public String getInvalidEmailMsg() {
-        String text = invalidEmailMsg.getText();
-        return text;
+    public WebElement expiredVerCode_err() {
+        return expiredVerCode;
     }
 
-    public WebElement getInvalidEmailWebelement() {
+    public WebElement invalidEmail_err() {
         return invalidEmailMsg;
     }
 
-    public WebElement getNewPassword_field(){ return newPassword_field;}
+    public WebElement newPassword_field() {
+        return newPassword_field;
+    }
 
-    public WebElement getConfNewPassword_field() {return confNewPassword_field;}
+    public WebElement confNewPassword_field() {
+        return confNewPassword_field;
+    }
+
+    public WebElement invalidPass_err() {
+        return invalidPass_err;
+    }
+
+    public WebElement invalidConfirmPass_err() {
+        return invalidConfirmPass_err;
+    }
+
+    public WebElement passMismatch_err() {
+        return passMismatch_err;
+    }
+
     //-----------
 
     //-----------SETTERS
     public void setEmailAddress(String text) {
-        email_field.sendKeys(text);
+        emailaddress_field.sendKeys(text);
     }
 
     public void setVerificationCode_field(String text) {

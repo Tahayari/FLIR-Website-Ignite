@@ -160,7 +160,7 @@ public class LoginPageTest extends TestBase {
         SignUpPage signUpPage = loginPage.signUpLink_click();
         extentTestChild.log(Status.PASS, "Click on Sign Up button");
 
-        testUtil.waitForElementToLoad(driver, signUpPage.getCreate_BTN());
+        testUtil.waitForElementToLoad(driver, signUpPage.create_BTN());
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
         extentTestChild.log(Status.PASS, "Sign Up Page is displayed");
     }
