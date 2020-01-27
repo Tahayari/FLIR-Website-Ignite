@@ -142,7 +142,7 @@ public class SignUpPage extends TestBase {
 
     public WebElement getNewPassword_field(){ return newPassword_field;}
 
-    public WebElement getConfNewPassword_field() {return newPassword_field;}
+    public WebElement getConfNewPassword_field() {return confNewPassword_field;}
     //-----------
 
     //-----------SETTERS
