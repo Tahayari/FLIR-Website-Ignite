@@ -193,7 +193,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void expiredToken_Test() {
-        String email = "testemail";
+        String email = "flirautomationtest@yahoo.com";
         String error_msg = "That code is expired. Please request a new code.";
         long waitTime = 5; // Number of MINUTES until the token expires
 
@@ -201,16 +201,17 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Enter an expired token");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email+"@mailinator.com");
+        signUpPage.setEmailAddress(email);
         extentTestChild.log(Status.PASS, "Entered an email address");
 
         signUpPage.sendVerCode_BTN().click();
         testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
         extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         try {
             Thread.sleep(waitTime * 60 * 1000); // wait for waitTime minutes + 10 seconds
         } catch (InterruptedException e) {
@@ -230,16 +231,17 @@ public class SignUpPageTest extends TestBase {
 
     @Test(groups = {"smoke"})
     public void sendNewCode_Test() {
-        String email = "flirtestemail08";
+        String email = "flirAutomationTest@yahoo.com";
         String error_msg = "That code is incorrect. Please try again.";
 
         extentTest = extent.createTest("SIGNUP PAGE - Resend the token and validate the new one");
         extentTestChild = extentTest.createNode("Resend the token and validate the new one");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true) ; // setup the yahoo mail so it would be stored in cache
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         extentTestChild.log(Status.PASS, "Entered an email address");
 
         signUpPage.sendVerCode_BTN().click();
@@ -249,7 +251,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         String oldToken = signUpPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
@@ -274,7 +276,7 @@ public class SignUpPageTest extends TestBase {
         }
 
         signUpPage.verificationCode_field().clear();
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         signUpPage.verifyCode_BTN().click();
         testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
         Assert.assertTrue(signUpPage.changeEmail_BTN().isDisplayed());
@@ -283,22 +285,23 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void resendEmail_Test() {
-        String email = "someRandomEmail";
+        String email = "flirautomationtest@yahoo.com";
 
         extentTest = extent.createTest("SIGNUP PAGE - Change the email after validating the token");
         extentTestChild = extentTest.createNode("Change the email after validating the token");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         extentTestChild.log(Status.PASS, "Entered an email address");
 
         signUpPage.sendVerCode_BTN().click();
         testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
         extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -315,7 +318,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void incorrectPasswordFormat_Test() {
-        String email = "dummyEmailForFlir";
+        String email = "flirautomationtest@yahoo.com";
         String invalidPass1 = "passwordd";
         String invalidPass2 = "Passwordd";
         String invalidPass3 = "passwordd!!";
@@ -325,10 +328,11 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
-        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
+        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email);
         extentTestChild.log(Status.PASS, "Entered the email address");
 
         signUpPage.sendVerCode_BTN().click();
@@ -338,7 +342,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -386,7 +390,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void incorrectPasswordFormatConfirmPassField_Test() {
-        String email = "dummyEmailForFlir";
+        String email = "flirautomationtest@yahoo.com";
         String invalidPass1 = "passwordd";
         String invalidPass2 = "Passwordd";
         String invalidPass3 = "passwordd!!";
@@ -396,10 +400,11 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered (Confirm password field)");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
-        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
+        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email);
         extentTestChild.log(Status.PASS, "Entered the email address");
 
         signUpPage.sendVerCode_BTN().click();
@@ -409,7 +414,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -456,7 +461,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void mismatchingPasswords_Test() {
-        String email = "dummyEmailForFlir";
+        String email = "flirautomationtest@yahoo.com";
         String pass1 = "PASSWORD123!";
         String pass2 = "Password123!";
         String firstName = "firstName";
@@ -466,9 +471,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the passwords are not identical");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -476,7 +482,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -510,7 +516,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void noCountrySelected_Test(){
-        String email = "dummyEmailForFlir2";
+        String email = "flirautomationtest@yahoo.com";
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String lastName = "lastName";
@@ -519,9 +525,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if no country is selected from the dropdown list");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -529,7 +536,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -559,7 +566,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void noConsent_Test(){
-        String email = "dummyEmailForFlir3";
+        String email = "flirautomationtest@yahoo.com";
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String lastName = "lastName";
@@ -569,9 +576,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if no consent option is selected");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -579,7 +587,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -609,7 +617,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void noFirstName_Test(){
-        String email = "dummyEmailForFlir4";
+        String email = "flirautomationtest@yahoo.com";
         String pass = "PASSWORD123!";
         String lastName = "lastName";
         String error_msg = "A required field is missing. Please fill out all required fields and try again.";
@@ -618,9 +626,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the first Name field is left blank");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -628,7 +637,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -659,7 +668,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void noLastName_Test(){
-        String email = "dummyEmailForFlir5";
+        String email = "flirautomationtest@yahoo.com";
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String error_msg = "A required field is missing. Please fill out all required fields and try again.";
@@ -668,9 +677,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the last Name field is left blank");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -678,7 +688,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -709,7 +719,7 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void cancelRegistration_Test(){
-        String email = "dummyEmailForFlir6";
+        String email = "flirautomationtest@yahoo.com";
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String lastName = "lastName";
@@ -718,9 +728,10 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("SignUp Flow is cancelled and user is redirected to the landing page");
 
         goToSignUpPage();
+        TestUtil.getTokenFromYahoo(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email + "@mailinator.com");
+        signUpPage.setEmailAddress(email);
         signUpPage.sendVerCode_BTN().click();
         extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
 
@@ -728,7 +739,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(TestUtil.getTokenFromMailinator(email));
+        signUpPage.setVerificationCode_field(TestUtil.getTokenFromYahoo(false));
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -759,5 +770,4 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Clicked and the Cancel button and was redirected to Landing page");
     }
 
-    //TODO: Click on Cancel button in the Terms and Conditions page? maybe not
 }
