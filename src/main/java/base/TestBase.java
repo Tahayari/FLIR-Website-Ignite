@@ -50,6 +50,8 @@ public class TestBase {
 
     protected static void initialization() {
         String browserName = prop.getProperty("browser");
+        //set userAgent for headless mode
+        String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
 
         if ("chrome".equals(browserName)) {
             WebDriverManager.chromedriver().setup();
@@ -60,16 +62,18 @@ public class TestBase {
 
             if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
                 options.addArguments("--headless");
+                options.addArguments("--user-agent="+userAgent);
             }
 
-            options.addArguments("--no-sandbox");
-            options.addArguments("--window-size=1920,1080");
-            options.addArguments("enable-automation");
-            options.addArguments("disable-infobars"); // disabling infobars
-            options.addArguments("--disable-extensions"); // disabling extensions
-            options.addArguments("--disable-gpu"); // applicable to windows os only
-            options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770
+            options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
+            options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
+            options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
+            options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
+            options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
+            options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
             driver = new ChromeDriver(options);
+
         } else if ("firefox".equals(browserName)) {
 
             WebDriverManager.firefoxdriver().setup();
@@ -97,13 +101,22 @@ public class TestBase {
         EventFiringWebDriver e_driver = new EventFiringWebDriver(driver);
         WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
-        driver = e_driver;
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
+        try{
+            driver = e_driver;
+            driver.manage().window().maximize();
+            driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
-        driver.get(prop.getProperty("url"));
+        try{
+            driver.get(prop.getProperty("url"));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

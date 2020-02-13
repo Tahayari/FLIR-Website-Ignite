@@ -27,8 +27,12 @@ public class TestUtil extends TestBase {
     static Sheet sheet;
 
     public void waitForElementToLoad(WebDriver driver, WebElement element) {
+        try{
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.visibilityOf(element));}
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static Object[][] getTestaData(String sheetName) {
@@ -70,7 +74,7 @@ public class TestUtil extends TestBase {
         return destination;
     }
 
-    public static String getTokenFromYahoo(boolean firstLogin) {
+    public String getTokenFromYahoo(boolean firstLogin) {
         String a = "window.open('','_blank');";
         String URL = "https://mail.yahoo.com/d/folders/26?guce_referrer=aHR0cHM6Ly9sb2dpbi55YWhvby5jb20v&guce_referrer_sig=AQAAAKbPsmKwuDgurqBba5jUt9pBnXqR-XqE-qkSM0wgT42S4RxSkEK57d_SJ9f0ypNnhRaTdEvRq1xXQyJsuj21wLAQPKGaBYjyT3YFrBgm7Tbd_DqkoUT3r8aa6cBqfmttcSlAXo9eJhH5-Ca5T7gvd1ARtbOOA6BnYsATwt64RbWX";
         String user = "flirAutomationTest@yahoo.com";
@@ -115,10 +119,77 @@ public class TestUtil extends TestBase {
         driver.close();
         driver.switchTo().window(tabs.get(0));
         return token;
-
     }
 
-    public static String getTokenFromMailinator(String text) {
+    public String getTokenFromGmail(boolean firstLogin) {
+        String a = "window.open('','_blank');";
+        String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
+        String email = "flirAutomationTest@gmail.com";
+        String pass = "Pa$$word1!";
+        String email_ID = "identifierId";
+        String nextButtonEmail_ID = "identifierNext";
+        String nextButtonPass_ID = "passwordNext";
+        String password_name = "password";
+
+        String email_XPATH = "//span[@class='bog']";
+        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
+        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
+        String avatar_XPATH = "//span[@class='gb_Ia gbii']";
+        String token;
+        int WAIT_FOR_EMAIL_TIMEOUT = 120; //number of seconds before the google page timeouts
+
+
+
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_EMAIL_TIMEOUT);
+
+        if(firstLogin) {
+            ((JavascriptExecutor) driver).executeScript(a);
+            ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            driver.get(URL);
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(email_ID))).isDisplayed();
+            driver.findElement(By.id(email_ID)).sendKeys(email);
+            driver.findElement(By.id(nextButtonEmail_ID)).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password_name))).isDisplayed();
+            driver.findElement(By.name(password_name)).sendKeys(pass);
+            driver.findElement(By.id(nextButtonPass_ID)).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
+
+//            driver.close();
+            driver.switchTo().window(tabs.get(0));
+            return "-------------email first login setup is complete";
+        }
+
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
+
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0));
+        WebElement receivedEmail = driver.findElements(By.xpath(email_XPATH)).get(0);
+        receivedEmail.click();
+
+        token = driver.findElement(By.xpath(emailBody_XPATH)).getText().substring(14); //get only the token;
+
+        driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
+
+
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH),0));
+//        try {
+//            Thread.sleep(9000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+//        driver.close();
+        driver.switchTo().window(tabs.get(0));
+
+        return token;
+    }
+
+    public String getTokenFromMailinator(String text) {
         String a = "window.open('','_blank');";  // replace link with your desired link
         String firstReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[5]";
         String firstFrom_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[3]";

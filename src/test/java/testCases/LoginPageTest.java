@@ -134,7 +134,6 @@ public class LoginPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Error message is displayed");
     }
 
-
     @Test
     public void loginWithValidCredentials_Test() {
         extentTest = extent.createTest("LOGIN PAGE - Login with valid credentials");
