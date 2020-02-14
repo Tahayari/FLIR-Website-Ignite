@@ -50,71 +50,30 @@ public class TestBase {
 
     protected static void initialization() {
         String browserName = prop.getProperty("browser");
-        //set userAgent for headless mode
-        String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
 
         if ("chrome".equals(browserName)) {
-            WebDriverManager.chromedriver().setup();
-
-            ChromeOptions options = new ChromeOptions();
-//            System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
-//            System.setProperty("webdriver.chrome.verboseLogging", "true");
-
-            if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
-                options.addArguments("--headless");
-                options.addArguments("--user-agent="+userAgent);
-            }
-
-            options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770
-            options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
-            options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
-            options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
-            options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
-            options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
-            options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
-            driver = new ChromeDriver(options);
-
+            chromeSetup();
         } else if ("firefox".equals(browserName)) {
-
-            WebDriverManager.firefoxdriver().setup();
-
-            FirefoxOptions options = new FirefoxOptions();
-            options.setAcceptInsecureCerts(true);
-            options.addArguments("--width=1920");
-            options.addArguments("--height=1080");
-            if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
-                options.setHeadless(true);
-            }
-
-            driver = new FirefoxDriver(options);
-            driver.manage().deleteAllCookies();
-
+            firefoxSetup();
         } else if ("edge".equals(browserName)) {
-            WebDriverManager.edgedriver().setup();
-            //Edge doesn't obey the driver.manage().deleteAllCookies() command like all of the other normal browsers
-            // as a workaround it works if you open it in Private mode
-            EdgeOptions options = new EdgeOptions();
-            options.setCapability("InPrivate", true);
-            driver = new EdgeDriver(options);
+            edgeSetup();
         }
 
         EventFiringWebDriver e_driver = new EventFiringWebDriver(driver);
         WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
-        try{
+
+        try {
             driver = e_driver;
-            driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try{
+        try {
             driver.get(prop.getProperty("url"));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -133,6 +92,58 @@ public class TestBase {
         extent.setSystemInfo("Browser", prop.getProperty("browser"));
     }
 
+    protected static void chromeSetup() {
+        WebDriverManager.chromedriver().setup();
+//        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\src\\main\\java\\drivers\\Chrome\\80\\chromedriver.exe");
+//        set userAgent for headless mode
+        String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
+
+        ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
+        System.setProperty("webdriver.chrome.verboseLogging", "true");
+
+        if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
+            options.addArguments("--headless");
+            options.addArguments("--user-agent=" + userAgent);
+        }
+
+        options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770
+        options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
+        options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
+        options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
+        options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
+        options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
+        options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
+//        options.addArguments("--disable-extensions"); // disabling extensions
+        driver = new ChromeDriver(options);
+    }
+
+    protected static void firefoxSetup() {
+        WebDriverManager.firefoxdriver().setup();
+
+        FirefoxOptions options = new FirefoxOptions();
+        options.setAcceptInsecureCerts(true);
+        options.addArguments("--width=1920");
+        options.addArguments("--height=1080");
+        if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
+            options.setHeadless(true);
+        }
+
+        driver = new FirefoxDriver(options);
+        driver.manage().deleteAllCookies();
+        driver.manage().window().maximize();
+
+    }
+
+    protected static void edgeSetup() {
+        WebDriverManager.edgedriver().setup();
+        //Edge doesn't obey the driver.manage().deleteAllCookies() command like all of the other normal browsers
+        // as a workaround it works if you open it in Private mode
+        EdgeOptions options = new EdgeOptions();
+        options.setCapability("InPrivate", true);
+        driver = new EdgeDriver(options);
+        driver.manage().window().maximize();
+    }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) throws IOException {
@@ -149,7 +160,20 @@ public class TestBase {
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
         }
+
+        driver.close();
         driver.quit();
+        if (prop.getProperty("browser").toLowerCase().equals("firefox"))
+            Runtime.getRuntime().exec("taskkill /F /IM firefox.exe");
+        else if (prop.getProperty("browser").toLowerCase().equals("chrome"))
+            Runtime.getRuntime().exec("taskkill /F /IM ChromeDriver.exe");
+        else if (prop.getProperty("browser").toLowerCase().equals("edge"))
+            Runtime.getRuntime().exec("taskkill /F /IM msedge.exe");
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterTest(alwaysRun = true)

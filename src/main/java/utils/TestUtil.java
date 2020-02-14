@@ -74,6 +74,7 @@ public class TestUtil extends TestBase {
         return destination;
     }
 
+    //back-up solution IF google is not working/viable
     public String getTokenFromYahoo(boolean firstLogin) {
         String a = "window.open('','_blank');";
         String URL = "https://mail.yahoo.com/d/folders/26?guce_referrer=aHR0cHM6Ly9sb2dpbi55YWhvby5jb20v&guce_referrer_sig=AQAAAKbPsmKwuDgurqBba5jUt9pBnXqR-XqE-qkSM0wgT42S4RxSkEK57d_SJ9f0ypNnhRaTdEvRq1xXQyJsuj21wLAQPKGaBYjyT3YFrBgm7Tbd_DqkoUT3r8aa6cBqfmttcSlAXo9eJhH5-Ca5T7gvd1ARtbOOA6BnYsATwt64RbWX";
@@ -136,9 +137,7 @@ public class TestUtil extends TestBase {
         String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
         String avatar_XPATH = "//span[@class='gb_Ia gbii']";
         String token;
-        int WAIT_FOR_EMAIL_TIMEOUT = 120; //number of seconds before the google page timeouts
-
-
+        int WAIT_FOR_EMAIL_TIMEOUT = 60; //number of seconds before the google page timeouts
 
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_EMAIL_TIMEOUT);
 
@@ -167,23 +166,32 @@ public class TestUtil extends TestBase {
         driver.switchTo().window(tabs.get(1));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
 
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0));
+        try{
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0)); //wait until gmail has received 1 email
+        }
+        catch(Exception e){
+            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
+            try{
+                driver.navigate().refresh();
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0)); //wait until gmail has received 1 email
+            }
+            catch (TimeoutException te) {
+                System.out.println("----Timeout error. Email did not arrive in the allotted time");
+                te.printStackTrace();
+                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
+            }
+        }
+
         WebElement receivedEmail = driver.findElements(By.xpath(email_XPATH)).get(0);
         receivedEmail.click();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailBody_XPATH)));
         token = driver.findElement(By.xpath(emailBody_XPATH)).getText().substring(14); //get only the token;
 
         driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
 
-
         wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH),0));
-//        try {
-//            Thread.sleep(9000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
 
-//        driver.close();
         driver.switchTo().window(tabs.get(0));
 
         return token;

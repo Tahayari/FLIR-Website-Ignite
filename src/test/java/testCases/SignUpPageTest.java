@@ -66,7 +66,7 @@ public class SignUpPageTest extends TestBase {
         return TestUtil.getTestaData(sheetName);
     }
 
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"})
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"},enabled = false)
     public void registerNewAccount_Test(String email, String password, String firstName, String lastName) {
 
         extentTest = extent.createTest("SIGNUP PAGE - Create account(s)");
@@ -266,6 +266,7 @@ public class SignUpPageTest extends TestBase {
 
         String oldToken = signUpPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
         signUpPage.sendNewCode_BTN().click();
+        String newToken = testUtil.getTokenFromGmail(false);
         extentTestChild.log(Status.PASS, "Clicked on Send new code button");
 
         testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
@@ -278,15 +279,8 @@ public class SignUpPageTest extends TestBase {
         Assert.assertEquals(signUpPage.incorrectVerCode_err().getText(), error_msg);
         extentTestChild.log(Status.PASS, "Entered the previous token and it no longer works");
 
-        try {
-            //lazy solution for waiting for the new token to be resent TODO: improve this implementation in TestUtil class!!
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         signUpPage.verificationCode_field().clear();
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(newToken);
         signUpPage.verifyCode_BTN().click();
         testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
         Assert.assertTrue(signUpPage.changeEmail_BTN().isDisplayed());
