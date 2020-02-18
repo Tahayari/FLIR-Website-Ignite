@@ -82,7 +82,7 @@ public class TestBase {
     protected static void extentInitialization() {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
-        htmlReporter.config().setReportName("Sanity Report or whatever"); // Name of the report
+        htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
         htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);

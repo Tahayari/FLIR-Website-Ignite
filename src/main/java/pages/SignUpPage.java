@@ -31,6 +31,7 @@ public class SignUpPage extends TestBase {
     private final String passMismatch_ID = "passwordEntryMismatch";
     private final String blankCountry_ID = "claimVerificationServerError";
     private final String requiredField_ID = "requiredFieldMissing";
+    private final String tooManyAttempts_ID = "email_fail_no_retry";
     //--------------
 
 
@@ -82,6 +83,8 @@ public class SignUpPage extends TestBase {
     private WebElement blankCountry_err;
     @FindBy(id = requiredField_ID)
     private WebElement requiredFieldMissing_err;
+    @FindBy(id = tooManyAttempts_ID)
+    private WebElement tooManyAttempts_err;
     //--------------
 
     //Constructor
@@ -175,6 +178,8 @@ public class SignUpPage extends TestBase {
     public WebElement requiredFieldMissing_err() {
         return requiredFieldMissing_err;
     }
+
+    public WebElement tooManyAttempts_err(){ return tooManyAttempts_err;}
 
     //-----------
 
