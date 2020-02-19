@@ -1,5 +1,8 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="FLIR Tools - Multiple Page tests">
+    <listeners>
+        <listener class-name="utils.AnnotationTransformer"/>
+    </listeners>
     <test name="FLIR Tools Test case" >
         <classes>
             <class name="testCases.LoginPageTest"></class>

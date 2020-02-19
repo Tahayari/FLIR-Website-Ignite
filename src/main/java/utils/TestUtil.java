@@ -157,6 +157,14 @@ public class TestUtil extends TestBase {
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
 
+            //delete any existing email
+            if ( driver.findElements(By.xpath(email_XPATH)).size() > 0 ) {
+                driver.findElements(By.xpath(email_XPATH)).get(0).click(); //click on the existing email
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailBody_XPATH))); // wait for the email body to load
+                driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click(); // delete the email
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH)));
+            }
+
 //            driver.close();
             driver.switchTo().window(tabs.get(0));
             return "-------------email first login setup is complete";
@@ -182,6 +190,7 @@ public class TestUtil extends TestBase {
             }
         }
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(email_XPATH)));
         WebElement receivedEmail = driver.findElements(By.xpath(email_XPATH)).get(0);
         receivedEmail.click();
 

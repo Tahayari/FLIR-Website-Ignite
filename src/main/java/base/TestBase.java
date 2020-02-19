@@ -65,6 +65,7 @@ public class TestBase {
 
         try {
             driver = e_driver;
+            driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
         } catch (Exception e) {
@@ -99,7 +100,7 @@ public class TestBase {
         String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
 
         ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.logfile", "C:\\Users\\dhosman\\Work Folders\\Desktop\\chromedriver.log");
+        System.setProperty("webdriver.chrome.logfile", System.getProperty("user.dir")+"\\src\\main\\java\\driverLogs\\chromedriver.log");
         System.setProperty("webdriver.chrome.verboseLogging", "true");
 
         if (prop.getProperty("runHeadless").toLowerCase().contains("yes")) {
@@ -107,7 +108,8 @@ public class TestBase {
             options.addArguments("--user-agent=" + userAgent);
         }
 
-        options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770
+        options.addArguments("--window-size=1920,1080");
+//        options.addArguments("--start-maximized"); // https://stackoverflow.com/a/26283818/1689770
         options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
         options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
         options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
@@ -163,6 +165,7 @@ public class TestBase {
 
         driver.close();
         driver.quit();
+        //remove background processes; TODO: investigate if this is an optimal approach
         if (prop.getProperty("browser").toLowerCase().equals("firefox"))
             Runtime.getRuntime().exec("taskkill /F /IM firefox.exe");
         else if (prop.getProperty("browser").toLowerCase().equals("chrome"))

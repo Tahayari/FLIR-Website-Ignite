@@ -291,7 +291,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Resend the token and validate the new one");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true); // setup the gmail mail so it would be stored in cache
+        testUtil.getTokenFromGmail(true); // setup the gmail mail so it would be stored in a secondary tab
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -308,6 +308,7 @@ public class SignUpPageTest extends TestBase {
         String oldToken = signUpPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
         extentTestChild.log(Status.PASS, "Saved the token received via email");
 
+        testUtil.waitForElementToLoad(driver,signUpPage.sendNewCode_BTN());
         signUpPage.sendNewCode_BTN().click();
         String newToken = testUtil.getTokenFromGmail(false);
         extentTestChild.log(Status.PASS, "Clicked on Send new code button");
