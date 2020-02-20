@@ -125,8 +125,8 @@ public class TestUtil extends TestBase {
     public String getTokenFromGmail(boolean firstLogin) {
         String a = "window.open('','_blank');";
         String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
-        String email = "flirAutomationTest@gmail.com";
-        String pass = "Pa$$word1!";
+//        String email = "flirAutomationTest@gmail.com";
+//        String pass = "Pa$$word1!";
         String email_ID = "identifierId";
         String nextButtonEmail_ID = "identifierNext";
         String nextButtonPass_ID = "passwordNext";
@@ -148,11 +148,11 @@ public class TestUtil extends TestBase {
             driver.get(URL);
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(email_ID))).isDisplayed();
-            driver.findElement(By.id(email_ID)).sendKeys(email);
+            driver.findElement(By.id(email_ID)).sendKeys(prop.getProperty("gmail"));
             driver.findElement(By.id(nextButtonEmail_ID)).click();
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password_name))).isDisplayed();
-            driver.findElement(By.name(password_name)).sendKeys(pass);
+            driver.findElement(By.name(password_name)).sendKeys(prop.getProperty("password"));
             driver.findElement(By.id(nextButtonPass_ID)).click();
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load

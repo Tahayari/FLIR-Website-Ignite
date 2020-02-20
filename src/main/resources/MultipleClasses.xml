@@ -3,7 +3,13 @@
     <listeners>
         <listener class-name="utils.AnnotationTransformer"/>
     </listeners>
-    <test name="FLIR Tools Test case" >
+
+    <test name="Tools Web smoke test" >
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
         <classes>
             <class name="testCases.LoginPageTest"></class>
             <class name="testCases.SignUpPageTest"></class>

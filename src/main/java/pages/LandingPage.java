@@ -30,11 +30,11 @@ public class LandingPage extends TestBase {
 
 
     //-----------GETTERS
-    public WebElement getLogin_BTN() {
+    public WebElement login_BTN() {
         return login_BTN;
     }
 
-    public WebElement getSignup_BTN() {
+    public WebElement signup_BTN() {
         return signup_BTN;
     }
     //-----------

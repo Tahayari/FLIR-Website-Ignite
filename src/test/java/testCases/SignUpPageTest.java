@@ -44,12 +44,12 @@ public class SignUpPageTest extends TestBase {
     public void goToSignUpPage() {
 
         try {
-            testUtil.waitForElementToLoad(driver, landingPage.getSignup_BTN());
+            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
         }
         catch(Exception e){
             System.out.println("------------Page timed out. Refreshing...");
             driver.navigate().refresh();
-            testUtil.waitForElementToLoad(driver, landingPage.getSignup_BTN());
+            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
         }
 
         Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
@@ -77,7 +77,7 @@ public class SignUpPageTest extends TestBase {
         return TestUtil.getTestaData(sheetName);
     }
 
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"},enabled = true)
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"},enabled = false)
     public void registerNewAccount_Test(String email, String password, String firstName, String lastName) {
 
         extentTest = extent.createTest("SIGNUP PAGE - registerNewAccount_Test");
@@ -507,7 +507,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Error message is no longer displayed if a valid password is entered");
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void mismatchingPasswords_Test() {
         String email = "flirautomationtest@gmail.com";
         String pass1 = "PASSWORD123!";
@@ -612,7 +612,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "No country was selected error message is displayed");
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void noConsent_Test() {
         String email = "flirautomationtest@gmail.com";
         String pass = "PASSWORD123!";
@@ -814,7 +814,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
 
         signUpPage.cancel_BTN().click();
-        testUtil.waitForElementToLoad(driver, landingPage.getLogin_BTN());
+        testUtil.waitForElementToLoad(driver, landingPage.login_BTN());
         extentTestChild.log(Status.PASS, "Clicked and the Cancel button and was redirected to Landing page");
     }
 

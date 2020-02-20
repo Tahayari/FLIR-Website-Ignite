@@ -87,15 +87,16 @@ public class TestBase {
         htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
-        extent.setSystemInfo("Host Name", "Dan's Laptop");
-        extent.setSystemInfo("User Name", "Dan Hosman");
-        extent.setSystemInfo("Environment", "DEV");
-        extent.setSystemInfo("Browser", prop.getProperty("browser"));
+        extent.setSystemInfo("Operating system name", System.getProperty("os.name"));
+        extent.setSystemInfo("OS architecture", System.getProperty("os.arch").toUpperCase());
+        extent.setSystemInfo("Java version", System.getProperty("java.version"));
+        extent.setSystemInfo("User Name", System.getProperty("user.name"));
+        extent.setSystemInfo("Environment", prop.getProperty("url"));
+        extent.setSystemInfo("Browser used", prop.getProperty("browser").toUpperCase());
     }
 
     protected static void chromeSetup() {
         WebDriverManager.chromedriver().setup();
-//        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\src\\main\\java\\drivers\\Chrome\\80\\chromedriver.exe");
 //        set userAgent for headless mode
         String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
 
@@ -163,7 +164,7 @@ public class TestBase {
             extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
         }
 
-        driver.close();
+//        driver.close();
         driver.quit();
         //remove background processes; TODO: investigate if this is an optimal approach
         if (prop.getProperty("browser").toLowerCase().equals("firefox"))

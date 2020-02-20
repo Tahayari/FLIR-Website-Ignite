@@ -19,19 +19,19 @@ public class LoginPage extends TestBase {
     //-------Locators-------
     @FindBy(id = emailField_ID)
     @CacheLookup
-    public WebElement email_field;
+    private WebElement email_field;
     @FindBy(id = passField_ID)
     @CacheLookup
-    public WebElement pass_field;
+    private WebElement pass_field;
     @FindBy(id = signInBTN_ID)
     @CacheLookup
-    public WebElement signIn_BTN;
+    private WebElement signIn_BTN;
     @FindBy(id = signUpLink_ID)
     @CacheLookup
-    private WebElement signUpLink;
+    private WebElement signUp_link;
     @FindBy(id = forgotPasswordLink_ID)
     @CacheLookup
-    private WebElement forgotPasswordLink;
+    private WebElement forgotPass_link;
     //--------------
 
 
@@ -43,6 +43,25 @@ public class LoginPage extends TestBase {
 
 
     //-----------GETTERS
+    public WebElement email_field(){
+        return email_field;
+    }
+
+    public WebElement pass_field(){
+        return pass_field;
+    }
+
+    public WebElement signIn_BTN(){
+        return signIn_BTN;
+    }
+
+    public WebElement signUp_link(){
+        return signUp_link;
+    }
+
+    public WebElement forgotPass_link(){
+        return forgotPass_link;
+    }
     //-----------
 
 
@@ -56,12 +75,12 @@ public class LoginPage extends TestBase {
     }
 
     public SignUpPage signUpLink_click() {
-        signUpLink.click();
+        signUp_link.click();
         return new SignUpPage();
     }
 
     public RecoverPasswordPage forgotPasswordLink_click() {
-        forgotPasswordLink.click();
+        forgotPass_link.click();
         return new RecoverPasswordPage();
     }
 
