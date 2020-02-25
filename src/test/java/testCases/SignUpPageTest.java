@@ -212,7 +212,6 @@ public class SignUpPageTest extends TestBase {
 
     @Test(enabled = false)
     public void expiredToken_Test() {
-        String email = "flirautomationtest@gmail.com";
         String error_msg = "That code is expired. Please request a new code.";
         int waitTime = 5; // Number of MINUTES until the token expires
 
@@ -223,8 +222,8 @@ public class SignUpPageTest extends TestBase {
         testUtil.getTokenFromGmail(true);
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        signUpPage.setEmailAddress(prop.getProperty("gmail"));
+        extentTestChild.log(Status.PASS, "Entered an email address: "+prop.getProperty("gmail"));
 
         signUpPage.sendVerCode_BTN().click();
         testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
@@ -271,6 +270,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
         for(int i=0;i<retry;i++) {
+            testUtil.waitForElementToLoad(driver,signUpPage.verifyCode_BTN());
             signUpPage.verificationCode_field().clear();
             signUpPage.setVerificationCode_field("12345");
             signUpPage.verifyCode_BTN().click();

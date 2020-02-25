@@ -15,6 +15,7 @@ public class RecoverPasswordPage extends TestBase {
     private final String changeEmailBTN_ID = "email_ver_but_edit";
     private final String continueBTN_ID = "continue";
     private final String cancelBTN_ID = "cancel";
+    private final String incorrectVerificationCode_ID = "email_fail_retry";
     //--------------
 
     //-------Locators-------
@@ -34,6 +35,8 @@ public class RecoverPasswordPage extends TestBase {
     private WebElement continue_BTN;
     @FindBy(id = cancelBTN_ID)
     private WebElement cancel_BTN;
+    @FindBy(id = incorrectVerificationCode_ID)
+    private WebElement incorrectVerCode;
     //--------------
 
     //Constructor
@@ -43,12 +46,24 @@ public class RecoverPasswordPage extends TestBase {
     //-----------
 
     //-----------GETTERS
-    public WebElement getEmail_field() {
+    public WebElement email_field() {
         return email_field;
     }
+    public WebElement sendVerCode_BTN() {return sendVerCode_BTN;}
+    public WebElement verificationCode_field() {return verificationCode_field;}
+    public WebElement verifyCode_BTN() {return verifyCode_BTN;}
+    public WebElement sendNewCode_BTN() {return sendNewCode_BTN;}
+    public WebElement changeEmail_BTN() {return changeEmail_BTN;}
+    public WebElement continue_BTN() {return continue_BTN;}
+    public WebElement cancel_BTN()  {return cancel_BTN;}
+    public WebElement incorrectVerCode_err() {return incorrectVerCode;}
+
     //--------------
 
     //-----------SETTERS
+    public void setVerificationCode_field(String text) {
+        verificationCode_field.sendKeys(text);
+    }
     //--------------
 
     //Actions
