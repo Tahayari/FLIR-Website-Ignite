@@ -74,12 +74,12 @@ public class LoginPage extends TestBase {
         return driver.getTitle();
     }
 
-    public SignUpPage signUpLink_click() {
+    public SignUpPage clickOn_signUpLink() {
         signUp_link.click();
         return new SignUpPage();
     }
 
-    public RecoverPasswordPage forgotPasswordLink_click() {
+    public RecoverPasswordPage clickOn_forgotPasswordLink() {
         forgotPass_link.click();
         return new RecoverPasswordPage();
     }

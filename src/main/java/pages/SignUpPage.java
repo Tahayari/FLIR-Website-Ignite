@@ -95,9 +95,7 @@ public class SignUpPage extends TestBase {
 
 
     //-----------GETTERS
-    public WebElement email_field() {
-        return emailaddress_field;
-    }
+    public WebElement email_field() { return emailaddress_field; }
 
     public WebElement verificationCode_field() {
         return verificationCode_field;

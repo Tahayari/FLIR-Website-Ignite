@@ -22,23 +22,23 @@ public class TestUtil extends TestBase {
     public static long PAGE_LOAD_TIMEOUT = 20;
     public static long IMPLICIT_WAIT = 10;
     public static long WAIT_FOR_ELEMENT_TIMEOUT = 15;
-    public static String EXCEL_FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\Accounts.xlsx";
+    public static String EXCEL_FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\";
     static Workbook book;
     static Sheet sheet;
 
     public void waitForElementToLoad(WebDriver driver, WebElement element) {
-        try{
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-        wait.until(ExpectedConditions.visibilityOf(element));}
-        catch(Exception e){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Object[][] getTestaData(String sheetName) {
+    public static Object[][] getTestaData(String filename, String sheetName) {
         FileInputStream file = null;
         try {
-            file = new FileInputStream(EXCEL_FILE_PATH);
+            file = new FileInputStream(EXCEL_FILE_PATH + "\\" + filename + ".xlsx");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -67,8 +67,8 @@ public class TestUtil extends TestBase {
 
         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName +"_"
-                            +current_time_str+ "_"+".jpeg";
+        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName + "_"
+                + current_time_str + "_" + ".jpeg";
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);
         return destination;
@@ -96,7 +96,7 @@ public class TestUtil extends TestBase {
         driver.switchTo().window(tabs.get(1));
         driver.get(URL);
 
-        if(firstLogin) {
+        if (firstLogin) {
             driver.findElement(By.id(email_ID)).sendKeys(user);
             wait.until(ExpectedConditions.elementToBeClickable(By.id(nextButton_ID)));
             driver.findElement(By.id(nextButton_ID)).click();
@@ -112,7 +112,7 @@ public class TestUtil extends TestBase {
 
         int noInitialMails = driver.findElements(By.xpath(allEmails_XPATH)).size();
 
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(allEmails_XPATH),noInitialMails));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(allEmails_XPATH), noInitialMails));
 
         driver.findElements(By.xpath(allEmails_XPATH)).get(2).click();
 
@@ -141,7 +141,7 @@ public class TestUtil extends TestBase {
 
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_EMAIL_TIMEOUT);
 
-        if(firstLogin) {
+        if (firstLogin) {
             ((JavascriptExecutor) driver).executeScript(a);
             ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(1));
@@ -158,7 +158,7 @@ public class TestUtil extends TestBase {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
 
             //delete any existing email
-            if ( driver.findElements(By.xpath(email_XPATH)).size() > 0 ) {
+            if (driver.findElements(By.xpath(email_XPATH)).size() > 0) {
                 driver.findElements(By.xpath(email_XPATH)).get(0).click(); //click on the existing email
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailBody_XPATH))); // wait for the email body to load
                 driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click(); // delete the email
@@ -174,16 +174,14 @@ public class TestUtil extends TestBase {
         driver.switchTo().window(tabs.get(1));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
 
-        try{
-            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0)); //wait until gmail has received 1 email
-        }
-        catch(Exception e){
+        try {
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0)); //wait until gmail has received 1 email
+        } catch (Exception e) {
             System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
-            try{
+            try {
                 driver.navigate().refresh();
-                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH),0)); //wait until gmail has received 1 email
-            }
-            catch (TimeoutException te) {
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0)); //wait until gmail has received 1 email
+            } catch (TimeoutException te) {
                 System.out.println("----Timeout error. Email did not arrive in the allotted time");
                 te.printStackTrace();
                 throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
@@ -199,7 +197,7 @@ public class TestUtil extends TestBase {
 
         driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
 
-        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH),0));
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
 
         driver.switchTo().window(tabs.get(0));
 
@@ -258,5 +256,104 @@ public class TestUtil extends TestBase {
         driver.switchTo().window(tabs.get(0));
         return token;
     }
+
+    public void prepareGmail() {
+        navigateToGmail();
+
+        enterGmailCredentials();
+
+        deleteExistingMail();
+
+        navigateToPreviousTab();
+    }
+
+    public String getTokenFromGmail() {
+        String token;
+        String email_XPATH = "//span[@class='bog']";
+        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
+
+        navigateToNextTab();
+
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        try {
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
+        } catch (Exception e) {
+            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
+            try {
+                driver.navigate().refresh();
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
+            } catch (TimeoutException te) {
+                System.out.println("----Timeout error. Email did not arrive in the allotted time");
+                te.printStackTrace();
+                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
+            }
+        }
+
+        driver.findElements(By.xpath(email_XPATH)).get(0).click();
+        waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
+
+        String emailBodyText = driver.findElement(By.xpath(emailBody_XPATH)).getText();
+        token = emailBodyText.substring(14);
+
+        deleteExistingMail();
+
+        navigateToPreviousTab();
+        return token;
+    }
+
+    public void navigateToGmail() {
+        String a = "window.open('','_blank');";
+        String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
+
+        ((JavascriptExecutor) driver).executeScript(a);
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.get(URL);
+    }
+
+    public void navigateToPreviousTab() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(0));
+    }
+
+    public void navigateToNextTab() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+    }
+
+    public void enterGmailCredentials() {
+        String email = prop.getProperty("gmail");
+        String pass = prop.getProperty("password");
+        String email_ID = "identifierId";
+        String nextButtonEmail_ID = "identifierNext";
+        String passwordField_XPATH = "//input[@name='password']";
+        String nextButtonPass_ID = "passwordNext";
+        String avatar_XPATH = "//span[@class='gb_Ia gbii']";
+
+
+        waitForElementToBeClickable(driver.findElement(By.id(email_ID)));
+        driver.findElement(By.id(email_ID)).sendKeys(email);
+        driver.findElement(By.id(nextButtonEmail_ID)).click();
+
+        waitForElementToBeClickable(driver.findElement(By.xpath(passwordField_XPATH)));
+        driver.findElement(By.xpath(passwordField_XPATH)).sendKeys(pass);
+        driver.findElement(By.id(nextButtonPass_ID)).click();
+
+        waitForElementToLoad(driver.findElement(By.xpath(avatar_XPATH)));
+    }
+
+    public void deleteExistingMail() {
+        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
+        String email_XPATH = "//span[@class='bog']";
+        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
+
+        if (driver.findElements(By.xpath(email_XPATH)).size() > 0) {
+            driver.findElements(By.xpath(email_XPATH)).get(0).click();
+            waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
+            driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
+            //TODO : maybe wait until the email is deleted ?
+        }
+    }
+
 
 }

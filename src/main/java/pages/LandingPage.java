@@ -49,12 +49,12 @@ public class LandingPage extends TestBase {
         return driver.getTitle();
     }
 
-    public LoginPage login_btn_click() {
+    public LoginPage clickOn_loginBTN() {
         login_BTN.click();
         return new LoginPage();
     }
 
-    public SignUpPage signUp_btn_click() {
+    public SignUpPage clickOn_signUpBTN() {
         signup_BTN.click();
         return new SignUpPage();
     }

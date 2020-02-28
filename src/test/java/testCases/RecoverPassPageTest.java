@@ -9,16 +9,17 @@ import org.testng.annotations.Test;
 import pages.LandingPage;
 import pages.LoginPage;
 import pages.RecoverPasswordPage;
-import utils.TestUtil;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static utils.TestUtil.getTestaData;
 
 public class RecoverPassPageTest extends TestBase {
     private LandingPage landingPage;
     private LoginPage loginPage;
     private RecoverPasswordPage recoverPasswordPage;
-    private TestUtil testUtil;
+    private String sheetName = "Sheet1";
+    private String fileName = "InvalidEmails";
 
     public RecoverPassPageTest() {
         super();
@@ -29,11 +30,22 @@ public class RecoverPassPageTest extends TestBase {
         initialization();
         landingPage = new LandingPage();
         recoverPasswordPage = new RecoverPasswordPage();
-        testUtil = new TestUtil();
     }
 
+    public void verifyInvalidEmails(Object[][] invalidEmailsList){
+        String error_msg = "Please enter a valid email address.";
 
-    public void goToRecoverPassPage() {
+        for (Object[] objects : invalidEmailsList) {
+            recoverPasswordPage.email_field().clear();
+            recoverPasswordPage.setInvalidEmail(objects[0].toString());
+            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
+            waitForElementToLoad(recoverPasswordPage.invalidEmailErrorMsg());
+            checkIfCorrectErrMsg(recoverPasswordPage.invalidEmailErrorMsg(), error_msg);
+            addTestCaseStep("Error message is displayed: " + error_msg);
+        }
+    }
+
+    public void loadLandingPage(){
         try {
             testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
         } catch (Exception e) {
@@ -41,146 +53,114 @@ public class RecoverPassPageTest extends TestBase {
             driver.navigate().refresh();
             testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
         }
-
-        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
-
-        loginPage = landingPage.login_btn_click();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
-
-        testUtil.waitForElementToLoad(driver, loginPage.forgotPass_link());
-        recoverPasswordPage = loginPage.forgotPasswordLink_click();
-        extentTestChild.log(Status.PASS, "Clicked on Forgot your password link");
-
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.email_field());
-        extentTestChild.log(Status.PASS, "Navigated to Recover Pass Page");
     }
 
+    public void goToRecoverPassPage() {
+
+        loadLandingPage();
+        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
+        addTestCaseStep("Navigated to Landing page");
+
+        loginPage = landingPage.clickOn_loginBTN();
+        waitForElementToLoad(loginPage.signIn_BTN());
+        addTestCaseStep("Navigated to Login page");
+
+        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
+        waitForElementToLoad(recoverPasswordPage.email_field());
+        addTestCaseStep("Clicked on Forgot your password link");
+
+        Assert.assertEquals(recoverPasswordPage.getPageTitle(),"FLIR Reset Password");
+        addTestCaseStep("Navigated to Recover Pass Page");
+    }
+
+    //-------Test Cases-------
     @Test
     public void title_Test() {
-        extentTest = extent.createTest("RECOVER PASS PAGE - title_Test");
-        extentTestChild = extentTest.createNode("Verify the page title");
+        String testCaseTitle = "RECOVER PASS PAGE - title_Test";
+        String testCaseDescription = "Verify the page title";
 
+        createTestCase(testCaseTitle,testCaseDescription);
         goToRecoverPassPage();
+
         Assert.assertEquals(recoverPasswordPage.getPageTitle(), "FLIR Reset Password");
-        extentTestChild.log(Status.PASS, "Page title is: " + recoverPasswordPage.getPageTitle());
-    }
-
-    @Test
-    public void blankEmail_Test() {
-        String error_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
-        String error_msg = "Please enter a valid email address.";
-
-        extentTest = extent.createTest("RECOVER PASS PAGE - blankEmail_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when email address field is left blank");
-
-        goToRecoverPassPage();
-
-        recoverPasswordPage.email_field().clear();
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: " + error_msg);
+        addTestCaseStep("Page title is: " + recoverPasswordPage.getPageTitle());
     }
 
     @Test
     public void invalidEmail_Test(){
-        String error_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
-        String error_msg = "Please enter a valid email address.";
-        String invalidMail = "test@";
+        String testCaseTitle = "RECOVER PASS PAGE - invalidEmail_Test";
+        String testCaseDescription = "Error message is displayed after entering an invalid email";
+        Object[][] invalidEmailsList = getTestaData(fileName,sheetName);
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - invalidEmail_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when email address field is left blank");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
 
-        recoverPasswordPage.email_field().sendKeys(invalidMail);
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: " + error_msg);
+        verifyInvalidEmails(invalidEmailsList);
     }
 
     @Test
     public void blankToken_Test(){
-        String error_ID = "email_fail_retry";
+        String testCaseTitle = "RECOVER PASS PAGE - blankToken_Test";
+        String testCaseDescription = "Error message is displayed when the verification code field is left blank";
         String error_msg = "That code is incorrect. Please try again.";
+        String email = "someEmailForTesting@test.com" ;
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - blankToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when the verification code field is left blank");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
 
-        recoverPasswordPage.email_field().sendKeys(prop.getProperty("gmail"));
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        Assert.assertTrue(recoverPasswordPage.verifyCode_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS,"Entered email: "+prop.getProperty("gmail")+" and clicked on Send Verification code button");
+        recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.verificationCode_field().clear();
-        recoverPasswordPage.verifyCode_BTN().click();
-        extentTestChild.log(Status.PASS,"Left the Verification code blank and clicked on the Verify code");
+        recoverPasswordPage.sendInvalidToken("");
 
-        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
-        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
+        Assert.assertEquals(recoverPasswordPage.incorrectVerCode_err().getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
     }
 
     @Test
     public void invalidToken_Test(){
-        String error_ID = "email_fail_retry";
+        String testCaseTitle = "RECOVER PASS PAGE - invalidToken_Test";
+        String testCaseDescription = "Error message is displayed when the user enters an invalid/incorrect token";
         String error_msg = "That code is incorrect. Please try again.";
-        String invalidToken = "123456";
-        String email = "throwAwayEmail@mailinator.com";
+        String invalidToken = "000000";
+        String email = "someEmailForTesting@test.com" ;
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - invalidToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when the user enters an invalid/incorrect token");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
 
-        recoverPasswordPage.email_field().sendKeys(email);
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        Assert.assertTrue(recoverPasswordPage.verifyCode_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS,"Entered email: "+email+" and clicked on Send Verification code button");
+        recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.setVerificationCode_field(invalidToken);
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
-        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
+        recoverPasswordPage.sendInvalidToken(invalidToken);
+
+        Assert.assertEquals(recoverPasswordPage.incorrectVerCode_err().getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
     }
 
     @Test
     public void expiredToken_Test(){
-        String error_ID = "email_fail_code_expired";
+        String testCaseTitle = "RECOVER PASS PAGE - expiredToken_Test";
+        String testCaseDescription = "Error message is displayed when the user enters an expired token";
         String error_msg = "That code is expired. Please request a new code.";
-        int waitTime = 5; // Number of MINUTES until the token expires
+        String email = prop.getProperty("gmail") ;
+        int minutesToWait = 5; // Number of MINUTES until the token expires
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - expiredToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when the user enters an expired token");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.prepareGmail();
 
-        recoverPasswordPage.email_field().sendKeys(prop.getProperty("gmail"));
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        Assert.assertTrue(recoverPasswordPage.verifyCode_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS,"Entered email: "+prop.getProperty("gmail")+" and clicked on Send Verification code button");
+//        recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
-        try {
-            Thread.sleep(waitTime * 60 * 1000); // wait for waitTime minutes + 10 seconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        extentTestChild.log(Status.PASS,"Entered the code received via email and waited for the Verification code to expire");
+//        recoverPasswordPage.waitForTokenToExpire(minutesToWait);
 
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
-        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
+//        recoverPasswordPage.enterTokenFromEmail();
+
+//        recoverPasswordPage.verifyCode_BTN().click();
+//        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
+//        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
+//        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
     }
 
     @Test
@@ -294,7 +274,6 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void cancelRecoverPass_Test() {
-
         extentTest = extent.createTest("RECOVER PASS PAGE - cancelRecoverPass_Test");
         extentTestChild = extentTest.createNode("Clicking on the Cancel button redirects the user to the index page");
 

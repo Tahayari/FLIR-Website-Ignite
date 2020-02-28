@@ -41,7 +41,7 @@ public class LoginPageTest extends TestBase {
         Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Navigated to Landing page");
 
-        loginPage = landingPage.login_btn_click();
+        loginPage = landingPage.clickOn_loginBTN();
         extentTestChild.log(Status.PASS, "Navigated to Login page");
     }
 
@@ -187,7 +187,7 @@ public class LoginPageTest extends TestBase {
 
         goToLoginPage();
 
-        SignUpPage signUpPage = loginPage.signUpLink_click();
+        SignUpPage signUpPage = loginPage.clickOn_signUpLink();
         extentTestChild.log(Status.PASS, "Clicked on the Sign Up button");
 
         testUtil.waitForElementToLoad(driver, signUpPage.create_BTN());
@@ -202,7 +202,7 @@ public class LoginPageTest extends TestBase {
 
         goToLoginPage();
 
-        recoverPasswordPage = loginPage.forgotPasswordLink_click();
+        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
         extentTestChild.log(Status.PASS, "Clicked on Forgot your password link");
 
         testUtil.waitForElementToLoad(driver, recoverPasswordPage.email_field());

@@ -23,8 +23,8 @@ public class SignUpPageTest extends TestBase {
     private LandingPage landingPage;
     private TestUtil testUtil;
     private SignUpPage signUpPage;
-
-    String sheetName = "Sheet1";
+    private String sheetName = "Sheet1";
+    private String fileName = "Accounts";
 
     public SignUpPageTest() {
         super();
@@ -55,7 +55,7 @@ public class SignUpPageTest extends TestBase {
         Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
         extentTestChild.log(Status.PASS, "Navigated to Landing page");
 
-        signUpPage = landingPage.signUp_btn_click();
+        signUpPage = landingPage.clickOn_signUpBTN();
         testUtil.waitForElementToLoad(driver, signUpPage.create_BTN());
         extentTestChild.log(Status.PASS, "Clicked on the SIGN UP button");
     }
@@ -74,7 +74,7 @@ public class SignUpPageTest extends TestBase {
 
     @DataProvider
     public Object[][] getTestData() {
-        return TestUtil.getTestaData(sheetName);
+        return TestUtil.getTestaData(fileName,sheetName);
     }
 
     @Test(dataProvider = "getTestData", groups = {"smoke", "regression"},enabled = false)

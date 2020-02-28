@@ -9,6 +9,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -16,6 +17,9 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -28,6 +32,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import static utils.TestUtil.WAIT_FOR_ELEMENT_TIMEOUT;
+
 public class TestBase {
 
     public static WebDriver driver;
@@ -35,6 +41,7 @@ public class TestBase {
     public static ExtentReports extent;
     public static ExtentTest extentTest;
     public static ExtentTest extentTestChild;
+    public static TestUtil testUtil = new TestUtil();
 
     protected TestBase() {
 
@@ -146,6 +153,36 @@ public class TestBase {
         options.setCapability("InPrivate", true);
         driver = new EdgeDriver(options);
         driver.manage().window().maximize();
+    }
+
+    protected void addTestCaseStep(String testCaseStep){
+        extentTestChild.log(Status.PASS, testCaseStep);
+    }
+
+    protected void createTestCaseDescription(String testCaseDescription){
+        extentTestChild = extentTest.createNode(testCaseDescription);
+    }
+
+    protected void createTestCaseTitle(String testCaseTitle){
+        extentTest = extent.createTest(testCaseTitle);
+    }
+
+    protected void createTestCase(String testCaseTitle,String testCaseDescription){
+        createTestCaseTitle(testCaseTitle);
+        createTestCaseDescription(testCaseDescription);
+    }
+
+    public void waitForElementToLoad(WebElement webElementToWaitFor){
+        testUtil.waitForElementToLoad(driver,webElementToWaitFor);
+    }
+
+    public void waitForElementToBeClickable(WebElement webElement){
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public void checkIfCorrectErrMsg(WebElement element, String error_msg){
+        Assert.assertEquals(element.getText(),error_msg);
     }
 
     @AfterMethod(alwaysRun = true)
