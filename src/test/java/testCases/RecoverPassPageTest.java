@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import pages.LandingPage;
 import pages.LoginPage;
 import pages.RecoverPasswordPage;
+import utils.TestUtil;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -18,6 +19,7 @@ public class RecoverPassPageTest extends TestBase {
     private LandingPage landingPage;
     private LoginPage loginPage;
     private RecoverPasswordPage recoverPasswordPage;
+    private TestUtil testUtil;
     private String sheetName = "Sheet1";
     private String fileName = "InvalidEmails";
 
@@ -30,6 +32,7 @@ public class RecoverPassPageTest extends TestBase {
         initialization();
         landingPage = new LandingPage();
         recoverPasswordPage = new RecoverPasswordPage();
+        testUtil = new TestUtil();
     }
 
     public void verifyInvalidEmails(Object[][] invalidEmailsList){
@@ -39,7 +42,7 @@ public class RecoverPassPageTest extends TestBase {
             recoverPasswordPage.email_field().clear();
             recoverPasswordPage.setInvalidEmail(objects[0].toString());
             addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
-            waitForElementToLoad(recoverPasswordPage.invalidEmailErrorMsg());
+            testUtil.waitForElementToLoad(recoverPasswordPage.invalidEmailErrorMsg());
             checkIfCorrectErrMsg(recoverPasswordPage.invalidEmailErrorMsg(), error_msg);
             addTestCaseStep("Error message is displayed: " + error_msg);
         }
@@ -62,11 +65,11 @@ public class RecoverPassPageTest extends TestBase {
         addTestCaseStep("Navigated to Landing page");
 
         loginPage = landingPage.clickOn_loginBTN();
-        waitForElementToLoad(loginPage.signIn_BTN());
+        testUtil.waitForElementToLoad(loginPage.signIn_BTN());
         addTestCaseStep("Navigated to Login page");
 
         recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
-        waitForElementToLoad(recoverPasswordPage.email_field());
+        testUtil.waitForElementToLoad(recoverPasswordPage.email_field());
         addTestCaseStep("Clicked on Forgot your password link");
 
         Assert.assertEquals(recoverPasswordPage.getPageTitle(),"FLIR Reset Password");
@@ -157,13 +160,13 @@ public class RecoverPassPageTest extends TestBase {
         recoverPasswordPage.waitForTokenToExpire(minutesToWait);
 
         recoverPasswordPage.enterTokenFromEmail();
-        waitForElementToLoad(recoverPasswordPage.expiredVerCode());
+        testUtil.waitForElementToLoad(recoverPasswordPage.expiredVerCode());
         Assert.assertEquals(recoverPasswordPage.expiredVerCode().getText(),error_msg);
         addTestCaseStep("Error message is displayed: "+error_msg);
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void tooManyIncorrectAttemptsToken_Test(){
         String error_ID = "email_fail_no_retry";
         String error_msg = "You've made too many incorrect attempts. Please try again later.";
@@ -194,7 +197,7 @@ public class RecoverPassPageTest extends TestBase {
         extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
     }
 
-    @Test
+    @Test(enabled = false)
     public void sendNewCode_Test() {
         String error_msg = "That code is incorrect. Please try again.";
 
@@ -241,7 +244,7 @@ public class RecoverPassPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
     }
 
-    @Test
+    @Test(enabled = false)
     public void resendEmail_Test() {
 
         extentTest = extent.createTest("RECOVER PASS PAGE - resendEmail_Test");
@@ -272,7 +275,7 @@ public class RecoverPassPageTest extends TestBase {
         extentTestChild.log(Status.PASS, "Clicked on he Change e-mail button. Email field is now empty");
     }
 
-    @Test
+    @Test(enabled = false)
     public void cancelRecoverPass_Test() {
         extentTest = extent.createTest("RECOVER PASS PAGE - cancelRecoverPass_Test");
         extentTestChild = extentTest.createNode("Clicking on the Cancel button redirects the user to the index page");

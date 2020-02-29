@@ -41,7 +41,6 @@ public class TestBase {
     public static ExtentReports extent;
     public static ExtentTest extentTest;
     public static ExtentTest extentTestChild;
-    public static TestUtil testUtil = new TestUtil();
 
     protected TestBase() {
 
@@ -170,10 +169,6 @@ public class TestBase {
     protected void createTestCase(String testCaseTitle,String testCaseDescription){
         createTestCaseTitle(testCaseTitle);
         createTestCaseDescription(testCaseDescription);
-    }
-
-    public void waitForElementToLoad(WebElement webElementToWaitFor){
-        testUtil.waitForElementToLoad(driver,webElementToWaitFor);
     }
 
     public void waitForElementToBeClickable(WebElement webElement){

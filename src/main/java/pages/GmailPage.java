@@ -107,15 +107,15 @@ public class GmailPage extends TestBase {
         return listOfReceivedEmails.size();
     }
 
-    public void clickOn_firstEmail() {
-        listOfReceivedEmails.get(0).click();
-        waitForElementToLoad(emailBody);
-    }
+//    public void clickOn_firstEmail() {
+//        listOfReceivedEmails.get(0).click();
+//        waitForElementToLoad(emailBody);
+//    }
 
-    public void clickOn_deleteEmailBTN() {
-        deleteEmail_BTN.click();
-        waitForElementToLoad(avatar);
-    }
+//    public void clickOn_deleteEmailBTN() {
+//        deleteEmail_BTN.click();
+//        waitForElementToLoad(avatar);
+//    }
 
     public void waitForEmailToArrive() {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
@@ -134,10 +134,10 @@ public class GmailPage extends TestBase {
         }
     }
 
-    public String getTokenFromEmailBody(){
-        waitForElementToLoad(getEmailBody());
-        String emailBodyText = getEmailBody().getText();
-        return emailBodyText.substring(14);
-    }
+//    public String getTokenFromEmailBody(){
+//        waitForElementToLoad(getEmailBody());
+//        String emailBodyText = getEmailBody().getText();
+//        return emailBodyText.substring(14);
+//    }
 
 }

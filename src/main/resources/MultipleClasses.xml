@@ -5,14 +5,14 @@
     </listeners>
 
     <test name="Tools Web smoke test" >
-        <groups>
-            <run>
-                <include name="smoke"/>
-            </run>
-        </groups>
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="smoke"/>-->
+<!--            </run>-->
+<!--        </groups>-->
         <classes>
-            <class name="testCases.LoginPageTest"></class>
-            <class name="testCases.SignUpPageTest"></class>
+            <class name="testCases.RecoverPassPageTest"></class>
+<!--            <class name="testCases.SignUpPageTest"></class>-->
         </classes>
     </test>
 </suite>

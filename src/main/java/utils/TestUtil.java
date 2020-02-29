@@ -35,6 +35,10 @@ public class TestUtil extends TestBase {
         }
     }
 
+    public void waitForElementToLoad(WebElement webElementToWaitFor){
+        waitForElementToLoad(driver,webElementToWaitFor);
+    }
+
     public static Object[][] getTestaData(String filename, String sheetName) {
         FileInputStream file = null;
         try {

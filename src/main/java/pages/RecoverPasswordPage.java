@@ -4,9 +4,10 @@ import base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.TestUtil;
 
 public class RecoverPasswordPage extends TestBase {
-
+    private TestUtil testUtil;
     //-------PATHS-------
 
     //---Input fields
@@ -55,6 +56,7 @@ public class RecoverPasswordPage extends TestBase {
     //Constructor
     public RecoverPasswordPage() {
         PageFactory.initElements(driver, this);
+        testUtil = new TestUtil();
     }
     //-----------
 
@@ -127,7 +129,7 @@ public class RecoverPasswordPage extends TestBase {
         email_field.click();
         email_field.sendKeys(email);
         sendVerCode_BTN.click();
-        waitForElementToLoad(verifyCode_BTN);
+        testUtil.waitForElementToLoad(verifyCode_BTN);
         addTestCaseStep("Entered email: "+email+" and clicked on Send Verification code button");
     }
 
@@ -136,7 +138,7 @@ public class RecoverPasswordPage extends TestBase {
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
         addTestCaseStep("Entered the following token: "+invalidToken+" and clicked on the Verify code");
-        waitForElementToLoad(incorrectVerCode);
+        testUtil.waitForElementToLoad(incorrectVerCode);
     }
 
     public void waitForTokenToExpire(int minutesToWait){
@@ -155,7 +157,7 @@ public class RecoverPasswordPage extends TestBase {
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
         addTestCaseStep("Entered the following token: "+token+" and clicked on the Verify code");
-        waitForElementToLoad(changeEmail_BTN);
+        testUtil.waitForElementToLoad(changeEmail_BTN);
     }
     //--------------
 
