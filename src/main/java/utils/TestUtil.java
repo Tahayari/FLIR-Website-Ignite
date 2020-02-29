@@ -257,6 +257,8 @@ public class TestUtil extends TestBase {
         return token;
     }
 
+    //----Gmail related functions
+
     public void prepareGmail() {
         navigateToGmail();
 
@@ -271,23 +273,11 @@ public class TestUtil extends TestBase {
         String token;
         String email_XPATH = "//span[@class='bog']";
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
+        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
 
         navigateToNextTab();
 
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-        try {
-            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
-        } catch (Exception e) {
-            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
-            try {
-                driver.navigate().refresh();
-                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
-            } catch (TimeoutException te) {
-                System.out.println("----Timeout error. Email did not arrive in the allotted time");
-                te.printStackTrace();
-                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
-            }
-        }
+        clickOnIncomingMail();
 
         driver.findElements(By.xpath(email_XPATH)).get(0).click();
         waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
@@ -295,7 +285,7 @@ public class TestUtil extends TestBase {
         String emailBodyText = driver.findElement(By.xpath(emailBody_XPATH)).getText();
         token = emailBodyText.substring(14);
 
-        deleteExistingMail();
+        driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
 
         navigateToPreviousTab();
         return token;
@@ -355,5 +345,23 @@ public class TestUtil extends TestBase {
         }
     }
 
+    public void clickOnIncomingMail(){
+        String email_XPATH = "//span[@class='bog']";
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        try {
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
+        } catch (Exception e) {
+            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
+            try {
+                driver.navigate().refresh();
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
+            } catch (TimeoutException te) {
+                System.out.println("----Timeout error. Email did not arrive in the allotted time");
+                te.printStackTrace();
+                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
+            }
+        }
+    }
+//----END of Gmail related functions
 
 }

@@ -47,11 +47,11 @@ public class RecoverPassPageTest extends TestBase {
 
     public void loadLandingPage(){
         try {
-            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
+            waitForElementToBeClickable(landingPage.signup_BTN());
         } catch (Exception e) {
             System.out.println("------------Page timed out. Refreshing...");
             driver.navigate().refresh();
-            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
+            waitForElementToBeClickable(landingPage.signup_BTN());
         }
     }
 
@@ -149,18 +149,18 @@ public class RecoverPassPageTest extends TestBase {
         createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
+
         testUtil.prepareGmail();
 
-//        recoverPasswordPage.sendTokenToEmail(email);
+        recoverPasswordPage.sendTokenToEmail(email);
 
-//        recoverPasswordPage.waitForTokenToExpire(minutesToWait);
+        recoverPasswordPage.waitForTokenToExpire(minutesToWait);
 
-//        recoverPasswordPage.enterTokenFromEmail();
+        recoverPasswordPage.enterTokenFromEmail();
+        waitForElementToLoad(recoverPasswordPage.expiredVerCode());
+        Assert.assertEquals(recoverPasswordPage.expiredVerCode().getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
 
-//        recoverPasswordPage.verifyCode_BTN().click();
-//        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
-//        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
-//        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
     }
 
     @Test

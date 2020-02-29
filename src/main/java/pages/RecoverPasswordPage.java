@@ -99,6 +99,8 @@ public class RecoverPasswordPage extends TestBase {
         return invalidEmailErrorMsg;
     }
 
+    public WebElement expiredVerCode(){return expiredVerCode;}
+
     //--------------
 
     //-----------SETTERS
@@ -144,7 +146,7 @@ public class RecoverPasswordPage extends TestBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        addTestCaseStep("Waited "+milisecToWait/60+" seconds for the Verification code to expire");
+        addTestCaseStep("Waited "+ milisecToWait/1000 +" seconds for the Verification code to expire");
     }
 
     public void enterTokenFromEmail(){
