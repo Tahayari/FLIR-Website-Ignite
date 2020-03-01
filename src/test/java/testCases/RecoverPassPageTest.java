@@ -166,144 +166,92 @@ public class RecoverPassPageTest extends TestBase {
 
     }
 
-    @Test(enabled = false)
+    @Test
     public void tooManyIncorrectAttemptsToken_Test(){
-        String error_ID = "email_fail_no_retry";
+        int timesToRetry = 3;
+        String testCaseTitle = "RECOVER PASS PAGE - tooManyIncorrectAttemptsToken_Test";
+        String testCaseDescription = "Error message is displayed if an incorrect token is submitted more than " +timesToRetry +" times";
         String error_msg = "You've made too many incorrect attempts. Please try again later.";
-        String invalidToken = "123456";
         String email = "throwAwayEmail@mailinator.com";
-        int retry = 3;
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - tooManyIncorrectAttemptsToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an incorrect token is submitted more than "+retry+" times");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
 
-        recoverPasswordPage.email_field().sendKeys(email);
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        Assert.assertTrue(recoverPasswordPage.verifyCode_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS,"Entered email: "+email+" and clicked on Send Verification code button");
+        recoverPasswordPage.sendTokenToEmail(email);
 
-        for(int i=0;i<retry;i++) {
-            testUtil.waitForElementToLoad(driver,recoverPasswordPage.verifyCode_BTN());
-            recoverPasswordPage.verificationCode_field().clear();
-            recoverPasswordPage.setVerificationCode_field(invalidToken);
-            recoverPasswordPage.verifyCode_BTN().click();
-        }
-        extentTestChild.log(Status.PASS, "Entered the wrong token "+retry+" times");
-        testUtil.waitForElementToLoad(driver,driver.findElement(By.id(error_ID)));
-        Assert.assertEquals(driver.findElement(By.id(error_ID)).getText(),error_msg);
-        extentTestChild.log(Status.PASS,"Error message is displayed: "+error_msg);
+        recoverPasswordPage.enterInvalidTokenMultipleTimes(timesToRetry) ;
+        addTestCaseStep("Entered the wrong token "+timesToRetry+" times");
+
+        testUtil.waitForElementToLoad(recoverPasswordPage.tooManyIncorrectAttemptsError());
+        Assert.assertEquals(recoverPasswordPage.tooManyIncorrectAttemptsError().getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
     }
 
-    @Test(enabled = false)
+    @Test
     public void sendNewCode_Test() {
-        String error_msg = "That code is incorrect. Please try again.";
+        String testCaseTitle = "RECOVER PASS PAGE - sendNewCode_Test";
+        String testCaseDescription = "Resend the token and validate the new one";
+        String email = prop.getProperty("gmail");
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - sendNewCode_Test");
-        extentTestChild = extentTest.createNode("Resend the token and validate the new one");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
-        testUtil.getTokenFromGmail(true);
 
-        recoverPasswordPage.email_field().sendKeys(prop.getProperty("gmail"));
-        extentTestChild.log(Status.PASS, "Entered an email address: "+prop.getProperty("gmail"));
+        testUtil.prepareGmail();
 
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on the Send Verification code button");
+        recoverPasswordPage.sendTokenToEmail(email);
+        String oldToken = testUtil.getTokenFromGmail();
+        addTestCaseStep("Saved the token received via email");
 
-        assertTrue(recoverPasswordPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+        recoverPasswordPage.generateAnotherToken();
 
-        recoverPasswordPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
-        String oldToken = recoverPasswordPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
-        extentTestChild.log(Status.PASS, "Saved the token received via email");
+        recoverPasswordPage.sendInvalidToken(oldToken);
+        addTestCaseStep("Entered the previous token and it no longer works");
 
-        testUtil.waitForElementToLoad(driver,recoverPasswordPage.sendNewCode_BTN());
-        recoverPasswordPage.sendNewCode_BTN().click();
-        String newToken = testUtil.getTokenFromGmail(false);
-        extentTestChild.log(Status.PASS, "Clicked on Send new code button");
-
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verificationCode_field());
-        Assert.assertEquals(recoverPasswordPage.verificationCode_field().getText(), "");
-        extentTestChild.log(Status.PASS, "New code was generated");
-
-        recoverPasswordPage.verificationCode_field().sendKeys(oldToken);
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.incorrectVerCode_err());
-        Assert.assertEquals(recoverPasswordPage.incorrectVerCode_err().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Entered the previous token and it no longer works");
-
-        recoverPasswordPage.verificationCode_field().clear();
-        recoverPasswordPage.setVerificationCode_field(newToken);
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.changeEmail_BTN());
-        assertTrue(recoverPasswordPage.changeEmail_BTN().isDisplayed());
+        recoverPasswordPage.enterTokenFromEmail();
         extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
     }
 
-    @Test(enabled = false)
+    @Test
     public void resendEmail_Test() {
+        String testCaseTitle = "RECOVER PASS PAGE - resendEmail_Test";
+        String testCaseDescription = "Change the email after validating the token";
+        String email = prop.getProperty("gmail");
 
-        extentTest = extent.createTest("RECOVER PASS PAGE - resendEmail_Test");
-        extentTestChild = extentTest.createNode("Change the email after validating the token");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.prepareGmail();
 
-        recoverPasswordPage.email_field().sendKeys(prop.getProperty("gmail"));
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
+        recoverPasswordPage.enterTokenFromEmail();
 
-        recoverPasswordPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.changeEmail_BTN());
-        assertTrue(recoverPasswordPage.changeEmail_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS, "Token was verified. Change e-mail button is displayed");
-
-        recoverPasswordPage.changeEmail_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.sendVerCode_BTN());
-        assertTrue(recoverPasswordPage.sendVerCode_BTN().isDisplayed());
-        assertTrue(recoverPasswordPage.sendVerCode_BTN().getAttribute("value").isEmpty());
-        extentTestChild.log(Status.PASS, "Clicked on he Change e-mail button. Email field is now empty");
+        recoverPasswordPage.clickOn_changeEmail_BTN();
     }
 
-    @Test(enabled = false)
+    @Test
     public void cancelRecoverPass_Test() {
-        extentTest = extent.createTest("RECOVER PASS PAGE - cancelRecoverPass_Test");
-        extentTestChild = extentTest.createNode("Clicking on the Cancel button redirects the user to the index page");
+        String testCaseTitle = "RECOVER PASS PAGE - cancelRecoverPass_Test";
+        String testCaseDescription = "Clicking on the Cancel button redirects the user to the index page";
+        String email = prop.getProperty("gmail");
+
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToRecoverPassPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.prepareGmail();
 
-        recoverPasswordPage.email_field().sendKeys(prop.getProperty("gmail"));
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
-
-        recoverPasswordPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        recoverPasswordPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.changeEmail_BTN());
-        assertTrue(recoverPasswordPage.changeEmail_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS, "Token was verified. Change e-mail button is displayed");
+        recoverPasswordPage.enterTokenFromEmail();
 
         recoverPasswordPage.cancel_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on the Cancel button");
+        addTestCaseStep("Clicked on the Cancel button");
 
-        testUtil.waitForElementToLoad(driver,landingPage.signup_BTN());
+        testUtil.waitForElementToLoad(landingPage.signup_BTN());
         assertEquals(landingPage.getPageTitle(),"FLIR Tools");
-        extentTestChild.log(Status.PASS, "Landing page is displayed");
+        addTestCaseStep("Landing page is displayed");
     }
 
 

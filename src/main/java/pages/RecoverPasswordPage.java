@@ -4,7 +4,10 @@ import base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import utils.TestUtil;
+
+import static org.testng.Assert.assertTrue;
 
 public class RecoverPasswordPage extends TestBase {
     private TestUtil testUtil;
@@ -24,8 +27,9 @@ public class RecoverPasswordPage extends TestBase {
 
     //---Errors
     private final String incorrectVerificationCode_ID = "email_fail_retry";
-    private final String expiredVerificationCode_ID ="email_fail_code_expired";
+    private final String expiredVerificationCode_ID = "email_fail_code_expiredemail_fail_no_retry";
     private final String invalidEmailError_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
+    private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
     //--------------
 
     //-------Locators-------
@@ -51,6 +55,8 @@ public class RecoverPasswordPage extends TestBase {
     private WebElement invalidEmailErrorMsg;
     @FindBy(id = expiredVerificationCode_ID)
     private WebElement expiredVerCode;
+    @FindBy(id = tooManyIncorrectAttemptsError_ID)
+    private WebElement tooManyIncorrectAttemptsError;
     //--------------
 
     //Constructor
@@ -101,7 +107,13 @@ public class RecoverPasswordPage extends TestBase {
         return invalidEmailErrorMsg;
     }
 
-    public WebElement expiredVerCode(){return expiredVerCode;}
+    public WebElement expiredVerCode() {
+        return expiredVerCode;
+    }
+
+    public WebElement tooManyIncorrectAttemptsError() {
+        return tooManyIncorrectAttemptsError;
+    }
 
     //--------------
 
@@ -125,39 +137,68 @@ public class RecoverPasswordPage extends TestBase {
 //        return element.getText();
 //    }
 
-    public void sendTokenToEmail(String email){
+    public void sendTokenToEmail(String email) {
         email_field.click();
+        email_field.clear();
         email_field.sendKeys(email);
         sendVerCode_BTN.click();
         testUtil.waitForElementToLoad(verifyCode_BTN);
-        addTestCaseStep("Entered email: "+email+" and clicked on Send Verification code button");
+        Assert.assertTrue(verifyCode_BTN().isDisplayed());
+        addTestCaseStep("Entered email: " + email + " and clicked on Send Verification code button");
     }
 
-    public void sendInvalidToken(String invalidToken){
+    public void sendInvalidToken(String invalidToken) {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
-        addTestCaseStep("Entered the following token: "+invalidToken+" and clicked on the Verify code");
+        Assert.assertTrue(incorrectVerCode_err().isDisplayed());
+        addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
         testUtil.waitForElementToLoad(incorrectVerCode);
     }
 
-    public void waitForTokenToExpire(int minutesToWait){
-        int milisecToWait = minutesToWait * 60 * 1000 ;
+    public void waitForTokenToExpire(int minutesToWait) {
+        int milisecToWait = minutesToWait * 60 * 1000;
         try {
-            Thread.sleep( milisecToWait );
+            Thread.sleep(milisecToWait);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        addTestCaseStep("Waited "+ milisecToWait/1000 +" seconds for the Verification code to expire");
+        addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
     }
 
-    public void enterTokenFromEmail(){
+    public void enterTokenFromEmail() {
         verificationCode_field.click();
+        verificationCode_field.clear();
         String token = testUtil.getTokenFromGmail();
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
-        addTestCaseStep("Entered the following token: "+token+" and clicked on the Verify code");
+        Assert.assertTrue(changeEmail_BTN.isDisplayed());
+        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
         testUtil.waitForElementToLoad(changeEmail_BTN);
+    }
+
+    public void enterInvalidTokenMultipleTimes(int timesToRetry) {
+        for (int i = 0; i < timesToRetry; i++) {
+            testUtil.waitForElementToLoad(verifyCode_BTN());
+            verificationCode_field().clear();
+            setVerificationCode_field(String.valueOf((i * 10000)));
+            verifyCode_BTN().click();
+        }
+    }
+
+    public void generateAnotherToken(){
+        sendNewCode_BTN().click();
+        testUtil.waitForElementToLoad(verifyCode_BTN);
+        Assert.assertTrue(verifyCode_BTN.isDisplayed());
+        addTestCaseStep("Generated another token");
+    }
+
+    public void clickOn_changeEmail_BTN(){
+        changeEmail_BTN().click();
+        testUtil.waitForElementToLoad(sendVerCode_BTN());
+        assertTrue(sendVerCode_BTN().isDisplayed());
+        assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
+        addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
     }
     //--------------
 
