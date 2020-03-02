@@ -1,19 +1,22 @@
 package testCases;
 
 import base.TestBase;
-import com.aventstack.extentreports.Status;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.TestUtil;
 
+import static utils.TestUtil.getTestaData;
+
 public class LoginPageTest extends TestBase {
     private LandingPage landingPage;
     private LoginPage loginPage;
     private RecoverPasswordPage recoverPasswordPage;
+    private LibraryPage libraryPage;
     private TestUtil testUtil;
+    private String sheetName = "Sheet1";
+    private String fileName = "InvalidEmails";
 
     public LoginPageTest() {
         super();
@@ -24,190 +27,218 @@ public class LoginPageTest extends TestBase {
         initialization();
         landingPage = new LandingPage();
         recoverPasswordPage = new RecoverPasswordPage();
+        libraryPage = new LibraryPage();
         testUtil = new TestUtil();
     }
 
+    public void verifyInvalidEmails(Object[][] invalidEmailsList) {
+        String error_msg = "Please enter a valid email address";
 
-    public void goToLoginPage() {
-        try {
-            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
+        for (Object[] objects : invalidEmailsList) {
+            loginPage.email_field().clear();
+            loginPage.setInvalidEmail(objects[0].toString());
+            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
+            testUtil.waitForElementToLoad(loginPage.invalidEmailErrorMsg());
+            checkIfCorrectErrMsg(loginPage.invalidEmailErrorMsg(), error_msg);
+            addTestCaseStep("Error message is displayed: " + error_msg);
         }
-        catch(Exception e){
+    }
+
+    public void loadLandingPage() {
+        try {
+            waitForElementToBeClickable(landingPage.signup_BTN());
+        } catch (Exception e) {
             System.out.println("------------Page timed out. Refreshing...");
             driver.navigate().refresh();
-            testUtil.waitForElementToLoad(driver, landingPage.signup_BTN());
+            waitForElementToBeClickable(landingPage.signup_BTN());
         }
+    }
 
+    public void goToLoginPage() {
+        loadLandingPage();
         Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Navigated to Landing page");
+        addTestCaseStep("Navigated to Landing page");
 
         loginPage = landingPage.clickOn_loginBTN();
-        extentTestChild.log(Status.PASS, "Navigated to Login page");
+        testUtil.waitForElementToLoad(loginPage.signIn_BTN());
+        addTestCaseStep("Navigated to Login page");
+    }
+
+    public void sendBlankPassword() {
+        String error_msg = "Please enter your password";
+        loginPage.pass_field().clear();
+        loginPage.pass_field().sendKeys("");
+        loginPage.signIn_BTN().click();
+        addTestCaseStep("Left the password field blank and clicked on the Sign In button");
+
+        testUtil.waitForElementToLoad(loginPage.invalidPassErrorMsg());
+        checkIfCorrectErrMsg(loginPage.incorrectPassErrorMsg(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
+    }
+
+    public void sendInvalidPassword(String invalidPass) {
+        String error_msg = "Your password is incorrect.";
+
+        loginPage.pass_field().clear();
+        loginPage.pass_field().sendKeys(invalidPass);
+        loginPage.signIn_BTN().click();
+        addTestCaseStep("Entered an incorrect password: " + invalidPass + " and then clicked on the Sign In button");
+
+        testUtil.waitForElementToLoad(loginPage.incorrectPassErrorMsg());
+        checkIfCorrectErrMsg(loginPage.incorrectPassErrorMsg(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
+    }
+
+    public void loginWithNonExistingCredentials(String email, String pass) {
+        String error_msg = "We can't seem to find your account.";
+        loginPage.email_field().sendKeys(email);
+        loginPage.pass_field().sendKeys(pass);
+        loginPage.signIn_BTN().click();
+        addTestCaseStep("Entered credentials for a non existing account and clicked on Sign In button");
+
+        testUtil.waitForElementToLoad(loginPage.nonExistingAccountMsg());
+        checkIfCorrectErrMsg(loginPage.nonExistingAccountMsg(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
+    }
+
+    public void loginWithValidCredentials(String email, String pass) {
+        libraryPage = loginPage.login(email, pass);
+        addTestCaseStep("Entered email: " + email + " and password: " + pass + " then clicked on the Sign In button");
+
+        testUtil.waitForElementToLoad(libraryPage.getNewFolder_btn());
+        Assert.assertEquals(libraryPage.getPageTitle(), "FLIR Tools");
+        addTestCaseStep("Logged in successfully. Library page is displayed");
+    }
+
+    public void goToSignUpPage(){
+        SignUpPage signUpPage = loginPage.clickOn_signUpLink();
+        addTestCaseStep("Clicked on the Sign Up button");
+
+        testUtil.waitForElementToLoad(signUpPage.create_BTN());
+        Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
+        addTestCaseStep("Sign Up Page is displayed");
+    }
+
+    public void goToRecoverPassPage(){
+        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
+        addTestCaseStep("Clicked on Forgot your password link");
+
+        testUtil.waitForElementToLoad(recoverPasswordPage.email_field());
+        Assert.assertEquals(recoverPasswordPage.getPageTitle(), "FLIR Reset Password");
+        addTestCaseStep("Recover password page is displayed");
     }
 
     @Test
     public void title_Test() {
-        extentTest = extent.createTest("LOGIN PAGE - title_Test");
-        extentTestChild = extentTest.createNode("Verify the page title");
+        String testCaseTitle = "LOGIN PAGE - title_Test";
+        String testCaseDescription = "Verify the page title";
+
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
-        testUtil.waitForElementToLoad(driver, loginPage.signIn_BTN());
+
         Assert.assertEquals(loginPage.getPageTitle(), "FLIR Log in");
-        extentTestChild.log(Status.PASS, "Page title is " + loginPage.getPageTitle());
-    }
-
-    @Test
-    public void blankEmail_Test() {
-        String error_XPATH = "//p[contains(text(),'Please enter your email')]";
-        String error_msg = "Please enter your email";
-
-        extentTest = extent.createTest("LOGIN PAGE - blankEmail_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if email filed is blank");
-
-        goToLoginPage();
-
-        loginPage.email_field().clear();
-        extentTestChild.log(Status.PASS, "Left the email field blank");
-
-        loginPage.signIn_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on the Login button");
-
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: " + driver.findElement(By.xpath(error_XPATH)).getText());
+        addTestCaseStep("Page title is: " + recoverPasswordPage.getPageTitle());
     }
 
     @Test
     public void invalidEmail_Test() {
-        String invalidEmail = "test@";
-        String error_XPATH = "//p[contains(text(),'Please enter a valid email address')]";
-        String error_msg = "Please enter a valid email address";
+        String testCaseTitle = "LOGIN PAGE - invalidEmail_Test";
+        String testCaseDescription = "Error message is displayed if an invalid email address is entered";
+        Object[][] invalidEmailsList = getTestaData(fileName, sheetName);
 
-        extentTest = extent.createTest("LOGIN PAGE - invalidEmail_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an invalid email address is entered");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
-        loginPage.email_field().click();
-        loginPage.email_field().sendKeys(invalidEmail);
-        loginPage.signIn_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered an invalid email and clicked on Sign in button");
-
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: " + driver.findElement(By.xpath(error_XPATH)).getText());
+        verifyInvalidEmails(invalidEmailsList);
     }
 
     @Test
     public void blankPassword_Test() {
-        String email = "test@test.com";
-        String error_XPATH = "//p[contains(text(),'Please enter your password')]";
-        String error_msg = "Please enter your password";
+        String testCaseTitle = "LOGIN PAGE - blankPassword_Test";
+        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
+        String email = "email@test.com";
 
-        extentTest = extent.createTest("LOGIN PAGE - blankPassword_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an incorrect password is entered");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
         loginPage.email_field().sendKeys(email);
-        loginPage.signIn_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered a valid email, left the password field blank and clicked on the SignIN button");
+        addTestCaseStep("Entered a valid email: " + email);
 
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: " + driver.findElement(By.xpath(error_XPATH)).getText());
+        sendBlankPassword();
     }
 
     @Test
     public void incorrectPassword_Test() {
+        String testCaseTitle = "LOGIN PAGE - incorrectPassword_Test";
+        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
         String email = "flirtest1@mailinator.com";
         String incorrectPass = "thisIsNotTheCorrectPass";
-        String error_XPATH = "//p[contains(text(),'Your password is incorrect.')]";
-        String error_msg = "Your password is incorrect.";
 
-        extentTest = extent.createTest("LOGIN PAGE - incorrectPassword_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an incorrect password is entered");
+
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
         loginPage.email_field().sendKeys(email);
-        loginPage.pass_field().sendKeys(incorrectPass);
-        loginPage.signIn_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered an incorrect password for an existing account");
+        addTestCaseStep("Entered a valid email: " + email);
 
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: " + driver.findElement(By.xpath(error_XPATH)).getText());
+        sendInvalidPassword(incorrectPass);
     }
 
     @Test(groups = {"smoke"})
     public void loginWithNonExistingAccount_Test() {
-        String email = "throwawayaccount@mail.com";
-        String pass = "password";
-        String error_XPATH = "//p[contains(text(),'seem to find your account')]";
-        String error_msg = "We can't seem to find your account.";
+        String testCaseTitle = "LOGIN PAGE - loginWithNonExistingAccount_Test";
+        String testCaseDescription = "Error message is displayed when logging in with a email account who doesn't have an account associated";
+        String randomEmail = "randomEmail@mailinator.com";
+        String randomPass = "thisIsNotTheCorrectPass";
 
-        extentTest = extent.createTest("LOGIN PAGE - loginWithNonExistingAccount_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed when logging in with a email account who doesn't have an account associated");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
-        loginPage.email_field().sendKeys(email);
-        loginPage.pass_field().sendKeys(pass);
-        loginPage.signIn_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the credentials for a non existing account and clicked on Sign In Button");
-
-        testUtil.waitForElementToLoad(driver, driver.findElement(By.xpath(error_XPATH)));
-        Assert.assertEquals(driver.findElement(By.xpath(error_XPATH)).getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: " + driver.findElement(By.xpath(error_XPATH)).getText());
+        loginWithNonExistingCredentials(randomEmail, randomPass);
     }
 
     @Test(groups = {"smoke"})
     public void loginWithValidCredentials_Test() {
+        String testCaseTitle = "LOGIN PAGE - loginWithValidCredentials_Test";
+        String testCaseDescription = "Login with valid credentials";
         String email = "flirtest1@mailinator.com";
         String pass = "QAZxsw123";
 
-        extentTest = extent.createTest("LOGIN PAGE - loginWithValidCredentials_Test");
-        extentTestChild = extentTest.createNode("Login with valid credentials");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
-        LibraryPage libraryPage = loginPage.login(email, pass);
-        extentTestChild.log(Status.PASS, "Entered a valid email and pass then clicked on Sign In button");
-
-        testUtil.waitForElementToLoad(driver, libraryPage.myFiles_LINK());
-        Assert.assertEquals(libraryPage.getPageTitle(), "FLIR Tools");
-        extentTestChild.log(Status.PASS, "Library Page is displayed/ user is logged in successfully");
+        loginWithValidCredentials(email, pass);
     }
 
     @Test(groups = {"smoke"})
     public void clickSignUpLink_Test() {
-        extentTest = extent.createTest("LOGIN PAGE - clickSignUpLink_Test");
-        extentTestChild = extentTest.createNode("Clicking on the SignUp link redirects to Sign Up page");
+        String testCaseTitle = "LOGIN PAGE - clickSignUpLink_Test";
+        String testCaseDescription = "Clicking on the SignUp link redirects to Sign Up page";
+
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
-        SignUpPage signUpPage = loginPage.clickOn_signUpLink();
-        extentTestChild.log(Status.PASS, "Clicked on the Sign Up button");
+        goToSignUpPage();
 
-        testUtil.waitForElementToLoad(driver, signUpPage.create_BTN());
-        Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
-        extentTestChild.log(Status.PASS, "Sign Up Page is displayed");
     }
 
     @Test(groups = {"smoke"})
     public void clickForgotPasswordLink_Test() {
-        extentTest = extent.createTest("LOGIN PAGE - clickForgotPasswordLink_Test");
-        extentTestChild = extentTest.createNode("Clicking on the Forgot Password link redirects to Recover password page");
+        String testCaseTitle = "LOGIN PAGE - clickForgotPasswordLink_Test";
+        String testCaseDescription = "Clicking on the Forgot Password link redirects to Recover password page";
+
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
-        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
-        extentTestChild.log(Status.PASS, "Clicked on Forgot your password link");
-
-        testUtil.waitForElementToLoad(driver, recoverPasswordPage.email_field());
-        Assert.assertEquals(recoverPasswordPage.getPageTitle(), "FLIR Reset Password");
-        extentTestChild.log(Status.PASS, "Recover password page is displayed");
+        goToRecoverPassPage();
     }
 
 }

@@ -219,7 +219,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the user enters an expired token. Token is set to expire after +"+waitTime+" minutes");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(prop.getProperty("gmail"));
@@ -229,7 +229,7 @@ public class SignUpPageTest extends TestBase {
         testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
         extentTestChild.log(Status.PASS, "Clicked on the Send Verification code button");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         try {
             Thread.sleep(waitTime * 60 * 1000); // wait for waitTime minutes + 10 seconds
         } catch (InterruptedException e) {
@@ -291,7 +291,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Resend the token and validate the new one");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true); // setup the gmail mail so it would be stored in a secondary tab
+        testUtil.getTokenFromGmail(); // setup the gmail mail so it would be stored in a secondary tab
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -304,13 +304,13 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         String oldToken = signUpPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
         extentTestChild.log(Status.PASS, "Saved the token received via email");
 
         testUtil.waitForElementToLoad(driver,signUpPage.sendNewCode_BTN());
         signUpPage.sendNewCode_BTN().click();
-        String newToken = testUtil.getTokenFromGmail(false);
+        String newToken = testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Clicked on Send new code button");
 
         testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
@@ -339,7 +339,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Change the email after validating the token");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -349,7 +349,7 @@ public class SignUpPageTest extends TestBase {
         testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
         extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -376,7 +376,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -390,7 +390,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -448,7 +448,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered (Confirm password field)");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -462,7 +462,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -519,7 +519,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the passwords are not identical");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -530,7 +530,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -573,7 +573,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if no country is selected from the dropdown list");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -584,7 +584,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -624,7 +624,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if no consent option is selected");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -635,7 +635,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -674,7 +674,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the first Name field is left blank");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -685,7 +685,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -725,7 +725,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("Error message is displayed if the last Name field is left blank");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -736,7 +736,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();
@@ -776,7 +776,7 @@ public class SignUpPageTest extends TestBase {
         extentTestChild = extentTest.createNode("SignUp Flow is cancelled and user is redirected to the landing page");
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(true);
+        testUtil.getTokenFromGmail();
         extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
         signUpPage.setEmailAddress(email);
@@ -787,7 +787,7 @@ public class SignUpPageTest extends TestBase {
         assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
         extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail(false));
+        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
         extentTestChild.log(Status.PASS, "Entered the token received via email");
 
         signUpPage.verifyCode_BTN().click();

@@ -14,6 +14,10 @@ public class LoginPage extends TestBase {
     private final String signInBTN_ID = "next";
     private final String signUpLink_ID = "createAccount";
     private final String forgotPasswordLink_ID = "forgotPassword";
+    private final String invalidEmailError_XPATH = "//p[contains(text(),'Please enter a valid email address')]";
+    private final String invalidPassError_XPATH = "//p[contains(text(),'Please enter your password')]";
+    private final String incorrectPassError_XPATH = "//p[contains(text(),'Your password is incorrect.')]";
+    private final String nonExistingAccount_XPATH = "//p[contains(text(),'seem to find your account')]";
     //--------------
 
     //-------Locators-------
@@ -32,6 +36,14 @@ public class LoginPage extends TestBase {
     @FindBy(id = forgotPasswordLink_ID)
     @CacheLookup
     private WebElement forgotPass_link;
+    @FindBy(xpath = invalidEmailError_XPATH)
+    private WebElement invalidEmailErrorMsg;
+    @FindBy(xpath = invalidPassError_XPATH)
+    private WebElement invalidPassErrorMsg;
+    @FindBy(xpath = incorrectPassError_XPATH)
+    private WebElement incorrectPassErrorMsg;
+    @FindBy(xpath = nonExistingAccount_XPATH)
+    private WebElement nonExistingAccountMsg;
     //--------------
 
 
@@ -62,10 +74,28 @@ public class LoginPage extends TestBase {
     public WebElement forgotPass_link(){
         return forgotPass_link;
     }
+
+    public WebElement invalidEmailErrorMsg() {
+        return invalidEmailErrorMsg;
+    }
+    public WebElement invalidPassErrorMsg() {
+        return invalidPassErrorMsg;
+    }
+    public WebElement incorrectPassErrorMsg(){
+        return incorrectPassErrorMsg;
+    }
+    public WebElement nonExistingAccountMsg(){
+        return nonExistingAccountMsg;
+    }
     //-----------
 
 
     //-----------SETTERS
+    public void setInvalidEmail(String invalidEmail) {
+        email_field.clear();
+        email_field.sendKeys(invalidEmail);
+        signIn_BTN.click();
+    }
     //-----------
 
 
@@ -92,5 +122,6 @@ public class LoginPage extends TestBase {
         signIn_BTN.click();
         return new LibraryPage();
     }
+
     //-----------
 }
