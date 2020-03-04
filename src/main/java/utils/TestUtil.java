@@ -217,10 +217,9 @@ public class TestUtil extends TestBase {
         String token;
 
         ((JavascriptExecutor) driver).executeScript(a);
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
 
         //switches to new tab
-        driver.switchTo().window(tabs.get(1));
+        navigateToNextTab();
         driver.get("https://www.mailinator.com/v3/index.jsp?zone=public&query=" + text + "#/#inboxpane");
 
         WebElement received = driver.findElement(By.xpath(firstReceived_xpath));
@@ -239,7 +238,7 @@ public class TestUtil extends TestBase {
         token = tokenString.getText().substring(tokenString.getText().length() - 6);
         System.out.println("----------------------------Token is: " + token);
 
-        driver.switchTo().window(tabs.get(0));
+        navigateToPreviousTab();
         return token;
     }
 

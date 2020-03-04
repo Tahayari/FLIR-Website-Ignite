@@ -9,40 +9,54 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage extends TestBase {
 
     //-------PATHS-------
+    //---Input fields
     private final String emailField_ID = "logonIdentifier";
     private final String passField_ID = "password";
+
+    //---Buttons
     private final String signInBTN_ID = "next";
+
+    //---Links
     private final String signUpLink_ID = "createAccount";
     private final String forgotPasswordLink_ID = "forgotPassword";
+
+    //---Errors
     private final String invalidEmailError_XPATH = "//p[contains(text(),'Please enter a valid email address')]";
     private final String invalidPassError_XPATH = "//p[contains(text(),'Please enter your password')]";
     private final String incorrectPassError_XPATH = "//p[contains(text(),'Your password is incorrect.')]";
-    private final String nonExistingAccount_XPATH = "//p[contains(text(),'seem to find your account')]";
+    private final String nonExistingAccountError_XPATH = "//p[contains(text(),'seem to find your account')]";
     //--------------
 
     //-------Locators-------
+    //---Input fields
     @FindBy(id = emailField_ID)
     @CacheLookup
     private WebElement email_field;
     @FindBy(id = passField_ID)
     @CacheLookup
     private WebElement pass_field;
+
+    //---Buttons
     @FindBy(id = signInBTN_ID)
     @CacheLookup
     private WebElement signIn_BTN;
+
+    //---Links
     @FindBy(id = signUpLink_ID)
     @CacheLookup
     private WebElement signUp_link;
     @FindBy(id = forgotPasswordLink_ID)
     @CacheLookup
     private WebElement forgotPass_link;
+
+    //---Errors
     @FindBy(xpath = invalidEmailError_XPATH)
     private WebElement invalidEmailErrorMsg;
     @FindBy(xpath = invalidPassError_XPATH)
     private WebElement invalidPassErrorMsg;
     @FindBy(xpath = incorrectPassError_XPATH)
     private WebElement incorrectPassErrorMsg;
-    @FindBy(xpath = nonExistingAccount_XPATH)
+    @FindBy(xpath = nonExistingAccountError_XPATH)
     private WebElement nonExistingAccountMsg;
     //--------------
 
@@ -55,36 +69,39 @@ public class LoginPage extends TestBase {
 
 
     //-----------GETTERS
-    public WebElement email_field(){
+    public WebElement email_field() {
         return email_field;
     }
 
-    public WebElement pass_field(){
+    public WebElement pass_field() {
         return pass_field;
     }
 
-    public WebElement signIn_BTN(){
+    public WebElement signIn_BTN() {
         return signIn_BTN;
     }
 
-    public WebElement signUp_link(){
+    public WebElement signUp_link() {
         return signUp_link;
     }
 
-    public WebElement forgotPass_link(){
+    public WebElement forgotPass_link() {
         return forgotPass_link;
     }
 
     public WebElement invalidEmailErrorMsg() {
         return invalidEmailErrorMsg;
     }
+
     public WebElement invalidPassErrorMsg() {
         return invalidPassErrorMsg;
     }
-    public WebElement incorrectPassErrorMsg(){
+
+    public WebElement incorrectPassErrorMsg() {
         return incorrectPassErrorMsg;
     }
-    public WebElement nonExistingAccountMsg(){
+
+    public WebElement nonExistingAccountMsg() {
         return nonExistingAccountMsg;
     }
     //-----------

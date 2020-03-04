@@ -177,7 +177,6 @@ public class LoginPageTest extends TestBase {
         String email = "flirtest1@mailinator.com";
         String incorrectPass = "thisIsNotTheCorrectPass";
 
-
         createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();

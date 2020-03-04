@@ -172,9 +172,10 @@ public class RecoverPasswordPage extends TestBase {
         String token = testUtil.getTokenFromGmail();
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
+        testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
         addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-        testUtil.waitForElementToLoad(changeEmail_BTN);
+
     }
 
     public void enterInvalidTokenMultipleTimes(int timesToRetry) {

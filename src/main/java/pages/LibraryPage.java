@@ -5,8 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.TestUtil;
+
+import static org.testng.Assert.assertTrue;
 
 public class LibraryPage extends TestBase {
+    private TestUtil testUtil;
     //-------PATHS-------
     private final String newFolderBTN_xpath = "//button[@title='New Folder']";
     private final String uploadFilesBTN_xpath = "//button[@title='Upload files']";
@@ -53,6 +57,7 @@ private final String welcomeScreenSkip_XPATH = "//button[@class='flir-icon-butto
     //Constructor
     public LibraryPage() {
         PageFactory.initElements(driver, this);
+        testUtil = new TestUtil();
     }
     //--------------
 
@@ -97,6 +102,30 @@ private final String welcomeScreenSkip_XPATH = "//button[@class='flir-icon-butto
     //Actions
     public String getPageTitle() {
         return driver.getTitle();
+    }
+
+    public void acceptTermsConditions(){
+        termsAndCondCheckbox().click();
+        waitForElementToBeClickable(termsAndCondAccept_BTN);
+        assertTrue(termsAndCondAccept_BTN().isEnabled());
+        addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
+
+        termsAndCondAccept_BTN.click();
+        testUtil.waitForElementToLoad(welcomeScreenNext_BTN);
+        assertTrue(welcomeScreenNext_BTN.isDisplayed());
+        addTestCaseStep("Clicked on the Accept button");
+    }
+
+    public void skipWelcomeScreen() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        welcomeScreenSkip_BTN.click();
+        testUtil.waitForElementToLoad(newFolder_btn);
+        assertTrue(newFolder_btn.isDisplayed());
+        addTestCaseStep("Clicked on SKIP button from the Welcome screen, Library page is displayed");
     }
     //--------------
 }
