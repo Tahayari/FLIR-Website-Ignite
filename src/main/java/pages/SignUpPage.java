@@ -10,7 +10,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import utils.TestUtil;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
+
+import static org.testng.Assert.assertTrue;
 
 public class SignUpPage extends TestBase {
     private TestUtil testUtil;
@@ -46,6 +49,7 @@ public class SignUpPage extends TestBase {
     private final String blankCountryError_ID = "claimVerificationServerError";
     private final String requiredFieldError_ID = "requiredFieldMissing";
     private final String tooManyAttemptsError_ID = "email_fail_no_retry";
+    private final String mismatchingPassError_ID = "passwordEntryMismatch";
     //--------------
 
     //-------Locators-------
@@ -105,6 +109,8 @@ public class SignUpPage extends TestBase {
     private WebElement requiredFieldMissingMsg;
     @FindBy(id = tooManyAttemptsError_ID)
     private WebElement tooManyAttemptsMsg;
+    @FindBy(id = mismatchingPassError_ID)
+    private WebElement mismatchingPassMsg;
     //--------------
 
     //Constructor
@@ -204,11 +210,19 @@ public class SignUpPage extends TestBase {
         return tooManyAttemptsMsg;
     }
 
+    public WebElement mismatchingPassMsg() { return mismatchingPassMsg;}
+
     //-----------
 
     //-----------SETTERS
     public void setEmailAddress(String text) {
         emailAddress_field.sendKeys(text);
+    }
+
+    public void setInvalidEmail(String invalidEmail) {
+        emailAddress_field.clear();
+        emailAddress_field.sendKeys(invalidEmail);
+        sendVerificationCode_BTN.click();
     }
 
     public void setVerificationCode_field(String text) {
@@ -217,23 +231,24 @@ public class SignUpPage extends TestBase {
 
     public void setNewPassword(String password) {
         newPassword_field.sendKeys(password);
-        addTestCaseStep("Entered the following password: "+password);
+        addTestCaseStep("Entered the following password: " + password);
     }
 
     public void setConfirmNewPassword(String confirmNewPassword) {
         confNewPassword_field.sendKeys(confirmNewPassword);
-        addTestCaseStep("Entered the following password in the Confirm password field: "+confirmNewPassword);
+        addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
     }
 
     public void setFirstName(String firstName) {
         firstName_field.sendKeys(firstName);
-        addTestCaseStep("Entered a first name: "+firstName);
+        addTestCaseStep("Entered a first name: " + firstName);
     }
 
     public void setLastName(String lastName) {
         lastName_field.sendKeys(lastName);
-        addTestCaseStep("Entered a last name: "+lastName);
+        addTestCaseStep("Entered a last name: " + lastName);
     }
+
     //-----------
 
     //Actions
@@ -261,7 +276,31 @@ public class SignUpPage extends TestBase {
         addTestCaseStep("Entered email: " + email + " and clicked on Send Verification code button");
     }
 
-    public void enterTokenFromEmail(String email) {
+    public void verifyIfTokenExpired() {
+        String error_msg = "That code is expired. Please request a new code.";
+
+        verificationCode_field.click();
+        verificationCode_field.clear();
+        String token = testUtil.getTokenFromGmail();
+        verificationCode_field.sendKeys(token);
+        verifyCode_BTN.click();
+        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+
+        testUtil.waitForElementToLoad(expiredVerCodeMsg());
+        Assert.assertEquals(expiredVerCodeMsg().getText(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
+    }
+
+    public void sendInvalidToken(String invalidToken) {
+        verificationCode_field.click();
+        verificationCode_field.sendKeys(invalidToken);
+        verifyCode_BTN.click();
+        Assert.assertTrue(incorrectVerCodeMsg.isDisplayed());
+        addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
+        testUtil.waitForElementToLoad(incorrectVerCodeMsg);
+    }
+
+    public void enterTokenFromMailinator(String email) {
         verificationCode_field.click();
         verificationCode_field.clear();
         String token = testUtil.getTokenFromMailinator(email);
@@ -272,7 +311,39 @@ public class SignUpPage extends TestBase {
         addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
-    public void selectRandomCountry(){
+    public void enterInvalidTokenMultipleTimes(int timesToRetry) {
+        for (int i = 0; i < timesToRetry; i++) {
+            testUtil.waitForElementToLoad(verifyCode_BTN());
+            verificationCode_field().clear();
+            setVerificationCode_field(String.valueOf((i * 10000)));
+            verifyCode_BTN().click();
+        }
+
+        addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
+    }
+
+    public void enterTokenFromGmail() {
+        verificationCode_field.click();
+        verificationCode_field.clear();
+        String token = testUtil.getTokenFromGmail();
+        verificationCode_field.sendKeys(token);
+        verifyCode_BTN.click();
+        testUtil.waitForElementToLoad(changeEmail_BTN);
+        Assert.assertTrue(changeEmail_BTN.isDisplayed());
+        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+    }
+
+    public void waitForTokenToExpire(int minutesToWait) {
+        int milisecToWait = minutesToWait * 60 * 1000;
+        try {
+            Thread.sleep(milisecToWait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
+    }
+
+    public void selectRandomCountry() {
         Select country_select = new Select(country_dropdown);
         Random random = new Random();
         country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
@@ -286,6 +357,59 @@ public class SignUpPage extends TestBase {
         if (random.nextInt(1) % 2 == 0) consentNo.click();
         else consentYes.click();
         addTestCaseStep("Selected randomly if I consented or not");
+    }
+
+    public void generateAnotherToken() {
+        sendNewCode_BTN().click();
+        testUtil.waitForElementToLoad(verifyCode_BTN);
+        Assert.assertTrue(verifyCode_BTN.isDisplayed());
+        addTestCaseStep("Generated another token");
+    }
+
+    public void clickOn_changeEmail_BTN() {
+        changeEmail_BTN().click();
+        testUtil.waitForElementToLoad(sendVerCode_BTN());
+        assertTrue(sendVerCode_BTN().isDisplayed());
+        assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
+        addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
+    }
+
+    public void tryIncorrectPasswords(WebElement passField) {
+        String invalidPass[] = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};
+
+        for (int i = 0; i < invalidPass.length; i++) {
+            passField.clear();
+            passField.sendKeys(invalidPass[i]);
+            addTestCaseStep("Entered the following password: " + invalidPass[i]);
+
+            if (passField == newPassword_field) {
+                testUtil.waitForElementToLoad(invalidPassMsg);
+                Assert.assertTrue(invalidPassMsg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidPassMsg.getText());
+            } else if (passField == confNewPassword_field) {
+                testUtil.waitForElementToLoad(invalidConfirmPassMsg);
+                Assert.assertTrue(invalidConfirmPassMsg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidConfirmPassMsg.getText());
+            } else throw new NoSuchElementException();
+        }
+    }
+
+    public void enterMismatchingPasswords() {
+        String pass1 = "PASSWORD123!";
+        String pass2 = "Password123!";
+
+        newPassword_field.clear();
+        newPassword_field.sendKeys(pass1);
+        addTestCaseStep("Entered the following password in the password field: " + pass1);
+        confNewPassword_field.clear();
+        confNewPassword_field.sendKeys(pass2);
+        addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
+
+        create_BTN.click();
+        addTestCaseStep("Clicked on the Create button");
+        testUtil.waitForElementToLoad(mismatchingPassMsg);
+        Assert.assertTrue(mismatchingPassMsg.getText().contains("The password entry fields do not match"));
+        addTestCaseStep("Error message is displayed: "+mismatchingPassMsg.getText());
     }
 
 }

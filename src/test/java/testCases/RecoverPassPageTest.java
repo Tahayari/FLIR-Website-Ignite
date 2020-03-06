@@ -2,7 +2,6 @@ package testCases;
 
 import base.TestBase;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +11,6 @@ import pages.RecoverPasswordPage;
 import utils.TestUtil;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 import static utils.TestUtil.getTestaData;
 
 public class RecoverPassPageTest extends TestBase {
@@ -145,7 +143,6 @@ public class RecoverPassPageTest extends TestBase {
     public void expiredToken_Test(){
         String testCaseTitle = "RECOVER PASS PAGE - expiredToken_Test";
         String testCaseDescription = "Error message is displayed when the user enters an expired token";
-        String error_msg = "That code is expired. Please request a new code.";
         String email = prop.getProperty("gmail") ;
         int minutesToWait = 5; // Number of MINUTES until the token expires
 
@@ -159,11 +156,7 @@ public class RecoverPassPageTest extends TestBase {
 
         recoverPasswordPage.waitForTokenToExpire(minutesToWait);
 
-        recoverPasswordPage.enterTokenFromEmail();
-        testUtil.waitForElementToLoad(recoverPasswordPage.expiredVerCode());
-        Assert.assertEquals(recoverPasswordPage.expiredVerCode().getText(),error_msg);
-        addTestCaseStep("Error message is displayed: "+error_msg);
-
+        recoverPasswordPage.verifyIfTokenExpired();
     }
 
     @Test
@@ -181,7 +174,6 @@ public class RecoverPassPageTest extends TestBase {
         recoverPasswordPage.sendTokenToEmail(email);
 
         recoverPasswordPage.enterInvalidTokenMultipleTimes(timesToRetry) ;
-        addTestCaseStep("Entered the wrong token "+timesToRetry+" times");
 
         testUtil.waitForElementToLoad(recoverPasswordPage.tooManyIncorrectAttemptsError());
         Assert.assertEquals(recoverPasswordPage.tooManyIncorrectAttemptsError().getText(),error_msg);
@@ -209,7 +201,7 @@ public class RecoverPassPageTest extends TestBase {
         recoverPasswordPage.sendInvalidToken(oldToken);
         addTestCaseStep("Entered the previous token and it no longer works");
 
-        recoverPasswordPage.enterTokenFromEmail();
+        recoverPasswordPage.enterTokenFromGmail();
         extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
     }
 
@@ -226,7 +218,7 @@ public class RecoverPassPageTest extends TestBase {
 
         recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.enterTokenFromEmail();
+        recoverPasswordPage.enterTokenFromGmail();
 
         recoverPasswordPage.clickOn_changeEmail_BTN();
     }
@@ -244,7 +236,7 @@ public class RecoverPassPageTest extends TestBase {
 
         recoverPasswordPage.sendTokenToEmail(email);
 
-        recoverPasswordPage.enterTokenFromEmail();
+        recoverPasswordPage.enterTokenFromGmail();
 
         recoverPasswordPage.cancel_BTN().click();
         addTestCaseStep("Clicked on the Cancel button");

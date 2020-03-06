@@ -14,8 +14,8 @@ import utils.TestUtil;
 
 import java.util.Random;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static utils.TestUtil.getTestaData;
 
 public class SignUpPageTest extends TestBase {
     private LandingPage landingPage;
@@ -23,6 +23,7 @@ public class SignUpPageTest extends TestBase {
     private SignUpPage signUpPage;
     private String sheetName = "Sheet1";
     private String fileName = "Accounts";
+    private String invalidEmailsFileName = "InvalidEmails";
 
     public SignUpPageTest() {
         super();
@@ -61,6 +62,19 @@ public class SignUpPageTest extends TestBase {
         addTestCaseStep("Navigated to Sign up page");
     }
 
+    public void verifyInvalidEmails(Object[][] invalidEmailsList) {
+        String error_msg = "Please enter a valid email address.";
+
+        for (Object[] objects : invalidEmailsList) {
+            signUpPage.email_field().clear();
+            signUpPage.setInvalidEmail(objects[0].toString());
+            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
+            testUtil.waitForElementToLoad(signUpPage.invalidEmailMsg());
+            checkIfCorrectErrMsg(signUpPage.invalidEmailMsg(), error_msg);
+            addTestCaseStep("Error message is displayed: " + error_msg);
+        }
+    }
+
     @Test(groups = {"smoke"})
     public void title_Test() {
         String testCaseTitle = "SIGNUP PAGE - Verify the page title";
@@ -76,10 +90,10 @@ public class SignUpPageTest extends TestBase {
 
     @DataProvider
     public Object[][] getTestData() {
-        return TestUtil.getTestaData(fileName,sheetName);
+        return TestUtil.getTestaData(fileName, sheetName);
     }
 
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"},enabled = false)
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, enabled = false)
     public void registerNewAccount_Test(String email, String password, String firstName, String lastName) {
         String testCaseTitle = "SIGNUP PAGE - registerNewAccount_Test";
         String testCaseDescription = "Create new account(s)";
@@ -88,8 +102,8 @@ public class SignUpPageTest extends TestBase {
 
         goToSignUpPage();
 
-        signUpPage.sendTokenToEmail(email+"@mailinator.com");
-        signUpPage.enterTokenFromEmail(email);
+        signUpPage.sendTokenToEmail(email + "@mailinator.com");
+        signUpPage.enterTokenFromMailinator(email);
         signUpPage.setNewPassword(password);
         signUpPage.setConfirmNewPassword(password);
         signUpPage.setFirstName(firstName);
@@ -101,419 +115,169 @@ public class SignUpPageTest extends TestBase {
         libraryPage.skipWelcomeScreen();
     }
 
-    @Test()
-    public void blankEmail_Test() {
-        String testCaseTitle = "SIGNUP PAGE - blankEmail_Test";
-        String testCaseDescription = "Error message is displayed if the email field is left blank";
-        String error_msg = "Please enter a valid email address.";
+    @Test(groups = {"smoke"})
+    public void invalidEmail_Test() {
+        String testCaseTitle = "SIGNUP PAGE - invalidEmail_Test";
+        String testCaseDescription = "Error message is displayed if the users enters an email that has an invalid format";
+        Object[][] invalidEmailsList = getTestaData(invalidEmailsFileName, sheetName);
 
         createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Left the email field blank and clicked on the Send Verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidEmailMsg());
-        Assert.assertEquals(signUpPage.invalidEmailMsg().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: "+ error_msg);
-    }
-
-    @Test(groups = {"smoke"})
-    public void invalidEmail_Test() {
-        String error_msg = "Please enter a valid email address.";
-
-        extentTest = extent.createTest("SIGNUP PAGE - invalidEmail_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the users enters an email that has an invalid format");
-
-        goToSignUpPage();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
-
-        signUpPage.setEmailAddress("test123@");
-        extentTestChild.log(Status.PASS, "Entered an invalid email address");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidEmailMsg());
-        Assert.assertEquals(signUpPage.invalidEmailMsg().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Invalid email address error message is displayed: "+error_msg);
+        verifyInvalidEmails(invalidEmailsList);
     }
 
     @Test(groups = {"smoke"})
     public void invalidToken_Test() {
-        String email = "testemail@mailinator.com";
+        String testCaseTitle = "SIGNUP PAGE - invalidToken_Test";
+        String testCaseDescription = "Error message is displayed if the user enters an invalid token";
         String error_msg = "That code is incorrect. Please try again.";
+        String invalidToken = "000000";
+        String email = "someEmailForTesting@test.com";
 
-        extentTest = extent.createTest("SIGNUP PAGE - invalidToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the user enters an invalid token");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        signUpPage.sendTokenToEmail(email);
 
-        signUpPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Verify code button is displayed");
+        signUpPage.sendInvalidToken(invalidToken);
 
-        signUpPage.setVerificationCode_field("123456");
-        signUpPage.verifyCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered an invalid Verification code");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.incorrectVerCodeMsg());
         Assert.assertEquals(signUpPage.incorrectVerCodeMsg().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed: "+error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void expiredToken_Test() {
-        String error_msg = "That code is expired. Please request a new code.";
-        int waitTime = 5; // Number of MINUTES until the token expires
+        String testCaseTitle = "SIGNUP PAGE - expiredToken_Test";
+        String testCaseDescription = "Error message is displayed when the user enters an expired token";
+        String email = prop.getProperty("gmail");
+        int minutesToWait = 5; // Number of MINUTES until the token expires
 
-        extentTest = extent.createTest("SIGNUP PAGE - expiredToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the user enters an expired token. Token is set to expire after +"+waitTime+" minutes");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(prop.getProperty("gmail"));
-        extentTestChild.log(Status.PASS, "Entered an email address: "+prop.getProperty("gmail"));
+        testUtil.prepareGmail();
 
-        signUpPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on the Send Verification code button");
+        signUpPage.sendTokenToEmail(email);
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        try {
-            Thread.sleep(waitTime * 60 * 1000); // wait for waitTime minutes + 10 seconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        extentTestChild.log(Status.PASS, "Entered the code received via email and waited for the Verification code to expire");
+        signUpPage.waitForTokenToExpire(minutesToWait);
 
-
-        signUpPage.verifyCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on the Verify Code button after the token expired");
-
-
-        testUtil.waitForElementToLoad(driver, signUpPage.expiredVerCodeMsg());
-        Assert.assertEquals(signUpPage.expiredVerCodeMsg().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Error message is displayed :"+error_msg );
+        signUpPage.verifyIfTokenExpired();
     }
 
     @Test()
     public void tooManyIncorrectAttemptsToken_Test() {
-        int retry = 3;
-        String email = "anytestmail123123xs@gmail.com";
+        int timesToRetry = 3;
+        String testCaseTitle = "SIGNUP PAGE - tooManyIncorrectAttemptsToken_Test";
+        String testCaseDescription = "Error message is displayed if an incorrect token is submitted more than " + timesToRetry + " times";
         String error_msg = "You've made too many incorrect attempts. Please try again later.";
+        String email = "throwAwayEmail@mailinator.com";
 
-        extentTest = extent.createTest("SIGNUP PAGE - tooManyIncorrectAttemptsToken_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an incorrect token is submitted more than "+retry+" times");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        signUpPage.sendTokenToEmail(email);
 
-        signUpPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on the Send Verification code button");
+        signUpPage.enterInvalidTokenMultipleTimes(timesToRetry);
 
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+        testUtil.waitForElementToLoad(signUpPage.tooManyAttemptsMsg());
+        Assert.assertEquals(signUpPage.tooManyAttemptsMsg().getText(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
 
-        for(int i=0;i<retry;i++) {
-            testUtil.waitForElementToLoad(driver,signUpPage.verifyCode_BTN());
-            signUpPage.verificationCode_field().clear();
-            signUpPage.setVerificationCode_field("12345");
-            signUpPage.verifyCode_BTN().click();
-        }
-        extentTestChild.log(Status.PASS, "Entered the wrong token "+retry+" times");
-
-        testUtil.waitForElementToLoad(driver,signUpPage.tooManyAttemptsMsg());
-        assertEquals(signUpPage.tooManyAttemptsMsg().getText(),error_msg);
-        extentTestChild.log(Status.PASS, "Too many incorrect attempts error message is displayed :"+error_msg);
     }
 
     @Test(groups = {"smoke"})
     public void sendNewCode_Test() {
-        String email = "flirAutomationTest@gmail.com";
-        String error_msg = "That code is incorrect. Please try again.";
+        String testCaseTitle = "SIGNUP PAGE - sendNewCode_Test";
+        String testCaseDescription = "Resend the token and validate the new one";
+        String email = prop.getProperty("gmail");
 
-        extentTest = extent.createTest("SIGNUP PAGE - sendNewCode_Test");
-        extentTestChild = extentTest.createNode("Resend the token and validate the new one");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail(); // setup the gmail mail so it would be stored in a secondary tab
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an email address: "+email);
+        testUtil.prepareGmail();
 
-        signUpPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on the Send Verification code button");
+        signUpPage.sendTokenToEmail(email);
+        String oldToken = testUtil.getTokenFromGmail();
+        addTestCaseStep("Saved the token received via email");
 
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
+        signUpPage.generateAnotherToken();
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        String oldToken = signUpPage.verificationCode_field().getAttribute("value"); //save this token as it will be reset soon
-        extentTestChild.log(Status.PASS, "Saved the token received via email");
+        signUpPage.sendInvalidToken(oldToken);
+        addTestCaseStep("Entered the previous token and it no longer works");
 
-        testUtil.waitForElementToLoad(driver,signUpPage.sendNewCode_BTN());
-        signUpPage.sendNewCode_BTN().click();
-        String newToken = testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Clicked on Send new code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        Assert.assertEquals(signUpPage.verificationCode_field().getText(), "");
-        extentTestChild.log(Status.PASS, "New code was generated");
-
-        signUpPage.verificationCode_field().sendKeys(oldToken);
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.incorrectVerCodeMsg());
-        Assert.assertEquals(signUpPage.incorrectVerCodeMsg().getText(), error_msg);
-        extentTestChild.log(Status.PASS, "Entered the previous token and it no longer works");
-
-        signUpPage.verificationCode_field().clear();
-        signUpPage.setVerificationCode_field(newToken);
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        assertTrue(signUpPage.changeEmail_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS, "Entered the latest token received via email and it is validated");
+        signUpPage.enterTokenFromGmail();
+        extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
     }
 
     @Test
     public void resendEmail_Test() {
-        String email = "flirautomationtest@gmail.com";
+        String testCaseTitle = "SIGNUP PAGE - resendEmail_Test";
+        String testCaseDescription = "Change the email after validating the token";
+        String email = prop.getProperty("gmail");
 
-        extentTest = extent.createTest("SIGNUP PAGE - resendEmail_Test");
-        extentTestChild = extentTest.createNode("Change the email after validating the token");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
+        testUtil.prepareGmail();
 
-        signUpPage.setEmailAddress(email);
-        extentTestChild.log(Status.PASS, "Entered an email address");
+        signUpPage.sendTokenToEmail(email);
 
-        signUpPage.sendVerCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.verifyCode_BTN());
-        extentTestChild.log(Status.PASS, "Verified that the Send code button is displayed");
+        signUpPage.enterTokenFromGmail();
 
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        assertTrue(signUpPage.changeEmail_BTN().isDisplayed());
-        extentTestChild.log(Status.PASS, "Token was verified. Change e-mail button is displayed");
-
-        signUpPage.changeEmail_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.sendVerCode_BTN());
-        assertTrue(signUpPage.sendVerCode_BTN().isDisplayed());
-        assertTrue(signUpPage.sendVerCode_BTN().getAttribute("value").isEmpty());
-        extentTestChild.log(Status.PASS, "Clicked on he Change e-mail button. Email field is now empty");
+        signUpPage.clickOn_changeEmail_BTN();
     }
 
     @Test
     public void incorrectPasswordFormat_Test() {
-        String email = "flirautomationtest@gmail.com";
-        String invalidPass1 = "passwordd";
-        String invalidPass2 = "Passwordd";
-        String invalidPass3 = "passwordd!!";
-        String invalidPass4 = "ThisIsAReallyReallyLongPassword1!";
+        String testCaseTitle = "SIGNUP PAGE - incorrectPasswordFormat_Test";
+        String testCaseDescription = "Error message is displayed if an invalid password is entered";
 
-        extentTest = extent.createTest("SIGNUP PAGE - incorrectPasswordFormat_Test ");
-        extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email);
-        extentTestChild.log(Status.PASS, "Entered the email address");
-
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
-        signUpPage.setNewPassword(invalidPass1);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass1);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidPassMsg());
-        assertTrue(signUpPage.invalidPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.newPassword_field().clear();
-        signUpPage.setNewPassword(invalidPass2);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass2);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidPassMsg());
-        assertTrue(signUpPage.invalidPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.newPassword_field().clear();
-        signUpPage.setNewPassword(invalidPass3);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass3);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidPassMsg());
-        assertTrue(signUpPage.invalidPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.newPassword_field().clear();
-        signUpPage.setNewPassword(invalidPass4);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass4);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidPassMsg());
-        assertTrue(signUpPage.invalidPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.newPassword_field().clear();
-        signUpPage.setNewPassword("QAZxsw123");
-        extentTestChild.log(Status.PASS, "Entered the following valid password: QAZxsw123");
-
-        Assert.assertFalse(signUpPage.invalidPassMsg().isDisplayed());
-        extentTestChild.log(Status.PASS, "Error message is no longer displayed if a valid password is entered");
-
+        signUpPage.tryIncorrectPasswords(signUpPage.newPassword_field());
     }
 
     @Test
     public void incorrectPasswordFormatConfirmPassField_Test() {
-        String email = "flirautomationtest@gmail.com";
-        String invalidPass1 = "passwordd";
-        String invalidPass2 = "Passwordd";
-        String invalidPass3 = "passwordd!!";
-        String invalidPass4 = "ThisIsAReallyReallyLongPassword1!";
+        String testCaseTitle = "SIGNUP PAGE - incorrectPasswordFormatConfirmPassField_Test";
+        String testCaseDescription = "Error message is displayed if an invalid password is entered (Confirm password field)";
 
-        extentTest = extent.createTest("SIGNUP PAGE - incorrectPasswordFormatConfirmPassField_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if an invalid password is entered (Confirm password field)");
+        createTestCase(testCaseTitle,testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        Assert.assertEquals(signUpPage.email_field().getAttribute("value"), email);
-        extentTestChild.log(Status.PASS, "Entered the email address");
-
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
-        signUpPage.setConfirmNewPassword(invalidPass1);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass1);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidConfirmPassMsg());
-        assertTrue(signUpPage.invalidConfirmPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.confNewPassword_field().clear();
-        signUpPage.setConfirmNewPassword(invalidPass2);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass2);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidConfirmPassMsg());
-        assertTrue(signUpPage.invalidConfirmPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.confNewPassword_field().clear();
-        signUpPage.setConfirmNewPassword(invalidPass3);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass3);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidConfirmPassMsg());
-        assertTrue(signUpPage.invalidConfirmPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.confNewPassword_field().clear();
-        signUpPage.setConfirmNewPassword(invalidPass4);
-        extentTestChild.log(Status.PASS, "Entered the following password: " + invalidPass4);
-
-        testUtil.waitForElementToLoad(driver, signUpPage.invalidConfirmPassMsg());
-        assertTrue(signUpPage.invalidConfirmPassMsg().getText().contains("8-16 characters"));
-        extentTestChild.log(Status.PASS, "Error message is displayed");
-
-        signUpPage.confNewPassword_field().clear();
-        signUpPage.setConfirmNewPassword("QAZxsw123");
-        extentTestChild.log(Status.PASS, "Entered the following valid password: QAZxsw123");
-
-        Assert.assertFalse(signUpPage.invalidConfirmPassMsg().isDisplayed());
-        extentTestChild.log(Status.PASS, "Error message is no longer displayed if a valid password is entered");
+        signUpPage.tryIncorrectPasswords(signUpPage.confNewPassword_field());
     }
 
     @Test(groups = {"smoke"})
     public void mismatchingPasswords_Test() {
-        String email = "flirautomationtest@gmail.com";
-        String pass1 = "PASSWORD123!";
-        String pass2 = "Password123!";
+        String testCaseTitle = "SIGNUP PAGE - mismatchingPasswords_Test";
+        String testCaseDescription = "Error message is displayed if the passwords are not identical";
+        String email = prop.getProperty("gmail");
         String firstName = "firstName";
         String lastName = "lastName";
 
-        extentTest = extent.createTest("SIGNUP PAGE - mismatchingPasswords_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the passwords are not identical");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setFirstName(firstName);
-        extentTestChild.log(Status.PASS, "Entered a first name");
-
         signUpPage.setLastName(lastName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
+        signUpPage.selectRandomCountry();
+        signUpPage.selectRandomConsent();
 
-        Select country_select = new Select(signUpPage.country_dropdown());
-        Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
-        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
-
-        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
-        else signUpPage.consentYes().click();
-        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
-
-        signUpPage.setNewPassword(pass1);
-        signUpPage.setConfirmNewPassword(pass2);
-        extentTestChild.log(Status.PASS, "Entered mismatching passwords: "+pass1+" and "+pass2);
-
-        signUpPage.createNewAccount();
-        testUtil.waitForElementToLoad(driver, signUpPage.passMismatchMsg());
-        assertTrue(signUpPage.passMismatchMsg().getText().contains("match"));
-        extentTestChild.log(Status.PASS, "Password mismatch error is displayed");
+        signUpPage.enterMismatchingPasswords();
     }
 
     @Test
@@ -665,7 +429,7 @@ public class SignUpPageTest extends TestBase {
         signUpPage.createNewAccount();
         testUtil.waitForElementToLoad(driver, signUpPage.requiredFieldMissingMsg());
         assertTrue(signUpPage.requiredFieldMissingMsg().getText().contains(error_msg));
-        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: "+error_msg);
+        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: " + error_msg);
     }
 
     @Test
@@ -716,7 +480,7 @@ public class SignUpPageTest extends TestBase {
         signUpPage.createNewAccount();
         testUtil.waitForElementToLoad(driver, signUpPage.requiredFieldMissingMsg());
         assertTrue(signUpPage.requiredFieldMissingMsg().getText().contains(error_msg));
-        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: "+error_msg);
+        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: " + error_msg);
     }
 
     @Test

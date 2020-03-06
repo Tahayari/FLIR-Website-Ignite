@@ -27,7 +27,7 @@ public class RecoverPasswordPage extends TestBase {
 
     //---Errors
     private final String incorrectVerificationCode_ID = "email_fail_retry";
-    private final String expiredVerificationCode_ID = "email_fail_code_expiredemail_fail_no_retry";
+    private final String expiredVerificationCode_ID = "email_fail_code_expired";
     private final String invalidEmailError_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
     private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
     //--------------
@@ -133,9 +133,6 @@ public class RecoverPasswordPage extends TestBase {
     public String getPageTitle() {
         return driver.getTitle();
     }
-//    public String getErrorMessageOf(WebElement element){
-//        return element.getText();
-//    }
 
     public void sendTokenToEmail(String email) {
         email_field.click();
@@ -166,7 +163,7 @@ public class RecoverPasswordPage extends TestBase {
         addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
     }
 
-    public void enterTokenFromEmail() {
+    public void enterTokenFromGmail() {
         verificationCode_field.click();
         verificationCode_field.clear();
         String token = testUtil.getTokenFromGmail();
@@ -178,6 +175,21 @@ public class RecoverPasswordPage extends TestBase {
 
     }
 
+    public void verifyIfTokenExpired(){
+        String error_msg = "That code is expired. Please request a new code.";
+
+        verificationCode_field.click();
+        verificationCode_field.clear();
+        String token = testUtil.getTokenFromGmail();
+        verificationCode_field.sendKeys(token);
+        verifyCode_BTN.click();
+        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+
+        testUtil.waitForElementToLoad(expiredVerCode());
+        Assert.assertEquals(expiredVerCode().getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
+    }
+
     public void enterInvalidTokenMultipleTimes(int timesToRetry) {
         for (int i = 0; i < timesToRetry; i++) {
             testUtil.waitForElementToLoad(verifyCode_BTN());
@@ -185,6 +197,8 @@ public class RecoverPasswordPage extends TestBase {
             setVerificationCode_field(String.valueOf((i * 10000)));
             verifyCode_BTN().click();
         }
+
+        addTestCaseStep("Entered the wrong token "+timesToRetry+" times");
     }
 
     public void generateAnotherToken(){
