@@ -2,7 +2,6 @@ package testCases;
 
 import base.TestBase;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -12,9 +11,6 @@ import pages.LibraryPage;
 import pages.SignUpPage;
 import utils.TestUtil;
 
-import java.util.Random;
-
-import static org.testng.Assert.assertTrue;
 import static utils.TestUtil.getTestaData;
 
 public class SignUpPageTest extends TestBase {
@@ -148,7 +144,7 @@ public class SignUpPageTest extends TestBase {
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void expiredToken_Test() {
         String testCaseTitle = "SIGNUP PAGE - expiredToken_Test";
         String testCaseDescription = "Error message is displayed when the user enters an expired token";
@@ -282,258 +278,126 @@ public class SignUpPageTest extends TestBase {
 
     @Test
     public void noCountrySelected_Test() {
-        String email = "flirautomationtest@gmail.com";
-        String pass = "PASSWORD123!";
+        String testCaseTitle = "SIGNUP PAGE - noCountrySelected_Test";
+        String testCaseDescription = "Error message is displayed if no country is selected from the dropdown list";
+        String email = prop.getProperty("gmail");
+        String pass = "Password1!";
         String firstName = "firstName";
         String lastName = "lastName";
 
-        extentTest = extent.createTest("SIGNUP PAGE - noCountrySelected_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if no country is selected from the dropdown list");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setFirstName(firstName);
-        extentTestChild.log(Status.PASS, "Entered a first name");
-
         signUpPage.setLastName(lastName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
-        Random random = new Random();
-        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
-        else signUpPage.consentYes().click();
-        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
-
         signUpPage.setNewPassword(pass);
         signUpPage.setConfirmNewPassword(pass);
-        extentTestChild.log(Status.PASS, "Entered matching passwords");
+        signUpPage.selectRandomConsent();
 
-        signUpPage.createNewAccount();
-        testUtil.waitForElementToLoad(driver, signUpPage.blankCountryMsg());
-        assertTrue(signUpPage.blankCountryMsg().getText().contains("Missing required element: Country/Region"));
-        extentTestChild.log(Status.PASS, "No country was selected error message is displayed");
+        signUpPage.createUserWithoutCountry();
     }
 
     @Test(groups = {"smoke"})
     public void noConsent_Test() {
-        String email = "flirautomationtest@gmail.com";
+        String testCaseTitle = "SIGNUP PAGE - noConsent_Test";
+        String testCaseDescription = "Error message is displayed if no consent option is selected";
+        String email = prop.getProperty("gmail");
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String lastName = "lastName";
-        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
 
-        extentTest = extent.createTest("SIGNUP PAGE - noConsent_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if no consent option is selected");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setFirstName(firstName);
-        extentTestChild.log(Status.PASS, "Entered a first name");
-
         signUpPage.setLastName(lastName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
         signUpPage.setNewPassword(pass);
         signUpPage.setConfirmNewPassword(pass);
-        extentTestChild.log(Status.PASS, "Entered matching passwords");
+        signUpPage.selectRandomCountry();
 
-        Select country_select = new Select(signUpPage.country_dropdown());
-        Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
-        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
-
-        signUpPage.createNewAccount();
-        testUtil.waitForElementToLoad(driver, signUpPage.requiredFieldMissingMsg());
-        assertTrue(signUpPage.requiredFieldMissingMsg().getText().contains(error_msg));
-        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed");
+        signUpPage.createUserWithoutMandatoryField();
     }
 
     @Test
     public void noFirstName_Test() {
-        String email = "flirautomationtest@gmail.com";
+        String testCaseTitle = "SIGNUP PAGE - noFirstName_Test";
+        String testCaseDescription = "Error message is displayed if the first Name field is left blank";
+        String email = prop.getProperty("gmail");
         String pass = "PASSWORD123!";
         String lastName = "lastName";
-        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
 
-        extentTest = extent.createTest("SIGNUP PAGE - noFirstName_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the first Name field is left blank");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setLastName(lastName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
         signUpPage.setNewPassword(pass);
         signUpPage.setConfirmNewPassword(pass);
-        extentTestChild.log(Status.PASS, "Entered matching passwords");
+        signUpPage.selectRandomCountry();
+        signUpPage.selectRandomConsent();
 
-        Select country_select = new Select(signUpPage.country_dropdown());
-        Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
-        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
-
-        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
-        else signUpPage.consentYes().click();
-        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
-
-        signUpPage.createNewAccount();
-        testUtil.waitForElementToLoad(driver, signUpPage.requiredFieldMissingMsg());
-        assertTrue(signUpPage.requiredFieldMissingMsg().getText().contains(error_msg));
-        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: " + error_msg);
+        signUpPage.createUserWithoutMandatoryField();
     }
 
     @Test
     public void noLastName_Test() {
-        String email = "flirautomationtest@gmail.com";
+        String testCaseTitle = "SIGNUP PAGE - noLastName_Test";
+        String testCaseDescription = "Error message is displayed if the last Name field is left blank";
+        String email = prop.getProperty("gmail");
         String pass = "PASSWORD123!";
         String firstName = "firstName";
-        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
 
-        extentTest = extent.createTest("SIGNUP PAGE - noLastName_Test");
-        extentTestChild = extentTest.createNode("Error message is displayed if the last Name field is left blank");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setFirstName(firstName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
         signUpPage.setNewPassword(pass);
         signUpPage.setConfirmNewPassword(pass);
-        extentTestChild.log(Status.PASS, "Entered matching passwords");
+        signUpPage.selectRandomCountry();
+        signUpPage.selectRandomConsent();
 
-        Select country_select = new Select(signUpPage.country_dropdown());
-        Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
-        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
-
-        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
-        else signUpPage.consentYes().click();
-        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
-
-        signUpPage.createNewAccount();
-        testUtil.waitForElementToLoad(driver, signUpPage.requiredFieldMissingMsg());
-        assertTrue(signUpPage.requiredFieldMissingMsg().getText().contains(error_msg));
-        extentTestChild.log(Status.PASS, "Mandatory field is missing error message is displayed: " + error_msg);
+        signUpPage.createUserWithoutMandatoryField();
     }
 
     @Test
     public void cancelRegistration_Test() {
-        String email = "flirautomationtest@gmail.com";
+        String testCaseTitle = "SIGNUP PAGE - cancelRegistration_Test";
+        String testCaseDescription = "SignUp Flow is cancelled and user is redirected to the landing page";
+        String email = prop.getProperty("gmail");
         String pass = "PASSWORD123!";
         String firstName = "firstName";
         String lastName = "lastName";
 
-        extentTest = extent.createTest("SIGNUP PAGE - cancelRegistration_Test");
-        extentTestChild = extentTest.createNode("SignUp Flow is cancelled and user is redirected to the landing page");
+        createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
-        testUtil.getTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Navigated to SignUp Page");
 
-        signUpPage.setEmailAddress(email);
-        signUpPage.sendVerCode_BTN().click();
-        extentTestChild.log(Status.PASS, "Entered the email address and clicked on Send verification code button");
-
-        testUtil.waitForElementToLoad(driver, signUpPage.verificationCode_field());
-        assertTrue(signUpPage.verificationCode_field().isDisplayed(), "true");
-        extentTestChild.log(Status.PASS, "Verification code field is displayed. Token was sent via email");
-
-        signUpPage.setVerificationCode_field(testUtil.getTokenFromGmail());
-        extentTestChild.log(Status.PASS, "Entered the token received via email");
-
-        signUpPage.verifyCode_BTN().click();
-        testUtil.waitForElementToLoad(driver, signUpPage.changeEmail_BTN());
-        extentTestChild.log(Status.PASS, "Clicked on Verify code button");
-
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        signUpPage.enterTokenFromGmail();
         signUpPage.setFirstName(firstName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
         signUpPage.setLastName(lastName);
-        extentTestChild.log(Status.PASS, "Entered a last name");
-
         signUpPage.setNewPassword(pass);
         signUpPage.setConfirmNewPassword(pass);
-        extentTestChild.log(Status.PASS, "Entered matching passwords");
+        signUpPage.selectRandomCountry();
+        signUpPage.selectRandomConsent();
 
-        Select country_select = new Select(signUpPage.country_dropdown());
-        Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
-        extentTestChild.log(Status.PASS, "Selected a country from the dropdown list");
-
-        if (random.nextInt(1) % 2 == 0) signUpPage.consentNo().click();
-        else signUpPage.consentYes().click();
-        extentTestChild.log(Status.PASS, "Selected randomly if I consented or not");
-
-        signUpPage.cancel_BTN().click();
-        testUtil.waitForElementToLoad(driver, landingPage.login_BTN());
-        extentTestChild.log(Status.PASS, "Clicked and the Cancel button and was redirected to Landing page");
+        signUpPage.cancelRegistration();
     }
 
 }

@@ -412,4 +412,27 @@ public class SignUpPage extends TestBase {
         addTestCaseStep("Error message is displayed: "+mismatchingPassMsg.getText());
     }
 
+    public void createUserWithoutCountry(){
+        create_BTN.click();
+        testUtil.waitForElementToLoad(blankCountryMsg);
+        assertTrue(blankCountryMsg().getText().contains("Missing required element: Country/Region"));
+        addTestCaseStep("No country was selected error message is displayed");
+    }
+
+    public void createUserWithoutMandatoryField(){
+        String error_msg = "A required field is missing. Please fill out all required fields and try again.";
+
+        create_BTN.click();
+        testUtil.waitForElementToLoad(requiredFieldMissingMsg());
+        assertTrue(requiredFieldMissingMsg().getText().contains(error_msg));
+        addTestCaseStep("Mandatory field is missing error message is displayed");
+    }
+
+    public void cancelRegistration(){
+        cancel_BTN.click();
+        LandingPage landingPage = new LandingPage();
+        testUtil.waitForElementToLoad(landingPage.login_BTN());
+        addTestCaseStep("Clicked and the Cancel button and was redirected to Landing page");
+    }
+
 }
