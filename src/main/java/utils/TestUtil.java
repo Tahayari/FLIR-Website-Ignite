@@ -256,16 +256,13 @@ public class TestUtil extends TestBase {
 
     public String getTokenFromGmail() {
         String token;
-        String email_XPATH = "//span[@class='bog']";
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
         String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
 
         navigateToNextTab();
 
+        waitForIncomingMail();
         clickOnIncomingMail();
-
-        driver.findElements(By.xpath(email_XPATH)).get(0).click();
-        waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
 
         String emailBodyText = driver.findElement(By.xpath(emailBody_XPATH)).getText();
         token = emailBodyText.substring(14);
@@ -326,11 +323,17 @@ public class TestUtil extends TestBase {
             driver.findElements(By.xpath(email_XPATH)).get(0).click();
             waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
             driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-            //TODO : maybe wait until the email is deleted ?
+
+            try {
+                WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+                wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH),0));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void clickOnIncomingMail(){
+    public void waitForIncomingMail(){
         String email_XPATH = "//span[@class='bog']";
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
         try {
@@ -346,6 +349,21 @@ public class TestUtil extends TestBase {
                 throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
             }
         }
+    }
+
+    public void clickOnIncomingMail(){
+        String email_XPATH = "//span[@class='bog']";
+        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+
+        driver.findElements(By.xpath(email_XPATH)).get(0).click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement element = driver.findElement(By.xpath(emailBody_XPATH));
+        wait.until(ExpectedConditions.textToBePresentInElement(element,"code"));
     }
 //----END of Gmail related functions
 
