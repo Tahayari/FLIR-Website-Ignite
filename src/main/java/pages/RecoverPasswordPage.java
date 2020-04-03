@@ -148,9 +148,17 @@ public class RecoverPasswordPage extends TestBase {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
+        testUtil.waitForElementToLoad(incorrectVerCode);
         Assert.assertTrue(incorrectVerCode_err().isDisplayed());
         addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
+    }
+
+    public void verifyInvalidTokenErrorMsg(){
+        String error_msg = "That code is incorrect. Please try again.";
+
         testUtil.waitForElementToLoad(incorrectVerCode);
+        Assert.assertEquals(incorrectVerCode.getText(),error_msg);
+        addTestCaseStep("Error message is displayed: "+error_msg);
     }
 
     public void waitForTokenToExpire(int minutesToWait) {

@@ -12,7 +12,8 @@
 <!--        </groups>-->
         <classes>
             <class name="testCases.RecoverPassPageTest"></class>
-<!--            <class name="testCases.SignUpPageTest"></class>-->
+            <class name="testCases.SignUpPageTest"></class>
+            <class name="testCases.LoginPageTest"></class>
         </classes>
     </test>
 </suite>

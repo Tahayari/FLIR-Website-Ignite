@@ -123,7 +123,6 @@ public class RecoverPassPageTest extends TestBase {
     public void invalidToken_Test(){
         String testCaseTitle = "RECOVER PASS PAGE - invalidToken_Test";
         String testCaseDescription = "Error message is displayed when the user enters an invalid/incorrect token";
-        String error_msg = "That code is incorrect. Please try again.";
         String invalidToken = "000000";
         String email = "someEmailForTesting@test.com" ;
 
@@ -135,8 +134,7 @@ public class RecoverPassPageTest extends TestBase {
 
         recoverPasswordPage.sendInvalidToken(invalidToken);
 
-        Assert.assertEquals(recoverPasswordPage.incorrectVerCode_err().getText(),error_msg);
-        addTestCaseStep("Error message is displayed: "+error_msg);
+        recoverPasswordPage.verifyInvalidTokenErrorMsg();
     }
 
     @Test

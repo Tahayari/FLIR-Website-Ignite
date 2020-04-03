@@ -295,9 +295,9 @@ public class SignUpPage extends TestBase {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
+        testUtil.waitForElementToLoad(incorrectVerCodeMsg);
         Assert.assertTrue(incorrectVerCodeMsg.isDisplayed());
         addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
-        testUtil.waitForElementToLoad(incorrectVerCodeMsg);
     }
 
     public void enterTokenFromMailinator(String email) {

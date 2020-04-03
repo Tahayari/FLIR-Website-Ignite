@@ -34,10 +34,10 @@ public class LoginPageTest extends TestBase {
     public void verifyInvalidEmails(Object[][] invalidEmailsList) {
         String error_msg = "Please enter a valid email address";
 
-        for (Object[] objects : invalidEmailsList) {
+        for (int i=1;i<invalidEmailsList.length;i++) {
             loginPage.email_field().clear();
-            loginPage.setInvalidEmail(objects[0].toString());
-            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
+            loginPage.setInvalidEmail(invalidEmailsList[i][0].toString());
+            addTestCaseStep("Entered the following invalid email: " + invalidEmailsList[i][0].toString());
             testUtil.waitForElementToLoad(loginPage.invalidEmailErrorMsg());
             checkIfCorrectErrMsg(loginPage.invalidEmailErrorMsg(), error_msg);
             addTestCaseStep("Error message is displayed: " + error_msg);
@@ -72,7 +72,7 @@ public class LoginPageTest extends TestBase {
         addTestCaseStep("Left the password field blank and clicked on the Sign In button");
 
         testUtil.waitForElementToLoad(loginPage.invalidPassErrorMsg());
-        checkIfCorrectErrMsg(loginPage.incorrectPassErrorMsg(), error_msg);
+        checkIfCorrectErrMsg(loginPage.invalidPassErrorMsg(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
