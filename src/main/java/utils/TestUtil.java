@@ -35,8 +35,8 @@ public class TestUtil extends TestBase {
         }
     }
 
-    public void waitForElementToLoad(WebElement webElementToWaitFor){
-        waitForElementToLoad(driver,webElementToWaitFor);
+    public void waitForElementToLoad(WebElement webElementToWaitFor) {
+        waitForElementToLoad(driver, webElementToWaitFor);
     }
 
     public static Object[][] getTestaData(String filename, String sheetName) {
@@ -126,101 +126,35 @@ public class TestUtil extends TestBase {
         return token;
     }
 
-//    public String getTokenFromGmail(boolean firstLogin) {
-//        String a = "window.open('','_blank');";
-//        String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
-////        String email = "flirAutomationTest@gmail.com";
-////        String pass = "Pa$$word1!";
-//        String email_ID = "identifierId";
-//        String nextButtonEmail_ID = "identifierNext";
-//        String nextButtonPass_ID = "passwordNext";
-//        String password_name = "password";
-//
-//        String email_XPATH = "//span[@class='bog']";
-//        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-//        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
-//        String avatar_XPATH = "//span[@class='gb_Ia gbii']";
-//        String token;
-//        int WAIT_FOR_EMAIL_TIMEOUT = 60; //number of seconds before the google page timeouts
-//
-//        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_EMAIL_TIMEOUT);
-//
-//        if (firstLogin) {
-//            ((JavascriptExecutor) driver).executeScript(a);
-//            ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//            driver.switchTo().window(tabs.get(1));
-//            driver.get(URL);
-//
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(email_ID))).isDisplayed();
-//            driver.findElement(By.id(email_ID)).sendKeys(prop.getProperty("gmail"));
-//            driver.findElement(By.id(nextButtonEmail_ID)).click();
-//
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password_name))).isDisplayed();
-//            driver.findElement(By.name(password_name)).sendKeys(prop.getProperty("password"));
-//            driver.findElement(By.id(nextButtonPass_ID)).click();
-//
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
-//
-//            //delete any existing email
-//            if (driver.findElements(By.xpath(email_XPATH)).size() > 0) {
-//                driver.findElements(By.xpath(email_XPATH)).get(0).click(); //click on the existing email
-//                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailBody_XPATH))); // wait for the email body to load
-//                driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click(); // delete the email
-//                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH)));
-//            }
-//
-////            driver.close();
-//            driver.switchTo().window(tabs.get(0));
-//            return "-------------email first login setup is complete";
-//        }
-//
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        driver.switchTo().window(tabs.get(1));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(avatar_XPATH))); //wait for the main page to load
-//
-//        try {
-//            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0)); //wait until gmail has received 1 email
-//        } catch (Exception e) {
-//            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
-//            try {
-//                driver.navigate().refresh();
-//                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0)); //wait until gmail has received 1 email
-//            } catch (TimeoutException te) {
-//                System.out.println("----Timeout error. Email did not arrive in the allotted time");
-//                te.printStackTrace();
-//                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
-//            }
-//        }
-//
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(email_XPATH)));
-//        WebElement receivedEmail = driver.findElements(By.xpath(email_XPATH)).get(0);
-//        receivedEmail.click();
-//
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailBody_XPATH)));
-//        token = driver.findElement(By.xpath(emailBody_XPATH)).getText().substring(14); //get only the token;
-//
-//        driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-//
-//        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
-//
-//        driver.switchTo().window(tabs.get(0));
-//
-//        return token;
-//    }
+    //----Mailinator related functions
+    public void prepareMailinator(String email) {
+        navigateToMailinator(email);
+        navigateToPreviousTab();
+    }
+
+    public void navigateToMailinator(String email) {
+        String a = "window.open('','_blank');";
+        String URL = "https://www.mailinator.com/v3/index.jsp?zone=public&query=" + email + "#/#inboxpane";
+
+        ((JavascriptExecutor) driver).executeScript(a);
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.get(URL);
+        //TODO: see if a wait is needed here
+    }
+
+    public void enterTokenFromMailinator() {
+
+    }
+
 
     public String getTokenFromMailinator(String text) {
-        String a = "window.open('','_blank');";  // replace link with your desired link
         String firstReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[5]";
         String firstFrom_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[3]";
-//        String secondReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[2]//descendant::td[5]";
         String token_xpath = "//span[@id='BodyPlaceholder_UserVerificationEmailBodySentence2']";
         String token;
 
-        ((JavascriptExecutor) driver).executeScript(a);
-
-        //switches to new tab
         navigateToNextTab();
-        driver.get("https://www.mailinator.com/v3/index.jsp?zone=public&query=" + text + "#/#inboxpane");
 
         WebElement received = driver.findElement(By.xpath(firstReceived_xpath));
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
@@ -241,6 +175,8 @@ public class TestUtil extends TestBase {
         navigateToPreviousTab();
         return token;
     }
+
+    //----END of Mailinator related functions
 
     //----Gmail related functions
 
@@ -326,14 +262,14 @@ public class TestUtil extends TestBase {
 
             try {
                 WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-                wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH),0));
+                wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void waitForIncomingMail(){
+    public void waitForIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
         try {
@@ -351,7 +287,7 @@ public class TestUtil extends TestBase {
         }
     }
 
-    public void clickOnIncomingMail(){
+    public void clickOnIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
@@ -363,7 +299,7 @@ public class TestUtil extends TestBase {
             e.printStackTrace();
         }
         WebElement element = driver.findElement(By.xpath(emailBody_XPATH));
-        wait.until(ExpectedConditions.textToBePresentInElement(element,"code"));
+        wait.until(ExpectedConditions.textToBePresentInElement(element, "code"));
     }
 //----END of Gmail related functions
 

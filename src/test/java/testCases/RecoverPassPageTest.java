@@ -74,6 +74,14 @@ public class RecoverPassPageTest extends TestBase {
         addTestCaseStep("Navigated to Recover Pass Page");
     }
 
+    public void goToChangePassPage(String email){
+        goToRecoverPassPage();
+        testUtil.prepareMailinator(email);
+        recoverPasswordPage.sendTokenToEmail(email+"@mailinator.com");
+        recoverPasswordPage.enterTokenFromMailinator(email);
+        recoverPasswordPage.clickOn_continue_BTN();
+    }
+
     //-------Test Cases-------
     @Test
     public void title_Test() {
@@ -115,7 +123,7 @@ public class RecoverPassPageTest extends TestBase {
 
         recoverPasswordPage.sendInvalidToken("");
 
-        Assert.assertEquals(recoverPasswordPage.incorrectVerCode_err().getText(),error_msg);
+        Assert.assertEquals(recoverPasswordPage.incorrectVerCodeMsg().getText(),error_msg);
         addTestCaseStep("Error message is displayed: "+error_msg);
     }
 
@@ -244,5 +252,92 @@ public class RecoverPassPageTest extends TestBase {
         addTestCaseStep("Landing page is displayed");
     }
 
+    @Test
+    public void changeEmail_Test(){
+        String testCaseTitle = "RECOVER PASS PAGE - changeEmail_Test";
+        String testCaseDescription = "Clicking on the Change e-mail button resets the ";
+        String email = "flirtest10";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToRecoverPassPage();
+
+        testUtil.prepareMailinator(email);
+
+        recoverPasswordPage.sendTokenToEmail(email+"@mailinator.com");
+
+        recoverPasswordPage.enterTokenFromMailinator(email);
+
+        recoverPasswordPage.clickOn_changeEmail_BTN();
+    }
+
+    @Test
+    public void incorrectPasswordFormat_Test(){
+        String testCaseTitle = "RECOVER PASS PAGE - incorrectPasswordFormat_Test";
+        String testCaseDescription = "Error message is displayed if an invalid password is entered";
+        String email = "flirtest10";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToChangePassPage(email);
+
+        recoverPasswordPage.tryIncorrectPasswords(recoverPasswordPage.newPassword_field());
+    }
+
+    @Test
+    public void incorrectPasswordFormatConfirmPassField_Test(){
+        String testCaseTitle = "RECOVER PASS PAGE - incorrectPasswordFormatConfirmPassField_Test";
+        String testCaseDescription = "Error message is displayed if an invalid password is entered (Confirm password field)";
+        String email = "flirtest10";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToChangePassPage(email);
+
+        recoverPasswordPage.tryIncorrectPasswords(recoverPasswordPage.reEnterPassword_field());
+    }
+
+    @Test
+    public void blankPass_Test(){
+        String testCaseTitle = "RECOVER PASS PAGE - blankPass_Test";
+        String testCaseDescription = "Error message is displayed if password field is left blank and user clicks on Continue button";
+        String email = "flirtest10";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToChangePassPage(email);
+
+        recoverPasswordPage.submitBlankPassword();
+    }
+
+    @Test
+    public void mismatchingPasswords_Test(){
+        String testCaseTitle = "RECOVER PASS PAGE - mismatchingPasswords_Test";
+        String testCaseDescription = "Error message is displayed if the passwords are not identical";
+        String email = "flirtest10";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToChangePassPage(email);
+
+        recoverPasswordPage.enterMismatchingPasswords();
+    }
+
+    @Test
+    public void changePassword_Test(){
+//        https://jiracommercial.flir.com/browse/THAL-2544
+        String testCaseTitle = "RECOVER PASS PAGE - changePassword_Test";
+        String testCaseDescription = "Successfully change the password to an existing account";
+        String email = "flirtest10";
+        String newPassword = "QAZxsw123";
+
+        createTestCase(testCaseTitle,testCaseDescription);
+
+        goToChangePassPage(email);
+
+        recoverPasswordPage.enterNewPassword(newPassword);
+
+        recoverPasswordPage.createNewPassword() ;
+    }
 
 }

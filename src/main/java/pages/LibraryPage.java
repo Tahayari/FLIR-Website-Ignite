@@ -73,7 +73,7 @@ private final String welcomeScreenSkip_XPATH = "//button[@class='flir-icon-butto
     public WebElement getSharedwithMe_BTN() {
         return sharedwithMe_BTN;
     }
-    public WebElement getNewFolder_btn() {
+    public WebElement newFolder_BTN() {
         return newFolder_btn;
     }
     public WebElement userArea() {

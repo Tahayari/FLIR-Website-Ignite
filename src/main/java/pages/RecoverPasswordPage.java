@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.TestUtil;
 
+import java.util.NoSuchElementException;
+
 import static org.testng.Assert.assertTrue;
 
 public class RecoverPasswordPage extends TestBase {
@@ -16,6 +18,8 @@ public class RecoverPasswordPage extends TestBase {
     //---Input fields
     private final String emailAddressField_ID = "email";
     private final String verificationCodeField_ID = "email_ver_input";
+    private final String newPassword_ID = "newPassword";
+    private final String reenterPassword_ID = "reenterPassword";
 
     //---Buttons
     private final String sendVerificationCodeBTN_ID = "email_ver_but_send";
@@ -30,6 +34,10 @@ public class RecoverPasswordPage extends TestBase {
     private final String expiredVerificationCode_ID = "email_fail_code_expired";
     private final String invalidEmailError_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
     private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
+    private final String requiredFieldMissing_ID = "requiredFieldMissing";
+    private final String invalidPassError_XPATH = "//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]";
+    private final String invalidConfirmPassError_XPATH = "//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]";
+    private final String passwordEntryMismatch_ID = "passwordEntryMismatch";
     //--------------
 
     //-------Locators-------
@@ -57,6 +65,18 @@ public class RecoverPasswordPage extends TestBase {
     private WebElement expiredVerCode;
     @FindBy(id = tooManyIncorrectAttemptsError_ID)
     private WebElement tooManyIncorrectAttemptsError;
+    @FindBy(id = newPassword_ID)
+    private WebElement newPassword_field;
+    @FindBy(id = reenterPassword_ID)
+    private WebElement reEnterPassword_field;
+    @FindBy(id = requiredFieldMissing_ID)
+    private WebElement requiredFieldMissingMsg;
+    @FindBy(xpath = invalidPassError_XPATH)
+    private WebElement invalidPassErrorMsg;
+    @FindBy(xpath = invalidConfirmPassError_XPATH)
+    private WebElement invalidConfirmPassErrorMsg;
+    @FindBy(id = passwordEntryMismatch_ID)
+    private WebElement passwordEntryMismatchMsg;
     //--------------
 
     //Constructor
@@ -99,7 +119,7 @@ public class RecoverPasswordPage extends TestBase {
         return cancel_BTN;
     }
 
-    public WebElement incorrectVerCode_err() {
+    public WebElement incorrectVerCodeMsg() {
         return incorrectVerCode;
     }
 
@@ -115,6 +135,25 @@ public class RecoverPasswordPage extends TestBase {
         return tooManyIncorrectAttemptsError;
     }
 
+    public WebElement newPassword_field() {
+        return newPassword_field;
+    }
+
+    public WebElement reEnterPassword_field() {
+        return reEnterPassword_field;
+    }
+
+    public WebElement requiredFieldMissingMsg() {
+        return requiredFieldMissingMsg;
+    }
+
+    public WebElement invalidPassErrorMsg() {
+        return invalidPassErrorMsg;
+    }
+
+    public WebElement invalidConfirmPassErrorMsg() {
+        return invalidConfirmPassErrorMsg;
+    }
     //--------------
 
     //-----------SETTERS
@@ -149,16 +188,16 @@ public class RecoverPasswordPage extends TestBase {
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
         testUtil.waitForElementToLoad(incorrectVerCode);
-        Assert.assertTrue(incorrectVerCode_err().isDisplayed());
+        Assert.assertTrue(incorrectVerCodeMsg().isDisplayed());
         addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
 
-    public void verifyInvalidTokenErrorMsg(){
+    public void verifyInvalidTokenErrorMsg() {
         String error_msg = "That code is incorrect. Please try again.";
 
         testUtil.waitForElementToLoad(incorrectVerCode);
-        Assert.assertEquals(incorrectVerCode.getText(),error_msg);
-        addTestCaseStep("Error message is displayed: "+error_msg);
+        Assert.assertEquals(incorrectVerCode.getText(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
     public void waitForTokenToExpire(int minutesToWait) {
@@ -180,10 +219,20 @@ public class RecoverPasswordPage extends TestBase {
         testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
         addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-
     }
 
-    public void verifyIfTokenExpired(){
+    public void enterTokenFromMailinator(String email) {
+        verificationCode_field.click();
+        verificationCode_field.clear();
+        String token = testUtil.getTokenFromMailinator(email);
+        verificationCode_field.sendKeys(token);
+        verifyCode_BTN.click();
+        testUtil.waitForElementToLoad(changeEmail_BTN);
+        Assert.assertTrue(changeEmail_BTN.isDisplayed());
+        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+    }
+
+    public void verifyIfTokenExpired() {
         String error_msg = "That code is expired. Please request a new code.";
 
         verificationCode_field.click();
@@ -194,8 +243,8 @@ public class RecoverPasswordPage extends TestBase {
         addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
 
         testUtil.waitForElementToLoad(expiredVerCode());
-        Assert.assertEquals(expiredVerCode().getText(),error_msg);
-        addTestCaseStep("Error message is displayed: "+error_msg);
+        Assert.assertEquals(expiredVerCode().getText(), error_msg);
+        addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
     public void enterInvalidTokenMultipleTimes(int timesToRetry) {
@@ -206,25 +255,93 @@ public class RecoverPasswordPage extends TestBase {
             verifyCode_BTN().click();
         }
 
-        addTestCaseStep("Entered the wrong token "+timesToRetry+" times");
+        addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
     }
 
-    public void generateAnotherToken(){
+    public void generateAnotherToken() {
         sendNewCode_BTN().click();
         testUtil.waitForElementToLoad(verifyCode_BTN);
         Assert.assertTrue(verifyCode_BTN.isDisplayed());
         addTestCaseStep("Generated another token");
     }
 
-    public void clickOn_changeEmail_BTN(){
+    public void clickOn_changeEmail_BTN() {
         changeEmail_BTN().click();
         testUtil.waitForElementToLoad(sendVerCode_BTN());
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
         addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
     }
-    //--------------
+
+    public void clickOn_continue_BTN() {
+        continue_BTN.click();
+        testUtil.waitForElementToLoad(newPassword_field);
+        addTestCaseStep("Enter new password page is displayed");
+    }
+
+    public void tryIncorrectPasswords(WebElement passField) {
+        String invalidPass[] = {" ", "passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};
+
+        for (int i = 0; i < invalidPass.length; i++) {
+            passField.clear();
+            passField.sendKeys(invalidPass[i]);
+            addTestCaseStep("Entered the following password: " + invalidPass[i]);
+
+            if (passField == newPassword_field) {
+                testUtil.waitForElementToLoad(invalidPassErrorMsg);
+                Assert.assertTrue(invalidPassErrorMsg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidPassErrorMsg.getText());
+            } else if (passField == reEnterPassword_field) {
+                testUtil.waitForElementToLoad(invalidConfirmPassErrorMsg);
+                Assert.assertTrue(invalidConfirmPassErrorMsg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidConfirmPassErrorMsg.getText());
+            } else throw new NoSuchElementException();
+        }
+    }
+
+
+    public void submitBlankPassword() {
+        continue_BTN.click();
+        addTestCaseStep("Left the password field blank and clicked on Continue button");
+
+        testUtil.waitForElementToLoad(requiredFieldMissingMsg);
+        Assert.assertTrue(requiredFieldMissingMsg.isDisplayed());
+        addTestCaseStep("Error message is displayed: " + requiredFieldMissingMsg.toString());
+    }
+
+    public void enterMismatchingPasswords() {
+        String pass1 = "PASSWORD123!";
+        String pass2 = "Password123!";
+
+        newPassword_field.clear();
+        newPassword_field.sendKeys(pass1);
+        addTestCaseStep("Entered the following password in the password field: " + pass1);
+        reEnterPassword_field.clear();
+        reEnterPassword_field.sendKeys(pass2);
+        addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
+
+        continue_BTN.click();
+        addTestCaseStep("Clicked on the Create button");
+        testUtil.waitForElementToLoad(passwordEntryMismatchMsg);
+        Assert.assertTrue(passwordEntryMismatchMsg.getText().contains("The password entry fields do not match"));
+        addTestCaseStep("Error message is displayed: " + passwordEntryMismatchMsg.getText());
+    }
+
+    public void enterNewPassword(String newPassword) {
+        newPassword_field.sendKeys(newPassword);
+        reEnterPassword_field.sendKeys(newPassword);
+        addTestCaseStep("Entered the password " + newPassword +" into the password fields");
+    }
+
+    public LibraryPage createNewPassword(){
+        continue_BTN.click();
+        LibraryPage libraryPage = new LibraryPage();
+        testUtil.waitForElementToLoad(libraryPage.newFolder_BTN());
+        Assert.assertTrue(libraryPage.newFolder_BTN().isDisplayed());
+        addTestCaseStep("Clicked on the Continue button. New Password is set and Library page is displayed");
+        return libraryPage;
+    }
+//--------------
 
 //TODO : Rest of the elements from this page
-
 }
