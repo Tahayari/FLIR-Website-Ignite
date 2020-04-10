@@ -51,13 +51,13 @@ public class LoginPage extends TestBase {
 
     //---Errors
     @FindBy(xpath = invalidEmailError_XPATH)
-    private WebElement invalidEmailErrorMsg;
+    private WebElement invalidEmailError_Msg;
     @FindBy(xpath = invalidPassError_XPATH)
-    private WebElement invalidPassErrorMsg;
+    private WebElement invalidPassError_Msg;
     @FindBy(xpath = incorrectPassError_XPATH)
-    private WebElement incorrectPassErrorMsg;
+    private WebElement incorrectPassError_Msg;
     @FindBy(xpath = nonExistingAccountError_XPATH)
-    private WebElement nonExistingAccountMsg;
+    private WebElement nonExistingAccount_Msg;
     //--------------
 
 
@@ -81,28 +81,20 @@ public class LoginPage extends TestBase {
         return signIn_BTN;
     }
 
-    public WebElement signUp_link() {
-        return signUp_link;
+    public WebElement invalidEmailError_Msg() {
+        return invalidEmailError_Msg;
     }
 
-    public WebElement forgotPass_link() {
-        return forgotPass_link;
+    public WebElement invalidPassError_Msg() {
+        return invalidPassError_Msg;
     }
 
-    public WebElement invalidEmailErrorMsg() {
-        return invalidEmailErrorMsg;
+    public WebElement incorrectPassError_Msg() {
+        return incorrectPassError_Msg;
     }
 
-    public WebElement invalidPassErrorMsg() {
-        return invalidPassErrorMsg;
-    }
-
-    public WebElement incorrectPassErrorMsg() {
-        return incorrectPassErrorMsg;
-    }
-
-    public WebElement nonExistingAccountMsg() {
-        return nonExistingAccountMsg;
+    public WebElement nonExistingAccount_Msg() {
+        return nonExistingAccount_Msg;
     }
     //-----------
 
@@ -114,7 +106,6 @@ public class LoginPage extends TestBase {
         signIn_BTN.click();
     }
     //-----------
-
 
     //-----------Actions
     public String getPageTitle() {

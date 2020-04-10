@@ -65,8 +65,8 @@ public class SignUpPageTest extends TestBase {
             signUpPage.email_field().clear();
             signUpPage.setInvalidEmail(objects[0].toString());
             addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
-            testUtil.waitForElementToLoad(signUpPage.invalidEmailMsg());
-            checkIfCorrectErrMsg(signUpPage.invalidEmailMsg(), error_msg);
+            testUtil.waitForElementToLoad(signUpPage.invalidEmail_Msg());
+            checkIfCorrectErrMsg(signUpPage.invalidEmail_Msg(), error_msg);
             addTestCaseStep("Error message is displayed: " + error_msg);
         }
     }
@@ -140,7 +140,7 @@ public class SignUpPageTest extends TestBase {
 
         signUpPage.sendInvalidToken(invalidToken);
 
-        Assert.assertEquals(signUpPage.incorrectVerCodeMsg().getText(), error_msg);
+        Assert.assertEquals(signUpPage.incorrectVerCode_Msg().getText(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -180,8 +180,8 @@ public class SignUpPageTest extends TestBase {
 
         signUpPage.enterInvalidTokenMultipleTimes(timesToRetry);
 
-        testUtil.waitForElementToLoad(signUpPage.tooManyAttemptsMsg());
-        Assert.assertEquals(signUpPage.tooManyAttemptsMsg().getText(), error_msg);
+        testUtil.waitForElementToLoad(signUpPage.tooManyAttempts_Msg());
+        Assert.assertEquals(signUpPage.tooManyAttempts_Msg().getText(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
 
     }

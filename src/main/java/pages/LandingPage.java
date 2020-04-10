@@ -9,16 +9,16 @@ import org.openqa.selenium.support.PageFactory;
 public class LandingPage extends TestBase {
 
     //-------PATHS-------
-    private final String loginButton_xpath = "//span[contains(text(),'LOG IN')]";
-    private final String signUpButton_xpath = "//span[contains(text(),'SIGN UP')]";
+    private final String loginBTN_XPATH = "//span[contains(text(),'LOG IN')]";
+    private final String signUpBTN_XPATH = "//span[contains(text(),'SIGN UP')]";
     //--------------
 
 
     //-------Locators-------
-    @FindBy(xpath = loginButton_xpath)
+    @FindBy(xpath = loginBTN_XPATH)
     @CacheLookup
     private WebElement login_BTN;
-    @FindBy(xpath = signUpButton_xpath)
+    @FindBy(xpath = signUpBTN_XPATH)
     @CacheLookup
     private WebElement signup_BTN;
     //--------------

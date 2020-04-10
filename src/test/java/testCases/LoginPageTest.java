@@ -38,8 +38,8 @@ public class LoginPageTest extends TestBase {
             loginPage.email_field().clear();
             loginPage.setInvalidEmail(invalidEmailsList[i][0].toString());
             addTestCaseStep("Entered the following invalid email: " + invalidEmailsList[i][0].toString());
-            testUtil.waitForElementToLoad(loginPage.invalidEmailErrorMsg());
-            checkIfCorrectErrMsg(loginPage.invalidEmailErrorMsg(), error_msg);
+            testUtil.waitForElementToLoad(loginPage.invalidEmailError_Msg());
+            checkIfCorrectErrMsg(loginPage.invalidEmailError_Msg(), error_msg);
             addTestCaseStep("Error message is displayed: " + error_msg);
         }
     }
@@ -71,8 +71,8 @@ public class LoginPageTest extends TestBase {
         loginPage.signIn_BTN().click();
         addTestCaseStep("Left the password field blank and clicked on the Sign In button");
 
-        testUtil.waitForElementToLoad(loginPage.invalidPassErrorMsg());
-        checkIfCorrectErrMsg(loginPage.invalidPassErrorMsg(), error_msg);
+        testUtil.waitForElementToLoad(loginPage.invalidPassError_Msg());
+        checkIfCorrectErrMsg(loginPage.invalidPassError_Msg(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -84,8 +84,8 @@ public class LoginPageTest extends TestBase {
         loginPage.signIn_BTN().click();
         addTestCaseStep("Entered an incorrect password: " + invalidPass + " and then clicked on the Sign In button");
 
-        testUtil.waitForElementToLoad(loginPage.incorrectPassErrorMsg());
-        checkIfCorrectErrMsg(loginPage.incorrectPassErrorMsg(), error_msg);
+        testUtil.waitForElementToLoad(loginPage.incorrectPassError_Msg());
+        checkIfCorrectErrMsg(loginPage.incorrectPassError_Msg(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -96,8 +96,8 @@ public class LoginPageTest extends TestBase {
         loginPage.signIn_BTN().click();
         addTestCaseStep("Entered credentials for a non existing account and clicked on Sign In button");
 
-        testUtil.waitForElementToLoad(loginPage.nonExistingAccountMsg());
-        checkIfCorrectErrMsg(loginPage.nonExistingAccountMsg(), error_msg);
+        testUtil.waitForElementToLoad(loginPage.nonExistingAccount_Msg());
+        checkIfCorrectErrMsg(loginPage.nonExistingAccount_Msg(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -128,6 +128,7 @@ public class LoginPageTest extends TestBase {
         addTestCaseStep("Recover password page is displayed");
     }
 
+    // Test cases begin here------------------------------------------------------------
     @Test
     public void title_Test() {
         String testCaseTitle = "LOGIN PAGE - title_Test";

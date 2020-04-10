@@ -92,25 +92,25 @@ public class SignUpPage extends TestBase {
 
     //---Errors
     @FindBy(id = incorrectVerificationCodeError_ID)
-    private WebElement incorrectVerCodeMsg;
+    private WebElement incorrectVerCode_Msg;
     @FindBy(id = expiredVerificationCodeError_ID)
-    private WebElement expiredVerCodeMsg;
+    private WebElement expiredVerCode_Msg;
     @FindBy(xpath = invalidEmailError_XPATH)
-    private WebElement invalidEmailMsg;
+    private WebElement invalidEmail_Msg;
     @FindBy(xpath = invalidPassError_XPATH)
-    private WebElement invalidPassMsg;
+    private WebElement invalidPass_Msg;
     @FindBy(xpath = invalidConfirmPassError_XPATH)
-    private WebElement invalidConfirmPassMsg;
+    private WebElement invalidConfirmPass_Msg;
     @FindBy(id = passMismatchError_ID)
-    private WebElement passMismatchMsg;
+    private WebElement passMismatch_Msg;
     @FindBy(id = blankCountryError_ID)
-    private WebElement blankCountryMsg;
+    private WebElement blankCountry_Msg;
     @FindBy(id = requiredFieldError_ID)
-    private WebElement requiredFieldMissingMsg;
+    private WebElement requiredFieldMissing_Msg;
     @FindBy(id = tooManyAttemptsError_ID)
-    private WebElement tooManyAttemptsMsg;
+    private WebElement tooManyAttempts_Msg;
     @FindBy(id = mismatchingPassError_ID)
-    private WebElement mismatchingPassMsg;
+    private WebElement mismatchingPass_Msg;
     //--------------
 
     //Constructor
@@ -150,32 +150,16 @@ public class SignUpPage extends TestBase {
         return create_BTN;
     }
 
-    public WebElement country_dropdown() {
-        return country_dropdown;
+    public WebElement incorrectVerCode_Msg() {
+        return incorrectVerCode_Msg;
     }
 
-    public WebElement consentNo() {
-        return consentNo;
+    public WebElement expiredVerCode_Msg() {
+        return expiredVerCode_Msg;
     }
 
-    public WebElement consentYes() {
-        return consentYes;
-    }
-
-    public WebElement cancel_BTN() {
-        return cancel_BTN;
-    }
-
-    public WebElement incorrectVerCodeMsg() {
-        return incorrectVerCodeMsg;
-    }
-
-    public WebElement expiredVerCodeMsg() {
-        return expiredVerCodeMsg;
-    }
-
-    public WebElement invalidEmailMsg() {
-        return invalidEmailMsg;
+    public WebElement invalidEmail_Msg() {
+        return invalidEmail_Msg;
     }
 
     public WebElement newPassword_field() {
@@ -186,38 +170,21 @@ public class SignUpPage extends TestBase {
         return confNewPassword_field;
     }
 
-    public WebElement invalidPassMsg() {
-        return invalidPassMsg;
+    public WebElement blankCountry_Msg() {
+        return blankCountry_Msg;
     }
 
-    public WebElement invalidConfirmPassMsg() {
-        return invalidConfirmPassMsg;
+    public WebElement requiredFieldMissing_Msg() {
+        return requiredFieldMissing_Msg;
     }
 
-    public WebElement passMismatchMsg() {
-        return passMismatchMsg;
+    public WebElement tooManyAttempts_Msg() {
+        return tooManyAttempts_Msg;
     }
-
-    public WebElement blankCountryMsg() {
-        return blankCountryMsg;
-    }
-
-    public WebElement requiredFieldMissingMsg() {
-        return requiredFieldMissingMsg;
-    }
-
-    public WebElement tooManyAttemptsMsg() {
-        return tooManyAttemptsMsg;
-    }
-
-    public WebElement mismatchingPassMsg() { return mismatchingPassMsg;}
 
     //-----------
 
     //-----------SETTERS
-    public void setEmailAddress(String text) {
-        emailAddress_field.sendKeys(text);
-    }
 
     public void setInvalidEmail(String invalidEmail) {
         emailAddress_field.clear();
@@ -286,8 +253,8 @@ public class SignUpPage extends TestBase {
         verifyCode_BTN.click();
         addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
 
-        testUtil.waitForElementToLoad(expiredVerCodeMsg());
-        Assert.assertEquals(expiredVerCodeMsg().getText(), error_msg);
+        testUtil.waitForElementToLoad(expiredVerCode_Msg());
+        Assert.assertEquals(expiredVerCode_Msg().getText(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -295,8 +262,8 @@ public class SignUpPage extends TestBase {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(incorrectVerCodeMsg);
-        Assert.assertTrue(incorrectVerCodeMsg.isDisplayed());
+        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
+        Assert.assertTrue(incorrectVerCode_Msg.isDisplayed());
         addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
 
@@ -346,7 +313,8 @@ public class SignUpPage extends TestBase {
     public void selectRandomCountry() {
         Select country_select = new Select(country_dropdown);
         Random random = new Random();
-        country_select.selectByIndex(random.nextInt(country_select.getOptions().size()));
+        int index = random.nextInt(country_select.getOptions().size());
+        country_select.selectByIndex(index);
         //TODO: countryName = GET THE NAME OF THE SELECTED COUNTRY;
         addTestCaseStep("Selected a random country from the dropdown list: ");
         extentTestChild.log(Status.PASS, "Selected a random country from the dropdown list");
@@ -383,13 +351,13 @@ public class SignUpPage extends TestBase {
             addTestCaseStep("Entered the following password: " + invalidPass[i]);
 
             if (passField == newPassword_field) {
-                testUtil.waitForElementToLoad(invalidPassMsg);
-                Assert.assertTrue(invalidPassMsg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidPassMsg.getText());
+                testUtil.waitForElementToLoad(invalidPass_Msg);
+                Assert.assertTrue(invalidPass_Msg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidPass_Msg.getText());
             } else if (passField == confNewPassword_field) {
-                testUtil.waitForElementToLoad(invalidConfirmPassMsg);
-                Assert.assertTrue(invalidConfirmPassMsg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidConfirmPassMsg.getText());
+                testUtil.waitForElementToLoad(invalidConfirmPass_Msg);
+                Assert.assertTrue(invalidConfirmPass_Msg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidConfirmPass_Msg.getText());
             } else throw new NoSuchElementException();
         }
     }
@@ -407,15 +375,15 @@ public class SignUpPage extends TestBase {
 
         create_BTN.click();
         addTestCaseStep("Clicked on the Create button");
-        testUtil.waitForElementToLoad(mismatchingPassMsg);
-        Assert.assertTrue(mismatchingPassMsg.getText().contains("The password entry fields do not match"));
-        addTestCaseStep("Error message is displayed: "+mismatchingPassMsg.getText());
+        testUtil.waitForElementToLoad(mismatchingPass_Msg);
+        Assert.assertTrue(mismatchingPass_Msg.getText().contains("The password entry fields do not match"));
+        addTestCaseStep("Error message is displayed: "+ mismatchingPass_Msg.getText());
     }
 
     public void createUserWithoutCountry(){
         create_BTN.click();
-        testUtil.waitForElementToLoad(blankCountryMsg);
-        assertTrue(blankCountryMsg().getText().contains("Missing required element: Country/Region"));
+        testUtil.waitForElementToLoad(blankCountry_Msg);
+        assertTrue(blankCountry_Msg().getText().contains("Missing required element: Country/Region"));
         addTestCaseStep("No country was selected error message is displayed");
     }
 
@@ -423,8 +391,8 @@ public class SignUpPage extends TestBase {
         String error_msg = "A required field is missing. Please fill out all required fields and try again.";
 
         create_BTN.click();
-        testUtil.waitForElementToLoad(requiredFieldMissingMsg());
-        assertTrue(requiredFieldMissingMsg().getText().contains(error_msg));
+        testUtil.waitForElementToLoad(requiredFieldMissing_Msg());
+        assertTrue(requiredFieldMissing_Msg().getText().contains(error_msg));
         addTestCaseStep("Mandatory field is missing error message is displayed");
     }
 

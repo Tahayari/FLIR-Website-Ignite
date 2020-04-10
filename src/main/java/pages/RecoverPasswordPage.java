@@ -41,12 +41,20 @@ public class RecoverPasswordPage extends TestBase {
     //--------------
 
     //-------Locators-------
+
+    //---Input fields
     @FindBy(id = emailAddressField_ID)
     private WebElement email_field;
-    @FindBy(id = sendVerificationCodeBTN_ID)
-    private WebElement sendVerCode_BTN;
     @FindBy(id = verificationCodeField_ID)
     private WebElement verificationCode_field;
+    @FindBy(id = newPassword_ID)
+    private WebElement newPassword_field;
+    @FindBy(id = reenterPassword_ID)
+    private WebElement reEnterPassword_field;
+
+    //---Buttons
+    @FindBy(id = sendVerificationCodeBTN_ID)
+    private WebElement sendVerCode_BTN;
     @FindBy(id = verifyCodeBTN_ID)
     private WebElement verifyCode_BTN;
     @FindBy(id = sendNewCodeBTN_ID)
@@ -57,26 +65,24 @@ public class RecoverPasswordPage extends TestBase {
     private WebElement continue_BTN;
     @FindBy(id = cancelBTN_ID)
     private WebElement cancel_BTN;
+
+    //---Errors
     @FindBy(id = incorrectVerificationCode_ID)
-    private WebElement incorrectVerCode;
+    private WebElement incorrectVerCode_Msg;
     @FindBy(xpath = invalidEmailError_XPATH)
-    private WebElement invalidEmailErrorMsg;
+    private WebElement invalidEmailError_Msg;
     @FindBy(id = expiredVerificationCode_ID)
-    private WebElement expiredVerCode;
+    private WebElement expiredVerCode_Msg;
     @FindBy(id = tooManyIncorrectAttemptsError_ID)
-    private WebElement tooManyIncorrectAttemptsError;
-    @FindBy(id = newPassword_ID)
-    private WebElement newPassword_field;
-    @FindBy(id = reenterPassword_ID)
-    private WebElement reEnterPassword_field;
+    private WebElement tooManyIncorrectAttemptsError_Msg;
     @FindBy(id = requiredFieldMissing_ID)
-    private WebElement requiredFieldMissingMsg;
+    private WebElement requiredFieldMissing_Msg;
     @FindBy(xpath = invalidPassError_XPATH)
-    private WebElement invalidPassErrorMsg;
+    private WebElement invalidPassError_Msg;
     @FindBy(xpath = invalidConfirmPassError_XPATH)
-    private WebElement invalidConfirmPassErrorMsg;
+    private WebElement invalidConfirmPassError_Msg;
     @FindBy(id = passwordEntryMismatch_ID)
-    private WebElement passwordEntryMismatchMsg;
+    private WebElement passwordEntryMismatch_Msg;
     //--------------
 
     //Constructor
@@ -111,28 +117,24 @@ public class RecoverPasswordPage extends TestBase {
         return changeEmail_BTN;
     }
 
-    public WebElement continue_BTN() {
-        return continue_BTN;
-    }
-
     public WebElement cancel_BTN() {
         return cancel_BTN;
     }
 
     public WebElement incorrectVerCodeMsg() {
-        return incorrectVerCode;
+        return incorrectVerCode_Msg;
     }
 
     public WebElement invalidEmailErrorMsg() {
-        return invalidEmailErrorMsg;
+        return invalidEmailError_Msg;
     }
 
     public WebElement expiredVerCode() {
-        return expiredVerCode;
+        return expiredVerCode_Msg;
     }
 
     public WebElement tooManyIncorrectAttemptsError() {
-        return tooManyIncorrectAttemptsError;
+        return tooManyIncorrectAttemptsError_Msg;
     }
 
     public WebElement newPassword_field() {
@@ -143,17 +145,6 @@ public class RecoverPasswordPage extends TestBase {
         return reEnterPassword_field;
     }
 
-    public WebElement requiredFieldMissingMsg() {
-        return requiredFieldMissingMsg;
-    }
-
-    public WebElement invalidPassErrorMsg() {
-        return invalidPassErrorMsg;
-    }
-
-    public WebElement invalidConfirmPassErrorMsg() {
-        return invalidConfirmPassErrorMsg;
-    }
     //--------------
 
     //-----------SETTERS
@@ -187,7 +178,7 @@ public class RecoverPasswordPage extends TestBase {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(incorrectVerCode);
+        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
         Assert.assertTrue(incorrectVerCodeMsg().isDisplayed());
         addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
@@ -195,8 +186,8 @@ public class RecoverPasswordPage extends TestBase {
     public void verifyInvalidTokenErrorMsg() {
         String error_msg = "That code is incorrect. Please try again.";
 
-        testUtil.waitForElementToLoad(incorrectVerCode);
-        Assert.assertEquals(incorrectVerCode.getText(), error_msg);
+        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
+        Assert.assertEquals(incorrectVerCode_Msg.getText(), error_msg);
         addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
@@ -288,13 +279,13 @@ public class RecoverPasswordPage extends TestBase {
             addTestCaseStep("Entered the following password: " + invalidPass[i]);
 
             if (passField == newPassword_field) {
-                testUtil.waitForElementToLoad(invalidPassErrorMsg);
-                Assert.assertTrue(invalidPassErrorMsg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidPassErrorMsg.getText());
+                testUtil.waitForElementToLoad(invalidPassError_Msg);
+                Assert.assertTrue(invalidPassError_Msg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidPassError_Msg.getText());
             } else if (passField == reEnterPassword_field) {
-                testUtil.waitForElementToLoad(invalidConfirmPassErrorMsg);
-                Assert.assertTrue(invalidConfirmPassErrorMsg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidConfirmPassErrorMsg.getText());
+                testUtil.waitForElementToLoad(invalidConfirmPassError_Msg);
+                Assert.assertTrue(invalidConfirmPassError_Msg.getText().contains("8-16 characters"));
+                addTestCaseStep("Error message is displayed: " + invalidConfirmPassError_Msg.getText());
             } else throw new NoSuchElementException();
         }
     }
@@ -304,9 +295,9 @@ public class RecoverPasswordPage extends TestBase {
         continue_BTN.click();
         addTestCaseStep("Left the password field blank and clicked on Continue button");
 
-        testUtil.waitForElementToLoad(requiredFieldMissingMsg);
-        Assert.assertTrue(requiredFieldMissingMsg.isDisplayed());
-        addTestCaseStep("Error message is displayed: " + requiredFieldMissingMsg.toString());
+        testUtil.waitForElementToLoad(requiredFieldMissing_Msg);
+        Assert.assertTrue(requiredFieldMissing_Msg.isDisplayed());
+        addTestCaseStep("Error message is displayed: " + requiredFieldMissing_Msg.toString());
     }
 
     public void enterMismatchingPasswords() {
@@ -322,9 +313,9 @@ public class RecoverPasswordPage extends TestBase {
 
         continue_BTN.click();
         addTestCaseStep("Clicked on the Create button");
-        testUtil.waitForElementToLoad(passwordEntryMismatchMsg);
-        Assert.assertTrue(passwordEntryMismatchMsg.getText().contains("The password entry fields do not match"));
-        addTestCaseStep("Error message is displayed: " + passwordEntryMismatchMsg.getText());
+        testUtil.waitForElementToLoad(passwordEntryMismatch_Msg);
+        Assert.assertTrue(passwordEntryMismatch_Msg.getText().contains("The password entry fields do not match"));
+        addTestCaseStep("Error message is displayed: " + passwordEntryMismatch_Msg.getText());
     }
 
     public void enterNewPassword(String newPassword) {
@@ -342,6 +333,4 @@ public class RecoverPasswordPage extends TestBase {
         return libraryPage;
     }
 //--------------
-
-//TODO : Rest of the elements from this page
 }
