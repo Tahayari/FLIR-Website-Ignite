@@ -106,7 +106,7 @@ public class LoginPageTest extends TestBase {
         addTestCaseStep("Entered email: " + email + " and password: " + pass + " then clicked on the Sign In button");
 
         testUtil.waitForElementToLoad(libraryPage.newFolder_BTN());
-        Assert.assertEquals(libraryPage.getPageTitle(), "FLIR Tools");
+        Assert.assertTrue(libraryPage.newFolder_BTN().isDisplayed());
         addTestCaseStep("Logged in successfully. Library page is displayed");
     }
 

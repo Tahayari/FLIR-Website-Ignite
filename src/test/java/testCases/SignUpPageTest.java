@@ -18,8 +18,6 @@ public class SignUpPageTest extends TestBase {
     private TestUtil testUtil;
     private SignUpPage signUpPage;
     private String sheetName = "Sheet1";
-    private String fileName = "Accounts";
-    private String invalidEmailsFileName = "InvalidEmails";
 
     public SignUpPageTest() {
         super();
@@ -86,6 +84,7 @@ public class SignUpPageTest extends TestBase {
 
     @DataProvider
     public Object[][] getTestData() {
+        String fileName = "Accounts";
         return TestUtil.getTestaData(fileName, sheetName);
     }
 
@@ -115,6 +114,7 @@ public class SignUpPageTest extends TestBase {
     public void invalidEmail_Test() {
         String testCaseTitle = "SIGNUP PAGE - invalidEmail_Test";
         String testCaseDescription = "Error message is displayed if the users enters an email that has an invalid format";
+        String invalidEmailsFileName = "InvalidEmails";
         Object[][] invalidEmailsList = getTestaData(invalidEmailsFileName, sheetName);
 
         createTestCase(testCaseTitle, testCaseDescription);
