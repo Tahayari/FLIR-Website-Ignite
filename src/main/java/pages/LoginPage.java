@@ -1,12 +1,14 @@
 package pages;
 
-import base.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends TestBase {
+import static utils.DriverFactory.getDriver;
+
+public class LoginPage {
+    private WebDriver driver = getDriver();
 
     //-------PATHS-------
     //---Input fields
@@ -30,23 +32,18 @@ public class LoginPage extends TestBase {
     //-------Locators-------
     //---Input fields
     @FindBy(id = emailField_ID)
-    @CacheLookup
     private WebElement email_field;
     @FindBy(id = passField_ID)
-    @CacheLookup
     private WebElement pass_field;
 
     //---Buttons
     @FindBy(id = signInBTN_ID)
-    @CacheLookup
     private WebElement signIn_BTN;
 
     //---Links
     @FindBy(id = signUpLink_ID)
-    @CacheLookup
     private WebElement signUp_link;
     @FindBy(id = forgotPasswordLink_ID)
-    @CacheLookup
     private WebElement forgotPass_link;
 
     //---Errors
@@ -62,8 +59,12 @@ public class LoginPage extends TestBase {
 
 
     //Constructor
-    public LoginPage() {
+    private LoginPage() {
         PageFactory.initElements(driver, this);
+    }
+
+    public static LoginPage getLoginPage(){
+        return new LoginPage();
     }
     //--------------
 
@@ -72,27 +73,19 @@ public class LoginPage extends TestBase {
     public WebElement email_field() {
         return email_field;
     }
-
     public WebElement pass_field() {
         return pass_field;
     }
-
     public WebElement signIn_BTN() {
         return signIn_BTN;
     }
-
     public WebElement invalidEmailError_Msg() {
         return invalidEmailError_Msg;
     }
-
-    public WebElement invalidPassError_Msg() {
-        return invalidPassError_Msg;
-    }
-
+    public WebElement invalidPassError_Msg() { return invalidPassError_Msg; }
     public WebElement incorrectPassError_Msg() {
         return incorrectPassError_Msg;
     }
-
     public WebElement nonExistingAccount_Msg() {
         return nonExistingAccount_Msg;
     }
@@ -104,6 +97,18 @@ public class LoginPage extends TestBase {
         email_field.clear();
         email_field.sendKeys(invalidEmail);
         signIn_BTN.click();
+    }
+
+    public LoginPage setEmail(String email){
+        email_field.sendKeys(email);
+        return this;
+    }
+
+    public LoginPage setPass(String pass){
+        pass_field.clear();
+        pass_field.sendKeys(pass);
+        signIn_BTN.click();
+        return this;
     }
     //-----------
 
@@ -129,6 +134,10 @@ public class LoginPage extends TestBase {
         pass_field.sendKeys(pass);
         signIn_BTN.click();
         return new LibraryPage();
+    }
+
+    public void logout() {
+
     }
 
     //-----------

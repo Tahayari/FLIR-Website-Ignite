@@ -1,34 +1,38 @@
 package pages;
 
-import base.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.TestUtil;
 
-public class LandingPage extends TestBase {
+import static utils.DriverFactory.getDriver;
+
+public class LandingPage {
+    private WebDriver driver = getDriver();
+    private TestUtil testUtil;
 
     //-------PATHS-------
-    private final String loginBTN_XPATH = "//span[contains(text(),'LOG IN')]";
-    private final String signUpBTN_XPATH = "//span[contains(text(),'SIGN UP')]";
+    private final String loginBTN_XPATH = "//span[contains(text(),'Log in')]";
+    private final String signUpBTN_XPATH = "//div[@class='button-bar']//span[@class='text'][contains(text(),'Sign up')]";
     //--------------
 
 
     //-------Locators-------
     @FindBy(xpath = loginBTN_XPATH)
-    @CacheLookup
     private WebElement login_BTN;
     @FindBy(xpath = signUpBTN_XPATH)
-    @CacheLookup
     private WebElement signup_BTN;
     //--------------
 
     //Constructor
-    public LandingPage() {
-        PageFactory.initElements(driver, this); // "this" points to the current class object(s)
+    private LandingPage() {
+        PageFactory.initElements(driver, this);
     }
 
-
+    public static LandingPage getLandingPage(){
+        return new LandingPage();
+    }
     //-----------GETTERS
     public WebElement login_BTN() {
         return login_BTN;
@@ -49,9 +53,8 @@ public class LandingPage extends TestBase {
         return driver.getTitle();
     }
 
-    public LoginPage clickOn_loginBTN() {
+    public void clickOn_loginBTN() {
         login_BTN.click();
-        return new LoginPage();
     }
 
     public SignUpPage clickOn_signUpBTN() {

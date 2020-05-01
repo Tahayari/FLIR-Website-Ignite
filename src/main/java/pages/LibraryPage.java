@@ -2,6 +2,7 @@ package pages;
 
 import base.TestBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -10,9 +11,12 @@ import org.testng.Assert;
 import utils.TestUtil;
 
 import static org.testng.Assert.assertTrue;
+import static utils.DriverFactory.getDriver;
 
 public class LibraryPage extends TestBase {
     private TestUtil testUtil;
+    private WebDriver driver = getDriver();
+
     //-------PATHS-------
     //---Input fields
     private final String folderNameInput_XPATH = "//input[@placeholder='Name']";
@@ -89,6 +93,10 @@ public class LibraryPage extends TestBase {
         PageFactory.initElements(driver, this);
         testUtil = new TestUtil();
     }
+
+//    public static LibraryPage(){
+//        return new LibraryPage();
+//    }
     //--------------
 
     //-----------GETTERS
@@ -163,7 +171,7 @@ public class LibraryPage extends TestBase {
 
     public void acceptTermsConditions() {
         termsAndCondCheckbox().click();
-        waitForElementToBeClickable(termsAndCondAccept_BTN);
+        testUtil.waitForElementToBeClickable(termsAndCondAccept_BTN);
         assertTrue(termsAndCondAccept_BTN().isEnabled());
         addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
 

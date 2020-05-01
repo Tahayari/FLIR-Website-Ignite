@@ -1,6 +1,5 @@
 package utils;
 
-import base.TestBase;
 import org.apache.commons.compress.archivers.dump.InvalidFormatException;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -16,17 +15,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Properties;
 
-public class TestUtil extends TestBase {
+import static setup.ReadProperties.loadProperties;
+import static utils.DriverFactory.getDriver;
+
+public class TestUtil{
 
     public static long PAGE_LOAD_TIMEOUT = 20;
     public static long IMPLICIT_WAIT = 10;
     public static long WAIT_FOR_ELEMENT_TIMEOUT = 15;
     public static String EXCEL_FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\";
+    public static WebDriver driver = getDriver();
+
     static Workbook book;
     static Sheet sheet;
 
-    public void waitForElementToLoad(WebDriver driver, WebElement element) {
+
+    public static void waitForElementToLoad(WebDriver driver, WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -35,7 +41,7 @@ public class TestUtil extends TestBase {
         }
     }
 
-    public void waitForElementToLoad(WebElement webElementToWaitFor) {
+    public static void waitForElementToLoad(WebElement webElementToWaitFor) {
         waitForElementToLoad(driver, webElementToWaitFor);
     }
 
@@ -180,7 +186,7 @@ public class TestUtil extends TestBase {
 
     //----Gmail related functions
 
-    public void prepareGmail() {
+    public void prepareGmail() throws IOException {
         navigateToGmail();
 
         enterGmailCredentials();
@@ -229,7 +235,14 @@ public class TestUtil extends TestBase {
         driver.switchTo().window(tabs.get(1));
     }
 
-    public void enterGmailCredentials() {
+    public void waitForElementToBeClickable(WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public void enterGmailCredentials() throws IOException {
+        Properties prop;
+        prop = loadProperties();
         String email = prop.getProperty("gmail");
         String pass = prop.getProperty("password");
         String email_ID = "identifierId";

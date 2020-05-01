@@ -1,6 +1,7 @@
 package pages;
 
 import base.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,9 +11,12 @@ import utils.TestUtil;
 import java.util.NoSuchElementException;
 
 import static org.testng.Assert.assertTrue;
+import static utils.DriverFactory.getDriver;
 
 public class RecoverPasswordPage extends TestBase {
     private TestUtil testUtil;
+    private WebDriver driver = getDriver();
+
     //-------PATHS-------
 
     //---Input fields

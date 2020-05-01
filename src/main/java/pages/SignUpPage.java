@@ -2,6 +2,7 @@ package pages;
 
 import base.TestBase;
 import com.aventstack.extentreports.Status;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -14,9 +15,12 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 import static org.testng.Assert.assertTrue;
+import static utils.DriverFactory.getDriver;
 
 public class SignUpPage extends TestBase {
     private TestUtil testUtil;
+    private WebDriver driver = getDriver();
+
     //-------PATHS-------
     //---Input fields
     private final String emailField_ID = "email";
@@ -398,7 +402,7 @@ public class SignUpPage extends TestBase {
 
     public void cancelRegistration(){
         cancel_BTN.click();
-        LandingPage landingPage = new LandingPage();
+        LandingPage landingPage = LandingPage.getLandingPage();
         testUtil.waitForElementToLoad(landingPage.login_BTN());
         addTestCaseStep("Clicked and the Cancel button and was redirected to Landing page");
     }
