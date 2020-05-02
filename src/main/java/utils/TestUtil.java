@@ -45,6 +45,15 @@ public class TestUtil{
         waitForElementToLoad(driver, webElementToWaitFor);
     }
 
+    public static void waiForElementToBeClickable(WebElement webElement){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, IMPLICIT_WAIT);
+            wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Object[][] getTestaData(String filename, String sheetName) {
         FileInputStream file = null;
         try {
@@ -235,7 +244,7 @@ public class TestUtil{
         driver.switchTo().window(tabs.get(1));
     }
 
-    public void waitForElementToBeClickable(WebElement webElement) {
+    public static void waitForElementToBeClickable(WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }

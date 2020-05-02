@@ -102,16 +102,16 @@ public class LoginPage {
 
 
     //-----------SETTERS
-    public LoginPage setEmail(String email) { //TODO merge this with setEmail
-        email_field.clear();
-        email_field.sendKeys(email);
+    public LoginPage setEmail(String email) {
+        email_field().clear();
+        email_field().sendKeys(email);
         ExtentReport.addTestCaseStep("Entered the following email: " + email);
         return this;
     }
 
     public LoginPage setPass(String pass) {
-        pass_field.clear();
-        pass_field.sendKeys(pass);
+        pass_field().clear();
+        pass_field().sendKeys(pass);
         ExtentReport.addTestCaseStep("Entered the following password: " + pass);
         return this;
     }
@@ -122,23 +122,14 @@ public class LoginPage {
         return driver.getTitle();
     }
 
-    public SignUpPage clickOn_signUpLink() {
+    public void clickOn_signUpLink() {
         signUp_link.click();
-        return new SignUpPage();
+        ExtentReport.addTestCaseStep("Clicked on SignUp link");
     }
 
-    public RecoverPasswordPage clickOn_forgotPasswordLink() {
+    public void clickOn_forgotPasswordLink() {
         forgotPass_link.click();
-        return new RecoverPasswordPage();
-    }
-
-    public LibraryPage login(String email, String pass) {
-        email_field.click();
-        email_field.sendKeys(email);
-        pass_field.click();
-        pass_field.sendKeys(pass);
-        signIn_BTN.click();
-        return new LibraryPage();
+        ExtentReport.addTestCaseStep("Clicked on Forgot Password link");
     }
 
     public void clickOn_signInBTN() {
@@ -152,8 +143,7 @@ public class LoginPage {
     }
 
     public void logout() {
-
+    //TODO
     }
 
-    //-----------
 }

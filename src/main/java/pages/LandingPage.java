@@ -60,10 +60,9 @@ public class LandingPage {
         return this;
     }
 
-    public SignUpPage clickOn_signUpBTN() {
+    public void clickOn_signUpBTN() {
         signup_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on SignUp Button");
-        return new SignUpPage();
     }
     //-----------
 }

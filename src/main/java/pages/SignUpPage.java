@@ -1,6 +1,5 @@
 package pages;
 
-import base.TestBase;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import utils.TestUtil;
+import utils.ExtentReport;
 
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -17,8 +16,7 @@ import java.util.Random;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class SignUpPage extends TestBase {
-    private TestUtil testUtil;
+public class SignUpPage {
     private WebDriver driver = getDriver();
 
     //-------PATHS-------
@@ -118,9 +116,12 @@ public class SignUpPage extends TestBase {
     //--------------
 
     //Constructor
-    public SignUpPage() {
+    private SignUpPage() {
         PageFactory.initElements(driver, this);
-        testUtil = new TestUtil();
+    }
+
+    public static SignUpPage getSignUpPage() {
+        return new SignUpPage();
     }
     //-----------
 
@@ -174,6 +175,14 @@ public class SignUpPage extends TestBase {
         return confNewPassword_field;
     }
 
+    public WebElement firstName_field() {
+        return firstName_field;
+    }
+
+    public WebElement lastName_field() {
+        return lastName_field;
+    }
+
     public WebElement blankCountry_Msg() {
         return blankCountry_Msg;
     }
@@ -190,34 +199,53 @@ public class SignUpPage extends TestBase {
 
     //-----------SETTERS
 
-    public void setInvalidEmail(String invalidEmail) {
+    //TODO rename this to setEmail
+    public SignUpPage setInvalidEmail(String email) {
         emailAddress_field.clear();
-        emailAddress_field.sendKeys(invalidEmail);
-        sendVerificationCode_BTN.click();
+        emailAddress_field.sendKeys(email);
+        ExtentReport.addTestCaseStep("Entered the following email: " + email);
+        return this;
     }
 
-    public void setVerificationCode_field(String text) {
-        verificationCode_field.sendKeys(text);
+    public SignUpPage setEmail(String email) {
+        emailAddress_field.clear();
+        emailAddress_field.sendKeys(email);
+        ExtentReport.addTestCaseStep("Entered the following email: " + email);
+        return this;
     }
 
-    public void setNewPassword(String password) {
+    public SignUpPage setVerificationCode_field(String code) {
+        verificationCode_field.sendKeys(code);
+        ExtentReport.addTestCaseStep("Entered the following Verification Code: " + code);
+        return this;
+    }
+
+    public SignUpPage setNewPassword(String password) {
+        newPassword_field.clear();
         newPassword_field.sendKeys(password);
-        addTestCaseStep("Entered the following password: " + password);
+        ExtentReport.addTestCaseStep("Entered the following password: " + password);
+        return this;
     }
 
-    public void setConfirmNewPassword(String confirmNewPassword) {
+    public SignUpPage setConfirmNewPassword(String confirmNewPassword) {
+        confNewPassword_field.clear();
         confNewPassword_field.sendKeys(confirmNewPassword);
-        addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
+        ExtentReport.addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
+        return this;
     }
 
-    public void setFirstName(String firstName) {
+    public SignUpPage setFirstName(String firstName) {
+        firstName_field.clear();
         firstName_field.sendKeys(firstName);
-        addTestCaseStep("Entered a first name: " + firstName);
+        ExtentReport.addTestCaseStep("Entered a first name: " + firstName);
+        return this;
     }
 
-    public void setLastName(String lastName) {
+    public SignUpPage setLastName(String lastName) {
+        lastName_field.clear();
         lastName_field.sendKeys(lastName);
-        addTestCaseStep("Entered a last name: " + lastName);
+        ExtentReport.addTestCaseStep("Entered a last name: " + lastName);
+        return this;
     }
 
     //-----------
@@ -228,23 +256,30 @@ public class SignUpPage extends TestBase {
         return driver.getTitle();
     }
 
+    public SignUpPage clearField(WebElement webElement) {
+        webElement.clear();
+        return this;
+    }
+
     public LibraryPage createNewAccount() {
         create_BTN.click();
         LibraryPage libraryPage = new LibraryPage();
-        testUtil.waitForElementToLoad(libraryPage.termsAndCondCheckbox());
+//        testUtil.waitForElementToLoad(libraryPage.termsAndCondCheckbox());
         Assert.assertTrue(libraryPage.termsAndCondCheckbox().isDisplayed());
-        addTestCaseStep("Clicked on the Create account button. Terms and Conditions page is displayed");
+        ExtentReport.addTestCaseStep("Clicked on the Create account button. Terms and Conditions page is displayed");
         return libraryPage;
     }
 
-    public void sendTokenToEmail(String email) {
-        emailAddress_field.click();
-        emailAddress_field.clear();
-        emailAddress_field.sendKeys(email);
+    public SignUpPage sendTokenToEmail(String email) {
+        setEmail(email)
+                .clickOn_sendVerificationCode_BTN();
+        return this;
+    }
+
+    public SignUpPage clickOn_sendVerificationCode_BTN(){
         sendVerificationCode_BTN.click();
-        testUtil.waitForElementToLoad(verifyCode_BTN);
-        Assert.assertTrue(verifyCode_BTN().isDisplayed());
-        addTestCaseStep("Entered email: " + email + " and clicked on Send Verification code button");
+        ExtentReport.addTestCaseStep("Clicked on Send Verification Code button");
+        return this;
     }
 
     public void verifyIfTokenExpired() {
@@ -252,56 +287,59 @@ public class SignUpPage extends TestBase {
 
         verificationCode_field.click();
         verificationCode_field.clear();
-        String token = testUtil.getTokenFromGmail();
+        String token = "token";
+//                TestUtil.getTokenFromGmail();
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
 
-        testUtil.waitForElementToLoad(expiredVerCode_Msg());
+//        testUtil.waitForElementToLoad(expiredVerCode_Msg());
         Assert.assertEquals(expiredVerCode_Msg().getText(), error_msg);
-        addTestCaseStep("Error message is displayed: " + error_msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
     public void sendInvalidToken(String invalidToken) {
         verificationCode_field.click();
         verificationCode_field.sendKeys(invalidToken);
         verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
+//        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
         Assert.assertTrue(incorrectVerCode_Msg.isDisplayed());
-        addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
+        ExtentReport.addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
 
     public void enterTokenFromMailinator(String email) {
         verificationCode_field.click();
         verificationCode_field.clear();
-        String token = testUtil.getTokenFromMailinator(email);
+        String token = "token";
+//                testUtil.getTokenFromMailinator(email);
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(changeEmail_BTN);
+//        testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
     public void enterInvalidTokenMultipleTimes(int timesToRetry) {
         for (int i = 0; i < timesToRetry; i++) {
-            testUtil.waitForElementToLoad(verifyCode_BTN());
+//            testUtil.waitForElementToLoad(verifyCode_BTN());
             verificationCode_field().clear();
             setVerificationCode_field(String.valueOf((i * 10000)));
             verifyCode_BTN().click();
         }
 
-        addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
+        ExtentReport.addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
     }
 
     public void enterTokenFromGmail() {
         verificationCode_field.click();
         verificationCode_field.clear();
-        String token = testUtil.getTokenFromGmail();
+        String token = "token";
+//                testUtil.getTokenFromGmail();
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(changeEmail_BTN);
+//        testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
     public void waitForTokenToExpire(int minutesToWait) {
@@ -311,7 +349,7 @@ public class SignUpPage extends TestBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
+        ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
     }
 
     public void selectRandomCountry() {
@@ -320,30 +358,30 @@ public class SignUpPage extends TestBase {
         int index = random.nextInt(country_select.getOptions().size());
         country_select.selectByIndex(index);
         //TODO: countryName = GET THE NAME OF THE SELECTED COUNTRY;
-        addTestCaseStep("Selected a random country from the dropdown list: ");
-        extentTestChild.log(Status.PASS, "Selected a random country from the dropdown list");
+        ExtentReport.addTestCaseStep("Selected a random country from the dropdown list: ");
+        ExtentReport.extentTestChild.log(Status.PASS, "Selected a random country from the dropdown list");
     }
 
     public void selectRandomConsent() {
         Random random = new Random();
         if (random.nextInt(1) % 2 == 0) consentNo.click();
         else consentYes.click();
-        addTestCaseStep("Selected randomly if I consented or not");
+        ExtentReport.addTestCaseStep("Selected randomly if I consented or not");
     }
 
     public void generateAnotherToken() {
         sendNewCode_BTN().click();
-        testUtil.waitForElementToLoad(verifyCode_BTN);
+//        testUtil.waitForElementToLoad(verifyCode_BTN);
         Assert.assertTrue(verifyCode_BTN.isDisplayed());
-        addTestCaseStep("Generated another token");
+        ExtentReport.addTestCaseStep("Generated another token");
     }
 
     public void clickOn_changeEmail_BTN() {
         changeEmail_BTN().click();
-        testUtil.waitForElementToLoad(sendVerCode_BTN());
+//        testUtil.waitForElementToLoad(sendVerCode_BTN());
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
-        addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
+        ExtentReport.addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
@@ -352,16 +390,16 @@ public class SignUpPage extends TestBase {
         for (int i = 0; i < invalidPass.length; i++) {
             passField.clear();
             passField.sendKeys(invalidPass[i]);
-            addTestCaseStep("Entered the following password: " + invalidPass[i]);
+            ExtentReport.addTestCaseStep("Entered the following password: " + invalidPass[i]);
 
             if (passField == newPassword_field) {
-                testUtil.waitForElementToLoad(invalidPass_Msg);
+//                testUtil.waitForElementToLoad(invalidPass_Msg);
                 Assert.assertTrue(invalidPass_Msg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidPass_Msg.getText());
+                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidPass_Msg.getText());
             } else if (passField == confNewPassword_field) {
-                testUtil.waitForElementToLoad(invalidConfirmPass_Msg);
+//                testUtil.waitForElementToLoad(invalidConfirmPass_Msg);
                 Assert.assertTrue(invalidConfirmPass_Msg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidConfirmPass_Msg.getText());
+                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidConfirmPass_Msg.getText());
             } else throw new NoSuchElementException();
         }
     }
@@ -372,39 +410,44 @@ public class SignUpPage extends TestBase {
 
         newPassword_field.clear();
         newPassword_field.sendKeys(pass1);
-        addTestCaseStep("Entered the following password in the password field: " + pass1);
+        ExtentReport.addTestCaseStep("Entered the following password in the password field: " + pass1);
         confNewPassword_field.clear();
         confNewPassword_field.sendKeys(pass2);
-        addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
+        ExtentReport.addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
 
         create_BTN.click();
-        addTestCaseStep("Clicked on the Create button");
-        testUtil.waitForElementToLoad(mismatchingPass_Msg);
+        ExtentReport.addTestCaseStep("Clicked on the Create button");
+//        testUtil.waitForElementToLoad(mismatchingPass_Msg);
         Assert.assertTrue(mismatchingPass_Msg.getText().contains("The password entry fields do not match"));
-        addTestCaseStep("Error message is displayed: "+ mismatchingPass_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + mismatchingPass_Msg.getText());
     }
 
-    public void createUserWithoutCountry(){
+    public void createUserWithoutCountry() {
         create_BTN.click();
-        testUtil.waitForElementToLoad(blankCountry_Msg);
+//        testUtil.waitForElementToLoad(blankCountry_Msg);
         assertTrue(blankCountry_Msg().getText().contains("Missing required element: Country/Region"));
-        addTestCaseStep("No country was selected error message is displayed");
+        ExtentReport.addTestCaseStep("No country was selected error message is displayed");
     }
 
-    public void createUserWithoutMandatoryField(){
+    public void createUserWithoutMandatoryField() {
         String error_msg = "A required field is missing. Please fill out all required fields and try again.";
 
         create_BTN.click();
-        testUtil.waitForElementToLoad(requiredFieldMissing_Msg());
+//        testUtil.waitForElementToLoad(requiredFieldMissing_Msg());
         assertTrue(requiredFieldMissing_Msg().getText().contains(error_msg));
-        addTestCaseStep("Mandatory field is missing error message is displayed");
+        ExtentReport.addTestCaseStep("Mandatory field is missing error message is displayed");
     }
 
-    public void cancelRegistration(){
+    public void cancelRegistration() {
         cancel_BTN.click();
         LandingPage landingPage = LandingPage.getLandingPage();
-        testUtil.waitForElementToLoad(landingPage.login_BTN());
-        addTestCaseStep("Clicked and the Cancel button and was redirected to Landing page");
+//        testUtil.waitForElementToLoad(landingPage.login_BTN());
+        ExtentReport.addTestCaseStep("Clicked and the Cancel button and was redirected to Landing page");
     }
 
+    public SignUpPage clickOn_verifyCode_BTN() {
+        verifyCode_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on Verify Code button");
+        return this;
+    }
 }

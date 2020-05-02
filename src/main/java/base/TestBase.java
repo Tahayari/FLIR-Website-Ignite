@@ -25,9 +25,9 @@ public class TestBase {
     WebDriver driver;
     public static Properties prop;
     public ExtentReport extentReport;
-    public static ExtentReports extent;
-    public static ExtentTest extentTest;
-    public static ExtentTest extentTestChild;
+    public static ExtentReports extent; // TODO delete this
+    public static ExtentTest extentTest; // TODO delete this
+    public static ExtentTest extentTestChild; // TODO delete this
 
     @BeforeSuite
     public void beforeSuite() throws IOException {

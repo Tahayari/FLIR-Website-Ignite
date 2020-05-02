@@ -18,6 +18,8 @@ public class LoginPageTest extends TestBase {
     CommonVerification commonVerification = getCommonVerification(); //TODO rename this to something more likeable
 
     private void goToLoginPage() {
+        commonVerification.verifyIsDisplayed(landingPage.signup_BTN());
+        ExtentReport.addTestCaseStep("Navigated to the Landing page");
         landingPage.clickOn_loginBTN();
         commonVerification.verifyIsDisplayed(loginPage.signIn_BTN());
         ExtentReport.addTestCaseStep("Navigated to Login page");
@@ -139,7 +141,7 @@ public class LoginPageTest extends TestBase {
 
         loginPage.clickOn_signUpLink();
 
-        SignUpPage signUpPage = new SignUpPage();
+        SignUpPage signUpPage = SignUpPage.getSignUpPage();
         commonVerification.verifySignUpPageLoaded(signUpPage);
     }
 
