@@ -118,7 +118,7 @@ public class SignUpPage extends TestBase {
     //--------------
 
     //Constructor
-    SignUpPage() {
+    public SignUpPage() {
         PageFactory.initElements(driver, this);
         testUtil = new TestUtil();
     }

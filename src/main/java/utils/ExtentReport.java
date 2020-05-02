@@ -6,7 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
@@ -17,16 +16,16 @@ import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
 
 public class ExtentReport {
-    public ExtentReports extent;
-    public ExtentTest extentTest;
-    public ExtentTest extentTestChild;
+    public static ExtentReports extent;
+    public static ExtentTest extentTest;
+    public static ExtentTest extentTestChild;
     public Properties prop;
 
     public ExtentReport() throws IOException {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
-        htmlReporter.config().setTheme(Theme.DARK);
+//        htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
 
@@ -39,19 +38,16 @@ public class ExtentReport {
         extent.setSystemInfo("Browser used", prop.getProperty("browser").toUpperCase());
     }
 
-    public ExtentReport addTestCaseStep(String testCaseStep) {
+    public static void addTestCaseStep(String testCaseStep) {
         extentTestChild.log(Status.PASS, testCaseStep);
-        return this;
     }
 
-    public ExtentReport createTestCaseDescription(String testCaseDescription) {
+    public static void createTestCaseDescription(String testCaseDescription) {
         extentTestChild = extentTest.createNode(testCaseDescription);
-        return this;
     }
 
-    public ExtentReport createTestCaseTitle(String testCaseTitle) {
+    public static void createTestCaseTitle(String testCaseTitle) {
         extentTest = extent.createTest(testCaseTitle);
-        return this;
     }
 
     public void createTestCase(String testCaseTitle, String testCaseDescription) {

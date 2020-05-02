@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.ExtentReport;
 import utils.TestUtil;
 
 import static utils.DriverFactory.getDriver;
@@ -53,12 +54,15 @@ public class LandingPage {
         return driver.getTitle();
     }
 
-    public void clickOn_loginBTN() {
+    public LandingPage clickOn_loginBTN() {
         login_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on Login Button");
+        return this;
     }
 
     public SignUpPage clickOn_signUpBTN() {
         signup_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on SignUp Button");
         return new SignUpPage();
     }
     //-----------

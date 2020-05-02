@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.ExtentReport;
 
 import static utils.DriverFactory.getDriver;
 
@@ -63,7 +64,7 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    public static LoginPage getLoginPage(){
+    public static LoginPage getLoginPage() {
         return new LoginPage();
     }
     //--------------
@@ -73,19 +74,27 @@ public class LoginPage {
     public WebElement email_field() {
         return email_field;
     }
+
     public WebElement pass_field() {
         return pass_field;
     }
+
     public WebElement signIn_BTN() {
         return signIn_BTN;
     }
+
     public WebElement invalidEmailError_Msg() {
         return invalidEmailError_Msg;
     }
-    public WebElement invalidPassError_Msg() { return invalidPassError_Msg; }
+
+    public WebElement invalidPassError_Msg() {
+        return invalidPassError_Msg;
+    }
+
     public WebElement incorrectPassError_Msg() {
         return incorrectPassError_Msg;
     }
+
     public WebElement nonExistingAccount_Msg() {
         return nonExistingAccount_Msg;
     }
@@ -93,21 +102,17 @@ public class LoginPage {
 
 
     //-----------SETTERS
-    public void setInvalidEmail(String invalidEmail) {
+    public LoginPage setEmail(String email) { //TODO merge this with setEmail
         email_field.clear();
-        email_field.sendKeys(invalidEmail);
-        signIn_BTN.click();
-    }
-
-    public LoginPage setEmail(String email){
         email_field.sendKeys(email);
+        ExtentReport.addTestCaseStep("Entered the following email: " + email);
         return this;
     }
 
-    public LoginPage setPass(String pass){
+    public LoginPage setPass(String pass) {
         pass_field.clear();
         pass_field.sendKeys(pass);
-        signIn_BTN.click();
+        ExtentReport.addTestCaseStep("Entered the following password: " + pass);
         return this;
     }
     //-----------
@@ -134,6 +139,16 @@ public class LoginPage {
         pass_field.sendKeys(pass);
         signIn_BTN.click();
         return new LibraryPage();
+    }
+
+    public void clickOn_signInBTN() {
+        signIn_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on SignIn Button");
+    }
+
+    public LoginPage clearField(WebElement webElement) {
+        webElement.clear();
+        return this;
     }
 
     public void logout() {
