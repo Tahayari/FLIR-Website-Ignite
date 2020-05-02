@@ -13,9 +13,9 @@ import static utils.CommonVerification.getCommonVerification;
 import static utils.TestUtil.getTestaData;
 
 public class LoginPageTest extends TestBase {
-    LandingPage landingPage = getLandingPage(); //TODO apply builder pattern for the rest of the pages
+    LandingPage landingPage = getLandingPage();
     LoginPage loginPage = getLoginPage();
-    RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage();
+    RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage(); //TODO apply builder pattern for the rest of the pages
     LibraryPage libraryPage = new LibraryPage();
     CommonVerification commonVerification = getCommonVerification(); //TODO rename this to something more likeable
     TestUtil testUtil = new TestUtil(); //TODO is it really final?

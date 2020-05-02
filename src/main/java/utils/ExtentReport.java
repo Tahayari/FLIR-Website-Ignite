@@ -17,7 +17,7 @@ import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
 
 public class ExtentReport {
-    public ExtentReports extent = new ExtentReports();
+    public ExtentReports extent;
     public ExtentTest extentTest;
     public ExtentTest extentTestChild;
     public Properties prop;
@@ -27,8 +27,8 @@ public class ExtentReport {
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
         htmlReporter.config().setTheme(Theme.DARK);
-        extent.attachReporter(htmlReporter);
         extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
 
         prop = loadProperties();
         extent.setSystemInfo("Operating system name", System.getProperty("os.name"));

@@ -1,7 +1,7 @@
 # Default ignored files
 /.idea/workspace.xml
 /screenshots/
-/test-output/
+/test-output/*.jpeg
 
 
 /.idea/

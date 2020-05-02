@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,8 +22,13 @@ public class CommonVerification {
 
     public CommonVerification verifyIsDisplayed(WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, TestUtil.IMPLICIT_WAIT);
-        wait.until(ExpectedConditions.visibilityOf(webElement));
-        Assert.assertTrue(webElement.isDisplayed());
+        try{
+            wait.until(ExpectedConditions.visibilityOf(webElement));
+            Assert.assertTrue(webElement.isDisplayed());
+        }
+        catch (TimeoutException e){
+            Assert.assertEquals(e.toString(),"Element should have loaded or been visible");
+        }
         return this;
     }
 

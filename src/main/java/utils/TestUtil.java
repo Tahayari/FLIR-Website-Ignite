@@ -77,7 +77,7 @@ public class TestUtil{
 
         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-        String destination = System.getProperty("user.dir") + "\\screenshots\\" + screenshotName + "_"
+        String destination = System.getProperty("user.dir") + "\\test-output\\screenshots\\" + screenshotName + "_"
                 + current_time_str + "_" + ".jpeg";
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);
