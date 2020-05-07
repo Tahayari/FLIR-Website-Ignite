@@ -10,8 +10,7 @@ import utils.TestUtil;
 import static utils.DriverFactory.getDriver;
 
 public class LandingPage {
-    private WebDriver driver = getDriver();
-    private TestUtil testUtil;
+    private WebDriver driver;
 
     //-------PATHS-------
     private final String loginBTN_XPATH = "//span[contains(text(),'Log in')]";
@@ -23,46 +22,47 @@ public class LandingPage {
     @FindBy(xpath = loginBTN_XPATH)
     private WebElement login_BTN;
     @FindBy(xpath = signUpBTN_XPATH)
-    private WebElement signup_BTN;
+    private WebElement signUp_BTN;
     //--------------
 
     //Constructor
     private LandingPage() {
+        driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
-    public static LandingPage getLandingPage(){
+    public static LandingPage getLandingPage() {
         return new LandingPage();
     }
+
     //-----------GETTERS
     public WebElement login_BTN() {
         return login_BTN;
     }
 
-    public WebElement signup_BTN() {
-        return signup_BTN;
+    public WebElement signUp_BTN() {
+        return signUp_BTN;
     }
-    //-----------
-
-
-    //-----------SETTERS
     //-----------
 
 
     //-----------Actions
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    public LandingPage clickOn_loginBTN() {
+    public void clickOn_loginBTN() {
+        TestUtil.waitForElementToLoad(login_BTN);
         login_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on Login Button");
-        return this;
     }
 
     public void clickOn_signUpBTN() {
-        signup_BTN.click();
+        TestUtil.waitForElementToLoad(signUp_BTN);
+        signUp_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on SignUp Button");
+    }
+
+    public LandingPage verifyIfPageLoaded(){
+        TestUtil.waitForElementToLoad(login_BTN);
+        ExtentReport.addTestCaseStep("Navigated to the Landing page");
+        return this;
     }
     //-----------
 }

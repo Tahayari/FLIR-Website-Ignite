@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,12 +21,13 @@ import java.util.Properties;
 import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
 
-public class TestUtil{
+public class TestUtil {
 
     public static long PAGE_LOAD_TIMEOUT = 20;
     public static long IMPLICIT_WAIT = 10;
     public static long WAIT_FOR_ELEMENT_TIMEOUT = 15;
     public static String EXCEL_FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\";
+    public static boolean gmailReady = false;
     public static WebDriver driver = getDriver();
 
     static Workbook book;
@@ -33,25 +35,19 @@ public class TestUtil{
 
 
     public static void waitForElementToLoad(WebDriver driver, WebElement element) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-            wait.until(ExpectedConditions.visibilityOf(element));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        wait.until(ExpectedConditions.visibilityOf(element));
+        Assert.assertTrue(element.isDisplayed());
     }
 
     public static void waitForElementToLoad(WebElement webElementToWaitFor) {
         waitForElementToLoad(driver, webElementToWaitFor);
     }
 
-    public static void waiForElementToBeClickable(WebElement webElement){
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, IMPLICIT_WAIT);
-            wait.until(ExpectedConditions.elementToBeClickable(webElement));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public static void closeCurrentTab() {
+        driver.close();
+        navigateToFirstTab();
     }
 
     public static Object[][] getTestaData(String filename, String sheetName) {
@@ -144,7 +140,7 @@ public class TestUtil{
     //----Mailinator related functions
     public void prepareMailinator(String email) {
         navigateToMailinator(email);
-        navigateToPreviousTab();
+        navigateToFirstTab();
     }
 
     public void navigateToMailinator(String email) {
@@ -156,10 +152,6 @@ public class TestUtil{
         driver.switchTo().window(tabs.get(1));
         driver.get(URL);
         //TODO: see if a wait is needed here
-    }
-
-    public void enterTokenFromMailinator() {
-
     }
 
 
@@ -187,7 +179,7 @@ public class TestUtil{
         token = tokenString.getText().substring(tokenString.getText().length() - 6);
         System.out.println("----------------------------Token is: " + token);
 
-        navigateToPreviousTab();
+        navigateToFirstTab();
         return token;
     }
 
@@ -197,15 +189,15 @@ public class TestUtil{
 
     public void prepareGmail() throws IOException {
         navigateToGmail();
-
-        enterGmailCredentials();
-
-        deleteExistingMail();
-
-        navigateToPreviousTab();
+        if (!gmailReady) {
+            enterGmailCredentials();
+            gmailReady = true;
+        }
+        deleteExistingMail()
+                .navigateToFirstTab();
     }
 
-    public String getTokenFromGmail() {
+    public static String getTokenFromGmail() {
         String token;
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
         String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
@@ -219,12 +211,11 @@ public class TestUtil{
         token = emailBodyText.substring(14);
 
         driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-
-        navigateToPreviousTab();
+        closeCurrentTab();
         return token;
     }
 
-    public void navigateToGmail() {
+    public TestUtil navigateToGmail() {
         String a = "window.open('','_blank');";
         String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
 
@@ -232,14 +223,15 @@ public class TestUtil{
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         driver.get(URL);
+        return this;
     }
 
-    public void navigateToPreviousTab() {
+    public static void navigateToFirstTab() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(0));
     }
 
-    public void navigateToNextTab() {
+    public static void navigateToNextTab() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
     }
@@ -249,9 +241,8 @@ public class TestUtil{
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
-    public void enterGmailCredentials() throws IOException {
-        Properties prop;
-        prop = loadProperties();
+    public TestUtil enterGmailCredentials() throws IOException {
+        Properties prop = loadProperties();
         String email = prop.getProperty("gmail");
         String pass = prop.getProperty("password");
         String email_ID = "identifierId";
@@ -259,7 +250,6 @@ public class TestUtil{
         String passwordField_XPATH = "//input[@name='password']";
         String nextButtonPass_ID = "passwordNext";
         String avatar_XPATH = "//span[@class='gb_Ia gbii']";
-
 
         waitForElementToBeClickable(driver.findElement(By.id(email_ID)));
         driver.findElement(By.id(email_ID)).sendKeys(email);
@@ -270,9 +260,10 @@ public class TestUtil{
         driver.findElement(By.id(nextButtonPass_ID)).click();
 
         waitForElementToLoad(driver.findElement(By.xpath(avatar_XPATH)));
+        return this;
     }
 
-    public void deleteExistingMail() {
+    public TestUtil deleteExistingMail() {
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
         String email_XPATH = "//span[@class='bog']";
         String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
@@ -289,9 +280,10 @@ public class TestUtil{
                 e.printStackTrace();
             }
         }
+        return this;
     }
 
-    public void waitForIncomingMail() {
+    public static void waitForIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
         try {
@@ -309,7 +301,7 @@ public class TestUtil{
         }
     }
 
-    public void clickOnIncomingMail() {
+    public static void clickOnIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
         WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
@@ -323,6 +315,7 @@ public class TestUtil{
         WebElement element = driver.findElement(By.xpath(emailBody_XPATH));
         wait.until(ExpectedConditions.textToBePresentInElement(element, "code"));
     }
-//----END of Gmail related functions
 
+    //----END of Gmail related functions
+//--Gmail refactoring
 }

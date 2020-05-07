@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import utils.ExtentReport;
+import utils.TestUtil;
 
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -199,15 +200,8 @@ public class SignUpPage {
 
     //-----------SETTERS
 
-    //TODO rename this to setEmail
-    public SignUpPage setInvalidEmail(String email) {
-        emailAddress_field.clear();
-        emailAddress_field.sendKeys(email);
-        ExtentReport.addTestCaseStep("Entered the following email: " + email);
-        return this;
-    }
-
     public SignUpPage setEmail(String email) {
+        TestUtil.waitForElementToLoad(emailAddress_field);
         emailAddress_field.clear();
         emailAddress_field.sendKeys(email);
         ExtentReport.addTestCaseStep("Entered the following email: " + email);
@@ -215,12 +209,15 @@ public class SignUpPage {
     }
 
     public SignUpPage setVerificationCode_field(String code) {
+        TestUtil.waitForElementToLoad(verificationCode_field);
+        verificationCode_field.clear();
         verificationCode_field.sendKeys(code);
         ExtentReport.addTestCaseStep("Entered the following Verification Code: " + code);
         return this;
     }
 
     public SignUpPage setNewPassword(String password) {
+        TestUtil.waitForElementToLoad(newPassword_field);
         newPassword_field.clear();
         newPassword_field.sendKeys(password);
         ExtentReport.addTestCaseStep("Entered the following password: " + password);
@@ -228,6 +225,7 @@ public class SignUpPage {
     }
 
     public SignUpPage setConfirmNewPassword(String confirmNewPassword) {
+        TestUtil.waitForElementToLoad(confNewPassword_field);
         confNewPassword_field.clear();
         confNewPassword_field.sendKeys(confirmNewPassword);
         ExtentReport.addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
@@ -235,6 +233,7 @@ public class SignUpPage {
     }
 
     public SignUpPage setFirstName(String firstName) {
+        TestUtil.waitForElementToLoad(firstName_field);
         firstName_field.clear();
         firstName_field.sendKeys(firstName);
         ExtentReport.addTestCaseStep("Entered a first name: " + firstName);
@@ -242,6 +241,7 @@ public class SignUpPage {
     }
 
     public SignUpPage setLastName(String lastName) {
+        TestUtil.waitForElementToLoad(lastName_field);
         lastName_field.clear();
         lastName_field.sendKeys(lastName);
         ExtentReport.addTestCaseStep("Entered a last name: " + lastName);
@@ -276,35 +276,11 @@ public class SignUpPage {
         return this;
     }
 
-    public SignUpPage clickOn_sendVerificationCode_BTN(){
+    public SignUpPage clickOn_sendVerificationCode_BTN() {
+        TestUtil.waitForElementToLoad(sendVerificationCode_BTN);
         sendVerificationCode_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on Send Verification Code button");
         return this;
-    }
-
-    public void verifyIfTokenExpired() {
-        String error_msg = "That code is expired. Please request a new code.";
-
-        verificationCode_field.click();
-        verificationCode_field.clear();
-        String token = "token";
-//                TestUtil.getTokenFromGmail();
-        verificationCode_field.sendKeys(token);
-        verifyCode_BTN.click();
-        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-
-//        testUtil.waitForElementToLoad(expiredVerCode_Msg());
-        Assert.assertEquals(expiredVerCode_Msg().getText(), error_msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: " + error_msg);
-    }
-
-    public void sendInvalidToken(String invalidToken) {
-        verificationCode_field.click();
-        verificationCode_field.sendKeys(invalidToken);
-        verifyCode_BTN.click();
-//        testUtil.waitForElementToLoad(incorrectVerCode_Msg);
-        Assert.assertTrue(incorrectVerCode_Msg.isDisplayed());
-        ExtentReport.addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
 
     public void enterTokenFromMailinator(String email) {
@@ -319,30 +295,20 @@ public class SignUpPage {
         ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
-    public void enterInvalidTokenMultipleTimes(int timesToRetry) {
-        for (int i = 0; i < timesToRetry; i++) {
-//            testUtil.waitForElementToLoad(verifyCode_BTN());
-            verificationCode_field().clear();
-            setVerificationCode_field(String.valueOf((i * 10000)));
-            verifyCode_BTN().click();
-        }
-
-        ExtentReport.addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
-    }
 
     public void enterTokenFromGmail() {
         verificationCode_field.click();
         verificationCode_field.clear();
-        String token = "token";
-//                testUtil.getTokenFromGmail();
-        verificationCode_field.sendKeys(token);
-        verifyCode_BTN.click();
-//        testUtil.waitForElementToLoad(changeEmail_BTN);
-        Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        String token = TestUtil.getTokenFromGmail();
+        setVerificationCode_field(token)
+                .clickOn_verifyCode_BTN();
+//        this part should be used in another method. clickOn_changeEmail_BTN
+//        TestUtil.waitForElementToLoad(changeEmail_BTN);
+//        Assert.assertTrue(changeEmail_BTN.isDisplayed());
+//        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
-    public void waitForTokenToExpire(int minutesToWait) {
+    public SignUpPage waitForTokenToExpire(int minutesToWait) {
         int milisecToWait = minutesToWait * 60 * 1000;
         try {
             Thread.sleep(milisecToWait);
@@ -350,6 +316,7 @@ public class SignUpPage {
             e.printStackTrace();
         }
         ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
+        return this;
     }
 
     public void selectRandomCountry() {
@@ -448,6 +415,12 @@ public class SignUpPage {
     public SignUpPage clickOn_verifyCode_BTN() {
         verifyCode_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on Verify Code button");
+        return this;
+    }
+
+    public SignUpPage verifyIfPageLoaded(){
+        TestUtil.waitForElementToLoad(emailAddress_field);
+        ExtentReport.addTestCaseStep("Navigated to the Login page");
         return this;
     }
 }

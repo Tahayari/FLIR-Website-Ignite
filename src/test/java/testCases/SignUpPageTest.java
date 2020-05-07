@@ -23,40 +23,19 @@ public class SignUpPageTest extends TestBase {
     LandingPage landingPage = getLandingPage();
     SignUpPage signUpPage = getSignUpPage();
     CommonVerification commonVerification = getCommonVerification();
-    TestUtil testUtil;
+    TestUtil testUtil = new TestUtil();
     private String sheetName = "Sheet1";
 
-//    public void loadLandingPage() {
-//        try {
-//            waitForElementToBeClickable(landingPage.signup_BTN());
-//        } catch (Exception e) {
-//            System.out.println("------------Page timed out. Refreshing...");
-//            driver.navigate().refresh();
-//            waitForElementToBeClickable(landingPage.signup_BTN());
-//        }
-//    }
-
     public void goToSignUpPage() {
-        commonVerification.verifyIsDisplayed(landingPage.signup_BTN());
+        commonVerification.verifyIsDisplayed(landingPage.signUp_BTN());
         ExtentReport.addTestCaseStep("Navigated to the Landing page");
         landingPage.clickOn_signUpBTN();
         commonVerification.verifySignUpPageLoaded(signUpPage);
         ExtentReport.addTestCaseStep("Navigated to SignUp page");
     }
 
-    public void verifyInvalidEmails(Object[][] invalidEmailsList) {
-        String error_msg = "Please enter a valid email address.";
 
-        for (Object[] objects : invalidEmailsList) {
-            signUpPage.email_field().clear();
-            signUpPage.setInvalidEmail(objects[0].toString());
-            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
-//            testUtil.waitForElementToLoad(signUpPage.invalidEmail_Msg());
-            checkIfCorrectErrMsg(signUpPage.invalidEmail_Msg(), error_msg);
-            addTestCaseStep("Error message is displayed: " + error_msg);
-        }
-    }
-
+    // Test cases begin here------------------------------------------------------------
     @Test(groups = {"smoke"})
     public void title_Test() {
         String testCaseTitle = "SIGNUP PAGE - Verify the page title";
@@ -67,6 +46,16 @@ public class SignUpPageTest extends TestBase {
 
         Assert.assertEquals(signUpPage.getPageTitle(), "FLIR Sign up");
         ExtentReport.addTestCaseStep("Page title is: " + signUpPage.getPageTitle());
+    }
+
+    @Test
+    public void newGoogle(){
+        extentReport.createTestCase("testCaseTitle", "testCaseDescription");
+
+        goToSignUpPage();
+
+//        testUtil.navigateToNEWGmail()
+//                .enterNEWGmailCredentials();
     }
 
     @DataProvider
@@ -81,7 +70,7 @@ public class SignUpPageTest extends TestBase {
         String testCaseTitle = "SIGNUP PAGE - registerNewAccount_Test";
         String testCaseDescription = "Create new account(s)";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
         goToSignUpPage();
 
         signUpPage.sendTokenToEmail(email + "@mailinator.com");
@@ -143,39 +132,36 @@ public class SignUpPageTest extends TestBase {
         String email = prop.getProperty("gmail");
         int minutesToWait = 5; // Number of MINUTES until the token expires
 
-        createTestCase(testCaseTitle, testCaseDescription);
-
+        extentReport.createTestCase(testCaseTitle, testCaseDescription);
         goToSignUpPage();
 
         testUtil.prepareGmail();
 
-        signUpPage.sendTokenToEmail(email);
+        signUpPage.sendTokenToEmail(email)
+                .waitForTokenToExpire(minutesToWait)
+                .enterTokenFromGmail();
 
-        signUpPage.waitForTokenToExpire(minutesToWait);
-
-        signUpPage.verifyIfTokenExpired();
+        commonVerification.verifyIsDisplayed(signUpPage.expiredVerCode_Msg())
+                .getTextFromElement(signUpPage.expiredVerCode_Msg());
     }
 
     @Test()
     public void tooManyIncorrectAttemptsToken_Test() {
-        int timesToRetry = 3;
+        int timesToRetry = 2;
         String testCaseTitle = "SIGNUP PAGE - tooManyIncorrectAttemptsToken_Test";
         String testCaseDescription = "Error message is displayed if an incorrect token is submitted more than " + timesToRetry + " times";
-        String error_msg = "You've made too many incorrect attempts. Please try again later.";
         String email = "throwAwayEmail@mailinator.com";
 
-        createTestCase(testCaseTitle, testCaseDescription);
-
+        extentReport.createTestCase(testCaseTitle, testCaseDescription);
         goToSignUpPage();
 
         signUpPage.sendTokenToEmail(email);
-
-        signUpPage.enterInvalidTokenMultipleTimes(timesToRetry);
-
-//        testUtil.waitForElementToLoad(signUpPage.tooManyAttempts_Msg());
-        Assert.assertEquals(signUpPage.tooManyAttempts_Msg().getText(), error_msg);
-        addTestCaseStep("Error message is displayed: " + error_msg);
-
+        for (int i = 0; i < timesToRetry; i++) {
+            signUpPage.setVerificationCode_field(String.valueOf(i + 10000))
+                    .clickOn_verifyCode_BTN();
+            commonVerification.verifyIsDisplayed(signUpPage.incorrectVerCode_Msg())
+                    .getTextFromElement(signUpPage.incorrectVerCode_Msg());
+        }
     }
 
     @Test(groups = {"smoke"})
@@ -184,23 +170,28 @@ public class SignUpPageTest extends TestBase {
         String testCaseDescription = "Resend the token and validate the new one";
         String email = prop.getProperty("gmail");
 
-        createTestCase(testCaseTitle, testCaseDescription);
-
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
         goToSignUpPage();
 
         testUtil.prepareGmail();
 
         signUpPage.sendTokenToEmail(email);
-        String oldToken = testUtil.getTokenFromGmail();
-        addTestCaseStep("Saved the token received via email");
+        String oldToken = TestUtil.getTokenFromGmail();
+        ExtentReport.addTestCaseStep("Saved the token received via email");
 
-        signUpPage.generateAnotherToken();
+        testUtil.prepareGmail();
+        signUpPage.sendTokenToEmail(email);
+        String newToken = TestUtil.getTokenFromGmail();
 
-        signUpPage.sendInvalidToken(oldToken);
-        addTestCaseStep("Entered the previous token and it no longer works");
+        signUpPage.setVerificationCode_field(oldToken);
+        commonVerification.verifyIsDisplayed(signUpPage.incorrectVerCode_Msg())
+                .getTextFromElement(signUpPage.incorrectVerCode_Msg());
 
-        signUpPage.enterTokenFromGmail();
-        extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
+        signUpPage.setVerificationCode_field(newToken)
+                .clickOn_verifyCode_BTN();
+        commonVerification.verifyIsDisplayed(signUpPage.changeEmail_BTN());
+
+        ExtentReport.extentTestChild.log(Status.PASS, "Entered the latest token received via email and it works");
     }
 
     @Test
@@ -209,7 +200,7 @@ public class SignUpPageTest extends TestBase {
         String testCaseDescription = "Change the email after validating the token";
         String email = prop.getProperty("gmail");
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
         testUtil.prepareGmail();
@@ -226,7 +217,7 @@ public class SignUpPageTest extends TestBase {
         String testCaseTitle = "SIGNUP PAGE - incorrectPasswordFormat_Test";
         String testCaseDescription = "Error message is displayed if an invalid password is entered";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -238,7 +229,7 @@ public class SignUpPageTest extends TestBase {
         String testCaseTitle = "SIGNUP PAGE - incorrectPasswordFormatConfirmPassField_Test";
         String testCaseDescription = "Error message is displayed if an invalid password is entered (Confirm password field)";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -253,7 +244,7 @@ public class SignUpPageTest extends TestBase {
         String firstName = "firstName";
         String lastName = "lastName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -277,7 +268,7 @@ public class SignUpPageTest extends TestBase {
         String firstName = "firstName";
         String lastName = "lastName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -302,7 +293,7 @@ public class SignUpPageTest extends TestBase {
         String firstName = "firstName";
         String lastName = "lastName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -326,7 +317,7 @@ public class SignUpPageTest extends TestBase {
         String pass = "PASSWORD123!";
         String lastName = "lastName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -350,7 +341,7 @@ public class SignUpPageTest extends TestBase {
         String pass = "PASSWORD123!";
         String firstName = "firstName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 
@@ -375,7 +366,7 @@ public class SignUpPageTest extends TestBase {
         String firstName = "firstName";
         String lastName = "lastName";
 
-        createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToSignUpPage();
 

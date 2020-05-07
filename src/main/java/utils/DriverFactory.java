@@ -8,6 +8,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -18,6 +19,7 @@ public class DriverFactory {
 
     private static WebDriver driver;
     private static Properties prop;
+    private static boolean eventListAlreadyInstantiated = false;
 
     public static WebDriver getDriver() {
         if (driver == null) {
@@ -34,6 +36,10 @@ public class DriverFactory {
             } else if (browserName.equalsIgnoreCase("edge")) {
                 edgeSetup();
             }
+        }
+        if (eventListAlreadyInstantiated == false) {
+            setupEventListener();
+            eventListAlreadyInstantiated = true ;
         }
         return driver;
     }
@@ -88,6 +94,13 @@ public class DriverFactory {
         options.setCapability("InPrivate", true);
         driver = new EdgeDriver(options);
         driver.manage().window().maximize();
+    }
+
+    private static void setupEventListener() {
+        EventFiringWebDriver e_driver = new EventFiringWebDriver(driver);
+        WebEventListener eventListener = new WebEventListener();
+        e_driver.register(eventListener);
+        driver = e_driver;
     }
 
 }

@@ -4,26 +4,15 @@ import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
-import utils.CommonVerification;
 import utils.ExtentReport;
 
 import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
-import static utils.CommonVerification.getCommonVerification;
 import static utils.TestUtil.getTestaData;
 
 public class LoginPageTest extends TestBase {
     LandingPage landingPage = getLandingPage();
     LoginPage loginPage = getLoginPage();
-    CommonVerification commonVerification = getCommonVerification(); //TODO rename this to something more likeable
-
-    private void goToLoginPage() {
-        commonVerification.verifyIsDisplayed(landingPage.signup_BTN());
-        ExtentReport.addTestCaseStep("Navigated to the Landing page");
-        landingPage.clickOn_loginBTN();
-        commonVerification.verifyIsDisplayed(loginPage.signIn_BTN());
-        ExtentReport.addTestCaseStep("Navigated to Login page");
-    }
 
     // Test cases begin here------------------------------------------------------------
     @Test(enabled = false) /*For testing purposes*/
@@ -31,7 +20,7 @@ public class LoginPageTest extends TestBase {
         String testCaseTitle = "LOGIN PAGE - title_Test";
         String testCaseDescription = "Verify the page title";
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
 
         goToLoginPage();
 
@@ -41,121 +30,104 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void invalidEmail_Test() {
-        String testCaseTitle = "LOGIN PAGE - invalidEmail_Test";
-        String testCaseDescription = "Error message is displayed if an invalid email address is entered";
-        String fileName = "InvalidEmails";
-        String sheetName = "Sheet1";
-        Object[][] invalidEmailsList = getTestaData(fileName, sheetName);
+        executeSetup(testCasesInfo.loginPageInfo().getInvalidEmail_Test_title(),
+                testCasesInfo.loginPageInfo().getInvalidEmail_Test_desc());
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
-
-        for (int i = 1; i < invalidEmailsList.length; i++) {
-            loginPage.clearField(loginPage.email_field())
-                    .setEmail(invalidEmailsList[i][0].toString())
-                    .clickOn_signInBTN();
-
-            commonVerification.verifyIsDisplayed(loginPage.invalidEmailError_Msg())
-                    .getTextFromElement(loginPage.invalidEmailError_Msg());
-        }
+        verifyListOfInvalidEmails();
     }
 
     @Test
     public void blankPassword_Test() {
-        String testCaseTitle = "LOGIN PAGE - blankPassword_Test";
-        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
-        String email = "email@test.com";
+        executeSetup(testCasesInfo.loginPageInfo().getBlankPassword_Test_title(),
+                testCasesInfo.loginPageInfo().getBlankPassword_Test_desc());
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
-
-        loginPage.setEmail(email)
+        loginPage.setEmail(testData.getRandomEmail())
                 .setPass("")
                 .clickOn_signInBTN();
 
-        commonVerification.verifyIsDisplayed(loginPage.invalidPassError_Msg())
-                .getTextFromElement(loginPage.invalidPassError_Msg());
+        loginPage.invalidPassError_Msg();
     }
 
     @Test
     public void incorrectPassword_Test() {
-        String testCaseTitle = "LOGIN PAGE - incorrectPassword_Test";
-        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
-        String email = "flirtest1@mailinator.com";
-        String incorrectPass = "thisIsNotTheCorrectPass";
+        executeSetup(testCasesInfo.loginPageInfo().getIncorrectPassword_Test_title(),
+                testCasesInfo.loginPageInfo().getIncorrectPassword_Test_desc());
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
-
-        loginPage.setEmail(email)
-                .setPass(incorrectPass)
+        loginPage.setEmail(testData.getEmailOfExistingAcc())
+                .setPass(testData.getIncorrectPass())
                 .clickOn_signInBTN();
-
-        commonVerification.verifyIsDisplayed(loginPage.incorrectPassError_Msg())
-                .getTextFromElement(loginPage.incorrectPassError_Msg());
+        loginPage.incorrectPassError_Msg();
     }
 
     @Test(groups = {"smoke"})
     public void loginWithNonExistingAccount_Test() {
-        String testCaseTitle = "LOGIN PAGE - loginWithNonExistingAccount_Test";
-        String testCaseDescription = "Error message is displayed when logging in with a email account who doesn't have an account associated";
-        String randomEmail = "randomEmail@mailinator.com";
-        String randomPass = "thisIsNotTheCorrectPass";
+        executeSetup(testCasesInfo.loginPageInfo().getLoginWithNonExistingAccount_Test_title(),
+                testCasesInfo.loginPageInfo().getLoginWithNonExistingAccount_Test_desc());
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
-
-        loginPage.setEmail(randomEmail)
-                .setPass(randomPass)
+        loginPage.setEmail(testData.getRandomEmail())
+                .setPass(testData.getIncorrectPass())
                 .clickOn_signInBTN();
 
-        commonVerification.verifyIsDisplayed(loginPage.nonExistingAccount_Msg())
-                .getTextFromElement(loginPage.nonExistingAccount_Msg());
+        loginPage.nonExistingAccount_Msg();
     }
 
     @Test(groups = {"smoke"}, priority = 100) /*execute this TestCase last*/
     public void loginWithValidCredentials_Test() {
-        String testCaseTitle = "LOGIN PAGE - loginWithValidCredentials_Test";
-        String testCaseDescription = "Login with valid credentials";
-        String email = "flirtest1@mailinator.com";
-        String pass = "QAZxsw123";
+        executeSetup(testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_title(),
+                testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_desc());
 
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
-
-        loginPage.setEmail(email)
-                .setPass(pass)
+        loginPage.setEmail(testData.getEmailOfExistingAcc())
+                .setPass(testData.getPassOfExistingAcc())
                 .clickOn_signInBTN();
 
         LibraryPage libraryPage = new LibraryPage();
-        commonVerification.verifyIsDisplayed(libraryPage.newFolder_BTN());
+        libraryPage.verifyIfPageLoaded();
     }
 
     @Test(groups = {"smoke"})
     public void clickSignUpLink_Test() {
-        String testCaseTitle = "LOGIN PAGE - clickSignUpLink_Test";
-        String testCaseDescription = "Clicking on the SignUp link redirects to Sign Up page";
-
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
+        executeSetup(testCasesInfo.loginPageInfo().getClickSignUpLink_Test_title(),
+                testCasesInfo.loginPageInfo().getClickSignUpLink_Test_desc());
 
         loginPage.clickOn_signUpLink();
 
         SignUpPage signUpPage = SignUpPage.getSignUpPage();
-        commonVerification.verifySignUpPageLoaded(signUpPage);
+        signUpPage.verifyIfPageLoaded();
     }
 
     @Test(groups = {"smoke"})
     public void clickForgotPasswordLink_Test() {
-        String testCaseTitle = "LOGIN PAGE - clickForgotPasswordLink_Test";
-        String testCaseDescription = "Clicking on the Forgot Password link redirects to Recover password page";
-
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
-        goToLoginPage();
+        executeSetup(testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_title(),
+                testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_Test_desc());
 
         loginPage.clickOn_forgotPasswordLink();
         RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage();
-        commonVerification.verifyRecoverPassPageLoaded(recoverPasswordPage);
+        recoverPasswordPage.verifyIfPageLoaded();
+    }
+
+    //---
+    private void goToLoginPage() {
+        landingPage.verifyIfPageLoaded()
+                .clickOn_loginBTN();
+        loginPage.verifyIfPageLoaded();
+    }
+
+    private void executeSetup(String testCaseTitle, String testCaseDescription) {
+//        String testCaseTitle = "LOGIN PAGE - blankPassword_Test";
+//        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
+
+        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
+        goToLoginPage();
+    }
+
+    private void verifyListOfInvalidEmails() {
+        Object[][] invalidEmailsList = getTestaData(testData.getNameOfInvalidEmailsFile(), testData.getNameOfFirstSheet());
+        for (int i = 1; i < invalidEmailsList.length; i++) {
+            loginPage.clearField(loginPage.email_field())
+                    .setEmail(invalidEmailsList[i][0].toString())
+                    .clickOn_signInBTN();
+            loginPage.invalidEmailError_Msg();
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import utils.ExtentReport;
 import utils.TestUtil;
 
 import java.util.NoSuchElementException;
@@ -175,7 +176,7 @@ public class RecoverPasswordPage extends TestBase {
         sendVerCode_BTN.click();
         testUtil.waitForElementToLoad(verifyCode_BTN);
         Assert.assertTrue(verifyCode_BTN().isDisplayed());
-        addTestCaseStep("Entered email: " + email + " and clicked on Send Verification code button");
+        ExtentReport.addTestCaseStep("Entered email: " + email + " and clicked on Send Verification code button");
     }
 
     public void sendInvalidToken(String invalidToken) {
@@ -184,7 +185,7 @@ public class RecoverPasswordPage extends TestBase {
         verifyCode_BTN.click();
         testUtil.waitForElementToLoad(incorrectVerCode_Msg);
         Assert.assertTrue(incorrectVerCodeMsg().isDisplayed());
-        addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
+        ExtentReport.addTestCaseStep("Entered the following token: " + invalidToken + " and clicked on the Verify code button");
     }
 
     public void verifyInvalidTokenErrorMsg() {
@@ -192,7 +193,7 @@ public class RecoverPasswordPage extends TestBase {
 
         testUtil.waitForElementToLoad(incorrectVerCode_Msg);
         Assert.assertEquals(incorrectVerCode_Msg.getText(), error_msg);
-        addTestCaseStep("Error message is displayed: " + error_msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
     public void waitForTokenToExpire(int minutesToWait) {
@@ -202,7 +203,7 @@ public class RecoverPasswordPage extends TestBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
+        ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
     }
 
     public void enterTokenFromGmail() {
@@ -213,7 +214,7 @@ public class RecoverPasswordPage extends TestBase {
         verifyCode_BTN.click();
         testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
     public void enterTokenFromMailinator(String email) {
@@ -224,7 +225,7 @@ public class RecoverPasswordPage extends TestBase {
         verifyCode_BTN.click();
         testUtil.waitForElementToLoad(changeEmail_BTN);
         Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
     public void verifyIfTokenExpired() {
@@ -235,11 +236,11 @@ public class RecoverPasswordPage extends TestBase {
         String token = testUtil.getTokenFromGmail();
         verificationCode_field.sendKeys(token);
         verifyCode_BTN.click();
-        addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
 
         testUtil.waitForElementToLoad(expiredVerCode());
         Assert.assertEquals(expiredVerCode().getText(), error_msg);
-        addTestCaseStep("Error message is displayed: " + error_msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: " + error_msg);
     }
 
     public void enterInvalidTokenMultipleTimes(int timesToRetry) {
@@ -250,14 +251,14 @@ public class RecoverPasswordPage extends TestBase {
             verifyCode_BTN().click();
         }
 
-        addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
+        ExtentReport.addTestCaseStep("Entered the wrong token " + timesToRetry + " times");
     }
 
     public void generateAnotherToken() {
         sendNewCode_BTN().click();
         testUtil.waitForElementToLoad(verifyCode_BTN);
         Assert.assertTrue(verifyCode_BTN.isDisplayed());
-        addTestCaseStep("Generated another token");
+        ExtentReport.addTestCaseStep("Generated another token");
     }
 
     public void clickOn_changeEmail_BTN() {
@@ -265,13 +266,13 @@ public class RecoverPasswordPage extends TestBase {
         testUtil.waitForElementToLoad(sendVerCode_BTN());
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
-        addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
+        ExtentReport.addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
     }
 
     public void clickOn_continue_BTN() {
         continue_BTN.click();
         testUtil.waitForElementToLoad(newPassword_field);
-        addTestCaseStep("Enter new password page is displayed");
+        ExtentReport.addTestCaseStep("Enter new password page is displayed");
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
@@ -280,16 +281,16 @@ public class RecoverPasswordPage extends TestBase {
         for (int i = 0; i < invalidPass.length; i++) {
             passField.clear();
             passField.sendKeys(invalidPass[i]);
-            addTestCaseStep("Entered the following password: " + invalidPass[i]);
+            ExtentReport.addTestCaseStep("Entered the following password: " + invalidPass[i]);
 
             if (passField == newPassword_field) {
                 testUtil.waitForElementToLoad(invalidPassError_Msg);
                 Assert.assertTrue(invalidPassError_Msg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidPassError_Msg.getText());
+                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidPassError_Msg.getText());
             } else if (passField == reEnterPassword_field) {
                 testUtil.waitForElementToLoad(invalidConfirmPassError_Msg);
                 Assert.assertTrue(invalidConfirmPassError_Msg.getText().contains("8-16 characters"));
-                addTestCaseStep("Error message is displayed: " + invalidConfirmPassError_Msg.getText());
+                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidConfirmPassError_Msg.getText());
             } else throw new NoSuchElementException();
         }
     }
@@ -297,11 +298,11 @@ public class RecoverPasswordPage extends TestBase {
 
     public void submitBlankPassword() {
         continue_BTN.click();
-        addTestCaseStep("Left the password field blank and clicked on Continue button");
+        ExtentReport.addTestCaseStep("Left the password field blank and clicked on Continue button");
 
         testUtil.waitForElementToLoad(requiredFieldMissing_Msg);
         Assert.assertTrue(requiredFieldMissing_Msg.isDisplayed());
-        addTestCaseStep("Error message is displayed: " + requiredFieldMissing_Msg.toString());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + requiredFieldMissing_Msg.toString());
     }
 
     public void enterMismatchingPasswords() {
@@ -310,22 +311,22 @@ public class RecoverPasswordPage extends TestBase {
 
         newPassword_field.clear();
         newPassword_field.sendKeys(pass1);
-        addTestCaseStep("Entered the following password in the password field: " + pass1);
+        ExtentReport.addTestCaseStep("Entered the following password in the password field: " + pass1);
         reEnterPassword_field.clear();
         reEnterPassword_field.sendKeys(pass2);
-        addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
+        ExtentReport.addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
 
         continue_BTN.click();
-        addTestCaseStep("Clicked on the Create button");
+        ExtentReport.addTestCaseStep("Clicked on the Create button");
         testUtil.waitForElementToLoad(passwordEntryMismatch_Msg);
         Assert.assertTrue(passwordEntryMismatch_Msg.getText().contains("The password entry fields do not match"));
-        addTestCaseStep("Error message is displayed: " + passwordEntryMismatch_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + passwordEntryMismatch_Msg.getText());
     }
 
     public void enterNewPassword(String newPassword) {
         newPassword_field.sendKeys(newPassword);
         reEnterPassword_field.sendKeys(newPassword);
-        addTestCaseStep("Entered the password " + newPassword +" into the password fields");
+        ExtentReport.addTestCaseStep("Entered the password " + newPassword +" into the password fields");
     }
 
     public LibraryPage createNewPassword(){
@@ -333,8 +334,14 @@ public class RecoverPasswordPage extends TestBase {
         LibraryPage libraryPage = new LibraryPage();
         testUtil.waitForElementToLoad(libraryPage.newFolder_BTN());
         Assert.assertTrue(libraryPage.newFolder_BTN().isDisplayed());
-        addTestCaseStep("Clicked on the Continue button. New Password is set and Library page is displayed");
+        ExtentReport.addTestCaseStep("Clicked on the Continue button. New Password is set and Library page is displayed");
         return libraryPage;
+    }
+
+    public RecoverPasswordPage verifyIfPageLoaded(){
+        TestUtil.waitForElementToLoad(email_field);
+        ExtentReport.addTestCaseStep("Navigated to the Recover Password page");
+        return this;
     }
 //--------------
 }

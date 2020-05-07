@@ -1,6 +1,5 @@
 package pages;
 
-import base.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,13 +7,13 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import utils.ExtentReport;
 import utils.TestUtil;
 
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class LibraryPage extends TestBase {
-    private TestUtil testUtil;
+public class LibraryPage{
     private WebDriver driver = getDriver();
 
     //-------PATHS-------
@@ -26,7 +25,7 @@ public class LibraryPage extends TestBase {
     private final String uploadFilesBTN_XPATH = "//button[@title='Upload files']";
     private final String myFiles_XPATH = "//h5[contains(text(),'My Files')]";
     private final String sharedWithMe_XPATH = "//h5[contains(text(),'Shared with me')]";
-    private final String userArea_XPATH = "//span[contains(text(),'Library')]";
+    private final String libraryBTN_XPATH = "//span[contains(text(),'Library')]";
     private final String termsAndCondAccept_XPATH = "//span[contains(text(),'Accept')]";
     private final String termsAndCondDecline_XPATH = "//span[contains(text(),'Decline')]";
     private final String welcomeScreenNext_XPATH = "//button[@class='flir-icon-button is-inverted is-text first-time-use-forward']";
@@ -41,7 +40,8 @@ public class LibraryPage extends TestBase {
     //---Others
     private final String termsAndConditions_XPATH = "//h1[contains(text(),'Terms and Conditions')]";
     private final String termsAndCondCheckbox_XPATH = "//button[@class='checkbox']";
-
+    private final String userMenu_ClassName = "user-menu";
+    private final String logoutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Sign out')]";
     //--------------
 
 
@@ -63,8 +63,8 @@ public class LibraryPage extends TestBase {
     private WebElement myFiles_LINK;
     @FindBy(xpath = sharedWithMe_XPATH)
     private WebElement sharedWithMe_BTN;
-    @FindBy(xpath = userArea_XPATH)
-    private WebElement userArea;
+    @FindBy(xpath = libraryBTN_XPATH)
+    private WebElement library_BTN;
     @FindBy(xpath = termsAndCondAccept_XPATH)
     private WebElement termsAndCondAccept_BTN;
     @FindBy(xpath = termsAndCondDecline_XPATH)
@@ -86,12 +86,15 @@ public class LibraryPage extends TestBase {
     private WebElement termsAndConditions;
     @FindBy(xpath = termsAndCondCheckbox_XPATH)
     private WebElement termsAndCond_checkbox;
+    @FindBy(className = userMenu_ClassName)
+    private WebElement userMenu;
+    @FindBy(xpath = logoutBTN_XPATH)
+    private WebElement logout_BTN;
     //--------------
 
     //Constructor
     public LibraryPage() {
         PageFactory.initElements(driver, this);
-        testUtil = new TestUtil();
     }
 
 //    public static LibraryPage(){
@@ -120,8 +123,8 @@ public class LibraryPage extends TestBase {
         return newFolder_BTN;
     }
 
-    public WebElement userArea() {
-        return userArea;
+    public WebElement library_BTN() {
+        return library_BTN;
     }
 
     public WebElement termsAndCondCheckbox() {
@@ -159,6 +162,10 @@ public class LibraryPage extends TestBase {
     public WebElement folderNameError_Msg() {
         return folderNameError_Msg;
     }
+
+    public WebElement userMenu_BTN() {return userMenu;}
+    public WebElement logout_BTN() {return logout_BTN;}
+
     //--------------
 
     //-----------SETTERS
@@ -171,14 +178,14 @@ public class LibraryPage extends TestBase {
 
     public void acceptTermsConditions() {
         termsAndCondCheckbox().click();
-        testUtil.waitForElementToBeClickable(termsAndCondAccept_BTN);
+        TestUtil.waitForElementToBeClickable(termsAndCondAccept_BTN);
         assertTrue(termsAndCondAccept_BTN().isEnabled());
-        addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
+        ExtentReport.addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
 
         termsAndCondAccept_BTN.click();
-        testUtil.waitForElementToLoad(welcomeScreenNext_BTN);
+        TestUtil.waitForElementToLoad(welcomeScreenNext_BTN);
         assertTrue(welcomeScreenNext_BTN.isDisplayed());
-        addTestCaseStep("Clicked on the Accept button");
+        ExtentReport.addTestCaseStep("Clicked on the Accept button");
     }
 
     public void skipWelcomeScreen() {
@@ -188,15 +195,15 @@ public class LibraryPage extends TestBase {
             e.printStackTrace();
         }
         welcomeScreenSkip_BTN.click();
-        testUtil.waitForElementToLoad(newFolder_BTN);
+        TestUtil.waitForElementToLoad(newFolder_BTN);
         assertTrue(newFolder_BTN.isDisplayed());
-        addTestCaseStep("Clicked on SKIP button from the Welcome screen, Library page is displayed");
+        ExtentReport.addTestCaseStep("Clicked on SKIP button from the Welcome screen, Library page is displayed");
     }
 
     public void clickOn_createNewFolder_BTN() {
         newFolder_BTN.click();
-        testUtil.waitForElementToLoad(folderName_field);
-        addTestCaseStep("Clicked on the New Folder button");
+        TestUtil.waitForElementToLoad(folderName_field);
+        ExtentReport.addTestCaseStep("Clicked on the New Folder button");
     }
 
     public void createNewFolder(String folderName) {
@@ -204,12 +211,12 @@ public class LibraryPage extends TestBase {
 
         folderName_field.sendKeys(folderName);
         Assert.assertTrue(newFolderCreate_BTN.isEnabled());
-        addTestCaseStep("Entered the name: " + folderName + ". Create button is enabled");
+        ExtentReport.addTestCaseStep("Entered the name: " + folderName + ". Create button is enabled");
 
         newFolderCreate_BTN.click();
         String temp_XPATH = "//a[contains(text(),'" + folderName + "')]";
-        testUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
-        addTestCaseStep("Folder created successfully");
+        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
+        ExtentReport.addTestCaseStep("Folder created successfully");
     }
 
     public void uploadFile(String fileLocation) {
@@ -218,8 +225,27 @@ public class LibraryPage extends TestBase {
         WebElement upload = driver.findElement(By.xpath("//input[@type='file']//following::input[1]"));
 
         upload.sendKeys(fileLocation);
-        testUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
-        addTestCaseStep("File " + fileName + " uploaded successfully");
+        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
+        ExtentReport.addTestCaseStep("File " + fileName + " uploaded successfully");
+    }
+
+    public LibraryPage clickOn_userMenu(){
+        TestUtil.waitForElementToLoad(library_BTN);
+        userMenu.click();
+        ExtentReport.addTestCaseStep("Clicked on User Menu");
+        return this;
+    }
+
+    public void clickOn_logout_BTN(){
+        TestUtil.waitForElementToBeClickable(logout_BTN);
+        logout_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on Logout button");
+    }
+
+    public LibraryPage verifyIfPageLoaded(){
+        TestUtil.waitForElementToLoad(uploadFiles_BTN);
+        ExtentReport.addTestCaseStep("Navigated to the Library page");
+        return this;
     }
     //--------------
 }

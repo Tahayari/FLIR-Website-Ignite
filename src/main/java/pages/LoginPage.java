@@ -4,12 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import utils.ExtentReport;
+import utils.TestUtil;
 
 import static utils.DriverFactory.getDriver;
 
 public class LoginPage {
-    private WebDriver driver = getDriver();
+    private WebDriver driver ;
 
     //-------PATHS-------
     //---Input fields
@@ -61,6 +63,7 @@ public class LoginPage {
 
     //Constructor
     private LoginPage() {
+        driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
@@ -84,18 +87,30 @@ public class LoginPage {
     }
 
     public WebElement invalidEmailError_Msg() {
+        TestUtil.waitForElementToLoad(invalidEmailError_Msg);
+        Assert.assertTrue(invalidEmailError_Msg.isDisplayed());
+        ExtentReport.addTestCaseStep("Error message is displayed: "+invalidEmailError_Msg.getText());
         return invalidEmailError_Msg;
     }
 
     public WebElement invalidPassError_Msg() {
+        TestUtil.waitForElementToLoad(invalidPassError_Msg);
+        Assert.assertTrue(invalidPassError_Msg.isDisplayed());
+        ExtentReport.addTestCaseStep("Error message is displayed: "+invalidPassError_Msg.getText());
         return invalidPassError_Msg;
     }
 
     public WebElement incorrectPassError_Msg() {
+        TestUtil.waitForElementToLoad(incorrectPassError_Msg);
+        Assert.assertTrue(incorrectPassError_Msg.isDisplayed());
+        ExtentReport.addTestCaseStep("Error message is displayed: "+incorrectPassError_Msg.getText());
         return incorrectPassError_Msg;
     }
 
     public WebElement nonExistingAccount_Msg() {
+        TestUtil.waitForElementToLoad(nonExistingAccount_Msg);
+        Assert.assertTrue(nonExistingAccount_Msg.isDisplayed());
+        ExtentReport.addTestCaseStep("Error message is displayed: "+nonExistingAccount_Msg.getText());
         return nonExistingAccount_Msg;
     }
     //-----------
@@ -103,15 +118,17 @@ public class LoginPage {
 
     //-----------SETTERS
     public LoginPage setEmail(String email) {
-        email_field().clear();
-        email_field().sendKeys(email);
+        TestUtil.waitForElementToLoad(email_field);
+        email_field.clear();
+        email_field.sendKeys(email);
         ExtentReport.addTestCaseStep("Entered the following email: " + email);
         return this;
     }
 
     public LoginPage setPass(String pass) {
-        pass_field().clear();
-        pass_field().sendKeys(pass);
+        TestUtil.waitForElementToLoad(pass_field);
+        pass_field.clear();
+        pass_field.sendKeys(pass);
         ExtentReport.addTestCaseStep("Entered the following password: " + pass);
         return this;
     }
@@ -123,16 +140,19 @@ public class LoginPage {
     }
 
     public void clickOn_signUpLink() {
+        TestUtil.waitForElementToLoad(signUp_link);
         signUp_link.click();
         ExtentReport.addTestCaseStep("Clicked on SignUp link");
     }
 
     public void clickOn_forgotPasswordLink() {
+        TestUtil.waitForElementToLoad(forgotPass_link);
         forgotPass_link.click();
         ExtentReport.addTestCaseStep("Clicked on Forgot Password link");
     }
 
     public void clickOn_signInBTN() {
+        TestUtil.waitForElementToLoad(signIn_BTN);
         signIn_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on SignIn Button");
     }
@@ -142,8 +162,10 @@ public class LoginPage {
         return this;
     }
 
-    public void logout() {
-    //TODO
+    public LoginPage verifyIfPageLoaded(){
+        TestUtil.waitForElementToLoad(signIn_BTN);
+        ExtentReport.addTestCaseStep("Navigated to the Login page");
+        return this;
     }
 
 }
