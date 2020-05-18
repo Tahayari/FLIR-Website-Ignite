@@ -118,6 +118,7 @@ public class SignUpPage {
 
     //Constructor
     private SignUpPage() {
+        driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
@@ -145,6 +146,8 @@ public class SignUpPage {
     }
 
     public WebElement changeEmail_BTN() {
+        TestUtil.waitForElementToLoad(changeEmail_BTN);
+        ExtentReport.addTestCaseStep("Token from email is validated; change E-mail button is displayed");
         return changeEmail_BTN;
     }
 
@@ -157,14 +160,20 @@ public class SignUpPage {
     }
 
     public WebElement incorrectVerCode_Msg() {
+        TestUtil.waitForElementToLoad(incorrectVerCode_Msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: "+incorrectVerCode_Msg.getText());
         return incorrectVerCode_Msg;
     }
 
     public WebElement expiredVerCode_Msg() {
+        TestUtil.waitForElementToLoad(expiredVerCode_Msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: "+expiredVerCode_Msg.getText());
         return expiredVerCode_Msg;
     }
 
     public WebElement invalidEmail_Msg() {
+        TestUtil.waitForElementToLoad(invalidEmail_Msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: "+invalidEmail_Msg.getText());
         return invalidEmail_Msg;
     }
 
@@ -193,6 +202,8 @@ public class SignUpPage {
     }
 
     public WebElement tooManyAttempts_Msg() {
+        TestUtil.waitForElementToLoad(tooManyAttempts_Msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: "+tooManyAttempts_Msg.getText());
         return tooManyAttempts_Msg;
     }
 
@@ -302,21 +313,7 @@ public class SignUpPage {
         String token = TestUtil.getTokenFromGmail();
         setVerificationCode_field(token)
                 .clickOn_verifyCode_BTN();
-//        this part should be used in another method. clickOn_changeEmail_BTN
-//        TestUtil.waitForElementToLoad(changeEmail_BTN);
-//        Assert.assertTrue(changeEmail_BTN.isDisplayed());
-//        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-    }
-
-    public SignUpPage waitForTokenToExpire(int minutesToWait) {
-        int milisecToWait = minutesToWait * 60 * 1000;
-        try {
-            Thread.sleep(milisecToWait);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds for the Verification code to expire");
-        return this;
+        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
     public void selectRandomCountry() {
@@ -413,7 +410,13 @@ public class SignUpPage {
     }
 
     public SignUpPage clickOn_verifyCode_BTN() {
+        TestUtil.waitForElementToLoad(verifyCode_BTN);
         verifyCode_BTN.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ExtentReport.addTestCaseStep("Clicked on Verify Code button");
         return this;
     }

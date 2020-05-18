@@ -6,7 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
@@ -26,7 +25,7 @@ public class ExtentReport {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
-        htmlReporter.config().setTheme(Theme.DARK);
+//        htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
 
@@ -49,6 +48,10 @@ public class ExtentReport {
 
     public static void createTestCaseTitle(String testCaseTitle) {
         extentTest = extent.createTest(testCaseTitle);
+    }
+
+    public static void assignCategory(String category){
+        extentTest.assignCategory(category);
     }
 
     public static void createTestCase(String testCaseTitle, String testCaseDescription) {

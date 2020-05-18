@@ -15,6 +15,7 @@ public class LoginPageInfo {
     private String clickSignUpLink_Test_desc;
     private String clickForgotPasswordLink_Test_title;
     private String clickForgotPasswordLink_Test_Test_desc;
+    private String category;
 
     public LoginPageInfo() {
         blankPassword_Test_title = "LOGIN PAGE - blankPassword_Test";
@@ -31,6 +32,7 @@ public class LoginPageInfo {
         clickSignUpLink_Test_desc = "Clicking on the SignUp link redirects to Sign Up page";
         clickForgotPasswordLink_Test_title = "LOGIN PAGE - clickSignUpLink_Test";
         clickForgotPasswordLink_Test_Test_desc = "Clicking on the Forgot Password link redirects to Recover password page";
+        category = "LOGIN_PAGE";
     }
 
     public String getBlankPassword_Test_title() {
@@ -88,4 +90,6 @@ public class LoginPageInfo {
     public String getClickForgotPasswordLink_Test_Test_desc() {
         return clickForgotPasswordLink_Test_Test_desc;
     }
+
+    public String getCategory(){return category;}
 }

@@ -6,7 +6,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import testData.TestData;
 import utils.ExtentReport;
-import utils.TestUtil;
 import utils.testCasesInfo.TestCasesInfo;
 
 import java.io.IOException;
@@ -33,14 +32,9 @@ public class TestBase {
     @BeforeClass
     public void startUpBrowser() {
         driver = getDriver();
-
-//        EventFiringWebDriver e_driver = new EventFiringWebDriver(driver);
-//        WebEventListener eventListener = new WebEventListener();
-//        e_driver.register(eventListener);
-//        driver = e_driver;
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(testData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(testData.IMPLICIT_WAIT, TimeUnit.SECONDS);
 
     }
 
@@ -48,25 +42,6 @@ public class TestBase {
     public void goToLandingPage() {
         driver.get(prop.getProperty("url"));
     }
-
-//    protected void addTestCaseStep(String testCaseStep) {
-//        extentTestChild.log(Status.PASS, testCaseStep);
-//    }
-//
-//    protected void createTestCaseDescription(String testCaseDescription) {
-//        extentTestChild = extentTest.createNode(testCaseDescription);
-//    }
-//
-//    protected void createTestCaseTitle(String testCaseTitle) {
-//        extentTest = extent.createTest(testCaseTitle);
-//    }
-//
-//    protected void createTestCase(String testCaseTitle, String testCaseDescription) {
-//        createTestCaseTitle(testCaseTitle);
-//        createTestCaseDescription(testCaseDescription);
-//        Assert.assertEquals(driver.getTitle(), "FLIR Ignite");
-//        addTestCaseStep("Navigated to Landing page");
-//    }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) throws IOException {

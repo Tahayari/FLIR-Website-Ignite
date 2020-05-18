@@ -1,83 +1,160 @@
 package utils.emailManager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.gmail.GmailPage;
+import testData.TestData;
 import utils.TestUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import static pages.gmail.GmailPage.getGmailPage;
-import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
 
 public class EmailManager {
     WebDriver driver = getDriver();
-    public static boolean gmailReady = false;
-    Properties prop;
+    private static boolean gmailReady = false;
+    public static TestUtil testUtil;
+    private TestData testData = new TestData();
+    GmailPage gmailPage = getGmailPage();
 
-    {
-        try {
-            prop = loadProperties();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private EmailManager openNewTab() {
+        String a = "window.open('','_blank');";
+        ((JavascriptExecutor) driver).executeScript(a);
+        navigateToNextTab(); //switch to the latest opened tab
+        return this;
     }
 
-    private EmailManager navigateToGmail(){
-        String a = "window.open('','_blank');";
-        String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
-
-        ((JavascriptExecutor) driver).executeScript(a);
+    private EmailManager navigateToFirstTab() {
+        String currentTab = driver.getWindowHandle();
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
+        if (tabs.indexOf(currentTab) == 0) {
+//            driver.close();
+            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
+        } else {
+//            driver.close();
+            driver.switchTo().window(tabs.get(0));
+        }
+        return this;
+    }
+
+    private EmailManager navigateToNextTab() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(tabs.size() - 1));
+        return this;
+    }
+
+    private EmailManager closeCurrentTab() {
+        String currentTab = driver.getWindowHandle();
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (tabs.indexOf(currentTab) == 0) {
+            driver.close();
+            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
+        } else {
+            driver.close();
+            driver.switchTo().window(tabs.get(0));
+        }
+        return this;
+    }
+
+    private EmailManager goToURL(String URL) {
         driver.get(URL);
         return this;
     }
 
-    private EmailManager deleteExistingEmails(){ //TODO this
-        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-        String email_XPATH = "//span[@class='bog']";
-        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
+    private EmailManager navigateToGmail() {
+        openNewTab().
+                goToURL(testData.getGmailURL());
+        return this;
+    }
 
-        if (driver.findElements(By.xpath(email_XPATH)).size() > 0) {
-            driver.findElements(By.xpath(email_XPATH)).get(0).click();
-            TestUtil.waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
-            driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-
-            try {
-                WebDriverWait wait = new WebDriverWait(driver, TestUtil.WAIT_FOR_ELEMENT_TIMEOUT);
-                wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
-            } catch (Exception e) {
-                e.printStackTrace();
+    private void newDeleteExistingEmails() {
+        TestUtil.waitForElementToLoad(gmailPage.avatar_icon());
+        try {
+            TestUtil.waitForElementToLoad(gmailPage.incomingEmail());
+            if (gmailPage.incomingEmail().isDisplayed()) {
+                gmailPage.selectAll_checkbox().click();
+                gmailPage.clickOn_newDeleteEmail_BTN();
             }
+        } catch (Exception e) {
+            System.out.println("Element not found because there are no emails in the inbox to delete");
+        }
+
+//        System.out.println("<----> Token  =" + gmailPage.incomingEmail().getText().substring(108, 114)+"!!!");
+    }
+
+    private EmailManager deleteExistingEmails() {
+        System.out.println("++++++ deleteExistingEmails: will begin to delete existing emails...");
+//        GmailPage gmailPage = getGmailPage();
+        TestUtil.waitForElementToLoad(gmailPage.avatar_icon());
+        if (gmailPage.listOfEmails().size() > 0) {
+            gmailPage.listOfEmails().get(0).click();
+            TestUtil.waitForElementToLoad(gmailPage.emailBody());
+            TestUtil.waitForElementToLoad(gmailPage.deleteEmail_BTN());
+            gmailPage.deleteEmail_BTN().click();
+
+            gmailPage.waitForEmailsToBeDeleted();
         }
         return this;
     }
 
-    private EmailManager enterGmailCredentials(){
+    private EmailManager enterGmailCredentials() {
         GmailPage gmailPage = getGmailPage();
 
-        gmailPage.setEmail(prop.getProperty("gmail"))
+        gmailPage.setEmail(testData.getGmailEmail())
                 .clickOn_nextEmail_BTN()
-                .setPass(prop.getProperty("password"))
-                .clickOn_nextEmail_BTN();
+                .setPass(testData.getGmailPass())
+                .clickOn_nextPass_BTN();
 
         return this;
     }
 
-    public void prepareGmail(){
+    public void prepareGmail() {
         navigateToGmail();
         if (!gmailReady) {
             enterGmailCredentials();
             gmailReady = true;
         }
-        deleteExistingEmails();
-//                .navigateToFirstTab();
+        newDeleteExistingEmails();
+//        deleteExistingEmails();
+        navigateToFirstTab();
+    }
+
+    public String getTokenFromGmail() {
+        navigateToNextTab()
+                .waitForIncomingMail();
+//                .clickOnIncomingMail();
+        String token = getTokenFromEmailBody();
+//        deleteCurrentEmail();
+        newDeleteExistingEmails();
+        closeCurrentTab();
+        return token;
+    }
+
+    private EmailManager waitForIncomingMail() {
+        TestUtil.waitForElementToLoad(gmailPage.incomingEmail());
+//        TestUtil.waitForElementsToBeMoreThanZero(gmailPage.getEmail_XPATH());
+        return this;
+    }
+
+    private void clickOnIncomingMail() {
+        System.out.println("++++++clickOnIncomingMail(): trying to click on the first email...");
+//        GmailPage gmailPage = getGmailPage();
+        gmailPage.clickOn_firstEmail();
+        System.out.println("++++++clickOnIncomingMail(): clicked on the first email...");
+    }
+
+    private String getTokenFromEmailBody() {
+//        GmailPage gmailPage = getGmailPage();
+//        System.out.println("++++getTokenFromEmailBody: getting the token from the email body...");
+//        TestUtil.waitForElementToLoad(gmailPage.emailBody());
+//        String token = gmailPage.emailBody().getText().substring(14);
+//        System.out.println("++++getTokenFromEmailBody: successfully retrieved the token from the email body...");
+        return gmailPage.incomingEmail().getText().substring(108, 114);
+    }
+
+    private void deleteCurrentEmail() {
+//        GmailPage gmailPage = getGmailPage();
+        gmailPage.clickOn_deleteEmail_BTN();
     }
 }

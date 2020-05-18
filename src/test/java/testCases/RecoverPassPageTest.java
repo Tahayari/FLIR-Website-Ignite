@@ -11,76 +11,19 @@
 //import utils.TestUtil;
 //
 //import static org.testng.Assert.assertEquals;
+//import static pages.LandingPage.getLandingPage;
+//import static pages.LoginPage.getLoginPage;
 //import static utils.TestUtil.getTestaData;
 //
 //public class RecoverPassPageTest extends TestBase {
-//    private LandingPage landingPage;
-//    private LoginPage loginPage;
+//    LandingPage landingPage = getLandingPage();
+//    LoginPage loginPage = getLoginPage();
+//    RecoverPasswordPage recoverPassPage = getRecoverPassPage();
 //    private RecoverPasswordPage recoverPasswordPage;
 //    private TestUtil testUtil;
 //    private String sheetName = "Sheet1";
 //    private String fileName = "InvalidEmails";
 //
-//    public RecoverPassPageTest() {
-//        super();
-//    }
-//
-//    @BeforeMethod(alwaysRun = true)
-//    public void setUp() {
-//        initialization();
-//        landingPage = new LandingPage();
-//        recoverPasswordPage = new RecoverPasswordPage();
-//        testUtil = new TestUtil();
-//    }
-//
-//    public void verifyInvalidEmails(Object[][] invalidEmailsList){
-//        String error_msg = "Please enter a valid email address.";
-//
-//        for (Object[] objects : invalidEmailsList) {
-//            recoverPasswordPage.email_field().clear();
-//            recoverPasswordPage.setInvalidEmail(objects[0].toString());
-//            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
-//            testUtil.waitForElementToLoad(recoverPasswordPage.invalidEmailErrorMsg());
-//            checkIfCorrectErrMsg(recoverPasswordPage.invalidEmailErrorMsg(), error_msg);
-//            addTestCaseStep("Error message is displayed: " + error_msg);
-//        }
-//    }
-//
-//    public void loadLandingPage(){
-//        try {
-//            waitForElementToBeClickable(landingPage.signup_BTN());
-//        } catch (Exception e) {
-//            System.out.println("------------Page timed out. Refreshing...");
-//            driver.navigate().refresh();
-//            waitForElementToBeClickable(landingPage.signup_BTN());
-//        }
-//    }
-//
-//    public void goToRecoverPassPage() {
-//
-//        loadLandingPage();
-//        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
-//        addTestCaseStep("Navigated to Landing page");
-//
-//        loginPage = landingPage.clickOn_loginBTN();
-//        testUtil.waitForElementToLoad(loginPage.signIn_BTN());
-//        addTestCaseStep("Navigated to Login page");
-//
-//        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
-//        testUtil.waitForElementToLoad(recoverPasswordPage.email_field());
-//        addTestCaseStep("Clicked on Forgot your password link");
-//
-//        Assert.assertEquals(recoverPasswordPage.getPageTitle(),"FLIR Reset Password");
-//        addTestCaseStep("Navigated to Recover Pass Page");
-//    }
-//
-//    public void goToChangePassPage(String email){
-//        goToRecoverPassPage();
-//        testUtil.prepareMailinator(email);
-//        recoverPasswordPage.sendTokenToEmail(email+"@mailinator.com");
-//        recoverPasswordPage.enterTokenFromMailinator(email);
-//        recoverPasswordPage.clickOn_continue_BTN();
-//    }
 //
 //    //-------Test Cases-------
 //    @Test
@@ -338,6 +281,57 @@
 //        recoverPasswordPage.enterNewPassword(newPassword);
 //
 //        recoverPasswordPage.createNewPassword() ;
+//    }
+//
+//
+//    //---
+//    public void verifyInvalidEmails(Object[][] invalidEmailsList){
+//        String error_msg = "Please enter a valid email address.";
+//
+//        for (Object[] objects : invalidEmailsList) {
+//            recoverPasswordPage.email_field().clear();
+//            recoverPasswordPage.setInvalidEmail(objects[0].toString());
+//            addTestCaseStep("Entered the following invalid email: " + objects[0].toString());
+//            testUtil.waitForElementToLoad(recoverPasswordPage.invalidEmailErrorMsg());
+//            checkIfCorrectErrMsg(recoverPasswordPage.invalidEmailErrorMsg(), error_msg);
+//            addTestCaseStep("Error message is displayed: " + error_msg);
+//        }
+//    }
+//
+//    public void loadLandingPage(){
+//        try {
+//            waitForElementToBeClickable(landingPage.signup_BTN());
+//        } catch (Exception e) {
+//            System.out.println("------------Page timed out. Refreshing...");
+//            driver.navigate().refresh();
+//            waitForElementToBeClickable(landingPage.signup_BTN());
+//        }
+//    }
+//
+//    public void goToRecoverPassPage() {
+//
+//        loadLandingPage();
+//        Assert.assertEquals(landingPage.getPageTitle(), "FLIR Tools");
+//        addTestCaseStep("Navigated to Landing page");
+//
+//        loginPage = landingPage.clickOn_loginBTN();
+//        testUtil.waitForElementToLoad(loginPage.signIn_BTN());
+//        addTestCaseStep("Navigated to Login page");
+//
+//        recoverPasswordPage = loginPage.clickOn_forgotPasswordLink();
+//        testUtil.waitForElementToLoad(recoverPasswordPage.email_field());
+//        addTestCaseStep("Clicked on Forgot your password link");
+//
+//        Assert.assertEquals(recoverPasswordPage.getPageTitle(),"FLIR Reset Password");
+//        addTestCaseStep("Navigated to Recover Pass Page");
+//    }
+//
+//    public void goToChangePassPage(String email){
+//        goToRecoverPassPage();
+//        testUtil.prepareMailinator(email);
+//        recoverPasswordPage.sendTokenToEmail(email+"@mailinator.com");
+//        recoverPasswordPage.enterTokenFromMailinator(email);
+//        recoverPasswordPage.clickOn_continue_BTN();
 //    }
 //
 //}

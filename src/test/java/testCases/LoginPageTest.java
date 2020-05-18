@@ -8,7 +8,7 @@ import utils.ExtentReport;
 
 import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
-import static utils.TestUtil.getTestaData;
+import static utils.TestUtil.getDataFromExcel;
 
 public class LoginPageTest extends TestBase {
     LandingPage landingPage = getLandingPage();
@@ -113,15 +113,13 @@ public class LoginPageTest extends TestBase {
     }
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
-//        String testCaseTitle = "LOGIN PAGE - blankPassword_Test";
-//        String testCaseDescription = "Error message is displayed if an incorrect password is entered";
-
         ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
+        ExtentReport.assignCategory(testCasesInfo.loginPageInfo().getCategory());
         goToLoginPage();
     }
 
     private void verifyListOfInvalidEmails() {
-        Object[][] invalidEmailsList = getTestaData(testData.getNameOfInvalidEmailsFile(), testData.getNameOfFirstSheet());
+        Object[][] invalidEmailsList = getDataFromExcel(testData.getNameOfInvalidEmailsFile(), testData.getNameOfFirstSheet());
         for (int i = 1; i < invalidEmailsList.length; i++) {
             loginPage.clearField(loginPage.email_field())
                     .setEmail(invalidEmailsList[i][0].toString())

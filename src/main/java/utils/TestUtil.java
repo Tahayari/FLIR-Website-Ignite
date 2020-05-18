@@ -9,6 +9,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import testData.TestData;
+import utils.emailManager.GmailInbox;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,37 +25,74 @@ import static utils.DriverFactory.getDriver;
 
 public class TestUtil {
 
-    public static long PAGE_LOAD_TIMEOUT = 20;
-    public static long IMPLICIT_WAIT = 10;
-    public static long WAIT_FOR_ELEMENT_TIMEOUT = 15;
-    public static String EXCEL_FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\";
     public static boolean gmailReady = false;
     public static WebDriver driver = getDriver();
+    public static TestData testData= new TestData();
 
     static Workbook book;
     static Sheet sheet;
 
-
-    public static void waitForElementToLoad(WebDriver driver, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
-        wait.until(ExpectedConditions.visibilityOf(element));
-        Assert.assertTrue(element.isDisplayed());
-    }
-
     public static void waitForElementToLoad(WebElement webElementToWaitFor) {
-        waitForElementToLoad(driver, webElementToWaitFor);
+        WebDriver driver = getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
+        wait.until(ExpectedConditions.visibilityOf(webElementToWaitFor));
+        Assert.assertTrue(webElementToWaitFor.isDisplayed());
     }
 
+    public static void waitForSomeMinutes(long minutesToWait){
+        long milisecToWait = minutesToWait * 60 * 1000;
+        try {
+            Thread.sleep(milisecToWait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds");
+    }
+
+    public static void waitForElementsToBeMoreThanZero(String location){
+        WebDriverWait wait = new WebDriverWait(driver, testData.PAGE_LOAD_TIMEOUT);
+        try {
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(location), 0));
+        } catch (Exception e) {
+            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
+            try {
+                driver.navigate().refresh();
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(location), 0));
+            } catch (TimeoutException te) {
+                System.out.println("----Timeout error. Email did not arrive in the allotted time");
+                te.printStackTrace();
+                closeCurrentTab();
+                Assert.assertEquals("No new email was received","New email received");
+            }
+        }
+    }
+
+    public static String getToken(){
+        GmailInbox gmailInbox = new GmailInbox(testData.getGmailEmail(),testData.getGmailPass());
+        gmailInbox.deleteAllMessages();
+        gmailInbox.waitForNewMessages();
+        String token = gmailInbox.read();
+        System.out.println("Token is: " + token.substring(3833,3839));
+        gmailInbox.deleteAllMessages();
+        return token.substring(3833,3839);
+    }
 
     public static void closeCurrentTab() {
-        driver.close();
-        navigateToFirstTab();
+        String currentTab = driver.getWindowHandle();
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (tabs.indexOf(currentTab) == 0) {
+//            driver.close();
+            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
+        } else {
+//            driver.close();
+            driver.switchTo().window(tabs.get(0));
+        }
     }
 
-    public static Object[][] getTestaData(String filename, String sheetName) {
+    public static Object[][] getDataFromExcel(String filename, String sheetName) {
         FileInputStream file = null;
         try {
-            file = new FileInputStream(EXCEL_FILE_PATH + "\\" + filename + ".xlsx");
+            file = new FileInputStream(testData.getExcelFilePath() + "\\" + filename + ".xlsx");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -164,7 +203,7 @@ public class TestUtil {
         navigateToNextTab();
 
         WebElement received = driver.findElement(By.xpath(firstReceived_xpath));
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
         wait.until(
                 ExpectedConditions.and(
                         ExpectedConditions.visibilityOf(received),
@@ -227,8 +266,15 @@ public class TestUtil {
     }
 
     public static void navigateToFirstTab() {
+        String currentTab = driver.getWindowHandle();
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(0));
+        if (tabs.indexOf(currentTab) == 0) {
+//            driver.close();
+            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
+        } else {
+//            driver.close();
+            driver.switchTo().window(tabs.get(0));
+        }
     }
 
     public static void navigateToNextTab() {
@@ -237,7 +283,7 @@ public class TestUtil {
     }
 
     public static void waitForElementToBeClickable(WebElement webElement) {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
@@ -274,7 +320,7 @@ public class TestUtil {
             driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
 
             try {
-                WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+                WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
                 wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -285,7 +331,7 @@ public class TestUtil {
 
     public static void waitForIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
         try {
             wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
         } catch (Exception e) {
@@ -304,7 +350,7 @@ public class TestUtil {
     public static void clickOnIncomingMail() {
         String email_XPATH = "//span[@class='bog']";
         String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
 
         driver.findElements(By.xpath(email_XPATH)).get(0).click();
         try {
