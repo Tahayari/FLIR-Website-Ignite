@@ -1,9 +1,7 @@
 package pages;
 
-import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -11,6 +9,7 @@ import org.testng.Assert;
 import utils.ExtentReport;
 import utils.TestUtil;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -80,7 +79,6 @@ public class SignUpPage {
     @FindBy(id = sendNewCodeBTN_ID)
     private WebElement sendNewCode_BTN;
     @FindBy(id = createBTN_ID)
-    @CacheLookup
     private WebElement create_BTN;
     @FindBy(id = cancelBTN_ID)
     private WebElement cancel_BTN;
@@ -161,19 +159,19 @@ public class SignUpPage {
 
     public WebElement incorrectVerCode_Msg() {
         TestUtil.waitForElementToLoad(incorrectVerCode_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: "+incorrectVerCode_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + incorrectVerCode_Msg.getText());
         return incorrectVerCode_Msg;
     }
 
     public WebElement expiredVerCode_Msg() {
         TestUtil.waitForElementToLoad(expiredVerCode_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: "+expiredVerCode_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + expiredVerCode_Msg.getText());
         return expiredVerCode_Msg;
     }
 
     public WebElement invalidEmail_Msg() {
         TestUtil.waitForElementToLoad(invalidEmail_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: "+invalidEmail_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + invalidEmail_Msg.getText());
         return invalidEmail_Msg;
     }
 
@@ -193,18 +191,24 @@ public class SignUpPage {
         return lastName_field;
     }
 
-    public WebElement blankCountry_Msg() {
-        return blankCountry_Msg;
-    }
-
     public WebElement requiredFieldMissing_Msg() {
         return requiredFieldMissing_Msg;
     }
 
     public WebElement tooManyAttempts_Msg() {
         TestUtil.waitForElementToLoad(tooManyAttempts_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: "+tooManyAttempts_Msg.getText());
+        ExtentReport.addTestCaseStep("Error message is displayed: " + tooManyAttempts_Msg.getText());
         return tooManyAttempts_Msg;
+    }
+
+    public void mismatchingPass_Msg() {
+        TestUtil.waitForElementToLoad(mismatchingPass_Msg);
+        ExtentReport.addTestCaseStep("Error message is displayed: " + mismatchingPass_Msg.getText());
+    }
+
+    public void blankCountry_Msg(){
+        TestUtil.waitForElementToLoad(blankCountry_Msg);
+        ExtentReport.addTestCaseStep("No country was selected error message is displayed: "+blankCountry_Msg.getText());
     }
 
     //-----------
@@ -316,29 +320,28 @@ public class SignUpPage {
         ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
-    public void selectRandomCountry() {
+    public SignUpPage selectRandomCountry() {
         Select country_select = new Select(country_dropdown);
         Random random = new Random();
         int index = random.nextInt(country_select.getOptions().size());
         country_select.selectByIndex(index);
-        //TODO: countryName = GET THE NAME OF THE SELECTED COUNTRY;
-        ExtentReport.addTestCaseStep("Selected a random country from the dropdown list: ");
-        ExtentReport.extentTestChild.log(Status.PASS, "Selected a random country from the dropdown list");
+        List<WebElement> countries = country_select.getOptions();
+        ExtentReport.addTestCaseStep("Selected a random country from the dropdown list: " + countries.get(index).getText());
+        return this;
     }
 
-    public void selectRandomConsent() {
+    public SignUpPage selectRandomConsent() {
         Random random = new Random();
-        if (random.nextInt(1) % 2 == 0) consentNo.click();
-        else consentYes.click();
-        ExtentReport.addTestCaseStep("Selected randomly if I consented or not");
+        if (random.nextInt(1) % 2 == 0) {
+            consentNo.click();
+            ExtentReport.addTestCaseStep("Selected randomly if I consented or not. Selected NO");
+        } else {
+            consentYes.click();
+            ExtentReport.addTestCaseStep("Selected randomly if I consented or not. Selected YES");
+        }
+        return this;
     }
 
-    public void generateAnotherToken() {
-        sendNewCode_BTN().click();
-//        testUtil.waitForElementToLoad(verifyCode_BTN);
-        Assert.assertTrue(verifyCode_BTN.isDisplayed());
-        ExtentReport.addTestCaseStep("Generated another token");
-    }
 
     public void clickOn_changeEmail_BTN() {
         changeEmail_BTN().click();
@@ -368,30 +371,6 @@ public class SignUpPage {
         }
     }
 
-    public void enterMismatchingPasswords() {
-        String pass1 = "PASSWORD123!";
-        String pass2 = "Password123!";
-
-        newPassword_field.clear();
-        newPassword_field.sendKeys(pass1);
-        ExtentReport.addTestCaseStep("Entered the following password in the password field: " + pass1);
-        confNewPassword_field.clear();
-        confNewPassword_field.sendKeys(pass2);
-        ExtentReport.addTestCaseStep("Entered the following password in the confirm password field: " + pass2);
-
-        create_BTN.click();
-        ExtentReport.addTestCaseStep("Clicked on the Create button");
-//        testUtil.waitForElementToLoad(mismatchingPass_Msg);
-        Assert.assertTrue(mismatchingPass_Msg.getText().contains("The password entry fields do not match"));
-        ExtentReport.addTestCaseStep("Error message is displayed: " + mismatchingPass_Msg.getText());
-    }
-
-    public void createUserWithoutCountry() {
-        create_BTN.click();
-//        testUtil.waitForElementToLoad(blankCountry_Msg);
-        assertTrue(blankCountry_Msg().getText().contains("Missing required element: Country/Region"));
-        ExtentReport.addTestCaseStep("No country was selected error message is displayed");
-    }
 
     public void createUserWithoutMandatoryField() {
         String error_msg = "A required field is missing. Please fill out all required fields and try again.";
@@ -421,9 +400,16 @@ public class SignUpPage {
         return this;
     }
 
-    public SignUpPage verifyIfPageLoaded(){
+    public SignUpPage verifyIfPageLoaded() {
         TestUtil.waitForElementToLoad(emailAddress_field);
         ExtentReport.addTestCaseStep("Navigated to the Login page");
+        return this;
+    }
+
+    public SignUpPage clickOn_create_BTN() {
+        TestUtil.waitForElementToLoad(create_BTN);
+        create_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on the Create button");
         return this;
     }
 }

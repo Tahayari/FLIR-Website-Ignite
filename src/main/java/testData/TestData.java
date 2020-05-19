@@ -12,6 +12,9 @@ public class TestData {
     private final String gmailURL = "https://mail.google.com/mail/u/0/#label/FLIR" ;
     private final String gmailEmail = "flirAutomationTest@gmail.com";
     private final String gmailPass = "Pa$$word1!";
+    private final String firstName = "firstName" ;
+    private final String lastName = "lastName" ;
+    private final String validAccountPasswd = "QAZxsw123"; //redundant, maybe remove it
     private final String invalidToken = "000000";
     private final int minForTokenToExpire = 5;
     public static long PAGE_LOAD_TIMEOUT = 20;
@@ -55,4 +58,14 @@ public class TestData {
     public String getInvalidToken(){return invalidToken;}
 
     public int getMinForTokenToExpire(){return minForTokenToExpire;}
+
+    public String getValidAccountPasswd(){return validAccountPasswd;}
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }
