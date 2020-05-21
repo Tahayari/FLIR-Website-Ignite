@@ -12,6 +12,7 @@ import utils.TestUtil;
 import java.util.NoSuchElementException;
 
 import static org.testng.Assert.assertTrue;
+import static pages.LibraryPage.getLibraryPage;
 import static utils.DriverFactory.getDriver;
 
 public class RecoverPasswordPage extends TestBase {
@@ -217,16 +218,16 @@ public class RecoverPasswordPage extends TestBase {
         ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
     }
 
-    public void enterTokenFromMailinator(String email) {
-        verificationCode_field.click();
-        verificationCode_field.clear();
-        String token = testUtil.getTokenFromMailinator(email);
-        verificationCode_field.sendKeys(token);
-        verifyCode_BTN.click();
-        testUtil.waitForElementToLoad(changeEmail_BTN);
-        Assert.assertTrue(changeEmail_BTN.isDisplayed());
-        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-    }
+//    public void enterTokenFromMailinator(String email) {
+//        verificationCode_field.click();
+//        verificationCode_field.clear();
+//        String token = testUtil.getTokenFromMailinator(email);
+//        verificationCode_field.sendKeys(token);
+//        verifyCode_BTN.click();
+//        testUtil.waitForElementToLoad(changeEmail_BTN);
+//        Assert.assertTrue(changeEmail_BTN.isDisplayed());
+//        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
+//    }
 
     public void verifyIfTokenExpired() {
         String error_msg = "That code is expired. Please request a new code.";
@@ -331,7 +332,7 @@ public class RecoverPasswordPage extends TestBase {
 
     public LibraryPage createNewPassword(){
         continue_BTN.click();
-        LibraryPage libraryPage = new LibraryPage();
+        LibraryPage libraryPage = getLibraryPage();
         testUtil.waitForElementToLoad(libraryPage.newFolder_BTN());
         Assert.assertTrue(libraryPage.newFolder_BTN().isDisplayed());
         ExtentReport.addTestCaseStep("Clicked on the Continue button. New Password is set and Library page is displayed");

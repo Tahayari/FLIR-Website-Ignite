@@ -1,7 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +12,6 @@ import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
 public class LibraryPage{
-    private WebDriver driver = getDriver();
 
     //-------PATHS-------
     //---Input fields
@@ -93,13 +90,13 @@ public class LibraryPage{
     //--------------
 
     //Constructor
-    public LibraryPage() {
-        PageFactory.initElements(driver, this);
+    private LibraryPage() {
+        PageFactory.initElements(getDriver(), this);
     }
 
-//    public static LibraryPage(){
-//        return new LibraryPage();
-//    }
+    public static LibraryPage getLibraryPage(){
+        return new LibraryPage();
+    }
     //--------------
 
     //-----------GETTERS
@@ -172,32 +169,32 @@ public class LibraryPage{
     //--------------
 
     //Actions
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    public void acceptTermsConditions() {
+    public LibraryPage acceptTermsConditions() {
+        TestUtil.waitForElementToLoad(termsAndCondCheckbox());
+//        TestUtil.waitForElementToBeClickable(termsAndCondAccept_BTN);
         termsAndCondCheckbox().click();
-        TestUtil.waitForElementToBeClickable(termsAndCondAccept_BTN);
         assertTrue(termsAndCondAccept_BTN().isEnabled());
         ExtentReport.addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
 
+        TestUtil.waitForElementToLoad(termsAndCondAccept_BTN);
         termsAndCondAccept_BTN.click();
-        TestUtil.waitForElementToLoad(welcomeScreenNext_BTN);
-        assertTrue(welcomeScreenNext_BTN.isDisplayed());
         ExtentReport.addTestCaseStep("Clicked on the Accept button");
+        return this;
     }
 
-    public void skipWelcomeScreen() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public LibraryPage skipWelcomeScreen() {
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        TestUtil.waitForElementToLoad(welcomeScreenSkip_BTN);
         welcomeScreenSkip_BTN.click();
-        TestUtil.waitForElementToLoad(newFolder_BTN);
-        assertTrue(newFolder_BTN.isDisplayed());
         ExtentReport.addTestCaseStep("Clicked on SKIP button from the Welcome screen, Library page is displayed");
+
+        verifyIfPageLoaded();
+//        TestUtil.waitForElementToLoad(newFolder_BTN);
+        return this;
     }
 
     public void clickOn_createNewFolder_BTN() {
@@ -215,18 +212,18 @@ public class LibraryPage{
 
         newFolderCreate_BTN.click();
         String temp_XPATH = "//a[contains(text(),'" + folderName + "')]";
-        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
+//        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
         ExtentReport.addTestCaseStep("Folder created successfully");
     }
 
     public void uploadFile(String fileLocation) {
         String fileName = fileLocation.substring(fileLocation.lastIndexOf("\\") + 1);
         String temp_XPATH = "//a[contains(text(),'" + fileName + "')]";
-        WebElement upload = driver.findElement(By.xpath("//input[@type='file']//following::input[1]"));
+//        WebElement upload = driver.findElement(By.xpath("//input[@type='file']//following::input[1]"));
 
-        upload.sendKeys(fileLocation);
-        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
-        ExtentReport.addTestCaseStep("File " + fileName + " uploaded successfully");
+//        upload.sendKeys(fileLocation);
+//        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
+//        ExtentReport.addTestCaseStep("File " + fileName + " uploaded successfully");
     }
 
     public LibraryPage clickOn_userMenu(){
@@ -246,6 +243,11 @@ public class LibraryPage{
         TestUtil.waitForElementToLoad(uploadFiles_BTN);
         ExtentReport.addTestCaseStep("Navigated to the Library page");
         return this;
+    }
+
+    public void logout(){
+        clickOn_userMenu();
+        clickOn_logout_BTN();
     }
     //--------------
 }

@@ -7,6 +7,7 @@ import pages.*;
 import utils.ExtentReport;
 
 import static pages.LandingPage.getLandingPage;
+import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 import static utils.TestUtil.getDataFromExcel;
 
@@ -80,7 +81,7 @@ public class LoginPageTest extends TestBase {
                 .setPass(testData.getPassOfExistingAcc())
                 .clickOn_signInBTN();
 
-        LibraryPage libraryPage = new LibraryPage();
+        LibraryPage libraryPage = getLibraryPage();
         libraryPage.verifyIfPageLoaded();
     }
 

@@ -8,27 +8,26 @@ import pages.LibraryPage;
 import pages.SignUpPage;
 import utils.ExtentReport;
 import utils.TestUtil;
-import utils.emailManager.EmailManager;
+import utils.emailManager.Mailinator;
 
 import static pages.LandingPage.getLandingPage;
+import static pages.LibraryPage.getLibraryPage;
 import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class SignUpPageTest extends TestBase {
     LandingPage landingPage = getLandingPage();
     SignUpPage signUpPage = getSignUpPage();
-    EmailManager emailManager = new EmailManager();
 
     // Test cases begin here------------------------------------------------------------
-    @Test(enabled = true)
-    public void countryTest() {
+    @Test(enabled = false)
+    public void forTesting() {
         executeSetup("title", "description");
-
-        signUpPage.sendTokenToEmail(testData.getGmailEmail())
-                .setVerificationCode_field(TestUtil.getToken())
+        String dummyEmail = "asdajh292wja";
+        signUpPage.sendTokenToEmail(dummyEmail + "@mailinator.com")
+                .setVerificationCode_field(Mailinator.getToken(dummyEmail))
                 .clickOn_verifyCode_BTN()
                 .changeEmail_BTN();
-        signUpPage.selectRandomConsent();
     }
 
     @DataProvider
@@ -37,26 +36,27 @@ public class SignUpPageTest extends TestBase {
         return getDataFromExcel(fileName, testData.getNameOfFirstSheet());
     }
 
-    //TODO
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, enabled = false, priority = 100)
-    public void registerNewAccount_Test(String email, String password, String firstName, String lastName) {
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = false)
+    public void registerNewAccount_Test(String email, String firstName, String lastName) {
         executeSetup(testCasesInfo.signUpPageInfo().getRegisterNewAccount_Test_title()
                 , testCasesInfo.signUpPageInfo().getRegisterNewAccount_Test_desc());
 
-        signUpPage.sendTokenToEmail(email + "@mailinator.com");
-        signUpPage.enterTokenFromMailinator(email);
-        signUpPage.setNewPassword(password);
-        signUpPage.setConfirmNewPassword(password);
-        signUpPage.setFirstName(firstName);
-        signUpPage.setLastName(lastName);
-        signUpPage.selectRandomCountry();
-        signUpPage.selectRandomConsent();
-        LibraryPage libraryPage = signUpPage.createNewAccount();
-        libraryPage.acceptTermsConditions();
-        libraryPage.skipWelcomeScreen();
+        signUpPage.sendTokenToEmail(email + "@mailinator.com")
+                .setVerificationCode_field(Mailinator.getToken(email))
+                .clickOn_verifyCode_BTN()
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .selectRandomCountry()
+                .selectRandomConsent()
+                .clickOn_create_BTN();
+        LibraryPage libraryPage = getLibraryPage();
+        libraryPage.acceptTermsConditions()
+                .skipWelcomeScreen()
+                .logout();
     }
 
-    //Done
     @Test(groups = {"smoke"})
     public void invalidEmail_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getInvalidEmail_Test_title()
@@ -65,7 +65,6 @@ public class SignUpPageTest extends TestBase {
         verifyListOfInvalidEmails();
     }
 
-    //Done
     @Test(groups = {"smoke"})
     public void invalidToken_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getInvalidToken_Test_title()
@@ -73,26 +72,23 @@ public class SignUpPageTest extends TestBase {
 
         signUpPage.sendTokenToEmail(testData.getRandomEmail())
                 .setVerificationCode_field(testData.getInvalidToken())
-                .clickOn_verifyCode_BTN();
-
-        signUpPage.incorrectVerCode_Msg();
+                .clickOn_verifyCode_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    //Done
     @Test(enabled = false)
     public void expiredToken_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getExpiredToken_Test_title()
                 , testCasesInfo.signUpPageInfo().getExpiredToken_Test_desc());
 
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
-        String token = TestUtil.getToken();
+        String token = TestUtil.getTokenFromGmail();
         TestUtil.waitForSomeMinutes(testData.getMinForTokenToExpire());
         signUpPage.setVerificationCode_field(token)
                 .clickOn_verifyCode_BTN()
-                .expiredVerCode_Msg();
+                .checkErrMsgIsDisplayed(signUpPage.expiredVerCode_Msg());
     }
 
-    //Done
     @Test()
     public void tooManyIncorrectAttemptsToken_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getTooManyIncorrectAttemptsToken_Test_title()
@@ -101,26 +97,25 @@ public class SignUpPageTest extends TestBase {
         verifyInvalidTokenTooManyTimes();
     }
 
-    //Done
     @Test(groups = {"smoke"})
     public void sendNewCode_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getSendNewCode_Test_title()
                 , testCasesInfo.signUpPageInfo().getSendNewCode_Test_desc());
 
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
-        String firstToken = TestUtil.getToken();
+        String firstToken = TestUtil.getTokenFromGmail();
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
-        String secondToken = TestUtil.getToken();
+        String secondToken = TestUtil.getTokenFromGmail();
 
         signUpPage.setVerificationCode_field(firstToken)
                 .clickOn_verifyCode_BTN()
-                .incorrectVerCode_Msg();
+                .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
+
         signUpPage.setVerificationCode_field(secondToken)
-                .clickOn_verifyCode_BTN();
-        signUpPage.changeEmail_BTN();
+                .clickOn_verifyCode_BTN()
+                .changeEmail_BTN();
     }
 
-    //Done
     @Test
     public void resendEmail_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getResendEmail_Test_title()
@@ -130,7 +125,6 @@ public class SignUpPageTest extends TestBase {
         signUpPage.clickOn_changeEmail_BTN();
     }
 
-    //Done
     @Test
     public void incorrectPasswordFormat_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getIncorrectPasswordFormat_Test_title()
@@ -139,7 +133,6 @@ public class SignUpPageTest extends TestBase {
         signUpPage.tryIncorrectPasswords(signUpPage.newPassword_field());
     }
 
-    //Done
     @Test
     public void incorrectPasswordFormatConfirmPassField_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getIncorrectPasswordFormatConfirmPassField_Test_title()
@@ -148,7 +141,6 @@ public class SignUpPageTest extends TestBase {
         signUpPage.tryIncorrectPasswords(signUpPage.confNewPassword_field());
     }
 
-    //Done
     @Test(groups = {"smoke"})
     public void mismatchingPasswords_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getMismatchingPasswords_Test_title(),
@@ -164,10 +156,9 @@ public class SignUpPageTest extends TestBase {
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd() + "extra")
                 .clickOn_create_BTN()
-                .mismatchingPass_Msg();
+                .checkErrMsgIsDisplayed(signUpPage.mismatchingPass_Msg());
     }
 
-    //Done
     @Test
     public void noCountrySelected_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getNoCountrySelected_Test_title(),
@@ -180,90 +171,87 @@ public class SignUpPageTest extends TestBase {
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
                 .selectRandomConsent()
                 .clickOn_create_BTN()
-                .blankCountry_Msg();
+                .checkErrMsgIsDisplayed(signUpPage.blankCountry_Msg());
     }
 
-    @Test(groups = {"smoke"}, enabled = false)
+    @Test(groups = {"smoke"})
     public void noConsent_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getNoConsent_Test_title(),
                 testCasesInfo.signUpPageInfo().getNoConsent_Test_desc());
-        String email = prop.getProperty("gmail");
-        String pass = "PASSWORD123!";
-        String firstName = "firstName";
-        String lastName = "lastName";
 
-//        testUtil.prepareGmail();
-        signUpPage.sendTokenToEmail(email);
-        signUpPage.enterTokenFromGmail();
-        signUpPage.setFirstName(firstName);
-        signUpPage.setLastName(lastName);
-        signUpPage.setNewPassword(pass);
-        signUpPage.setConfirmNewPassword(pass);
-        signUpPage.selectRandomCountry();
-
-        signUpPage.createUserWithoutMandatoryField();
+        verifyEmail();
+        signUpPage.setFirstName(testData.getFirstName())
+                .setLastName(testData.getLastName())
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .selectRandomCountry()
+                .clickOn_create_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.requiredFieldMissing_Msg());
     }
 
-    @Test(enabled = false)
+    @Test
     public void noFirstName_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getNoFirstName_Test_title(),
                 testCasesInfo.signUpPageInfo().getNoFirstName_Test_desc());
-        String email = prop.getProperty("gmail");
-        String pass = "PASSWORD123!";
-        String lastName = "lastName";
 
-//        testUtil.prepareGmail();
-        signUpPage.sendTokenToEmail(email);
-        signUpPage.enterTokenFromGmail();
-        signUpPage.setLastName(lastName);
-        signUpPage.setNewPassword(pass);
-        signUpPage.setConfirmNewPassword(pass);
-        signUpPage.selectRandomCountry();
-        signUpPage.selectRandomConsent();
-
-        signUpPage.createUserWithoutMandatoryField();
+        verifyEmail();
+        signUpPage.setLastName(testData.getLastName())
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .selectRandomCountry()
+                .selectRandomConsent()
+                .clickOn_create_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.requiredFieldMissing_Msg());
     }
 
-    @Test(enabled = false)
+    @Test
     public void noLastName_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getNoLastName_Test_title(),
                 testCasesInfo.signUpPageInfo().getNoLastName_Test_desc());
-        String email = prop.getProperty("gmail");
-        String pass = "PASSWORD123!";
-        String firstName = "firstName";
 
-//        testUtil.prepareGmail();
-        signUpPage.sendTokenToEmail(email);
-        signUpPage.enterTokenFromGmail();
-        signUpPage.setFirstName(firstName);
-        signUpPage.setNewPassword(pass);
-        signUpPage.setConfirmNewPassword(pass);
-        signUpPage.selectRandomCountry();
-        signUpPage.selectRandomConsent();
-
-        signUpPage.createUserWithoutMandatoryField();
+        verifyEmail();
+        signUpPage.setFirstName(testData.getFirstName())
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .selectRandomCountry()
+                .selectRandomConsent()
+                .clickOn_create_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.requiredFieldMissing_Msg());
     }
 
-    @Test(enabled = false)
+    @Test
     public void cancelRegistration_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getCancelRegistration_Test_title(),
                 testCasesInfo.signUpPageInfo().getCancelRegistration_Test_desc());
-        String email = prop.getProperty("gmail");
-        String pass = "PASSWORD123!";
-        String firstName = "firstName";
-        String lastName = "lastName";
 
-//        testUtil.prepareGmail();
-        signUpPage.sendTokenToEmail(email);
-        signUpPage.enterTokenFromGmail();
-        signUpPage.setFirstName(firstName);
-        signUpPage.setLastName(lastName);
-        signUpPage.setNewPassword(pass);
-        signUpPage.setConfirmNewPassword(pass);
-        signUpPage.selectRandomCountry();
-        signUpPage.selectRandomConsent();
+        verifyEmail();
+        signUpPage.setFirstName(testData.getFirstName())
+                .setLastName(testData.getLastName())
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .selectRandomCountry()
+                .selectRandomConsent()
+                .clickOn_cancel_BTN();
+        landingPage.verifyIfPageLoaded();
+    }
 
-        signUpPage.cancelRegistration();
+    @Test
+    public void registerWithExistingEmail_Test() {
+        executeSetup(testCasesInfo.signUpPageInfo().getRegisterWithExistingEmail_Test_title()
+                , testCasesInfo.signUpPageInfo().getRegisterWithExistingEmail_Test_desc());
+
+        signUpPage.sendTokenToEmail(testData.getEmailOfExistingAcc())
+                .setVerificationCode_field(Mailinator.getToken(testData.getEmailOfExistingAcc().replaceAll("@.*", "")))
+                .clickOn_verifyCode_BTN()
+                .changeEmail_BTN();
+        signUpPage.setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .setFirstName(testData.getFirstName())
+                .setLastName(testData.getLastName())
+                .selectRandomCountry()
+                .selectRandomConsent()
+                .clickOn_create_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.existingUserErr_Msg());
     }
 
     //---
@@ -284,8 +272,8 @@ public class SignUpPageTest extends TestBase {
         Object[][] invalidEmailsList = getDataFromExcel(testData.getNameOfInvalidEmailsFile(), testData.getNameOfFirstSheet());
         for (int i = 1; i < invalidEmailsList.length; i++) {
             signUpPage.clearField(signUpPage.email_field())
-                    .setEmail(invalidEmailsList[i][0].toString());
-            signUpPage.invalidEmail_Msg();
+                    .setEmail(invalidEmailsList[i][0].toString())
+                    .checkErrMsgIsDisplayed(signUpPage.invalidEmail_Msg());
         }
     }
 
@@ -295,30 +283,17 @@ public class SignUpPageTest extends TestBase {
         for (int i = 0; i < timesToRetry; i++) {
             signUpPage.setVerificationCode_field(String.valueOf(i + 10000))
                     .clickOn_verifyCode_BTN()
-                    .incorrectVerCode_Msg();
+                    .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
         }
         signUpPage.setVerificationCode_field("10002")
                 .clickOn_verifyCode_BTN()
-                .tooManyAttempts_Msg();
-    }
-
-    private void verifyEmailStep() {
-        emailManager.prepareGmail();
-        signUpPage.sendTokenToEmail(testData.getGmailEmail())
-                .setVerificationCode_field(emailManager.getTokenFromGmail())
-                .clickOn_verifyCode_BTN();
-    }
-
-    private String getToken() {
-        emailManager.prepareGmail();
-        signUpPage.sendTokenToEmail(testData.getGmailEmail());
-        return emailManager.getTokenFromGmail();
+                .checkErrMsgIsDisplayed(signUpPage.tooManyAttempts_Msg());
     }
 
     private void verifyEmail() {
         //maybe put this in SignUpPage class instead?
         signUpPage.sendTokenToEmail(testData.getGmailEmail())
-                .setVerificationCode_field(TestUtil.getToken())
+                .setVerificationCode_field(TestUtil.getTokenFromGmail())
                 .clickOn_verifyCode_BTN()
                 .changeEmail_BTN();
     }

@@ -47,9 +47,11 @@ public class TestBase {
     public void tearDown(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
             extentReport.logFailure(result);
-        } else if (result.getStatus() == ITestResult.SKIP) {
+        }
+        else if (result.getStatus() == ITestResult.SKIP) {
             extentReport.logSkip(result);
-        } else if (result.getStatus() == ITestResult.SUCCESS) {
+        }
+        else if (result.getStatus() == ITestResult.SUCCESS) {
             extentReport.logSuccess(result);
         }
     }

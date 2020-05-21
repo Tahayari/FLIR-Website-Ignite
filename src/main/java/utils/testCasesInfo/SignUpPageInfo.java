@@ -31,6 +31,8 @@ public class SignUpPageInfo {
     private String noLastName_Test_desc;
     private String cancelRegistration_Test_title;
     private String cancelRegistration_Test_desc;
+    private String registerWithExistingEmail_Test_title;
+    private String registerWithExistingEmail_Test_desc;
     private String category;
 
 
@@ -65,6 +67,8 @@ public class SignUpPageInfo {
         noLastName_Test_desc = "Error message is displayed if the last Name field is left blank";
         cancelRegistration_Test_title = "SIGNUP PAGE - cancelRegistration_Test";
         cancelRegistration_Test_desc = "SignUp Flow is cancelled and user is redirected to the landing page";
+        registerWithExistingEmail_Test_title = "SIGNUP PAGE - registerWithExistingEmail_Test" ;
+        registerWithExistingEmail_Test_desc = "Error message is displayed when signing up with an email associated to an existing account";
         category = "SIGNUP_PAGE";
     }
 
@@ -190,5 +194,13 @@ public class SignUpPageInfo {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getRegisterWithExistingEmail_Test_title() {
+        return registerWithExistingEmail_Test_title;
+    }
+
+    public String getRegisterWithExistingEmail_Test_desc() {
+        return registerWithExistingEmail_Test_desc;
     }
 }
