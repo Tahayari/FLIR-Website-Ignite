@@ -25,10 +25,11 @@ public class RecoverPassPageTest extends TestBase {
     public void forTesting() {
         executeSetup("title", "desc");
         recoverPasswordPage.setEmail("blabla@mail.com");
-        System.out.println("hold up!");
+        String token = TestUtil.getTokenFromGmail();
+        System.out.println(token);
     }
 
-    //Done
+
     @Test
     public void invalidEmail_Test() {
         executeSetup(testCasesInfo.recoverPassPageInfo().getInvalidEmail_Test_title()
@@ -49,7 +50,7 @@ public class RecoverPassPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void expiredToken_Test() {
         executeSetup(testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_title(),
                 testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_desc());
@@ -69,42 +70,42 @@ public class RecoverPassPageTest extends TestBase {
         verifyInvalidTokenTooManyTimes();
     }
 
-//    @Test
-//    public void sendNewCode_Test() {
-//        executeSetup(testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_title(),
-//                testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_desc());
-//
-//        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
-//        String firstToken = TestUtil.getTokenFromGmail();
-//        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
-//        String secondToken = TestUtil.getTokenFromGmail();
-//
-//        recoverPasswordPage.setVerificationCode_field(firstToken)
-//                .clickOn_verifyCode_BTN()
-//                .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
-//
-//        recoverPasswordPage.setVerificationCode_field(secondToken)
-//                .clickOn_verifyCode_BTN()
-//                .changeEmail_BTN();
-//    }
+    @Test
+    public void sendNewCode_Test() {
+        executeSetup(testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_title(),
+                testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_desc());
 
-//    @Test
-//    public void resendToken_Test() {
-//        executeSetup(testCasesInfo.recoverPassPageInfo().getResendToken_Test_title(),
-//                testCasesInfo.recoverPassPageInfo().getResendToken_Test_desc());
-//
-//        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
-//        String firstToken = TestUtil.getTokenFromGmail();
-//        recoverPasswordPage.clickOn_sendNewCode_BTN();
-//        String secondToken = TestUtil.getTokenFromGmail();
-//        recoverPasswordPage.setVerificationCode_field(firstToken)
-//                .clickOn_verifyCode_BTN()
-//                .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
-//
-//        recoverPasswordPage.setVerificationCode_field(secondToken)
-//                .clickOn_verifyCode_BTN()
-//                .changeEmail_BTN();
-//    }
+        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
+        String firstToken = TestUtil.getTokenFromGmail();
+        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
+        String secondToken = TestUtil.getTokenFromGmail();
+
+        recoverPasswordPage.setVerificationCode_field(firstToken)
+                .clickOn_verifyCode_BTN()
+                .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
+
+        recoverPasswordPage.setVerificationCode_field(secondToken)
+                .clickOn_verifyCode_BTN()
+                .changeEmail_BTN();
+    }
+
+    @Test
+    public void resendToken_Test() {
+        executeSetup(testCasesInfo.recoverPassPageInfo().getResendToken_Test_title(),
+                testCasesInfo.recoverPassPageInfo().getResendToken_Test_desc());
+
+        recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
+        String firstToken = TestUtil.getTokenFromGmail();
+        recoverPasswordPage.clickOn_sendNewCode_BTN();
+        String secondToken = TestUtil.getTokenFromGmail();
+        recoverPasswordPage.setVerificationCode_field(firstToken)
+                .clickOn_verifyCode_BTN()
+                .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
+
+        recoverPasswordPage.setVerificationCode_field(secondToken)
+                .clickOn_verifyCode_BTN()
+                .changeEmail_BTN();
+    }
 
     @Test
     public void changeEmail_Test() {
@@ -153,7 +154,7 @@ public class RecoverPassPageTest extends TestBase {
 
         goToChangePassScreen();
 
-        recoverPasswordPage.setNewPassword("")
+        recoverPasswordPage.setNewPassword(" ")
                 .clickOn_continue_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.requiredFieldMissing_Msg());
     }
@@ -171,7 +172,7 @@ public class RecoverPassPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(recoverPasswordPage.passMismatch_Msg());
     }
 
-    @Test(enabled = false)
+    @Test
     public void changePassword_Test() {
 //        https://jiracommercial.flir.com/browse/THAL-2544
         executeSetup(testCasesInfo.recoverPassPageInfo().getChangePassword_Test_title(),
@@ -185,27 +186,29 @@ public class RecoverPassPageTest extends TestBase {
         LibraryPage libraryPage = getLibraryPage();
         libraryPage.verifyIfPageLoaded();
         libraryPage.logout();
+        landingPage.verifyIfPageLoaded();
     }
 
-//    @Test
-//    public void cancelUpdatingPassword_Test() {
-//        executeSetup(testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_title(),
-//                testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_desc());
-//
-//        goToChangePassScreen();
-//        String newPass = testData.getPassOfExistingAcc() + "123";
-//        recoverPasswordPage.setNewPassword(newPass)
-//                .setConfirmNewPassword(newPass)
-//                .clickOn_cancel_BTN();
-//        landingPage.verifyIfPageLoaded();
-//        landingPage.clickOn_loginBTN();
-//        loginPage.setEmail(testData.getGmailEmail())
-//                .setPass(testData.getPassOfExistingAcc())
-//                .clickOn_signInBTN();
-//        LibraryPage libraryPage = getLibraryPage();
-//        libraryPage.verifyIfPageLoaded();
-//        libraryPage.logout();
-//    }
+    @Test
+    public void cancelUpdatingPassword_Test() {
+        executeSetup(testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_title(),
+                testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_desc());
+
+        goToChangePassScreen();
+        String newPass = testData.getPassOfExistingAcc() + "123";
+        recoverPasswordPage.setNewPassword(newPass)
+                .setConfirmNewPassword(newPass)
+                .clickOn_cancel_BTN();
+        landingPage.verifyIfPageLoaded();
+        landingPage.clickOn_loginBTN();
+        loginPage.setEmail(testData.getGmailEmail())
+                .setPass(testData.getPassOfExistingAcc())
+                .clickOn_signInBTN();
+        LibraryPage libraryPage = getLibraryPage();
+        libraryPage.verifyIfPageLoaded();
+        libraryPage.logout();
+        landingPage.verifyIfPageLoaded();
+    }
 
 
     //---

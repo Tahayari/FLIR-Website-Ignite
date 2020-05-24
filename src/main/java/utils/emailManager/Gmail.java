@@ -1,6 +1,8 @@
 package utils.emailManager;
 
 import com.sun.mail.imap.protocol.FLAGS;
+import org.testng.Assert;
+import testData.TestData;
 
 import javax.mail.*;
 import java.io.File;
@@ -33,12 +35,17 @@ public class Gmail {
     public void waitForNewMessages() {
         try {
             int messageCount = inbox.getMessageCount();
-            while (messageCount <= 0) {
+            long startTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();
+            while (messageCount <= 0 && ((endTime - startTime)/1000) < TestData.WAIT_FOR_ELEMENT_TIMEOUT) {
                 messageCount = inbox.getMessageCount();
+                endTime = System.currentTimeMillis();
             }
             System.out.println("+++++[GmailDebug] : New email received");
 
         } catch (MessagingException e) {
+            Assert.assertEquals("No new emails arrived in the last "+TestData.WAIT_FOR_ELEMENT_TIMEOUT+" seconds",
+                    "New email in inbox");
             e.printStackTrace();
         }
     }

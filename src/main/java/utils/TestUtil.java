@@ -44,30 +44,18 @@ public class TestUtil {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ExtentReport.addTestCaseStep("Waited " + milisecToWait / 1000 + " seconds");
+        ExtentReport.addTestCaseStep("+++++[TestUtilDebug] : Waited " + milisecToWait / 1000 + " seconds");
     }
 
     public static String getTokenFromGmail() {
-        Gmail gmailInbox = new Gmail(testData.getGmailEmail(), testData.getGmailPass());
-        gmailInbox.deleteAllMessages();
-        gmailInbox.waitForNewMessages();
-        String token = gmailInbox.read();
-        System.out.println("Token is: " + token.substring(3833, 3839));
-        gmailInbox.deleteAllMessages();
+        Gmail gmail = new Gmail(testData.getGmailEmail(), testData.getGmailPass());
+        gmail.deleteAllMessages();
+        gmail.waitForNewMessages();
+        String token = gmail.read();
+        System.out.println("+++++[TestUtilDebug] : Token is: " + token.substring(3833, 3839));
+        gmail.deleteAllMessages();
         return token.substring(3833, 3839);
     }
-
-//    public static void closeCurrentTab() {
-//        String currentTab = driver.getWindowHandle();
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        if (tabs.indexOf(currentTab) == 0) {
-////            driver.close();
-//            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
-//        } else {
-////            driver.close();
-//            driver.switchTo().window(tabs.get(0));
-//        }
-//    }
 
     public static Object[][] getDataFromExcel(String filename, String sheetName) {
         FileInputStream file = null;
@@ -107,190 +95,9 @@ public class TestUtil {
         return destination;
     }
 
-//    //----Mailinator related functions
-//    public void prepareMailinator(String email) {
-//        navigateToMailinator(email);
-//        navigateToFirstTab();
-//    }
-
-//    public void navigateToMailinator(String email) {
-//        String a = "window.open('','_blank');";
-//        String URL = "https://www.mailinator.com/v3/index.jsp?zone=public&query=" + email + "#/#inboxpane";
-//
-//        ((JavascriptExecutor) driver).executeScript(a);
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        driver.switchTo().window(tabs.get(1));
-//        driver.get(URL);
-//    }
-
-
-//    public static String getTokenFromMailinator(String text) {
-//        String firstReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[5]";
-//        String firstFrom_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[3]";
-//        String token_xpath = "//span[@id='BodyPlaceholder_UserVerificationEmailBodySentence2']";
-//        String token;
-//
-//        navigateToNextTab();
-//
-//        WebElement received = driver.findElement(By.xpath(firstReceived_xpath));
-//        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
-//        wait.until(
-//                ExpectedConditions.and(
-//                        ExpectedConditions.visibilityOf(received),
-//                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath(firstReceived_xpath + "[contains(text(),'moments ago')]")))
-//                )
-//        );
-//
-//        driver.findElement(By.xpath(firstFrom_xpath)).click();
-//        driver.switchTo().frame("msg_body"); //switched to the Email body iFrame
-//
-//        WebElement tokenString = driver.findElement(By.xpath(token_xpath));
-//        token = tokenString.getText().substring(tokenString.getText().length() - 6);
-//        System.out.println("----------------------------Token is: " + token);
-//
-//        navigateToFirstTab();
-//        return token;
-//    }
-
-    //----END of Mailinator related functions
-
-    //----Gmail related functions
-
-//    public void prepareGmail() throws IOException {
-//        navigateToGmail();
-//        if (!gmailReady) {
-//            enterGmailCredentials();
-//            gmailReady = true;
-//        }
-//        deleteExistingMail()
-//                .navigateToFirstTab();
-//    }
-
-//    public static String getTokenFromGmail() {
-//        String token;
-//        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-//        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
-//
-//        navigateToNextTab();
-//
-//        waitForIncomingMail();
-//        clickOnIncomingMail();
-//
-//        String emailBodyText = driver.findElement(By.xpath(emailBody_XPATH)).getText();
-//        token = emailBodyText.substring(14);
-//
-//        driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-//        closeCurrentTab();
-//        return token;
-//    }
-
-//    public TestUtil navigateToGmail() {
-//        String a = "window.open('','_blank');";
-//        String URL = "https://mail.google.com/mail/u/0/#label/FLIR";
-//
-//        ((JavascriptExecutor) driver).executeScript(a);
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        driver.switchTo().window(tabs.get(1));
-//        driver.get(URL);
-//        return this;
-//    }
-
-//    public static void navigateToFirstTab() {
-//        String currentTab = driver.getWindowHandle();
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        if (tabs.indexOf(currentTab) == 0) {
-////            driver.close();
-//            driver.switchTo().window(tabs.get(tabs.indexOf(currentTab) - 1));
-//        } else {
-////            driver.close();
-//            driver.switchTo().window(tabs.get(0));
-//        }
-//    }
-
-//    public static void navigateToNextTab() {
-//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-//        driver.switchTo().window(tabs.get(1));
-//    }
-
     public static void waitForElementToBeClickable(WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
-//    public TestUtil enterGmailCredentials() throws IOException {
-//        Properties prop = loadProperties();
-//        String email = prop.getProperty("gmail");
-//        String pass = prop.getProperty("password");
-//        String email_ID = "identifierId";
-//        String nextButtonEmail_ID = "identifierNext";
-//        String passwordField_XPATH = "//input[@name='password']";
-//        String nextButtonPass_ID = "passwordNext";
-//        String avatar_XPATH = "//span[@class='gb_Ia gbii']";
-//
-//        waitForElementToBeClickable(driver.findElement(By.id(email_ID)));
-//        driver.findElement(By.id(email_ID)).sendKeys(email);
-//        driver.findElement(By.id(nextButtonEmail_ID)).click();
-//
-//        waitForElementToBeClickable(driver.findElement(By.xpath(passwordField_XPATH)));
-//        driver.findElement(By.xpath(passwordField_XPATH)).sendKeys(pass);
-//        driver.findElement(By.id(nextButtonPass_ID)).click();
-//
-//        waitForElementToLoad(driver.findElement(By.xpath(avatar_XPATH)));
-//        return this;
-//    }
-//
-//    public TestUtil deleteExistingMail() {
-//        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-//        String email_XPATH = "//span[@class='bog']";
-//        String deleteEmailBTN_XPATH = "//div[@class='iH bzn']//div[@class='T-I J-J5-Ji nX T-I-ax7 T-I-Js-Gs mA']//div[@class='asa']";
-//
-//        if (driver.findElements(By.xpath(email_XPATH)).size() > 0) {
-//            driver.findElements(By.xpath(email_XPATH)).get(0).click();
-//            waitForElementToLoad(driver.findElement(By.xpath(emailBody_XPATH)));
-//            driver.findElement(By.xpath(deleteEmailBTN_XPATH)).click();
-//
-//            try {
-//                WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
-//                wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath(email_XPATH), 0));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return this;
-//    }
-//
-//    public static void waitForIncomingMail() {
-//        String email_XPATH = "//span[@class='bog']";
-//        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
-//        try {
-//            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
-//        } catch (Exception e) {
-//            System.out.println("----Timeout error. Email did not arrive. Refreshing the page and retrying...");
-//            try {
-//                driver.navigate().refresh();
-//                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(email_XPATH), 0));
-//            } catch (TimeoutException te) {
-//                System.out.println("----Timeout error. Email did not arrive in the allotted time");
-//                te.printStackTrace();
-//                throw new TimeoutException("----Timeout error. Email did not arrive in the allotted time");
-//            }
-//        }
-//    }
-//
-//    public static void clickOnIncomingMail() {
-//        String email_XPATH = "//span[@class='bog']";
-//        String emailBody_XPATH = "//span[contains(@id,'UserVerificationEmailBodySentence2')]";
-//        WebDriverWait wait = new WebDriverWait(driver, testData.WAIT_FOR_ELEMENT_TIMEOUT);
-//
-//        driver.findElements(By.xpath(email_XPATH)).get(0).click();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        WebElement element = driver.findElement(By.xpath(emailBody_XPATH));
-//        wait.until(ExpectedConditions.textToBePresentInElement(element, "code"));
-//    }
-
-    //----END of Gmail related functions
 }
