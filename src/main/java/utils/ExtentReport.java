@@ -6,6 +6,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
@@ -21,15 +22,19 @@ public class ExtentReport {
     public static ExtentTest extentTestChild;
     public Properties prop;
 
-    public ExtentReport() throws IOException {
+    public ExtentReport() {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
-//        htmlReporter.config().setTheme(Theme.DARK);
+        htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
 
-        prop = loadProperties();
+        try {
+            prop = loadProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         extent.setSystemInfo("Operating system name", System.getProperty("os.name"));
         extent.setSystemInfo("OS architecture", System.getProperty("os.arch").toUpperCase());
         extent.setSystemInfo("Java version", System.getProperty("java.version"));

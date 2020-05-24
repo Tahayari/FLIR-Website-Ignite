@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import testData.TestData;
-import utils.emailManager.GmailInbox;
+import utils.emailManager.Gmail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +48,7 @@ public class TestUtil {
     }
 
     public static String getTokenFromGmail() {
-        GmailInbox gmailInbox = new GmailInbox(testData.getGmailEmail(), testData.getGmailPass());
+        Gmail gmailInbox = new Gmail(testData.getGmailEmail(), testData.getGmailPass());
         gmailInbox.deleteAllMessages();
         gmailInbox.waitForNewMessages();
         String token = gmailInbox.read();

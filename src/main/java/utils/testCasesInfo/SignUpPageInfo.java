@@ -13,6 +13,8 @@ public class SignUpPageInfo {
     private String tooManyIncorrectAttemptsToken_Test_desc;
     private String sendNewCode_Test_title;
     private String sendNewCode_Test_desc;
+    private String resendToken_Test_title;
+    private String resendToken_Test_desc;
     private String resendEmail_Test_title;
     private String resendEmail_Test_desc;
     private String incorrectPasswordFormat_Test_title;
@@ -49,6 +51,8 @@ public class SignUpPageInfo {
         tooManyIncorrectAttemptsToken_Test_desc = "Error message is displayed if an incorrect token is submitted more than 3 times";
         sendNewCode_Test_title = "SIGNUP PAGE - sendNewCode_Test";
         sendNewCode_Test_desc = "Resend the token and validate the new one";
+        resendToken_Test_title = "RECOVER PASS PAGE - resendEmail_Test";
+        resendToken_Test_desc = "Clicking on the Send new token button will generate a new token. The old token is not valid anymore";
         resendEmail_Test_title = "SIGNUP PAGE - resendEmail_Test";
         resendEmail_Test_desc = "Change the email after validating the token";
         incorrectPasswordFormat_Test_title = "SIGNUP PAGE - incorrectPasswordFormat_Test";
@@ -67,7 +71,7 @@ public class SignUpPageInfo {
         noLastName_Test_desc = "Error message is displayed if the last Name field is left blank";
         cancelRegistration_Test_title = "SIGNUP PAGE - cancelRegistration_Test";
         cancelRegistration_Test_desc = "SignUp Flow is cancelled and user is redirected to the landing page";
-        registerWithExistingEmail_Test_title = "SIGNUP PAGE - registerWithExistingEmail_Test" ;
+        registerWithExistingEmail_Test_title = "SIGNUP PAGE - registerWithExistingEmail_Test";
         registerWithExistingEmail_Test_desc = "Error message is displayed when signing up with an email associated to an existing account";
         category = "SIGNUP_PAGE";
     }
@@ -118,6 +122,14 @@ public class SignUpPageInfo {
 
     public String getSendNewCode_Test_desc() {
         return sendNewCode_Test_desc;
+    }
+
+    public String getResendToken_Test_title() {
+        return resendToken_Test_title;
+    }
+
+    public String getResendToken_Test_desc() {
+        return resendToken_Test_desc;
     }
 
     public String getResendEmail_Test_title() {

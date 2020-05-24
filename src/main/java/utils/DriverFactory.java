@@ -37,10 +37,16 @@ public class DriverFactory {
                 edgeSetup();
             }
         }
-        if (eventListAlreadyInstantiated == false) {
+        if (!eventListAlreadyInstantiated) {
             setupEventListener();
             eventListAlreadyInstantiated = true ;
         }
+        return driver;
+    }
+
+    public static WebDriver quitDriver(){
+        driver.quit();
+        driver = null;
         return driver;
     }
 

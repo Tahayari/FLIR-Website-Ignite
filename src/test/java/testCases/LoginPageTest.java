@@ -1,36 +1,43 @@
 package testCases;
 
 import base.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.LandingPage;
+import pages.LoginPage;
 import utils.ExtentReport;
 
 import static pages.LandingPage.getLandingPage;
-import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class LoginPageTest extends TestBase {
-    LandingPage landingPage = getLandingPage();
-    LoginPage loginPage = getLoginPage();
+    LandingPage landingPage;
+    LoginPage loginPage;
 
     // Test cases begin here------------------------------------------------------------
-    @Test(enabled = false) /*For testing purposes*/
+    @Test(enabled = true) /*For testing purposes*/
     public void title_Test() {
-        String testCaseTitle = "LOGIN PAGE - title_Test";
-        String testCaseDescription = "Verify the page title";
+        executeSetup("title", "description");
 
-        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
+//        loginPage.setEmail("flirtest2@mailinator.com")
+//                .setPass("QAZxsw123")
+//                .clickOn_signInBTN();
+//        LibraryPage libraryPage = getLibraryPage();
+//        libraryPage.logout();
+        long startTime = System.currentTimeMillis() / 1000;
+        long endTime = System.currentTimeMillis() / 1000;
+        while ((endTime - startTime) < 15) {
+            System.out.println("---Not yet...");
+            endTime = System.currentTimeMillis() / 1000;
+        }
 
-        goToLoginPage();
-
-        Assert.assertEquals(loginPage.getPageTitle(), "FLIR Log in");
-        ExtentReport.addTestCaseStep("Page title is: " + loginPage.getPageTitle());
+        long seconds = (endTime - startTime);
+        System.out.println("While loop ended after " + seconds + " seconds");
     }
 
     @Test
     public void invalidEmail_Test() {
+//        https://jiracommercial.flir.com/browse/THAL-2555
         executeSetup(testCasesInfo.loginPageInfo().getInvalidEmail_Test_title(),
                 testCasesInfo.loginPageInfo().getInvalidEmail_Test_desc());
 
@@ -72,39 +79,39 @@ public class LoginPageTest extends TestBase {
         loginPage.nonExistingAccount_Msg();
     }
 
-    @Test(groups = {"smoke"}, priority = 100) /*execute this TestCase last*/
-    public void loginWithValidCredentials_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_title(),
-                testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_desc());
-
-        loginPage.setEmail(testData.getEmailOfExistingAcc())
-                .setPass(testData.getPassOfExistingAcc())
-                .clickOn_signInBTN();
-
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.verifyIfPageLoaded();
-    }
-
-    @Test(groups = {"smoke"})
-    public void clickSignUpLink_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getClickSignUpLink_Test_title(),
-                testCasesInfo.loginPageInfo().getClickSignUpLink_Test_desc());
-
-        loginPage.clickOn_signUpLink();
-
-        SignUpPage signUpPage = SignUpPage.getSignUpPage();
-        signUpPage.verifyIfPageLoaded();
-    }
-
-    @Test(groups = {"smoke"})
-    public void clickForgotPasswordLink_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_title(),
-                testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_Test_desc());
-
-        loginPage.clickOn_forgotPasswordLink();
-        RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage();
-        recoverPasswordPage.verifyIfPageLoaded();
-    }
+//    @Test(groups = {"smoke"}, priority = 100) /*execute this TestCase last*/
+//    public void loginWithValidCredentials_Test() {
+//        executeSetup(testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_title(),
+//                testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_desc());
+//
+//        loginPage.setEmail(testData.getEmailOfExistingAcc())
+//                .setPass(testData.getPassOfExistingAcc())
+//                .clickOn_signInBTN();
+//
+//        LibraryPage libraryPage = getLibraryPage();
+//        libraryPage.verifyIfPageLoaded();
+//    }
+//
+//    @Test(groups = {"smoke"})
+//    public void clickSignUpLink_Test() {
+//        executeSetup(testCasesInfo.loginPageInfo().getClickSignUpLink_Test_title(),
+//                testCasesInfo.loginPageInfo().getClickSignUpLink_Test_desc());
+//
+//        loginPage.clickOn_signUpLink();
+//
+//        SignUpPage signUpPage = SignUpPage.getSignUpPage();
+//        signUpPage.verifyIfPageLoaded();
+//    }
+//
+//    @Test(groups = {"smoke"})
+//    public void clickForgotPasswordLink_Test() {
+//        executeSetup(testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_title(),
+//                testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_Test_desc());
+//
+//        loginPage.clickOn_forgotPasswordLink();
+//        RecoverPasswordPage recoverPasswordPage = getRecoverPasswordPage();
+//        recoverPasswordPage.verifyIfPageLoaded();
+//    }
 
     //---
     private void goToLoginPage() {
@@ -114,6 +121,8 @@ public class LoginPageTest extends TestBase {
     }
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
+        landingPage = getLandingPage();
+        loginPage = getLoginPage();
         ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
         ExtentReport.assignCategory(testCasesInfo.loginPageInfo().getCategory());
         goToLoginPage();

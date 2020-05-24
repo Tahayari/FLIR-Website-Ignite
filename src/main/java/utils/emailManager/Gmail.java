@@ -7,13 +7,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-public class GmailInbox {
+public class Gmail {
     Properties props;
     Session session;
     Store store;
     Folder inbox;
 
-    public GmailInbox(String email,String pass) {
+    public Gmail(String email, String pass) {
         props = new Properties();
         try {
             props.load(new FileInputStream(new File(System.getProperty("user.dir") + "/src/main/java/config/smtp.properties")));
@@ -36,7 +36,7 @@ public class GmailInbox {
             while (messageCount <= 0) {
                 messageCount = inbox.getMessageCount();
             }
-            System.out.println("New email received");
+            System.out.println("+++++[GmailDebug] : New email received");
 
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class GmailInbox {
                 inbox = store.getFolder("inbox");
                 messageCount = inbox.getMessageCount();
             }
-            System.out.println("----Previous messages are deleted");
+            System.out.println("+++++[GmailDebug] : Previous messages are deleted");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -63,13 +63,12 @@ public class GmailInbox {
     public String read() {
 
         try {
-            int messageCount = inbox.getMessageCount();
+//            int messageCount = inbox.getMessageCount();
 
             Message[] messages = inbox.getMessages();
             System.out.println("------------------------------");
 
-            String token = messages[0].getContent().toString();
-            return token;
+            return messages[0].getContent().toString();
 
         } catch (Exception e) {
             e.printStackTrace();

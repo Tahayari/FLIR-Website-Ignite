@@ -159,27 +159,19 @@ public class SignUpPage {
     }
 
     public WebElement incorrectVerCode_Msg() {
-//        TestUtil.waitForElementToLoad(incorrectVerCode_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + incorrectVerCode_Msg.getText());
         return incorrectVerCode_Msg;
     }
 
     public WebElement expiredVerCode_Msg() {
-//        TestUtil.waitForElementToLoad(expiredVerCode_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + expiredVerCode_Msg.getText());
         return expiredVerCode_Msg;
     }
 
     public WebElement invalidEmail_Msg() {
-//        TestUtil.waitForElementToLoad(invalidEmail_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + invalidEmail_Msg.getText());
         return invalidEmail_Msg;
     }
 
     public WebElement existingUserErr_Msg() {
-//        TestUtil.waitForElementToLoad(existingUserErr_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + existingUserErr_Msg.getText());
-        return invalidEmail_Msg;
+        return existingUserErr_Msg;
     }
 
     public WebElement newPassword_field() {
@@ -199,26 +191,18 @@ public class SignUpPage {
     }
 
     public WebElement requiredFieldMissing_Msg() {
-//        TestUtil.waitForElementToLoad(requiredFieldMissing_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + requiredFieldMissing_Msg.getText());
         return requiredFieldMissing_Msg;
     }
 
     public WebElement tooManyAttempts_Msg() {
-//        TestUtil.waitForElementToLoad(tooManyAttempts_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + tooManyAttempts_Msg.getText());
         return tooManyAttempts_Msg;
     }
 
     public WebElement mismatchingPass_Msg() {
-//        TestUtil.waitForElementToLoad(mismatchingPass_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + mismatchingPass_Msg.getText());
         return mismatchingPass_Msg;
     }
 
     public WebElement blankCountry_Msg() {
-//        TestUtil.waitForElementToLoad(blankCountry_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + blankCountry_Msg.getText());
         return blankCountry_Msg;
     }
 
@@ -283,13 +267,6 @@ public class SignUpPage {
         return this;
     }
 
-//    public LibraryPage createNewAccount() {
-//        create_BTN.click();
-//        LibraryPage libraryPage = getLibraryPage();
-//        Assert.assertTrue(libraryPage.termsAndCondCheckbox().isDisplayed());
-//        ExtentReport.addTestCaseStep("Clicked on the Create account button. Terms and Conditions page is displayed");
-//        return libraryPage;
-//    }
 
     public SignUpPage sendTokenToEmail(String email) {
         setEmail(email)
@@ -303,18 +280,6 @@ public class SignUpPage {
         ExtentReport.addTestCaseStep("Clicked on Send Verification Code button");
         return this;
     }
-
-//    public void enterTokenFromMailinator(String email) {
-//        verificationCode_field.click();
-//        verificationCode_field.clear();
-//        String token = TestUtil.getTokenFromMailinator(email);
-//        verificationCode_field.sendKeys(token);
-//        verifyCode_BTN.click();
-////        testUtil.waitForElementToLoad(changeEmail_BTN);
-//        Assert.assertTrue(changeEmail_BTN.isDisplayed());
-//        ExtentReport.addTestCaseStep("Entered the following token: " + token + " and clicked on the Verify code");
-//    }
-
 
     public SignUpPage selectRandomCountry() {
         Select country_select = new Select(country_dropdown);
@@ -393,9 +358,15 @@ public class SignUpPage {
         ExtentReport.addTestCaseStep("Clicked on the Cancel button");
     }
 
+    public SignUpPage clickOn_sendNewCode_BTN(){
+        TestUtil.waitForElementToLoad(sendNewCode_BTN);
+        sendNewCode_BTN.click();
+        ExtentReport.addTestCaseStep("Clicked on the Send new code button");
+        return this;
+    }
+
     public void checkErrMsgIsDisplayed(WebElement error_Msg) {
         TestUtil.waitForElementToLoad(error_Msg);
         ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
-
     }
 }

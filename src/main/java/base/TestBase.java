@@ -14,28 +14,28 @@ import java.util.concurrent.TimeUnit;
 
 import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
+import static utils.DriverFactory.quitDriver;
 
 public class TestBase {
 
     private WebDriver driver;
     public static Properties prop;
-    public ExtentReport extentReport;
+    public ExtentReport extentReport = new ExtentReport();
     protected TestCasesInfo testCasesInfo= new TestCasesInfo();
     protected TestData testData = new TestData();
 
     @BeforeSuite
     public void beforeSuite() throws IOException {
         prop = loadProperties();
-        extentReport = new ExtentReport();
     }
 
     @BeforeClass
     public void startUpBrowser() {
         driver = getDriver();
         driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(testData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(testData.IMPLICIT_WAIT, TimeUnit.SECONDS);
-
     }
 
     @BeforeMethod
@@ -44,7 +44,7 @@ public class TestBase {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(ITestResult result) throws IOException {
+    public void updateExtentReport(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
             extentReport.logFailure(result);
         }
@@ -59,16 +59,12 @@ public class TestBase {
     @AfterClass
     public void closeDriver() {
         if (driver != null) {
-            driver.quit();
+            driver = quitDriver();
         }
     }
 
     @AfterTest(alwaysRun = true)
     public void endReport() {
         extentReport.endReport();
-    }
-
-    public void createNewTestCase(String testCaseTitle,String testCaseDescription){
-        extentReport.createTestCase(testCaseTitle, testCaseDescription);
     }
 }

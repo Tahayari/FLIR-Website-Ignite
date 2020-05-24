@@ -11,7 +11,7 @@ import utils.TestUtil;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class LibraryPage{
+public class LibraryPage {
 
     //-------PATHS-------
     //---Input fields
@@ -38,7 +38,7 @@ public class LibraryPage{
     private final String termsAndConditions_XPATH = "//h1[contains(text(),'Terms and Conditions')]";
     private final String termsAndCondCheckbox_XPATH = "//button[@class='checkbox']";
     private final String userMenu_ClassName = "user-menu";
-    private final String logoutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Sign out')]";
+    private final String signoutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Sign out')]";
     //--------------
 
 
@@ -85,8 +85,8 @@ public class LibraryPage{
     private WebElement termsAndCond_checkbox;
     @FindBy(className = userMenu_ClassName)
     private WebElement userMenu;
-    @FindBy(xpath = logoutBTN_XPATH)
-    private WebElement logout_BTN;
+    @FindBy(xpath = signoutBTN_XPATH)
+    private WebElement signOut_BTN;
     //--------------
 
     //Constructor
@@ -94,7 +94,7 @@ public class LibraryPage{
         PageFactory.initElements(getDriver(), this);
     }
 
-    public static LibraryPage getLibraryPage(){
+    public static LibraryPage getLibraryPage() {
         return new LibraryPage();
     }
     //--------------
@@ -160,8 +160,13 @@ public class LibraryPage{
         return folderNameError_Msg;
     }
 
-    public WebElement userMenu_BTN() {return userMenu;}
-    public WebElement logout_BTN() {return logout_BTN;}
+    public WebElement userMenu_BTN() {
+        return userMenu;
+    }
+
+    public WebElement signOut_BTN() {
+        return signOut_BTN;
+    }
 
     //--------------
 
@@ -226,28 +231,28 @@ public class LibraryPage{
 //        ExtentReport.addTestCaseStep("File " + fileName + " uploaded successfully");
     }
 
-    public LibraryPage clickOn_userMenu(){
-        TestUtil.waitForElementToLoad(library_BTN);
+    public LibraryPage clickOn_userMenu() {
+        TestUtil.waitForElementToLoad(userMenu);
         userMenu.click();
         ExtentReport.addTestCaseStep("Clicked on User Menu");
         return this;
     }
 
-    public void clickOn_logout_BTN(){
-        TestUtil.waitForElementToBeClickable(logout_BTN);
-        logout_BTN.click();
+    public void clickOn_logout_BTN() {
+        TestUtil.waitForElementToLoad(signOut_BTN);
+        signOut_BTN.click();
         ExtentReport.addTestCaseStep("Clicked on Logout button");
     }
 
-    public LibraryPage verifyIfPageLoaded(){
+    public LibraryPage verifyIfPageLoaded() {
         TestUtil.waitForElementToLoad(uploadFiles_BTN);
         ExtentReport.addTestCaseStep("Navigated to the Library page");
         return this;
     }
 
-    public void logout(){
-        clickOn_userMenu();
-        clickOn_logout_BTN();
+    public void logout() {
+        clickOn_userMenu()
+                .clickOn_logout_BTN();
     }
     //--------------
 }

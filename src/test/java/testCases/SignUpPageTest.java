@@ -16,8 +16,8 @@ import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class SignUpPageTest extends TestBase {
-    LandingPage landingPage = getLandingPage();
-    SignUpPage signUpPage = getSignUpPage();
+    LandingPage landingPage;
+    SignUpPage signUpPage;
 
     // Test cases begin here------------------------------------------------------------
     @Test(enabled = false)
@@ -107,6 +107,24 @@ public class SignUpPageTest extends TestBase {
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
         String secondToken = TestUtil.getTokenFromGmail();
 
+        signUpPage.setVerificationCode_field(firstToken)
+                .clickOn_verifyCode_BTN()
+                .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
+
+        signUpPage.setVerificationCode_field(secondToken)
+                .clickOn_verifyCode_BTN()
+                .changeEmail_BTN();
+    }
+
+    @Test
+    public void resendToken_Test() {
+        executeSetup(testCasesInfo.signUpPageInfo().getResendToken_Test_title(),
+                testCasesInfo.signUpPageInfo().getResendToken_Test_desc());
+
+        signUpPage.sendTokenToEmail(testData.getGmailEmail());
+        String firstToken = TestUtil.getTokenFromGmail();
+        signUpPage.clickOn_sendNewCode_BTN();
+        String secondToken = TestUtil.getTokenFromGmail();
         signUpPage.setVerificationCode_field(firstToken)
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
@@ -263,6 +281,8 @@ public class SignUpPageTest extends TestBase {
     }
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
+        landingPage = getLandingPage();
+        signUpPage = getSignUpPage();
         ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
         ExtentReport.assignCategory(testCasesInfo.signUpPageInfo().getCategory());
         goToSignUpPage();
