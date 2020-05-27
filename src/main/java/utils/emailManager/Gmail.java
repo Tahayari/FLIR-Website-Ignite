@@ -37,14 +37,18 @@ public class Gmail {
             int messageCount = inbox.getMessageCount();
             long startTime = System.currentTimeMillis();
             long endTime = System.currentTimeMillis();
-            while (messageCount <= 0 && ((endTime - startTime)/1000) < TestData.WAIT_FOR_ELEMENT_TIMEOUT) {
+            System.out.println("+++++[GmailDebug] : Waiting for incoming email");
+            while (messageCount <= 0 && ((endTime - startTime) / 1000) < TestData.WAIT_FOR_ELEMENT_TIMEOUT) {
                 messageCount = inbox.getMessageCount();
                 endTime = System.currentTimeMillis();
             }
-            System.out.println("+++++[GmailDebug] : New email received");
+            if(messageCount <= 0){
+                throw new MessagingException();
+            }
+            System.out.println("+++++[GmailDebug] : "+inbox.getMessageCount()+" new email received");
 
         } catch (MessagingException e) {
-            Assert.assertEquals("No new emails arrived in the last "+TestData.WAIT_FOR_ELEMENT_TIMEOUT+" seconds",
+            Assert.assertEquals("No new emails arrived in the last " + TestData.WAIT_FOR_ELEMENT_TIMEOUT + " seconds",
                     "New email in inbox");
             e.printStackTrace();
         }
@@ -70,13 +74,13 @@ public class Gmail {
     public String read() {
 
         try {
-//            int messageCount = inbox.getMessageCount();
-
+            inbox = store.getFolder("inbox");
+            inbox.open(Folder.READ_WRITE);
             Message[] messages = inbox.getMessages();
             System.out.println("------------------------------");
-
-            return messages[0].getContent().toString();
-
+            if (messages.length > 0)
+                return messages[0].getContent().toString();
+            else throw new Exception("+++++[GmailDebug] : Error reading the email");
         } catch (Exception e) {
             e.printStackTrace();
         }

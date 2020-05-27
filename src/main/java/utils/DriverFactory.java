@@ -41,13 +41,14 @@ public class DriverFactory {
             setupEventListener();
             eventListAlreadyInstantiated = true ;
         }
+//        setupEventListener();
         return driver;
     }
 
     public static WebDriver quitDriver(){
         driver.quit();
         driver = null;
-        return driver;
+        return null;
     }
 
     private static void chromeSetup() {

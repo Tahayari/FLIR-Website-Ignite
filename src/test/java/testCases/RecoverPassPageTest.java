@@ -50,7 +50,7 @@ public class RecoverPassPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = true)
+    @Test(enabled = true, priority = 0)
     public void expiredToken_Test() {
         executeSetup(testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_title(),
                 testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_desc());
@@ -154,7 +154,7 @@ public class RecoverPassPageTest extends TestBase {
 
         goToChangePassScreen();
 
-        recoverPasswordPage.setNewPassword(" ")
+        recoverPasswordPage.setNewPassword("")
                 .clickOn_continue_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.requiredFieldMissing_Msg());
     }

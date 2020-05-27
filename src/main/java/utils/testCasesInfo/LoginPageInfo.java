@@ -3,6 +3,8 @@ package utils.testCasesInfo;
 public class LoginPageInfo {
     private String blankPassword_Test_title;
     private String blankPassword_Test_desc;
+    private String blankEmail_Test_title;
+    private String blankEmail_Test_desc;
     private String invalidEmail_Test_title;
     private String invalidEmail_Test_desc;
     private String incorrectPassword_Test_title;
@@ -18,8 +20,11 @@ public class LoginPageInfo {
     private String category;
 
     public LoginPageInfo() {
+        category = "LOGIN_PAGE";
         blankPassword_Test_title = "LOGIN PAGE - blankPassword_Test";
         blankPassword_Test_desc = "Error message is displayed if an incorrect password is entered";
+        blankEmail_Test_title ="LOGIN PAGE - blankEmail_Test";
+        blankEmail_Test_desc = "Error message is displayed if the user logs in with a blank email field";
         invalidEmail_Test_title = "LOGIN PAGE - invalidEmail_Test";
         invalidEmail_Test_desc = "Error message is displayed if an invalid email address is entered";
         incorrectPassword_Test_title = "LOGIN PAGE - incorrectPassword_Test";
@@ -32,7 +37,6 @@ public class LoginPageInfo {
         clickSignUpLink_Test_desc = "Clicking on the SignUp link redirects to Sign Up page";
         clickForgotPasswordLink_Test_title = "LOGIN PAGE - clickSignUpLink_Test";
         clickForgotPasswordLink_Test_Test_desc = "Clicking on the Forgot Password link redirects to Recover password page";
-        category = "LOGIN_PAGE";
     }
 
     public String getBlankPassword_Test_title() {

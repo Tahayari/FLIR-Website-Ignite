@@ -29,6 +29,16 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
+    public void blankEmail_Test() {
+        executeSetup(testCasesInfo.loginPageInfo().getBlankPassword_Test_title(),
+                testCasesInfo.loginPageInfo().getBlankPassword_Test_desc());
+
+        loginPage.setEmail("")
+                .clickOn_signInBTN();
+        loginPage.checkErrMsgIsDisplayed(loginPage.blankEmailError_Msg());
+    }
+
+    @Test
     public void invalidEmail_Test() {
 //        https://jiracommercial.flir.com/browse/THAL-2555
         executeSetup(testCasesInfo.loginPageInfo().getInvalidEmail_Test_title(),
@@ -45,8 +55,7 @@ public class LoginPageTest extends TestBase {
         loginPage.setEmail(testData.getRandomEmail())
                 .setPass("")
                 .clickOn_signInBTN();
-
-        loginPage.invalidPassError_Msg();
+        loginPage.checkErrMsgIsDisplayed(loginPage.invalidPassError_Msg());
     }
 
     @Test
@@ -57,7 +66,7 @@ public class LoginPageTest extends TestBase {
         loginPage.setEmail(testData.getEmailOfExistingAcc())
                 .setPass(testData.getIncorrectPass())
                 .clickOn_signInBTN();
-        loginPage.incorrectPassError_Msg();
+        loginPage.checkErrMsgIsDisplayed(loginPage.incorrectPassError_Msg());
     }
 
     @Test(groups = {"smoke"})
@@ -69,10 +78,10 @@ public class LoginPageTest extends TestBase {
                 .setPass(testData.getIncorrectPass())
                 .clickOn_signInBTN();
 
-        loginPage.nonExistingAccount_Msg();
+        loginPage.checkErrMsgIsDisplayed(loginPage.nonExistingAccount_Msg());
     }
 
-    @Test(groups = {"smoke"}, priority = 100) /*execute this TestCase last*/
+    @Test(groups = {"smoke"}) /*execute this TestCase last*/
     public void loginWithValidCredentials_Test() {
         executeSetup(testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_title(),
                 testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_desc());
@@ -82,7 +91,9 @@ public class LoginPageTest extends TestBase {
                 .clickOn_signInBTN();
 
         LibraryPage libraryPage = getLibraryPage();
-        libraryPage.verifyIfPageLoaded();
+        libraryPage.verifyIfPageLoaded()
+                .logout();
+        landingPage.verifyIfPageLoaded();
     }
 
     @Test(groups = {"smoke"})
@@ -127,7 +138,7 @@ public class LoginPageTest extends TestBase {
             loginPage.clearField(loginPage.email_field())
                     .setEmail(invalidEmailsList[i][0].toString())
                     .clickOn_signInBTN();
-            loginPage.invalidEmailError_Msg();
+            loginPage.checkErrMsgIsDisplayed(loginPage.invalidEmailError_Msg());
         }
     }
 

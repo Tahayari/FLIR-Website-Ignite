@@ -253,6 +253,12 @@ public class LibraryPage {
     public void logout() {
         clickOn_userMenu()
                 .clickOn_logout_BTN();
+        //avoid bug where the user is still logged in after logging out - THAL-2731
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     //--------------
 }

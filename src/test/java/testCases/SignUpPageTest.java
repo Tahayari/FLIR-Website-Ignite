@@ -76,7 +76,7 @@ public class SignUpPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true,priority = 50)
     public void expiredToken_Test() {
         executeSetup(testCasesInfo.signUpPageInfo().getExpiredToken_Test_title()
                 , testCasesInfo.signUpPageInfo().getExpiredToken_Test_desc());
