@@ -1,6 +1,7 @@
 package utils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -98,6 +99,21 @@ public class TestUtil {
     public static void waitForElementToBeClickable(WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public static String getRandomString(int stringLength) {
+        if (stringLength > 0) {
+            return RandomStringUtils.randomAlphanumeric(stringLength);
+        } else System.out.println("Enter a number that's larger than zero");
+        return null;
+    }
+
+    public static void deleteFilesFromFolder(File dir) {
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory())
+                deleteFilesFromFolder(file);
+            file.delete();
+        }
     }
 
 }

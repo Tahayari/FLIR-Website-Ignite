@@ -46,7 +46,6 @@ public class SignUpPage {
             "//*[contains(text(),'Please enter a valid email address.')]";
     private final String invalidPassError_XPATH = "//li[2]//descendant::div[1]//descendant::div[1]";
     private final String invalidConfirmPassError_XPATH = "//li[3]//descendant::div[1]//descendant::div[1]";
-    private final String passMismatchError_ID = "passwordEntryMismatch";
     private final String blankCountryError_ID = "claimVerificationServerError";
     private final String requiredFieldError_ID = "requiredFieldMissing";
     private final String tooManyAttemptsError_ID = "email_fail_no_retry";

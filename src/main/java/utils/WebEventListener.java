@@ -8,6 +8,8 @@
 
 package utils;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
@@ -18,48 +20,50 @@ import java.io.IOException;
 
 public class WebEventListener implements WebDriverEventListener {
 
+    private static Logger log = LogManager.getLogger(WebEventListener.class);
+
     public void beforeNavigateTo(String url, WebDriver driver) {
-        System.out.println("-------Navigating to URL: '" + url + "'");
+        log.info(" Navigating to URL: '" + url + "'");
     }
 
     public void afterNavigateTo(String url, WebDriver driver) {
-        System.out.println("-------Navigated to:'" + url + "'");
+        log.info(" Navigated to:'" + url + "'");
     }
 
     public void beforeChangeValueOf(WebElement element, WebDriver driver) {
-        System.out.println("-------Value of the:" + trimToMakeItReadable(element.toString()) + " before any changes made");
+        log.info(" Value of the:" + trimToMakeItReadable(element.toString()) + " before any changes made");
     }
 
     public void afterChangeValueOf(WebElement element, WebDriver driver) {
-        System.out.println("-------Element value changed to: " + trimToMakeItReadable(element.toString()));
+        log.info(" Element value changed to: " + trimToMakeItReadable(element.toString()));
     }
 
     public void beforeClickOn(WebElement element, WebDriver driver) {
-        System.out.println("-------Trying to click on: " + trimToMakeItReadable(element.toString()));
+        log.info(" Trying to click on: " + trimToMakeItReadable(element.toString()));
     }
 
     public void afterClickOn(WebElement element, WebDriver driver) {
-        System.out.println("-------Clicked on: " + trimToMakeItReadable(element.toString()));
+        log.info(" Clicked on: " + trimToMakeItReadable(element.toString()));
     }
 
     public void beforeNavigateBack(WebDriver driver) {
-        System.out.println("-------Navigating back to previous page");
+        log.info(" Navigating back to previous page");
     }
 
     public void afterNavigateBack(WebDriver driver) {
-        System.out.println("-------Navigated back to previous page");
+        log.info(" Navigated back to previous page");
     }
 
     public void beforeNavigateForward(WebDriver driver) {
-        System.out.println("-------Navigating forward to next page");
+        log.info(" Navigating forward to next page");
     }
 
     public void afterNavigateForward(WebDriver driver) {
-        System.out.println("-------Navigated forward to next page");
+        log.info(" Navigated forward to next page");
     }
 
     public void onException(Throwable error, WebDriver driver) {
-        System.out.println("-------Exception occurred: " + error);
+        log.info(" Exception occurred: " + error);
         try {
             TestUtil.getScreenshot(driver, "ScreenshotName");
         } catch (IOException e) {
@@ -68,15 +72,15 @@ public class WebEventListener implements WebDriverEventListener {
     }
 
     public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-        System.out.println("-------Trying to find Element by : " + by.toString());
+        log.info(" Trying to find Element by : " + by.toString());
     }
 
     public void afterFindBy(By by, WebElement element, WebDriver driver) {
-        System.out.println("-------Found Element by : " + by.toString());
+        log.info(" Found Element by : " + by.toString());
     }
 
     public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
-        System.out.println("-------Entered a string to WebElement " + trimToMakeItReadable(element.toString()));
+        log.info(" Entered a string to WebElement " + trimToMakeItReadable(element.toString()));
     }
 
     /*
@@ -156,6 +160,7 @@ public class WebEventListener implements WebDriverEventListener {
         String trimmedString;
         trimmedString = inputString.substring(inputString.lastIndexOf(">") + 1);
         trimmedString = trimmedString.substring(0,trimmedString.length()-1);
+        trimmedString = trimmedString.replace("]","");
         return trimmedString;
     }
 }

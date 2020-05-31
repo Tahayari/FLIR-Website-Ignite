@@ -1,13 +1,14 @@
 package base;
 
-
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import testData.TestData;
 import utils.ExtentReport;
+import utils.TestUtil;
 import utils.testCasesInfo.TestCasesInfo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +18,6 @@ import static utils.DriverFactory.getDriver;
 import static utils.DriverFactory.quitDriver;
 
 public class TestBase {
-
     private WebDriver driver;
     public static Properties prop;
     public ExtentReport extentReport = new ExtentReport();
@@ -27,6 +27,7 @@ public class TestBase {
     @BeforeSuite
     public void beforeSuite() throws IOException {
         prop = loadProperties();
+        TestUtil.deleteFilesFromFolder(new File(testData.getProjectPath() + "\\test-output\\screenshots"));
     }
 
     @BeforeClass

@@ -12,4 +12,4 @@
 *.png
 *.apk
 /debug.log
-log4j.properties
+src/main/resources/log4j.properties

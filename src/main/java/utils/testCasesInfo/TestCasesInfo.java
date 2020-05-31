@@ -14,4 +14,7 @@ public class TestCasesInfo {
         return new SignUpPageInfo();
     }
 
+    public LibraryPageInfo libraryPageInfo(){
+        return new LibraryPageInfo();
+    }
 }

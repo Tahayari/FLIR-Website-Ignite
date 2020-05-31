@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import utils.ExtentReport;
 import utils.TestUtil;
 
+import static pages.LibraryPage.getLibraryPage;
 import static utils.DriverFactory.getDriver;
 
 public class LoginPage {
@@ -129,6 +130,15 @@ public class LoginPage {
     public void checkErrMsgIsDisplayed(WebElement error_Msg) {
         TestUtil.waitForElementToLoad(error_Msg);
         ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
+    }
+
+    public LibraryPage login(String email,String pass){
+        setEmail(email)
+                .setPass(pass)
+                .clickOn_signInBTN();
+        LibraryPage libraryPage = getLibraryPage();
+        libraryPage.verifyIfPageLoaded();
+        return libraryPage;
     }
 
 }
