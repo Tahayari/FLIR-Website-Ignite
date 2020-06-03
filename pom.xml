@@ -105,4 +105,25 @@
         <!-- End of log4j2 logger -->
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <includes>
+                        <include>
+                            LoginPageTest.java
+                        </include>
+                    </includes>
+<!--                    <suiteXmlFiles>-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <suiteXmlFile>C:\Users\dhosman\IdeaProjects\ToolsWeb\src\main\resources\${testngFile}</suiteXmlFile>-->
+<!--                    </suiteXmlFiles>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

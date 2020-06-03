@@ -5,10 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -34,8 +31,12 @@ public class TestUtil {
     public static void waitForElementToLoad(WebElement webElementToWaitFor) {
         WebDriver driver = getDriver();
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
-        wait.until(ExpectedConditions.visibilityOf(webElementToWaitFor));
-        Assert.assertTrue(webElementToWaitFor.isDisplayed());
+        try {
+            wait.until(ExpectedConditions.visibilityOf(webElementToWaitFor));
+        } catch (TimeoutException timeoutException) {
+            Assert.assertTrue(webElementToWaitFor.isDisplayed(), "Element " + trimToMakeItReadable(webElementToWaitFor.toString()) + " was not loaded!");
+            timeoutException.printStackTrace();
+        }
     }
 
     public static void waitForSomeMinutes(long minutesToWait) {
@@ -98,7 +99,13 @@ public class TestUtil {
 
     public static void waitForElementToBeClickable(WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
-        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        } catch (TimeoutException timeoutException) {
+            Assert.assertTrue(webElement.isEnabled(), "Element " + trimToMakeItReadable(webElement.toString()) + " is not clickable!");
+            timeoutException.printStackTrace();
+        }
     }
 
     public static String getRandomString(int stringLength) {
@@ -114,6 +121,13 @@ public class TestUtil {
                 deleteFilesFromFolder(file);
             file.delete();
         }
+    }
+
+    private static String trimToMakeItReadable(String inputString) {
+        String trimmedString;
+        trimmedString = inputString.substring(inputString.lastIndexOf(">") + 1);
+        trimmedString = trimmedString.substring(0,trimmedString.length()-1);
+        return trimmedString;
     }
 
 }
