@@ -12,7 +12,7 @@ public class LandingPage {
     private final WebDriver driver;
 
     //-------PATHS-------
-    private final String loginBTN_XPATH = "//span[contains(text(),'Log in')]";
+    private final String signInBTN_XPATH = "//span[contains(text(),'Sign in')]";
     private final String signUpBTN_XPATH = "//div[@class='button-bar']//span[@class='text'][contains(text(),'Sign up')]";
     //--------------
 
@@ -35,8 +35,8 @@ public class LandingPage {
     }
 
     //-----------GETTERS
-    public WebElement login_BTN() {
-        return driver.findElement(By.xpath(loginBTN_XPATH));
+    public WebElement signIn_BTN() {
+        return driver.findElement(By.xpath(signInBTN_XPATH));
     }
 
     public WebElement signUp_BTN() {
@@ -47,8 +47,8 @@ public class LandingPage {
 
     //-----------Actions
     public void clickOn_loginBTN() {
-        TestUtil.waitForElementToLoad(login_BTN());
-        login_BTN().click();
+        TestUtil.waitForElementToLoad(signIn_BTN());
+        signIn_BTN().click();
         ExtentReport.addTestCaseStep("Clicked on Login Button");
     }
 
@@ -59,7 +59,7 @@ public class LandingPage {
     }
 
     public LandingPage verifyIfPageLoaded(){
-        TestUtil.waitForElementToLoad(login_BTN());
+        TestUtil.waitForElementToLoad(signIn_BTN());
         ExtentReport.addTestCaseStep("Navigated to the Landing page");
         return this;
     }

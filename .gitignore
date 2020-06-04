@@ -1,7 +1,7 @@
 # Default ignored files
 /.idea/workspace.xml
-/screenshots/
-/test-output/*.jpeg
+#/screenshots/
+#/test-output/*.jpeg
 
 
 /.idea/
@@ -9,7 +9,7 @@
 /.settings/
 /bin/
 *.project
-*.png
+#*.png
 *.apk
 /debug.log
-src/main/resources/log4j.properties
+#src/main/resources/log4j.properties

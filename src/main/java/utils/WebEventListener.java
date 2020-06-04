@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class WebEventListener implements WebDriverEventListener {
 
-    private static Logger log = LogManager.getLogger(WebEventListener.class);
+    private static final Logger log = LogManager.getLogger(WebEventListener.class);
 
     public void beforeNavigateTo(String url, WebDriver driver) {
         log.info(" Navigating to URL: '" + url + "'");
