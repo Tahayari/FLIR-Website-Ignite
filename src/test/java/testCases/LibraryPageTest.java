@@ -8,6 +8,8 @@ import pages.LoginPage;
 import utils.ExtentReport;
 import utils.TestUtil;
 
+import java.io.File;
+
 import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
 
@@ -21,8 +23,20 @@ public class LibraryPageTest extends TestBase {
     public void testing() {
         executeSetup("title", "description");
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getValidAccountPasswd());
-//        libraryPage.clickOn_createNewFolder_BTN();
-        libraryPage.createNewFolder("someOther folder");
+
+        File folder = new File(System.getProperty("user.dir") + "\\src\\main\\java\\testData\\Images\\");
+        File[] listOfFiles = folder.listFiles();
+//        libraryPage.createNewFolder("All file types");
+//        create new folder THEN move to new folder
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                log.info("Uploading file: " + listOfFiles[i].getName());
+                System.out.println(listOfFiles[i].getPath());
+                libraryPage.uploadFile(listOfFiles[i].getPath());
+            }
+        }
+
+        libraryPage.logout();
     }
 
 
@@ -57,6 +71,24 @@ public class LibraryPageTest extends TestBase {
     }
 
     @Test
+    public void createFolderWithIllegalCharacters_Test() {
+        executeSetup(testCasesInfo.libraryPageInfo().getCreateFolderWithIllegalCharacters_Test_title(),
+                testCasesInfo.libraryPageInfo().getCreateFolderWithIllegalCharacters_Test_desc());
+        libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
+
+        libraryPage.clickOn_createNewFolder_BTN();
+        String[] invalidCharacters = {":", "/", "\\", "\"", "?", "<", ">", "|", "*"};
+
+        for (String invalidCharacter : invalidCharacters) {
+            libraryPage.setFolderName(TestUtil.getRandomString(5) + invalidCharacter)
+                    .checkErrMsgIsDisplayed(libraryPage.folderNameError_Msg());
+            libraryPage.clearField(libraryPage.folderName_field());
+        }
+        libraryPage.clickOn_newFolderCancel_BTN()
+                .logout();
+    }
+
+    @Test
     public void createNewFolder_Test() {
         executeSetup(testCasesInfo.libraryPageInfo().getCreateNewFolder_Test_title(),
                 testCasesInfo.libraryPageInfo().getCreateNewFolder_Test_desc());
@@ -80,6 +112,7 @@ public class LibraryPageTest extends TestBase {
     //----
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
+        log.info("----Begin to test " + testCaseTitle + "----");
         landingPage = getLandingPage();
         loginPage = getLoginPage();
         ExtentReport.createTestCase(testCaseTitle, testCaseDescription);

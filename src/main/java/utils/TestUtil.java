@@ -54,9 +54,11 @@ public class TestUtil {
         gmail.deleteAllMessages();
         gmail.waitForNewMessages();
         String token = gmail.read();
-        System.out.println("+++++[TestUtilDebug] : Token is: " + token.substring(3833, 3839));
+        token = token.substring(token.lastIndexOf("is:") + 4);
+        token = token.substring(0,6);
+        System.out.println("+++++[TestUtilDebug] : Token is: " + token);
         gmail.deleteAllMessages();
-        return token.substring(3833, 3839);
+        return token;
     }
 
     public static Object[][] getDataFromExcel(String filename, String sheetName) {

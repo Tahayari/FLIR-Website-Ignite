@@ -335,7 +335,7 @@ public class SignUpPage {
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
-        String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};
+        String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword"};
 
         for (String pass : invalidPass) {
             passField.clear();

@@ -281,6 +281,7 @@ public class SignUpPageTest extends TestBase {
     }
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
+        log.info("----Begin to test " + testCaseTitle + "----");
         landingPage = getLandingPage();
         signUpPage = getSignUpPage();
         ExtentReport.createTestCase(testCaseTitle, testCaseDescription);

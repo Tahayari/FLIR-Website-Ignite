@@ -174,7 +174,6 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void changePassword_Test() {
-//        https://jiracommercial.flir.com/browse/THAL-2544
         executeSetup(testCasesInfo.recoverPassPageInfo().getChangePassword_Test_title(),
                 testCasesInfo.recoverPassPageInfo().getChangePassword_Test_desc());
 
@@ -220,6 +219,7 @@ public class RecoverPassPageTest extends TestBase {
     }
 
     private void executeSetup(String testCaseTitle, String testCaseDescription) {
+        log.info("----Begin to test " + testCaseTitle + "----");
         landingPage = getLandingPage();
         loginPage = getLoginPage();
         recoverPasswordPage = getRecoverPasswordPage();

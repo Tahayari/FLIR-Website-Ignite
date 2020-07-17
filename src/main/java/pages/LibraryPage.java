@@ -18,8 +18,8 @@ public class LibraryPage {
     private final String folderNameInput_XPATH = "//input[@placeholder='Name']";
 
     //---Buttons
-    private final String newFolderBTN_XPATH = "//button[@class='flir-button secondary has-icon create-folder']";
-    private final String uploadFilesBTN_XPATH = "//button[@title='Upload files']";
+    private final String newFolderBTN_XPATH = "//button[@title='Upload files']";
+    private final String uploadFilesBTN_XPATH = "//button[@title='Upload files']//span[2]//div//input";
     private final String myFiles_XPATH = "//h5[contains(text(),'My Files')]";
     private final String sharedWithMe_XPATH = "//h5[contains(text(),'Shared with me')]";
     private final String libraryBTN_XPATH = "//span[contains(text(),'Library')]";
@@ -37,7 +37,7 @@ public class LibraryPage {
     private final String termsAndConditions_XPATH = "//h1[contains(text(),'Terms and Conditions')]";
     private final String termsAndCondCheckbox_XPATH = "//button[@class='checkbox']";
     private final String userMenu_ClassName = "user-menu";
-    private final String signoutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Sign out')]";
+    private final String logOutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Log out')]";
     //--------------
 
 
@@ -163,8 +163,8 @@ public class LibraryPage {
         return driver.findElement(By.className(userMenu_ClassName));
     }
 
-    public WebElement signOut_BTN() {
-        return driver.findElement(By.xpath(signoutBTN_XPATH));
+    public WebElement logOut_BTN() {
+        return driver.findElement(By.xpath(logOutBTN_XPATH));
     }
 
     //--------------
@@ -239,9 +239,9 @@ public class LibraryPage {
     }
 
     public void clickOn_logout_BTN() {
-        TestUtil.waitForElementToLoad(signOut_BTN());
-        TestUtil.waitForElementToBeClickable(signOut_BTN());
-        signOut_BTN().click();
+        TestUtil.waitForElementToLoad(logOut_BTN());
+        TestUtil.waitForElementToBeClickable(logOut_BTN());
+        logOut_BTN().click();
         ExtentReport.addTestCaseStep("Clicked on Logout button");
     }
 
@@ -259,7 +259,7 @@ public class LibraryPage {
     }
 
     public LibraryPage verifyIfPageLoaded() {
-        TestUtil.waitForElementToLoad(uploadFiles_BTN());
+        TestUtil.waitForElementToLoad(newFolder_BTN());
         ExtentReport.addTestCaseStep("Navigated to the Library page");
         return this;
     }
