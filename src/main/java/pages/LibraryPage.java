@@ -40,57 +40,9 @@ public class LibraryPage {
     private final String logOutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Log out')]";
     //--------------
 
-
-    //-------Locators-------
-    //---Input fields
-//    @FindBy(xpath = folderNameInput_XPATH)
-//    private WebElement folderName_field;
-
-    //---Buttons
-//    @FindBy(xpath = newFolderBTN_XPATH)
-//    @CacheLookup
-//    private WebElement newFolder_BTN;
-//    @FindBy(xpath = uploadFilesBTN_XPATH)
-//    @CacheLookup
-//    private WebElement uploadFiles_BTN;
-//    @FindBy(xpath = myFiles_XPATH)
-//    @CacheLookup
-//    private WebElement myFiles_LINK;
-//    @FindBy(xpath = sharedWithMe_XPATH)
-//    private WebElement sharedWithMe_BTN;
-//    @FindBy(xpath = libraryBTN_XPATH)
-//    private WebElement library_BTN;
-//    @FindBy(xpath = termsAndCondAccept_XPATH)
-//    private WebElement termsAndCondAccept_BTN;
-//    @FindBy(xpath = termsAndCondDecline_XPATH)
-//    private WebElement termsAndCondDecline_BTN;
-//    @FindBy(xpath = welcomeScreenNext_XPATH)
-//    private WebElement welcomeScreenNext_BTN;
-//    @FindBy(xpath = welcomeScreenSkip_XPATH)
-//    private WebElement welcomeScreenSkip_BTN;
-//    @FindBy(xpath = newFolderCancelBTN_XPATH)
-//    private WebElement newFolderCancel_BTN;
-//    @FindBy(xpath = newFolderCreateBTN_XPATH)
-//    private WebElement newFolderCreate_BTN;
-    //--Errors
-//    @FindBy(xpath = folderNameErrorMsg_XPATH)
-//    private WebElement folderNameError_Msg;
-
-    //---Others
-//    @FindBy(xpath = termsAndConditions_XPATH)
-//    private WebElement termsAndConditions;
-//    @FindBy(xpath = termsAndCondCheckbox_XPATH)
-//    private WebElement termsAndCond_checkbox;
-//    @FindBy(className = userMenu_ClassName)
-//    private WebElement userMenu;
-//    @FindBy(xpath = signoutBTN_XPATH)
-//    private WebElement signOut_BTN;
-    //--------------
-
     //Constructor
     private LibraryPage() {
         driver = getDriver();
-//        PageFactory.initElements(getDriver(), this);
     }
 
     public static LibraryPage getLibraryPage() {
@@ -223,7 +175,6 @@ public class LibraryPage {
     public void uploadFile(String fileLocation) {
         String fileName = fileLocation.substring(fileLocation.lastIndexOf("\\") + 1);
         String temp_XPATH = "//a[contains(text(),'" + fileName + "')]";
-//        WebElement upload = driver.findElement(By.xpath("//input[@type='file']//following::input[1]"));
 
         uploadFiles_BTN().sendKeys(fileLocation);
         TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));

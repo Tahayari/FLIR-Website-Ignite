@@ -11,23 +11,12 @@ import static utils.DriverFactory.getDriver;
 public class LandingPage {
     private final WebDriver driver;
 
-    //-------PATHS-------
     private final String signInBTN_XPATH = "//span[contains(text(),'Sign in')]";
     private final String signUpBTN_XPATH = "//div[@class='button-bar']//span[@class='text'][contains(text(),'Sign up')]";
-    //--------------
-
-
-    //-------Locators-------
-//    @FindBy(xpath = loginBTN_XPATH)
-//    private WebElement login_BTN;
-//    @FindBy(xpath = signUpBTN_XPATH)
-//    private WebElement signUp_BTN;
-    //--------------
 
     //Constructor
     private LandingPage() {
         driver = getDriver();
-//        PageFactory.initElements(driver, this);
     }
 
     public static LandingPage getLandingPage() {

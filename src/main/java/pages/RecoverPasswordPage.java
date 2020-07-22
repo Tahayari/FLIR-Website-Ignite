@@ -40,54 +40,8 @@ public class RecoverPasswordPage {
     private final String passwordEntryMismatch_ID = "passwordEntryMismatch";
     //--------------
 
-    //-------Locators-------
-
-    //---Input fields
-//    @FindBy(id = emailAddressField_ID)
-//    private WebElement emailAddress_field;
-//    @FindBy(id = verificationCodeField_ID)
-//    private WebElement verificationCode_field;
-//    @FindBy(id = newPassword_ID)
-//    private WebElement newPassword_field;
-//    @FindBy(id = reenterPassword_ID)
-//    private WebElement confNewPassword_field;
-
-    //---Buttons
-//    @FindBy(id = sendVerificationCodeBTN_ID)
-//    private WebElement sendVerCode_BTN;
-//    @FindBy(id = verifyCodeBTN_ID)
-//    private WebElement verifyCode_BTN;
-//    @FindBy(id = sendNewCodeBTN_ID)
-//    private WebElement sendNewCode_BTN;
-//    @FindBy(id = changeEmailBTN_ID)
-//    private WebElement changeEmail_BTN;
-//    @FindBy(id = continueBTN_ID)
-//    private WebElement continue_BTN;
-//    @FindBy(id = cancelBTN_ID)
-//    private WebElement cancel_BTN;
-
-    //---Errors
-//    @FindBy(id = incorrectVerificationCode_ID)
-//    private WebElement incorrectVerCode_Msg;
-//    @FindBy(xpath = invalidEmailMsg_XPATH)
-//    private WebElement invalidEmail_Msg;
-//    @FindBy(id = expiredVerificationCode_ID)
-//    private WebElement expiredVerCode_Msg;
-//    @FindBy(id = tooManyIncorrectAttemptsError_ID)
-//    private WebElement tooManyAttempts_Msg;
-//    @FindBy(id = requiredFieldMissing_ID)
-//    private WebElement requiredFieldMissing_Msg;
-//    @FindBy(xpath = invalidPassError_XPATH)
-//    private WebElement invalidPass_Msg;
-//    @FindBy(xpath = invalidConfirmPassError_XPATH)
-//    private WebElement invalidConfirmPass_Msg;
-//    @FindBy(id = passwordEntryMismatch_ID)
-//    private WebElement passMismatch_Msg;
-    //--------------
-
     //Constructor
     private RecoverPasswordPage() {
-//        PageFactory.initElements(getDriver(), this);
         driver = getDriver();
     }
 
@@ -125,7 +79,7 @@ public class RecoverPasswordPage {
         return driver.findElement(By.id(cancelBTN_ID));
     }
 
-    public WebElement continue_BTN(){
+    public WebElement continue_BTN() {
         return driver.findElement(By.id(continueBTN_ID));
     }
 
@@ -161,7 +115,7 @@ public class RecoverPasswordPage {
         return driver.findElement(By.id(passwordEntryMismatch_ID));
     }
 
-    public WebElement invalidPass_Msg(){
+    public WebElement invalidPass_Msg() {
         return driver.findElement(By.xpath(invalidPassError_XPATH));
     }
 

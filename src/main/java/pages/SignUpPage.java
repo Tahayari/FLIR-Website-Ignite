@@ -54,69 +54,9 @@ public class SignUpPage {
             "[contains(text(),'user with the specified ID already exists')]";
     //--------------
 
-    //-------Locators-------
-    //---Input fields
-//    @FindBy(id = emailField_ID)
-//    private WebElement emailAddress_field;
-//    @FindBy(id = verificationCodeField_ID)
-//    private WebElement verificationCode_field;
-//    @FindBy(id = newPasswordField_ID)
-//    private WebElement newPassword_field;
-//    @FindBy(id = confirmNewPasswordField_ID)
-//    private WebElement confNewPassword_field;
-//    @FindBy(id = firstNameField_ID)
-//    private WebElement firstName_field;
-//    @FindBy(id = lastNameField_ID)
-//    private WebElement lastName_field;
-
-    //---Buttons
-//    @FindBy(id = sendVerificationCodeBTN_ID)
-//    private WebElement sendVerificationCode_BTN;
-//    @FindBy(id = verifyCodeBTN_ID)
-//    private WebElement verifyCode_BTN;
-//    @FindBy(id = changeEmailBTN_ID)
-//    private WebElement changeEmail_BTN;
-//    @FindBy(id = sendNewCodeBTN_ID)
-//    private WebElement sendNewCode_BTN;
-//    @FindBy(id = createBTN_ID)
-//    private WebElement create_BTN;
-//    @FindBy(id = cancelBTN_ID)
-//    private WebElement cancel_BTN;
-
-    //---Dropdown items or radio buttons
-//    @FindBy(id = countrySelector_ID)
-//    private WebElement country_dropdown;
-//    @FindBy(id = consentYes_ID)
-//    private WebElement consentYes;
-//    @FindBy(id = consentNo_ID)
-//    private WebElement consentNo;
-
-    //---Errors
-//    @FindBy(id = incorrectVerificationCodeError_ID)
-//    private WebElement incorrectVerCode_Msg;
-//    @FindBy(id = expiredVerificationCodeError_ID)
-//    private WebElement expiredVerCode_Msg;
-//    @FindBy(xpath = invalidEmailError_XPATH)
-//    private WebElement invalidEmail_Msg;
-//    @FindBy(xpath = invalidPassError_XPATH)
-//    private WebElement invalidPass_Msg;
-//    @FindBy(xpath = invalidConfirmPassError_XPATH)
-//    private WebElement invalidConfirmPass_Msg;
-//    @FindBy(id = blankCountryError_ID)
-//    private WebElement blankCountry_Msg;
-//    @FindBy(id = requiredFieldError_ID)
-//    private WebElement requiredFieldMissing_Msg;
-//    @FindBy(id = tooManyAttemptsError_ID)
-//    private WebElement tooManyAttempts_Msg;
-//    @FindBy(id = mismatchingPassError_ID)
-//    private WebElement mismatchingPass_Msg;
-//    @FindBy(xpath = existingUserError_XPATH)
-//    private WebElement existingUserErr_Msg;
-    //--------------
 
     //Constructor
     private SignUpPage() {
-//        PageFactory.initElements(getDriver(), this);
         driver = getDriver();
     }
 
