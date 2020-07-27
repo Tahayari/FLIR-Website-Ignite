@@ -119,8 +119,8 @@ public class LoginPageTest extends TestBase {
 
     //---
     private void goToLoginPage() {
-        landingPage.verifyIfPageLoaded()
-                .clickOn_loginBTN();
+        landingPage.verifyIfPageLoaded();
+        landingPage.clickOn_loginBTN();
         loginPage.verifyIfPageLoaded();
     }
 

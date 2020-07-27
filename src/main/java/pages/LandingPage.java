@@ -3,12 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ExtentReport;
-import utils.TestUtil;
 
 import static utils.DriverFactory.getDriver;
 
-public class LandingPage {
+public class LandingPage extends FlirWebPage {
     private final WebDriver driver;
 
     private final String signInBTN_XPATH = "//span[contains(text(),'Sign in')]";
@@ -22,6 +20,7 @@ public class LandingPage {
     public static LandingPage getLandingPage() {
         return new LandingPage();
     }
+    //-----------
 
     //-----------GETTERS
     public WebElement signIn_BTN() {
@@ -36,20 +35,15 @@ public class LandingPage {
 
     //-----------Actions
     public void clickOn_loginBTN() {
-        TestUtil.waitForElementToLoad(signIn_BTN());
-        signIn_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Login Button");
+        clickAction(signIn_BTN(), "Clicked on Login Button");
     }
 
     public void clickOn_signUpBTN() {
-        TestUtil.waitForElementToLoad(signUp_BTN());
-        signUp_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on SignUp Button");
+        clickAction(signUp_BTN(), "Clicked on SignUp Button");
     }
 
-    public LandingPage verifyIfPageLoaded(){
-        TestUtil.waitForElementToLoad(signIn_BTN());
-        ExtentReport.addTestCaseStep("Navigated to the Landing page");
+    public LandingPage verifyIfPageLoaded() {
+        checkIfElementHasLoaded(signIn_BTN(),"Navigated to the Landing page");
         return this;
     }
     //-----------

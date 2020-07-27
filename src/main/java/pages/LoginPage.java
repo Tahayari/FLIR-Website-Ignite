@@ -3,13 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ExtentReport;
 import utils.TestUtil;
 
 import static pages.LibraryPage.getLibraryPage;
 import static utils.DriverFactory.getDriver;
 
-public class LoginPage {
+public class LoginPage extends FlirWebPage{
     private final WebDriver driver ;
 
     //-------LOCATORS-------
@@ -82,38 +81,28 @@ public class LoginPage {
     //-----------SETTERS
     public LoginPage setEmail(String email) {
         TestUtil.waitForElementToLoad(email_field());
-        email_field().clear();
-        email_field().sendKeys(email);
-        ExtentReport.addTestCaseStep("Entered the following email: " + email);
+        setField(email_field(),email,"Entered the following email: " + email);
         return this;
     }
 
     public LoginPage setPass(String pass) {
         TestUtil.waitForElementToLoad(pass_field());
-        pass_field().clear();
-        pass_field().sendKeys(pass);
-        ExtentReport.addTestCaseStep("Entered the following password: " + pass);
+        setField(pass_field(),pass,"Entered the following password: " + pass);
         return this;
     }
     //-----------
 
     //-----------Actions
     public void clickOn_signUpLink() {
-        TestUtil.waitForElementToLoad(signUp_link());
-        signUp_link().click();
-        ExtentReport.addTestCaseStep("Clicked on SignUp link");
+        clickAction(signUp_link(),"Clicked on SignUp link");
     }
 
     public void clickOn_forgotPasswordLink() {
-        TestUtil.waitForElementToLoad(forgotPass_link());
-        forgotPass_link().click();
-        ExtentReport.addTestCaseStep("Clicked on Forgot Password link");
+        clickAction(forgotPass_link(),"Clicked on Forgot Password link");
     }
 
     public void clickOn_signInBTN() {
-        TestUtil.waitForElementToLoad(signIn_BTN());
-        signIn_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on SignIn Button");
+        clickAction(signIn_BTN(),"Clicked on SignIn Button");
     }
 
     public LoginPage clearField(WebElement webElement) {
@@ -122,15 +111,14 @@ public class LoginPage {
     }
 
     public LoginPage verifyIfPageLoaded(){
-        TestUtil.waitForElementToLoad(signIn_BTN());
-        ExtentReport.addTestCaseStep("Navigated to the Login page");
+        checkIfElementHasLoaded(signIn_BTN(),"Navigated to the Login page");
         return this;
     }
 
-    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
-        TestUtil.waitForElementToLoad(error_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
-    }
+//    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
+//        TestUtil.waitForElementToLoad(error_Msg);
+//        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
+//    }
 
     public LibraryPage login(String email,String pass){
         setEmail(email)

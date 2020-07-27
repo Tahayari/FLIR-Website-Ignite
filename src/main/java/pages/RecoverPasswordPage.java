@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class RecoverPasswordPage {
+public class RecoverPasswordPage extends FlirWebPage {
     private final WebDriver driver;
 
     //-------LOCATORS-------
@@ -127,34 +127,23 @@ public class RecoverPasswordPage {
 
     //-----------SETTERS
     public RecoverPasswordPage setVerificationCode_field(String code) {
-        TestUtil.waitForElementToLoad(verificationCode_field());
-        verificationCode_field().clear();
-        verificationCode_field().sendKeys(code);
-        ExtentReport.addTestCaseStep("Entered the following Verification Code: " + code);
+        setField(verificationCode_field(), code, "Entered the following Verification Code: " + code);
         return this;
     }
 
     public RecoverPasswordPage setEmail(String email) {
-        TestUtil.waitForElementToLoad(emailAddress_field());
-        emailAddress_field().clear();
-        emailAddress_field().sendKeys(email);
-        ExtentReport.addTestCaseStep("Entered the following email: " + email);
+        setField(emailAddress_field(), email, "Entered the following email: " + email);
         return this;
     }
 
     public RecoverPasswordPage setNewPassword(String password) {
-        TestUtil.waitForElementToLoad(newPassword_field());
-        newPassword_field().clear();
-        newPassword_field().sendKeys(password);
-        ExtentReport.addTestCaseStep("Entered the following password: " + password);
+        setField(newPassword_field(), password, "Entered the following password: " + password);
         return this;
     }
 
     public RecoverPasswordPage setConfirmNewPassword(String confirmNewPassword) {
-        TestUtil.waitForElementToLoad(confNewPassword_field());
-        confNewPassword_field().clear();
-        confNewPassword_field().sendKeys(confirmNewPassword);
-        ExtentReport.addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
+        setField(confNewPassword_field(), confirmNewPassword,
+                "Entered the following password in the Confirm password field: " + confirmNewPassword);
         return this;
     }
     //--------------
@@ -173,63 +162,55 @@ public class RecoverPasswordPage {
     }
 
     public void clickOn_sendVerificationCode_BTN() {
-        TestUtil.waitForElementToLoad(sendVerCode_BTN());
-        sendVerCode_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Send Verification Code button");
+        clickAction(sendVerCode_BTN(),"Clicked on Send Verification Code button");
     }
 
     public void clickOn_changeEmail_BTN() {
-        changeEmail_BTN().click();
+        clickAction(changeEmail_BTN(),"Clicked on the Change e-mail button");
+
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
-        ExtentReport.addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
+        ExtentReport.addTestCaseStep("Email field is now empty");
     }
 
     public void clickOn_cancel_BTN() {
-        TestUtil.waitForElementToLoad(cancel_BTN());
-        cancel_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Cancel button");
+        clickAction(cancel_BTN(),"Clicked on the Cancel button");
     }
 
     public void clickOn_sendNewCode_BTN() {
-        TestUtil.waitForElementToLoad(sendNewCode_BTN());
-        sendNewCode_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Send new code button");
+        clickAction(sendNewCode_BTN(),"Clicked on the Send new code button");
     }
 
     public RecoverPasswordPage clickOn_verifyCode_BTN() {
-        TestUtil.waitForElementToLoad(verifyCode_BTN());
-        verifyCode_BTN().click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ExtentReport.addTestCaseStep("Clicked on Verify Code button");
+//        TestUtil.waitForElementToLoad(verifyCode_BTN());
+//        verifyCode_BTN().click();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        ExtentReport.addTestCaseStep("Clicked on Verify Code button");
+        clickAction(verifyCode_BTN(),"Clicked on Verify Code button");
         return this;
     }
 
     public RecoverPasswordPage clickOn_continue_BTN() {
-        TestUtil.waitForElementToLoad(continue_BTN());
-        continue_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Continue button");
+        clickAction(continue_BTN(),"Clicked on the Continue button");
         return this;
     }
 
     public void verifyIfPageLoaded() {
-        TestUtil.waitForElementToLoad(emailAddress_field());
-        ExtentReport.addTestCaseStep("Navigated to the Recover Password page");
+        checkIfElementHasLoaded(emailAddress_field(),"Navigated to the Recover Password page");
     }
 
     public void verifyIfChangePassScreenLoaded() {
-        TestUtil.waitForElementToLoad(newPassword_field());
-        ExtentReport.addTestCaseStep("Navigated to the Set new Password page");
+        checkIfElementHasLoaded(newPassword_field(),"Navigated to the Set new Password page");
     }
 
-    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
-        TestUtil.waitForElementToLoad(error_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
-    }
+//    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
+//        TestUtil.waitForElementToLoad(error_Msg);
+//        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
+//    }
 
     public void tryIncorrectPasswords(WebElement passField) {
         String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};

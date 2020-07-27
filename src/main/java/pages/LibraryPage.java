@@ -1,24 +1,20 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import utils.ExtentReport;
 import utils.TestUtil;
 
-import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class LibraryPage {
+public class LibraryPage extends FlirWebPage {
     private final WebDriver driver;
     //-------PATHS-------
     //---Input fields
     private final String folderNameInput_XPATH = "//input[@placeholder='Name']";
 
     //---Buttons
-    private final String newFolderBTN_XPATH = "//button[@title='Upload files']";
+    private final String newFolderBTN_XPATH = "//button[@title='New folder']";
     private final String uploadFilesBTN_XPATH = "//button[@title='Upload files']//span[2]//div//input";
     private final String myFiles_XPATH = "//h5[contains(text(),'My Files')]";
     private final String sharedWithMe_XPATH = "//h5[contains(text(),'Shared with me')]";
@@ -123,53 +119,41 @@ public class LibraryPage {
 
     //-----------SETTERS
     public LibraryPage setFolderName(String folderName) {
-        TestUtil.waitForElementToLoad(folderName_field());
-        folderName_field().sendKeys(folderName);
-        ExtentReport.addTestCaseStep("Entered the following name: " + folderName);
+        setField(folderName_field(), folderName, "Entered the following name: " + folderName);
         return this;
     }
     //--------------
 
     //Actions
     public LibraryPage acceptTermsConditions() {
-        TestUtil.waitForElementToLoad(termsAndCondCheckbox());
-        termsAndCondCheckbox().click();
-        assertTrue(termsAndCondAccept_BTN().isEnabled());
-        ExtentReport.addTestCaseStep("Ticked the T&C checkbox and the Accept button is now enabled");
-
-        TestUtil.waitForElementToLoad(termsAndCondAccept_BTN());
-        termsAndCondAccept_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Accept button");
+        clickAction(termsAndCondCheckbox(), "Ticked the T&C checkbox");
+        assertElementIsEnabled(termsAndCondAccept_BTN(), "The Accept button is now enabled");
+        clickAction(termsAndCondAccept_BTN(), "Clicked on the Accept button");
         return this;
     }
 
     public LibraryPage skipWelcomeScreen() {
-        TestUtil.waitForElementToLoad(welcomeScreenSkip_BTN());
-        welcomeScreenSkip_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on SKIP button from the Welcome screen, Library page is displayed");
+        clickAction(welcomeScreenSkip_BTN(), "Clicked on SKIP button from the Welcome screen, Library page is displayed");
         verifyIfPageLoaded();
         return this;
     }
 
     public LibraryPage clickOn_createNewFolder_BTN() {
-        TestUtil.waitForElementToBeClickable(newFolder_BTN());
-        newFolder_BTN().click();
-        TestUtil.waitForElementToLoad(folderName_field());
-        ExtentReport.addTestCaseStep("Clicked on the New Folder button");
+        clickAction(newFolder_BTN(), "Clicked on the New Folder button");
         return this;
     }
 
     public void createNewFolder(String folderName) {
         clickOn_createNewFolder_BTN();
-        folderName_field().sendKeys(folderName);
-        Assert.assertTrue(newFolderCreate_BTN().isEnabled());
-        ExtentReport.addTestCaseStep("Entered the name: " + folderName + ". Create button is enabled");
+
+        setField(folderName_field(), folderName, "Entered the name: " + folderName);
+
+        assertElementIsEnabled(newFolderCreate_BTN(), "Create button is enabled");
 
         clickOn_newFolderCreate_BTN();
 
         String temp_XPATH = "//a[contains(text(),'" + folderName + "')]";
-        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
-        ExtentReport.addTestCaseStep("Folder created successfully");
+        checkIfElementHasLoaded(driver.findElement(By.xpath(temp_XPATH)), "Folder created successfully");
     }
 
     public void uploadFile(String fileLocation) {
@@ -177,47 +161,37 @@ public class LibraryPage {
         String temp_XPATH = "//a[contains(text(),'" + fileName + "')]";
 
         uploadFiles_BTN().sendKeys(fileLocation);
-        TestUtil.waitForElementToLoad(driver.findElement(By.xpath(temp_XPATH)));
-        ExtentReport.addTestCaseStep("File " + fileName + " uploaded successfully");
+        checkIfElementHasLoaded(driver.findElement(By.xpath(temp_XPATH)), "File " + fileName + " uploaded successfully");
     }
 
     public LibraryPage clickOn_userMenu() {
-        TestUtil.waitForElementToLoad(userMenu());
         TestUtil.waitForElementToBeClickable(userMenu());
-        userMenu().click();
-        ExtentReport.addTestCaseStep("Clicked on User Menu");
+        clickAction(userMenu(), "Clicked on User Menu");
         return this;
     }
 
     public void clickOn_logout_BTN() {
-        TestUtil.waitForElementToLoad(logOut_BTN());
         TestUtil.waitForElementToBeClickable(logOut_BTN());
-        logOut_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Logout button");
+        clickAction(logOut_BTN(), "Clicked on Logout button");
     }
 
-    public void clickOn_newFolderCreate_BTN(){
-        TestUtil.waitForElementToLoad(newFolderCreate_BTN());
-        newFolderCreate_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Create button");
+    public void clickOn_newFolderCreate_BTN() {
+        clickAction(newFolderCreate_BTN(), "Clicked on Create button");
     }
 
-    public LibraryPage clickOn_newFolderCancel_BTN(){
-        TestUtil.waitForElementToLoad(newFolderCancel_BTN());
-        newFolderCancel_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Cancel button");
+    public LibraryPage clickOn_newFolderCancel_BTN() {
+        clickAction(newFolderCancel_BTN(), "Clicked on Cancel button");
         return this;
     }
 
     public LibraryPage verifyIfPageLoaded() {
-        TestUtil.waitForElementToLoad(newFolder_BTN());
-        ExtentReport.addTestCaseStep("Navigated to the Library page");
+        checkIfElementHasLoaded(newFolder_BTN(),"Navigated to the Library page");
         return this;
     }
 
     public void logout() {
-        clickOn_userMenu()
-                .clickOn_logout_BTN();
+        clickOn_userMenu();
+        clickOn_logout_BTN();
         //avoid bug where the user is still logged in after logging out - THAL-2731
         try {
             Thread.sleep(6000);
@@ -226,17 +200,13 @@ public class LibraryPage {
         }
     }
 
-    public LibraryPage clearField(WebElement webElement){
-        TestUtil.waitForElementToLoad(webElement);
-        webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        webElement.sendKeys(Keys.DELETE);
-        ExtentReport.addTestCaseStep("Cleared the field");
+    public LibraryPage clearField(WebElement webElement) {
+        super.clearWebElement(webElement);
         return this;
     }
 
     public void checkErrMsgIsDisplayed(WebElement error_Msg) {
-        TestUtil.waitForElementToLoad(error_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
+        waitForErrorMsgToLoad(error_Msg);
     }
     //--------------
 }

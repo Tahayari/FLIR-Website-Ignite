@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import utils.ExtentReport;
-import utils.TestUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,7 +13,7 @@ import java.util.Random;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
-public class SignUpPage {
+public class SignUpPage extends FlirWebPage {
     private final WebDriver driver;
 
     //-------LOCATORS-------
@@ -84,8 +83,8 @@ public class SignUpPage {
     }
 
     public WebElement changeEmail_BTN() {
-        TestUtil.waitForElementToLoad(driver.findElement(By.id(changeEmailBTN_ID)));
-        ExtentReport.addTestCaseStep("Token from email is validated; change E-mail button is displayed");
+        checkIfElementHasLoaded(driver.findElement(By.id(changeEmailBTN_ID)),
+                "Token from email is validated; change E-mail button is displayed");
         return driver.findElement(By.id(changeEmailBTN_ID));
     }
 
@@ -174,50 +173,33 @@ public class SignUpPage {
     //-----------SETTERS
 
     public SignUpPage setEmail(String email) {
-        TestUtil.waitForElementToLoad(email_field());
-        email_field().clear();
-        email_field().sendKeys(email);
-        ExtentReport.addTestCaseStep("Entered the following email: " + email);
+        setField(email_field(),email,"Entered the following email: " + email);
         return this;
     }
 
     public SignUpPage setVerificationCode_field(String code) {
-        TestUtil.waitForElementToLoad(verificationCode_field());
-        verificationCode_field().clear();
-        verificationCode_field().sendKeys(code);
-        ExtentReport.addTestCaseStep("Entered the following Verification Code: " + code);
+        setField(verificationCode_field(),code,"Entered the following Verification Code: " + code);
         return this;
     }
 
     public SignUpPage setNewPassword(String password) {
-        TestUtil.waitForElementToLoad(newPassword_field());
-        newPassword_field().clear();
-        newPassword_field().sendKeys(password);
-        ExtentReport.addTestCaseStep("Entered the following password: " + password);
+        setField(newPassword_field(),password,"Entered the following password: " + password);
         return this;
     }
 
     public SignUpPage setConfirmNewPassword(String confirmNewPassword) {
-        TestUtil.waitForElementToLoad(confNewPassword_field());
-        confNewPassword_field().clear();
-        confNewPassword_field().sendKeys(confirmNewPassword);
-        ExtentReport.addTestCaseStep("Entered the following password in the Confirm password field: " + confirmNewPassword);
+        setField(confNewPassword_field(),confirmNewPassword,
+                "Entered the following password in the Confirm password field: " + confirmNewPassword);
         return this;
     }
 
     public SignUpPage setFirstName(String firstName) {
-        TestUtil.waitForElementToLoad(firstName_field());
-        firstName_field().clear();
-        firstName_field().sendKeys(firstName);
-        ExtentReport.addTestCaseStep("Entered a first name: " + firstName);
+        setField(firstName_field(),firstName,"Entered a first name: " + firstName);
         return this;
     }
 
     public SignUpPage setLastName(String lastName) {
-        TestUtil.waitForElementToLoad(lastName_field());
-        lastName_field().clear();
-        lastName_field().sendKeys(lastName);
-        ExtentReport.addTestCaseStep("Entered a last name: " + lastName);
+        setField(lastName_field(),lastName,"Entered a last name: " + lastName);
         return this;
     }
 
@@ -226,7 +208,7 @@ public class SignUpPage {
     //Actions
 
     public SignUpPage clearField(WebElement webElement) {
-        webElement.clear();
+        clearWebElement(webElement);
         return this;
     }
 
@@ -239,9 +221,7 @@ public class SignUpPage {
     }
 
     public SignUpPage clickOn_sendVerificationCode_BTN() {
-        TestUtil.waitForElementToLoad(sendVerCode_BTN());
-        sendVerCode_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on Send Verification Code button");
+        clickAction(sendVerCode_BTN(),"Clicked on Send Verification Code button");
         return this;
     }
 
@@ -268,69 +248,58 @@ public class SignUpPage {
     }
 
     public void clickOn_changeEmail_BTN() {
-        changeEmail_BTN().click();
+        clickAction(sendVerCode_BTN(),"Clicked on the Change e-mail button.");
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
-        ExtentReport.addTestCaseStep("Clicked on the Change e-mail button. Email field is now empty");
+        ExtentReport.addTestCaseStep("Email field is now empty");
+
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
         String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword"};
 
         for (String pass : invalidPass) {
-            passField.clear();
-            passField.sendKeys(pass);
-            ExtentReport.addTestCaseStep("Entered the following password: " + pass);
+//            passField.clear();
+            clearWebElement(passField);
+//            passField.sendKeys(pass);
+            setField(passField,pass,"Entered the following password: " + pass);
+//            ExtentReport.addTestCaseStep("Entered the following password: " + pass);
 
             if (passField.hashCode() == newPassword_field().hashCode()) {
-                TestUtil.waitForElementToLoad(invalidPass_Msg());
-                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidPass_Msg().getText());
+                checkIfElementHasLoaded(invalidPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
             } else if (passField.hashCode() == confNewPassword_field().hashCode()) {
-                TestUtil.waitForElementToLoad(invalidConfirmPass_Msg());
-                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidConfirmPass_Msg().getText());
+                checkIfElementHasLoaded(invalidConfirmPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
             } else throw new NoSuchElementException();
         }
     }
 
     public SignUpPage clickOn_verifyCode_BTN() {
-        TestUtil.waitForElementToLoad(verifyCode_BTN());
-        verifyCode_BTN().click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ExtentReport.addTestCaseStep("Clicked on Verify Code button");
+//        TestUtil.waitForElementToLoad(verifyCode_BTN());
+//        verifyCode_BTN().click();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        clickAction(verifyCode_BTN(),"Clicked on Verify Code button");
         return this;
     }
 
     public void verifyIfPageLoaded() {
-        TestUtil.waitForElementToLoad(email_field());
-        ExtentReport.addTestCaseStep("Navigated to the Login page");
+        checkIfElementHasLoaded(email_field(),"Navigated to the Login page");
     }
 
     public SignUpPage clickOn_create_BTN() {
-        TestUtil.waitForElementToLoad(create_BTN());
-        create_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Create button");
+        clickAction(create_BTN(),"Clicked on the Create button");
         return this;
     }
 
     public void clickOn_cancel_BTN() {
-        TestUtil.waitForElementToLoad(cancel_BTN());
-        cancel_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Cancel button");
+        clickAction(cancel_BTN(),"Clicked on the Cancel button");
     }
 
     public SignUpPage clickOn_sendNewCode_BTN() {
-        TestUtil.waitForElementToLoad(sendNewCode_BTN());
-        sendNewCode_BTN().click();
-        ExtentReport.addTestCaseStep("Clicked on the Send new code button");
+        clickAction(sendNewCode_BTN(),"Clicked on the Send new code button");
         return this;
-    }
-
-    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
-        TestUtil.waitForElementToLoad(error_Msg);
-        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
     }
 }
