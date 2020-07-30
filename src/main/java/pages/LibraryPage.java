@@ -3,38 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.TestUtil;
+import utils.ElementManager;
 
 import static utils.DriverFactory.getDriver;
 
 public class LibraryPage extends FlirWebPage {
     private final WebDriver driver;
-    //-------PATHS-------
-    //---Input fields
-    private final String folderNameInput_XPATH = "//input[@placeholder='Name']";
-
-    //---Buttons
-    private final String newFolderBTN_XPATH = "//button[@title='New folder']";
-    private final String uploadFilesBTN_XPATH = "//button[@title='Upload files']//span[2]//div//input";
-    private final String myFiles_XPATH = "//h5[contains(text(),'My Files')]";
-    private final String sharedWithMe_XPATH = "//h5[contains(text(),'Shared with me')]";
-    private final String libraryBTN_XPATH = "//span[contains(text(),'Library')]";
-    private final String termsAndCondAccept_XPATH = "//span[contains(text(),'Accept')]";
-    private final String termsAndCondDecline_XPATH = "//span[contains(text(),'Decline')]";
-    private final String welcomeScreenNext_XPATH = "//button[@class='flir-icon-button is-inverted is-text first-time-use-forward']";
-    private final String welcomeScreenSkip_XPATH = "//button[@class='flir-icon-button is-inverted is-text first-time-use-back']";
-    private final String newFolderCancelBTN_XPATH = "//div[@class='button-bar']//descendant::button[@type='button']";
-    private final String newFolderCreateBTN_XPATH = "//div[@class='button-bar']//descendant::button[@type='submit']";
-
-    //--Errors
-    private final String folderNameErrorMsg_XPATH = "//div[@class='flir-input-error']";
-
-    //---Others
-    private final String termsAndConditions_XPATH = "//h1[contains(text(),'Terms and Conditions')]";
-    private final String termsAndCondCheckbox_XPATH = "//button[@class='checkbox']";
-    private final String userMenu_ClassName = "user-menu";
-    private final String logOutBTN_XPATH = "//ul[@class='flir-dropdown-list upper-right']//button[@class='sign-out'][contains(text(),'Log out')]";
-    //--------------
 
     //Constructor
     private LibraryPage() {
@@ -48,71 +22,71 @@ public class LibraryPage extends FlirWebPage {
 
     //-----------GETTERS
     public WebElement termsAndConditions() {
-        return driver.findElement(By.xpath(termsAndConditions_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_HEADER);
     }
 
     public WebElement uploadFiles_BTN() {
-        return driver.findElement(By.xpath(uploadFilesBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_UPLOADFILES_BTN);
     }
 
     public WebElement myFiles_LINK() {
-        return driver.findElement(By.xpath(myFiles_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_MYFILES_LINK);
     }
 
     public WebElement sharedWithMe_BTN() {
-        return driver.findElement(By.xpath(sharedWithMe_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_SHAREDWITHME_LINK);
     }
 
     public WebElement newFolder_BTN() {
-        return driver.findElement(By.xpath(newFolderBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_BTN);
     }
 
     public WebElement library_BTN() {
-        return driver.findElement(By.xpath(libraryBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_LIBRARY_LINK);
     }
 
     public WebElement termsAndCondCheckbox() {
-        return driver.findElement(By.xpath(termsAndCondCheckbox_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_CHECKBOX);
     }
 
     public WebElement termsAndCondAccept_BTN() {
-        return driver.findElement(By.xpath(termsAndCondAccept_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_ACCEPT_BTN);
     }
 
     public WebElement termsAndCondDecline_BTN() {
-        return driver.findElement(By.xpath(termsAndCondDecline_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_DECLINE_BTN);
     }
 
     public WebElement welcomeScreenNext_BTN() {
-        return driver.findElement(By.xpath(welcomeScreenNext_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_WELCOMESCREEN_NEXT_BTN);
     }
 
     public WebElement welcomeScreenSkip_BTN() {
-        return driver.findElement(By.xpath(welcomeScreenSkip_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_WELCOMESCREEN_SKIP_BTN);
     }
 
     public WebElement newFolderCancel_BTN() {
-        return driver.findElement(By.xpath(newFolderCancelBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_CANCEL_BTN);
     }
 
     public WebElement newFolderCreate_BTN() {
-        return driver.findElement(By.xpath(newFolderCreateBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_CREATE_BTN);
     }
 
     public WebElement folderName_field() {
-        return driver.findElement(By.xpath(folderNameInput_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_FOLDERNAME_INPUT);
     }
 
     public WebElement folderNameError_Msg() {
-        return driver.findElement(By.xpath(folderNameErrorMsg_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_FOLDERNAME_ERR);
     }
 
     public WebElement userMenu() {
-        return driver.findElement(By.className(userMenu_ClassName));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_USERMENU_BTN);
     }
 
     public WebElement logOut_BTN() {
-        return driver.findElement(By.xpath(logOutBTN_XPATH));
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_USERMENU_LOGOUT_BTN);
     }
 
     //--------------
@@ -165,13 +139,11 @@ public class LibraryPage extends FlirWebPage {
     }
 
     public LibraryPage clickOn_userMenu() {
-        TestUtil.waitForElementToBeClickable(userMenu());
         clickAction(userMenu(), "Clicked on User Menu");
         return this;
     }
 
     public void clickOn_logout_BTN() {
-        TestUtil.waitForElementToBeClickable(logOut_BTN());
         clickAction(logOut_BTN(), "Clicked on Logout button");
     }
 

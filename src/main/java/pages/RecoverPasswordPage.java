@@ -1,10 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.ElementManager;
 import utils.ExtentReport;
-import utils.TestUtil;
 
 import java.util.NoSuchElementException;
 
@@ -15,29 +14,29 @@ public class RecoverPasswordPage extends FlirWebPage {
     private final WebDriver driver;
 
     //-------LOCATORS-------
-    //---Input fields
-    private final String emailAddressField_ID = "email";
-    private final String verificationCodeField_ID = "email_ver_input";
-    private final String newPassword_ID = "newPassword";
-    private final String reenterPassword_ID = "reenterPassword";
-
-    //---Buttons
-    private final String sendVerificationCodeBTN_ID = "email_ver_but_send";
-    private final String verifyCodeBTN_ID = "email_ver_but_verify";
-    private final String sendNewCodeBTN_ID = "email_ver_but_resend";
-    private final String changeEmailBTN_ID = "email_ver_but_edit";
-    private final String continueBTN_ID = "continue";
-    private final String cancelBTN_ID = "cancel";
-
-    //---Errors
-    private final String incorrectVerificationCode_ID = "email_fail_retry";
-    private final String expiredVerificationCode_ID = "email_fail_code_expired";
-    private final String invalidEmailMsg_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
-    private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
-    private final String requiredFieldMissing_ID = "requiredFieldMissing";
-    private final String invalidPassError_XPATH = "//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]";
-    private final String invalidConfirmPassError_XPATH = "//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]";
-    private final String passwordEntryMismatch_ID = "passwordEntryMismatch";
+//    //---Input fields
+//    private final String emailAddressField_ID = "email";
+//    private final String verificationCodeField_ID = "email_ver_input";
+//    private final String newPassword_ID = "newPassword";
+//    private final String reenterPassword_ID = "reenterPassword";
+//
+//    //---Buttons
+//    private final String sendVerificationCodeBTN_ID = "email_ver_but_send";
+//    private final String verifyCodeBTN_ID = "email_ver_but_verify";
+//    private final String sendNewCodeBTN_ID = "email_ver_but_resend";
+//    private final String changeEmailBTN_ID = "email_ver_but_edit";
+//    private final String continueBTN_ID = "continue";
+//    private final String cancelBTN_ID = "cancel";
+//
+//    //---Errors
+//    private final String incorrectVerificationCode_ID = "email_fail_retry";
+//    private final String expiredVerificationCode_ID = "email_fail_code_expired";
+//    private final String invalidEmailMsg_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
+//    private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
+//    private final String requiredFieldMissing_ID = "requiredFieldMissing";
+//    private final String invalidPassError_XPATH = "//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]";
+//    private final String invalidConfirmPassError_XPATH = "//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]";
+//    private final String passwordEntryMismatch_ID = "passwordEntryMismatch";
     //--------------
 
     //Constructor
@@ -52,75 +51,75 @@ public class RecoverPasswordPage extends FlirWebPage {
 
     //-----------GETTERS
     public WebElement emailAddress_field() {
-        return driver.findElement(By.id(emailAddressField_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_EMAIL_FIELD);
     }
 
     public WebElement sendVerCode_BTN() {
-        return driver.findElement(By.id(sendVerificationCodeBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_SENDVERIFICATIONCODE_BTN);
     }
 
     public WebElement verificationCode_field() {
-        return driver.findElement(By.id(verificationCodeField_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_VERIFICATIONCODE_FIELD);
     }
 
     public WebElement verifyCode_BTN() {
-        return driver.findElement(By.id(verifyCodeBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_VERIFYCODE_BTN);
     }
 
     public WebElement sendNewCode_BTN() {
-        return driver.findElement(By.id(sendNewCodeBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_SENDNEWCODE_BTN);
     }
 
     public WebElement changeEmail_BTN() {
-        return driver.findElement(By.id(changeEmailBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CHANGEEMAIL_BTN);
     }
 
     public WebElement cancel_BTN() {
-        return driver.findElement(By.id(cancelBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CANCEL_BTN);
     }
 
     public WebElement continue_BTN() {
-        return driver.findElement(By.id(continueBTN_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CONTINUE_BTN);
     }
 
     public WebElement incorrectVerCode_Msg() {
-        return driver.findElement(By.id(incorrectVerificationCode_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INCORRECTVERCODE_ERR);
     }
 
     public WebElement invalidEmail_Msg() {
-        return driver.findElement(By.xpath(invalidEmailMsg_XPATH));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDEMAIL_ERR);
     }
 
     public WebElement expiredVerCode_Msg() {
-        return driver.findElement(By.id(expiredVerificationCode_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_EXPIREDVERCODE_ERR);
     }
 
     public WebElement tooManyAttempts_Msg() {
-        return driver.findElement(By.id(tooManyIncorrectAttemptsError_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_TOOMANYINCORRECTATTEMPTS_ERR);
     }
 
     public WebElement newPassword_field() {
-        return driver.findElement(By.id(newPassword_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_NEWPASSWORD_FIELD);
     }
 
     public WebElement confNewPassword_field() {
-        return driver.findElement(By.id(reenterPassword_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CONFIRMPASSWORD_FIELD);
     }
 
     public WebElement requiredFieldMissing_Msg() {
-        return driver.findElement(By.id(requiredFieldMissing_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_REQUIREDFIELDMISSING_ERR);
     }
 
     public WebElement passMismatch_Msg() {
-        return driver.findElement(By.id(passwordEntryMismatch_ID));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_PASSWORDMISSMATCH_ERR);
     }
 
     public WebElement invalidPass_Msg() {
-        return driver.findElement(By.xpath(invalidPassError_XPATH));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDPASS_ERR);
     }
 
     public WebElement invalidConfirmPass_Msg() {
-        return driver.findElement(By.xpath(invalidConfirmPassError_XPATH));
+        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR);
     }
 
     //--------------
@@ -182,14 +181,6 @@ public class RecoverPasswordPage extends FlirWebPage {
     }
 
     public RecoverPasswordPage clickOn_verifyCode_BTN() {
-//        TestUtil.waitForElementToLoad(verifyCode_BTN());
-//        verifyCode_BTN().click();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        ExtentReport.addTestCaseStep("Clicked on Verify Code button");
         clickAction(verifyCode_BTN(),"Clicked on Verify Code button");
         return this;
     }
@@ -207,25 +198,17 @@ public class RecoverPasswordPage extends FlirWebPage {
         checkIfElementHasLoaded(newPassword_field(),"Navigated to the Set new Password page");
     }
 
-//    public void checkErrMsgIsDisplayed(WebElement error_Msg) {
-//        TestUtil.waitForElementToLoad(error_Msg);
-//        ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
-//    }
-
     public void tryIncorrectPasswords(WebElement passField) {
         String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};
 
         for (String pass : invalidPass) {
-            passField.clear();
-            passField.sendKeys(pass);
-            ExtentReport.addTestCaseStep("Entered the following password: " + pass);
+            clearWebElement(passField);
+            setField(passField,pass,"Entered the following password: " + pass);
 
             if (passField.hashCode() == newPassword_field().hashCode()) {
-                TestUtil.waitForElementToLoad(invalidPass_Msg());
-                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidPass_Msg().getText());
+                checkIfElementHasLoaded(invalidPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
             } else if (passField.hashCode() == confNewPassword_field().hashCode()) {
-                TestUtil.waitForElementToLoad(invalidConfirmPass_Msg());
-                ExtentReport.addTestCaseStep("Error message is displayed: " + invalidConfirmPass_Msg().getText());
+                checkIfElementHasLoaded(invalidConfirmPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
             } else throw new NoSuchElementException();
         }
     }

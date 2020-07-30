@@ -79,11 +79,7 @@ public class ExtentReport {
     }
 
     public void logSkip(ITestResult result) throws IOException{
-//        WebDriver driver = getDriver();
         extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
-//        String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
-//        System.out.println(screenshotPath);
-//        extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
     }
 
     public void endReport(){

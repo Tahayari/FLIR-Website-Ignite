@@ -1,7 +1,10 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.ElementManager;
 import utils.ExtentReport;
 import utils.TestUtil;
 
@@ -10,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public class FlirWebPage {
 
     public void clickAction(WebElement element, String msg) {
-        TestUtil.waitForElementToLoad(element);
+        TestUtil.waitForElementToBeClickable(element);
         element.click();
         ExtentReport.addTestCaseStep(msg);
     }
@@ -19,7 +22,7 @@ public class FlirWebPage {
         TestUtil.waitForElementToLoad(element);
         element.clear();
         element.sendKeys(text);
-        ExtentReport.addTestCaseStep("Entered the following email: " + text);
+        ExtentReport.addTestCaseStep(msg);
     }
 
     public void clearWebElement(WebElement webElement) {
@@ -47,6 +50,17 @@ public class FlirWebPage {
     public void checkErrMsgIsDisplayed(WebElement error_Msg) {
         TestUtil.waitForElementToLoad(error_Msg);
         ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
+    }
+
+    public WebElement getWebElement(WebDriver driver, ElementManager element) {
+        if (!element.xpath.equals(""))
+            return driver.findElement(By.xpath(element.xpath));
+        else if (!element.id.equals(""))
+            return driver.findElement(By.id(element.id));
+        else if (!element.cssSelector.equals(""))
+            return driver.findElement(By.cssSelector(element.cssSelector));
+        System.out.println("++++No identifier was defined");
+        return null;
     }
 
 }

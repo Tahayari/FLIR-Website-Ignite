@@ -8,8 +8,6 @@ import pages.LoginPage;
 import utils.ExtentReport;
 import utils.TestUtil;
 
-import java.io.File;
-
 import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
 
@@ -21,20 +19,9 @@ public class LibraryPageTest extends TestBase {
     // Test cases begin here------------------------------------------------------------
     @Test
     public void testing() {
-        executeSetup("title", "description");
-        libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getValidAccountPasswd());
-
-        File folder = new File(System.getProperty("user.dir") + "\\src\\main\\java\\testData\\Images\\");
-        File[] listOfFiles = folder.listFiles();
-//        libraryPage.createNewFolder("All file types");
-//        create new folder THEN move to new folder
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                log.info("Uploading file: " + listOfFiles[i].getName());
-                System.out.println(listOfFiles[i].getPath());
-                libraryPage.uploadFile(listOfFiles[i].getPath());
-            }
-        }
+        executeSetup(testCasesInfo.libraryPageInfo().getCreateFolderWithIllegalCharacters_Test_title(),
+                testCasesInfo.libraryPageInfo().getCreateFolderWithIllegalCharacters_Test_desc());
+        libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.logout();
     }
@@ -95,6 +82,8 @@ public class LibraryPageTest extends TestBase {
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.createNewFolder(TestUtil.getRandomString(7));
+
+        libraryPage.logout();
     }
 //
 //    @Test
