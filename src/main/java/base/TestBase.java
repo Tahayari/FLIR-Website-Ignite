@@ -9,7 +9,6 @@ import org.testng.annotations.*;
 import testData.TestData;
 import utils.ExtentReport;
 import utils.TestUtil;
-import utils.testCasesInfo.TestCasesInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +23,6 @@ public class TestBase {
     private WebDriver driver;
     public static Properties prop;
     public ExtentReport extentReport = new ExtentReport();
-    protected TestCasesInfo testCasesInfo = new TestCasesInfo();
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
 
@@ -42,8 +40,8 @@ public class TestBase {
         driver = getDriver();
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(testData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(testData.IMPLICIT_WAIT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
         log.info("End @BeforeClass");
     }
 

@@ -210,7 +210,7 @@ public class SignUpPage extends FlirWebPage {
     }
 
     public void clickOn_changeEmail_BTN() {
-        clickAction(sendVerCode_BTN(), "Clicked on the Change e-mail button.");
+        clickAction(changeEmail_BTN(), "Clicked on the Change e-mail button.");
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
         ExtentReport.addTestCaseStep("Email field is now empty");

@@ -33,22 +33,25 @@ public class Gmail {
     }
 
     public void waitForNewMessages() {
+
+        long startTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
+        int waitForEmailToArrive = (int) (TestData.WAIT_FOR_ELEMENT_TIMEOUT)+10;
+
         try {
             int messageCount = inbox.getMessageCount();
-            long startTime = System.currentTimeMillis();
-            long endTime = System.currentTimeMillis();
             System.out.println("+++++[GmailDebug] : Waiting for incoming email");
-            while (messageCount <= 0 && ((endTime - startTime) / 1000) < TestData.WAIT_FOR_ELEMENT_TIMEOUT) {
+            while (messageCount <= 0 && ((endTime - startTime) / 1000) < waitForEmailToArrive) {
                 messageCount = inbox.getMessageCount();
                 endTime = System.currentTimeMillis();
             }
-            if(messageCount <= 0){
+            if (messageCount <= 0) {
                 throw new MessagingException();
             }
-            System.out.println("+++++[GmailDebug] : "+inbox.getMessageCount()+" new email received");
+            System.out.println("+++++[GmailDebug] : " + inbox.getMessageCount() + " new email received");
 
         } catch (MessagingException e) {
-            Assert.assertEquals("No new emails arrived in the last " + TestData.WAIT_FOR_ELEMENT_TIMEOUT + " seconds",
+            Assert.assertEquals("No new emails arrived in the last " + waitForEmailToArrive + " seconds",
                     "New email in inbox");
             e.printStackTrace();
         }

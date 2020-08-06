@@ -8,6 +8,8 @@ import pages.LoginPage;
 import pages.RecoverPasswordPage;
 import utils.ExtentReport;
 import utils.TestUtil;
+import utils.testCaseManager.TestCaseCategory;
+import utils.testCaseManager.TestCaseHeader;
 
 import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
@@ -23,7 +25,7 @@ public class RecoverPassPageTest extends TestBase {
     // Test cases begin here------------------------------------------------------------
     @Test(enabled = false)
     public void forTesting() {
-        executeSetup("title", "desc");
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INVALIDEMAIL);
         recoverPasswordPage.setEmail("blabla@mail.com");
         String token = TestUtil.getTokenFromGmail();
         System.out.println(token);
@@ -32,8 +34,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void invalidEmail_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getInvalidEmail_Test_title()
-                , testCasesInfo.recoverPassPageInfo().getInvalidEmail_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INVALIDEMAIL);
 
         verifyListOfInvalidEmails();
     }
@@ -41,8 +42,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void invalidToken_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getInvalidToken_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getInvalidToken_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INVALIDTOKEN);
 
         recoverPasswordPage.sendTokenToEmail(testData.getRandomEmail())
                 .setVerificationCode_field(testData.getInvalidToken())
@@ -52,8 +52,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test(enabled = true, priority = 0)
     public void expiredToken_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getExpiredToken_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_EXPIREDTOKEN);
 
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
         String token = TestUtil.getTokenFromGmail();
@@ -65,15 +64,13 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void tooManyIncorrectAttemptsToken_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getTooManyIncorrectAttemptsToken_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getTooManyIncorrectAttemptsToken_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_TOOMANYINCORRECTTOKENATTEMPTS);
         verifyInvalidTokenTooManyTimes();
     }
 
     @Test
     public void sendNewCode_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getSendNewCode_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_SENDNEWCODE);
 
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
         String firstToken = TestUtil.getTokenFromGmail();
@@ -91,8 +88,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void resendToken_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getResendToken_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getResendToken_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_RESENDTOKEN);
 
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
         String firstToken = TestUtil.getTokenFromGmail();
@@ -109,8 +105,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void changeEmail_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getChangeEmail_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getChangeEmail_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CHANGEEMAIL);
 
         verifyEmail();
         recoverPasswordPage.clickOn_changeEmail_BTN();
@@ -118,8 +113,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void cancelRecoverPass_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getCancelRecoverPass_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getCancelRecoverPass_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CANCELRECOVERPASS);
 
         verifyEmail();
         recoverPasswordPage.clickOn_cancel_BTN();
@@ -129,8 +123,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void incorrectPasswordFormat_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getIncorrectPasswordFormat_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getIncorrectPasswordFormat_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INCORECTPASSFORMAT);
 
         goToChangePassScreen();
 
@@ -139,8 +132,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void incorrectPasswordFormatConfirmPassField_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getIncorrectPasswordFormatConfirmPassField_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getIncorrectPasswordFormatConfirmPassField_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INCORECTCONFIRMPASSFORMAT);
 
         goToChangePassScreen();
 
@@ -149,8 +141,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void blankPass_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getBlankPass_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getBlankPass_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_BLANKPASS);
 
         goToChangePassScreen();
 
@@ -161,8 +152,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void mismatchingPasswords_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getMismatchingPasswords_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getMismatchingPasswords_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_MISSMATCHINGPASS);
 
         goToChangePassScreen();
 
@@ -174,8 +164,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void changePassword_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getChangePassword_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getChangePassword_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CHANGEPASSWORD);
 
         goToChangePassScreen();
 
@@ -190,8 +179,7 @@ public class RecoverPassPageTest extends TestBase {
 
     @Test
     public void cancelUpdatingPassword_Test() {
-        executeSetup(testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_title(),
-                testCasesInfo.recoverPassPageInfo().getCancelUpdatingPassword_Test_desc());
+        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CANCELUPDATINGPASSWORD);
 
         goToChangePassScreen();
         String newPass = testData.getPassOfExistingAcc() + "123";
@@ -218,13 +206,16 @@ public class RecoverPassPageTest extends TestBase {
         recoverPasswordPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(String testCaseTitle, String testCaseDescription) {
-        log.info("----Begin to test " + testCaseTitle + "----");
+    private void executeSetup(TestCaseHeader testCaseHeader) {
+        String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
+        log.info("----Begin to test " + parentMethodName + "----");
+        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
+        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.RECOVERPASSWORD_PAGE));
+
         landingPage = getLandingPage();
+
         loginPage = getLoginPage();
         recoverPasswordPage = getRecoverPasswordPage();
-        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
-        ExtentReport.assignCategory(testCasesInfo.recoverPassPageInfo().getCategory());
         goToRecoverPassPage();
     }
 

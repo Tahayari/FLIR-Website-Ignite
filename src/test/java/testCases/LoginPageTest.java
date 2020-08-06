@@ -4,6 +4,8 @@ import base.TestBase;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.ExtentReport;
+import utils.testCaseManager.TestCaseCategory;
+import utils.testCaseManager.TestCaseHeader;
 
 import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
@@ -19,7 +21,7 @@ public class LoginPageTest extends TestBase {
     // Test cases begin here------------------------------------------------------------
     @Test(enabled = false) /*For testing purposes*/
     public void title_Test() {
-        executeSetup("title", "description");
+        executeSetup(TestCaseHeader.LOGINPAGE_BLANKPASSWORD);
 
         loginPage.setEmail("flirtest2@mailinator.com")
                 .setPass("QAZxsw123")
@@ -30,8 +32,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void blankEmail_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getBlankPassword_Test_title(),
-                testCasesInfo.loginPageInfo().getBlankPassword_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_BLANKEMAIL);
 
         loginPage.setEmail("")
                 .clickOn_signInBTN();
@@ -41,16 +42,14 @@ public class LoginPageTest extends TestBase {
     @Test
     public void invalidEmail_Test() {
 //        https://jiracommercial.flir.com/browse/THAL-2555
-        executeSetup(testCasesInfo.loginPageInfo().getInvalidEmail_Test_title(),
-                testCasesInfo.loginPageInfo().getInvalidEmail_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_INVALIDEMAIL);
 
         verifyListOfInvalidEmails();
     }
 
     @Test
     public void blankPassword_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getBlankPassword_Test_title(),
-                testCasesInfo.loginPageInfo().getBlankPassword_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_BLANKPASSWORD);
 
         loginPage.setEmail(testData.getRandomEmail())
                 .setPass("")
@@ -60,8 +59,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void incorrectPassword_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getIncorrectPassword_Test_title(),
-                testCasesInfo.loginPageInfo().getIncorrectPassword_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_INCORRECTPASS);
 
         loginPage.setEmail(testData.getEmailOfExistingAcc())
                 .setPass(testData.getIncorrectPass())
@@ -71,8 +69,7 @@ public class LoginPageTest extends TestBase {
 
     @Test(groups = {"smoke"})
     public void loginWithNonExistingAccount_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getLoginWithNonExistingAccount_Test_title(),
-                testCasesInfo.loginPageInfo().getLoginWithNonExistingAccount_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_LOGINWITHNONEXISTINGACCOUNT);
 
         loginPage.setEmail(testData.getRandomEmail())
                 .setPass(testData.getIncorrectPass())
@@ -83,8 +80,7 @@ public class LoginPageTest extends TestBase {
 
     @Test(groups = {"smoke"}) /*execute this TestCase last*/
     public void loginWithValidCredentials_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_title(),
-                testCasesInfo.loginPageInfo().getLoginWithValidCredentials_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_LOGINWITHVALIDCREDENTIALS);
 
         loginPage.setEmail(testData.getEmailOfExistingAcc())
                 .setPass(testData.getPassOfExistingAcc())
@@ -98,8 +94,7 @@ public class LoginPageTest extends TestBase {
 
     @Test(groups = {"smoke"})
     public void clickSignUpLink_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getClickSignUpLink_Test_title(),
-                testCasesInfo.loginPageInfo().getClickSignUpLink_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_CLICKSIGNUPLINK);
 
         loginPage.clickOn_signUpLink();
 
@@ -109,8 +104,7 @@ public class LoginPageTest extends TestBase {
 
     @Test(groups = {"smoke"})
     public void clickForgotPasswordLink_Test() {
-        executeSetup(testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_title(),
-                testCasesInfo.loginPageInfo().getClickForgotPasswordLink_Test_Test_desc());
+        executeSetup(TestCaseHeader.LOGINPAGE_CLICKFORGOTPASSLINK);
 
         loginPage.clickOn_forgotPasswordLink();
         RecoverPasswordPage recoverPasswordPage = getRecoverPasswordPage();
@@ -124,12 +118,15 @@ public class LoginPageTest extends TestBase {
         loginPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(String testCaseTitle, String testCaseDescription) {
-        log.info("----Begin to test " + testCaseTitle + "----");
+    private void executeSetup(TestCaseHeader testCaseHeader){
+        String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
+        log.info("----Begin to test " + parentMethodName + "----");
+        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
+        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LOGIN_PAGE));
+
         landingPage = getLandingPage();
+
         loginPage = getLoginPage();
-        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
-        ExtentReport.assignCategory(testCasesInfo.loginPageInfo().getCategory());
         goToLoginPage();
     }
 

@@ -13,32 +13,6 @@ import static utils.DriverFactory.getDriver;
 public class RecoverPasswordPage extends FlirWebPage {
     private final WebDriver driver;
 
-    //-------LOCATORS-------
-//    //---Input fields
-//    private final String emailAddressField_ID = "email";
-//    private final String verificationCodeField_ID = "email_ver_input";
-//    private final String newPassword_ID = "newPassword";
-//    private final String reenterPassword_ID = "reenterPassword";
-//
-//    //---Buttons
-//    private final String sendVerificationCodeBTN_ID = "email_ver_but_send";
-//    private final String verifyCodeBTN_ID = "email_ver_but_verify";
-//    private final String sendNewCodeBTN_ID = "email_ver_but_resend";
-//    private final String changeEmailBTN_ID = "email_ver_but_edit";
-//    private final String continueBTN_ID = "continue";
-//    private final String cancelBTN_ID = "cancel";
-//
-//    //---Errors
-//    private final String incorrectVerificationCode_ID = "email_fail_retry";
-//    private final String expiredVerificationCode_ID = "email_fail_code_expired";
-//    private final String invalidEmailMsg_XPATH = "//p[contains(text(),'Please enter a valid email address.')]";
-//    private final String tooManyIncorrectAttemptsError_ID = "email_fail_no_retry";
-//    private final String requiredFieldMissing_ID = "requiredFieldMissing";
-//    private final String invalidPassError_XPATH = "//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]";
-//    private final String invalidConfirmPassError_XPATH = "//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]";
-//    private final String passwordEntryMismatch_ID = "passwordEntryMismatch";
-    //--------------
-
     //Constructor
     private RecoverPasswordPage() {
         driver = getDriver();

@@ -6,26 +6,24 @@ import pages.LandingPage;
 import pages.LibraryPage;
 import pages.LoginPage;
 import utils.ExtentReport;
+import utils.testCaseManager.TestCaseCategory;
+import utils.testCaseManager.TestCaseHeader;
 
 import static pages.LandingPage.getLandingPage;
-import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 
 public class SmokeTest extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
+    LibraryPage libraryPage;
 
     @Test
     public void smokeTest1() {
 
-        executeSetup("SmokeTest_1","Upload image,change measurements,");
+        executeSetup(TestCaseHeader.SMOKETEST_TEST1);
 
-        loginPage.setEmail(testData.getEmailOfExistingAcc())
-                .setPass(testData.getPassOfExistingAcc())
-                .clickOn_signInBTN();
+        libraryPage = loginPage.login(testData.getEmailOfExistingAcc(),testData.getPassOfExistingAcc());
 
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.verifyIfPageLoaded();
     }
 
     private void goToLoginPage() {
@@ -34,12 +32,15 @@ public class SmokeTest extends TestBase {
         loginPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(String testCaseTitle, String testCaseDescription) {
-        log.info("----Begin to test " + testCaseTitle + "----");
+    private void executeSetup(TestCaseHeader testCaseHeader) {
+        String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
+        log.info("----Begin to test " + parentMethodName + "----");
+        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
+        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LANDING_PAGE));
+
         landingPage = getLandingPage();
+
         loginPage = getLoginPage();
-        ExtentReport.createTestCase(testCaseTitle, testCaseDescription);
-        ExtentReport.assignCategory(testCasesInfo.loginPageInfo().getCategory());
         goToLoginPage();
     }
 }
