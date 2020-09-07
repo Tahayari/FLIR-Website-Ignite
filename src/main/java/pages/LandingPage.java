@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import utils.ElementManager;
+import utils.TestUtil;
 
 import static utils.DriverFactory.getDriver;
 
@@ -31,10 +32,12 @@ public class LandingPage extends FlirWebPage {
 
     //-----------Actions
     public void clickOn_loginBTN() {
+        TestUtil.waitForElementToBeClickable(signIn_BTN());
         clickAction(signIn_BTN(), "Clicked on Login Button");
     }
 
     public void clickOn_signUpBTN() {
+        TestUtil.waitForElementToBeClickable(signUp_BTN());
         clickAction(signUp_BTN(), "Clicked on SignUp Button");
     }
 

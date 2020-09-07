@@ -8,6 +8,7 @@ public class TestData {
     private final String nameOfFirstSheet = "Sheet1";
     private final String emailOfExistingAcc = "flirtest1@mailinator.com";
     private final String testAccountEmail = "flirtest10@mailinator.com";
+    private final String smokeTestAccount = "flirsmoketest@mailinator.com";
     private final String passOfExistingAcc = "QAZxsw123";
     private final String incorrectPass = "thisIsNotTheCorrectPass";
     private final String projectPath = System.getProperty("user.dir");
@@ -82,5 +83,9 @@ public class TestData {
 
     public String getProjectPath() {
         return projectPath;
+    }
+
+    public String getSmokeTestAccount(){
+        return smokeTestAccount;
     }
 }

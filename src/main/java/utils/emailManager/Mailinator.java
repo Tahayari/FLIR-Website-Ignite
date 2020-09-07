@@ -18,7 +18,7 @@ public class Mailinator {
     public static String getToken(String email){
         String firstReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[5]";
         String firstFrom_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[3]";
-        String token_xpath = "//span[@id='BodyPlaceholder_UserVerificationEmailBodySentence2']";
+        String token_id = "BodyPlaceholder_UserVerificationEmailBodySentence2";
         String token;
 
         navigateToMailinator(email);
@@ -28,15 +28,16 @@ public class Mailinator {
         wait.until(
                 ExpectedConditions.and(
                         ExpectedConditions.visibilityOf(received),
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath(firstReceived_xpath + "[contains(text(),'ago')]")))
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath(firstReceived_xpath + "[contains(text(),'moments ago')]")))
                 )
         );
 
         driver.findElement(By.xpath(firstFrom_xpath)).click();
         driver.switchTo().frame("msg_body"); //switched to the Email body iFrame
 
-        WebElement tokenString = driver.findElement(By.xpath(token_xpath));
-        token = tokenString.getText().substring(tokenString.getText().length() - 6);
+        WebElement tokenString = driver.findElement(By.id(token_id));
+        token = tokenString.getAttribute("textContent");
+        token = token.substring(token.length() - 6);
         System.out.println("----------------------------Token is: " + token);
 
         deleteEmail();

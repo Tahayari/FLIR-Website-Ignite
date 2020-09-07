@@ -38,7 +38,7 @@ public class SignUpPageTest extends TestBase {
         return getDataFromExcel(fileName, testData.getNameOfFirstSheet());
     }
 
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = false)
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = true)
     public void registerNewAccount_Test(String email, String firstName, String lastName) {
         executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWACCOUNT);
 

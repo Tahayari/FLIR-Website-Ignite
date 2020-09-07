@@ -20,7 +20,7 @@ import static utils.DriverFactory.getDriver;
 import static utils.DriverFactory.quitDriver;
 
 public class TestBase {
-    private WebDriver driver;
+    protected WebDriver driver;
     public static Properties prop;
     public ExtentReport extentReport = new ExtentReport();
     protected TestData testData = new TestData();

@@ -39,14 +39,15 @@ public class TestUtil {
         }
     }
 
-    public static void waitForSomeMinutes(long minutesToWait) {
-        long milisecToWait = minutesToWait * 60 * 1000;
+    public static void waitForSomeMinutes(double minutesToWait) {
+        double milisecToWait = minutesToWait * 60 * 1000;
+        double secToWait = milisecToWait / 1000;
         try {
-            Thread.sleep(milisecToWait);
+            Thread.sleep(Math.round(milisecToWait));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ExtentReport.addTestCaseStep("+++++[TestUtilDebug] : Waited " + milisecToWait / 1000 + " seconds");
+        ExtentReport.addTestCaseStep("Waited aprox." + secToWait + " seconds");
     }
 
     public static String getTokenFromGmail() {
@@ -55,7 +56,7 @@ public class TestUtil {
         gmail.waitForNewMessages();
         String token = gmail.read();
         token = token.substring(token.lastIndexOf("is:") + 4);
-        token = token.substring(0,6);
+        token = token.substring(0, 6);
         System.out.println("+++++[TestUtilDebug] : Token is: " + token);
         gmail.deleteAllMessages();
         return token;
@@ -128,8 +129,13 @@ public class TestUtil {
     private static String trimToMakeItReadable(String inputString) {
         String trimmedString;
         trimmedString = inputString.substring(inputString.lastIndexOf(">") + 1);
-        trimmedString = trimmedString.substring(0,trimmedString.length()-1);
+        trimmedString = trimmedString.substring(0, trimmedString.length() - 1);
         return trimmedString;
+    }
+
+    public static void refreshPage() {
+        driver.navigate().refresh();
+        ExtentReport.addTestCaseStep("Refreshed the page");
     }
 
 }
