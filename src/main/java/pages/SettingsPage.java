@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.Select;
 import utils.ElementManager;
 import utils.ExtentReport;
 
+import static base.TestBase.browser;
 import static pages.LibraryPage.getLibraryPage;
 import static utils.DriverFactory.getDriver;
 
@@ -14,7 +15,7 @@ public class SettingsPage extends FlirWebPage {
 
     //Constructor
     private SettingsPage() {
-        driver = getDriver();
+        driver = getDriver(browser);
     }
 
     public static SettingsPage getSettingsPage() {

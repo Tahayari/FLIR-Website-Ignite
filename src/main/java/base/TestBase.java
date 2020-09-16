@@ -25,19 +25,23 @@ public class TestBase {
     public ExtentReport extentReport = new ExtentReport();
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
+    public static String browser;
 
     @BeforeSuite
-    public void beforeSuite() throws IOException {
+    @Parameters({"browserName"})
+    public void beforeSuite(String browserName) throws IOException {
         log.info("Begin @BeforeSuite");
+        browser=browserName;
         prop = loadProperties();
         TestUtil.deleteFilesFromFolder(new File(testData.getProjectPath() + "\\test-output\\screenshots"));
         log.info("End @BeforeSuite");
     }
 
     @BeforeClass
+    @Parameters({"browserName"})
     public void startUpBrowser() {
         log.info("Begin @BeforeClass");
-        driver = getDriver();
+        driver = getDriver(browser);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);

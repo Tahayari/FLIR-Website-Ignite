@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import java.io.IOException;
 import java.util.Properties;
 
+import static base.TestBase.browser;
 import static setup.ReadProperties.loadProperties;
 import static utils.DriverFactory.getDriver;
 
@@ -65,7 +66,7 @@ public class ExtentReport {
     }
 
     public void logFailure(ITestResult result) throws IOException {
-        WebDriver driver = getDriver();
+        WebDriver driver = getDriver(browser);
         extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
         extentTestChild.log(Status.FAIL, result.getThrowable());
 

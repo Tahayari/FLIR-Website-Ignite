@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import utils.ElementManager;
 
+import static base.TestBase.browser;
 import static pages.LibraryPage.getLibraryPage;
 import static utils.DriverFactory.getDriver;
 
@@ -12,7 +13,7 @@ public class LoginPage extends FlirWebPage {
 
     //Constructor
     private LoginPage() {
-        driver = getDriver();
+        driver = getDriver(browser);
     }
 
     public static LoginPage getLoginPage() {

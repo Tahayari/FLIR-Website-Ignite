@@ -21,14 +21,14 @@ public class DriverFactory {
     private static Properties prop;
     private static boolean eventListAlreadyInstantiated = false;
 
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver(String browserName) {
         if (driver == null) {
             try {
                 prop = loadProperties();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String browserName = prop.getProperty("browser");
+//            String browserName = prop.getProperty("browser");
             if (browserName.equalsIgnoreCase("chrome")) {
                 chromeSetup();
             } else if (browserName.equalsIgnoreCase("firefox")) {
@@ -39,13 +39,13 @@ public class DriverFactory {
         }
         if (!eventListAlreadyInstantiated) {
             setupEventListener();
-            eventListAlreadyInstantiated = true ;
+            eventListAlreadyInstantiated = true;
         }
 //        setupEventListener();
         return driver;
     }
 
-    public static WebDriver quitDriver(){
+    public static WebDriver quitDriver() {
         driver.quit();
         driver = null;
         return null;

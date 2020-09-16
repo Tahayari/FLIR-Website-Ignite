@@ -10,10 +10,11 @@ import testData.TestData;
 
 import java.util.ArrayList;
 
+import static base.TestBase.browser;
 import static utils.DriverFactory.getDriver;
 
 public class Mailinator {
-    static WebDriver driver = getDriver();
+    static WebDriver driver = getDriver(browser);
 
     public static String getToken(String email){
         String firstReceived_xpath = "//table[@class='table table-striped jambo_table']//tbody//descendant::tr[1]//descendant::td[5]";

@@ -12,6 +12,7 @@ import utils.TestUtil;
 
 import java.util.List;
 
+import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
@@ -25,7 +26,7 @@ public class FlirWebPage {
 
     public void doubleClickAction(WebElement element,String msg){
         TestUtil.waitForElementToLoad(element);
-        WebDriver driver = getDriver();
+        WebDriver driver = getDriver(browser);
         Actions actions = new Actions(driver);
         actions.doubleClick(element).perform();
         ExtentReport.addTestCaseStep(msg);

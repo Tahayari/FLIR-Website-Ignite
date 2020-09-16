@@ -3,9 +3,14 @@
     <listeners>
         <listener class-name="utils.AnnotationTransformer"/>
     </listeners>
+    <parameter name="browserName" value="chrome"></parameter>
     <test name="FLIR Tools Test case">
         <classes>
-            <class name="testCases.LoginPageTest"></class>
+            <class name="testCases.LoginPageTest">
+                <methods>
+                    <include name="blankPassword_Test"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

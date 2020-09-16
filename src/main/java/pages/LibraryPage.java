@@ -7,6 +7,7 @@ import utils.ElementManager;
 import utils.ExtentReport;
 import utils.TestUtil;
 
+import static base.TestBase.browser;
 import static pages.ImageDetailsPage.getImageDetailsPage;
 import static pages.SettingsPage.getSettingsPage;
 import static utils.DriverFactory.getDriver;
@@ -16,7 +17,7 @@ public class LibraryPage extends FlirWebPage {
 
     //Constructor
     private LibraryPage() {
-        driver = getDriver();
+        driver = getDriver(browser);
     }
 
     public static LibraryPage getLibraryPage() {

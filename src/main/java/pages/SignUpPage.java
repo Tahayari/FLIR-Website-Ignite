@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
+import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
 import static utils.DriverFactory.getDriver;
 
@@ -18,7 +19,7 @@ public class SignUpPage extends FlirWebPage {
 
     //Constructor
     private SignUpPage() {
-        driver = getDriver();
+        driver = getDriver(browser);
     }
 
     public static SignUpPage getSignUpPage() {
