@@ -50,10 +50,12 @@ public class TestBase {
     }
 
     @BeforeMethod
-    public void goToLandingPage() {
+    @Parameters({"webrellaEnv","ssoEnv"})
+    public void goToLandingPage(String webrellaEnv,String ssoEnv) {
         log.info("Begin @BeforeMethod");
         driver.get(prop.getProperty("url"));
-        setAPI(prop.getProperty("webrella"), prop.getProperty("sso"));
+//        setAPI(prop.getProperty("webrella"), prop.getProperty("sso"));
+        setAPI(webrellaEnv,ssoEnv);
         log.info("End @BeforeMethod");
     }
 

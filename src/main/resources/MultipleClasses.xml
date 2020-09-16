@@ -3,7 +3,14 @@
     <listeners>
         <listener class-name="utils.AnnotationTransformer"/>
     </listeners>
+<!--    Valid browsers: chrome,firefox,edge-->
+    <parameter name="browserName" value="chrome"></parameter>
 
+<!--    Webrella env list: DEV,DEV-STG,FEATURE,FEATURE-STG,PROD,PROD-STG-->
+    <parameter name="webrellaEnv" value="DEV"></parameter>
+
+<!--    SSO env list: LAB,PROD-->
+    <parameter name="ssoEnv" value="LAB"></parameter>
     <test name="Tools Web smoke test">
 <!--                <groups>-->
 <!--                    <run>-->
@@ -11,9 +18,9 @@
 <!--                    </run>-->
 <!--                </groups>-->
         <classes>
-            <class name="testCases.SignUpPageTest"></class>
+<!--            <class name="testCases.SignUpPageTest"></class>-->
 <!--            <class name="testCases.LoginPageTest"></class>-->
-<!--            <class name="testCases.RecoverPassPageTest"></class>-->
+            <class name="testCases.SmokeTest"></class>
         </classes>
     </test>
 </suite>
