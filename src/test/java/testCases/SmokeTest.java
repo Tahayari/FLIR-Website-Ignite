@@ -25,11 +25,11 @@ public class SmokeTest extends TestBase {
     SettingsPage settingsPage;
     ImageDetailsPage imageDetailsPage;
 
-    enum Temperature {CELSIUS, FAHRENHEIT, KELVIN}
+    enum Temperature {DEFAULT,CELSIUS, FAHRENHEIT, KELVIN}
 
-    enum Distance {METERS, FEET}
+    enum Distance {DEFAULT,METERS, FEET}
 
-    enum Language {CZECH, DANISH, GERMAN, ENGLISH}
+    enum Language {DEFAULT,CZECH, DANISH, GERMAN, ENGLISH}
 
     enum Date {DEFAULT, MMDDYYYY, DDMMYYYY}
 
@@ -46,10 +46,10 @@ public class SmokeTest extends TestBase {
         libraryPage = loginPage.login(testData.getSmokeTestAccount(), testData.getPassOfExistingAcc());
 
         settingsPage = libraryPage.goToSettingsPage();
-        settingsPage.selectTemperature(temp)
-                .selectDistance(dist)
-                .selectLanguage(lang)
-                .selectDate(date);
+        settingsPage.setTemperature(temp)
+                .setDistance(dist)
+                .setLanguage(lang)
+                .setDate(date);
 
         TestUtil.refreshPage();
 
@@ -97,8 +97,10 @@ public class SmokeTest extends TestBase {
 
         imageDetailsPage.clickOn_backToLibrary_BTN();
 
-        libraryPage.clickOn_gridView_BTN()
+        libraryPage.goToMainFolder()
+                .clickOn_gridView_BTN()
                 .clickOn_listView_BTN()
+                .deleteFolder(newFolderName)
                 .logout();
     }
 

@@ -122,6 +122,8 @@ public class ImageDetailsPage extends FlirWebPage {
 
     public WebElement prevImage_BTN(){return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_PREV_IMAGE);}
 
+    public WebElement download_BTN(){return getWebElement(driver,ElementManager.IMAGEDEATILSPAGE_DOWNLOAD_BTN);}
+
     //--------------
 
     //-----------SETTERS
@@ -250,7 +252,12 @@ public class ImageDetailsPage extends FlirWebPage {
     }
 
     public ImageDetailsPage verifyIfPageLoaded() {
-        checkIfElementHasLoaded(zoomIn_BTN(), "File opened. Image details page is displayed");
+            checkIfElementHasLoaded(zoomIn_BTN(), "Supported image file opened. Image details page is displayed");
+        return this;
+    }
+
+    public ImageDetailsPage verifyIfNonSupportedFilePageLoaded() {
+        checkIfElementHasLoaded(download_BTN(), "Non-supported file opened. Image details page is displayed");
         return this;
     }
 }

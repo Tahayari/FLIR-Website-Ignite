@@ -33,6 +33,9 @@ public enum ElementManager {
     LIBRARYPAGE_UPLOADED_BTN("","DateUploaded"),
     LIBRARYPAGE_SWITCHTO_LIST_VIEW("//button[@title='Switch to list view']"),
     LIBRARYPAGE_SWITCHTO_GRID_VIEW("//button[@title='Switch to grid view']"),
+    LIBRARYPAGE_DELETE_BTN("","files-button-bar-delete"),
+    LIBRARYPAGE_DELETE_CONFIRM_BTN("//div[@class='button-bar']//span[contains(text(),'Delete')]//ancestor::button"),
+    LIBRARYPAGE_ALL_LINK("//a[contains(text(),'All')]"),
 
     //IMAGE DETAILS PAGE
     IMAGEDETAILSPAGE_MEASUREMENTS_TAB("//li[@title='Measurements']"),
@@ -61,6 +64,7 @@ public enum ElementManager {
     IMAGEDETAILSPAGE_DC_IMAGE("//div[@id='root']//img[2]"),
     IMAGEDETAILSPAGE_NEXT_IMAGE("//a[@class='next-image']"),
     IMAGEDETAILSPAGE_PREV_IMAGE("//a[@class='prev-image']"),
+    IMAGEDEATILSPAGE_DOWNLOAD_BTN("//span[contains(text(),'Download')]//ancestor::button"),
 
     //LOGIN PAGE
     LOGINPAGE_EMAIL_FIELD("", "logonIdentifier"),

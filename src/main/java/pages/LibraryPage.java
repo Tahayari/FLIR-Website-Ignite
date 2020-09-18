@@ -98,6 +98,10 @@ public class LibraryPage extends FlirWebPage {
         return getWebElement(driver, ElementManager.LIBRARYPAGE_SETTINGS_LINK);
     }
 
+    public WebElement All_link() {
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_ALL_LINK);
+    }
+
     public WebElement openCreatedFolder_BTN() {
         return getWebElement(driver, ElementManager.LIBRARYPAGE_OPENFOLDER_BTN);
     }
@@ -120,6 +124,14 @@ public class LibraryPage extends FlirWebPage {
 
     public WebElement gridView_BTN() {
         return getWebElement(driver, ElementManager.LIBRARYPAGE_SWITCHTO_GRID_VIEW);
+    }
+
+    public WebElement delete_BTN() {
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_DELETE_BTN);
+    }
+
+    public WebElement delete_confirm_BTN() {
+        return getWebElement(driver, ElementManager.LIBRARYPAGE_DELETE_CONFIRM_BTN);
     }
     //--------------
 
@@ -197,15 +209,21 @@ public class LibraryPage extends FlirWebPage {
         return this;
     }
 
-    public LibraryPage clickOn_gridView_BTN(){
-        clickAction(gridView_BTN(),"Clicked on the Switch to Grid View button");
-        checkIfElementHasLoaded(listView_BTN(),"Switched to Grid View");
+    public LibraryPage clickOn_gridView_BTN() {
+        clickAction(gridView_BTN(), "Clicked on the Switch to Grid View button");
+        checkIfElementHasLoaded(listView_BTN(), "Switched to Grid View");
         return this;
     }
 
-    public LibraryPage clickOn_listView_BTN(){
-        clickAction(listView_BTN(),"Clicked on the Switch to List View button");
-        checkIfElementHasLoaded(gridView_BTN(),"Switched to List View");
+    public LibraryPage clickOn_listView_BTN() {
+        clickAction(listView_BTN(), "Clicked on the Switch to List View button");
+        checkIfElementHasLoaded(gridView_BTN(), "Switched to List View");
+        return this;
+    }
+
+    public LibraryPage clickOn_All_link() {
+        clickAction(All_link(), "Clicked the All hyperlink in the breadcumbs bar");
+        verifyIfPageLoaded();
         return this;
     }
 
@@ -217,6 +235,11 @@ public class LibraryPage extends FlirWebPage {
         return settingsPage;
     }
 
+    public LibraryPage goToMainFolder() {
+        clickOn_All_link();
+        return this;
+    }
+
     public LibraryPage verifyIfPageLoaded() {
         checkIfElementHasLoaded(newFolder_BTN(), "Navigated to the Library page");
         return this;
@@ -225,12 +248,11 @@ public class LibraryPage extends FlirWebPage {
     public void logout() {
         clickOn_userMenu();
         clickOn_logout_BTN();
-        //avoid bug where the user is still logged in after logging out - THAL-2731
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(6000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         ExtentReport.addTestCaseStep("Successfully logged out");
     }
 
@@ -253,12 +275,24 @@ public class LibraryPage extends FlirWebPage {
         WebElement element = driver.findElement(By.xpath("//a[contains(text(),'" + fileName + "')]//ancestor::li"));
         doubleClickAction(element, "Double clicked on " + fileName);
         ImageDetailsPage imageDetailsPage = getImageDetailsPage();
-        imageDetailsPage.verifyIfPageLoaded();
+        if (fileName.contains(".png") || fileName.contains(".jpeg") || fileName.contains(".jpg") || fileName.contains(".jpeg")) {
+            imageDetailsPage.verifyIfPageLoaded();
+        }
         return imageDetailsPage;
     }
 
     public LibraryPage closeToastMessage() {
-        clickAction(closeNotification_BTN(), "Closed the toast message");
+        try {
+            clickAction(closeNotification_BTN(), "Closed the toast message");
+        } catch (Exception e) {
+            System.out.println("++++Toast message is no longer displayed");
+        }
+        return this;
+    }
+
+    public LibraryPage selectItem(String itemName) {
+        WebElement element = driver.findElement(By.xpath("//a[contains(text(),'" + itemName + "')]//ancestor::li"));
+        clickAction(element, "Selected item " + itemName);
         return this;
     }
 
@@ -266,6 +300,20 @@ public class LibraryPage extends FlirWebPage {
         WebElement element = driver.findElement(By.xpath("//a[contains(text(),'" + folderName + "')]//ancestor::li"));
         doubleClickAction(element, "Double clicked on " + folderName);
         TestUtil.waitForElementToLoad(emptyFolder_Msg());
+        return this;
+    }
+
+    public LibraryPage deleteFolder(String folderName) {
+        WebElement item = driver.findElement(By.xpath("//a[contains(text(),'" + folderName + "')]//ancestor::li"));
+        selectItem(folderName);
+        clickAction(delete_BTN(), "Clicked on the DELETE button");
+        clickAction(delete_confirm_BTN(), "Clicked on the Confirm Delete button");
+
+        //wait for element to Unload
+        TestUtil.waitForSomeMinutes(0.1); //6 seconds
+        if (!checkIfElementIsLoaded(item))
+            ExtentReport.addTestCaseStep("Folder " + folderName + " was deleted successfully");
+        else ExtentReport.addTestCaseStep("Folder " + folderName + " WASN'T deleted successfully");
         return this;
     }
 

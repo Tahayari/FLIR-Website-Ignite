@@ -67,64 +67,76 @@ public class SettingsPage extends FlirWebPage {
         checkIfElementHasLoaded(temperatureUnits_dropdown(), "Navigated to the Settings page");
     }
 
-    public SettingsPage selectTemperature(String temp) {
+    public SettingsPage setTemperature(String temp) {
         Select temperature_select = new Select(temperatureUnits_dropdown());
         switch (temp) {
-            case "FAHRENHEIT":
+            case "DEFAULT":
                 temperature_select.selectByIndex(1);
                 ExtentReport.addTestCaseStep("Selected " + temp + " from the temperature units dropdown list");
                 break;
-            case "CELSIUS":
+            case "FAHRENHEIT":
                 temperature_select.selectByIndex(2);
                 ExtentReport.addTestCaseStep("Selected " + temp + " from the temperature units dropdown list");
                 break;
-            case "KELVIN":
+            case "CELSIUS":
                 temperature_select.selectByIndex(3);
+                ExtentReport.addTestCaseStep("Selected " + temp + " from the temperature units dropdown list");
+                break;
+            case "KELVIN":
+                temperature_select.selectByIndex(4);
                 ExtentReport.addTestCaseStep("Selected " + temp + " from the temperature units dropdown list");
                 break;
         }
         return this;
     }
 
-    public SettingsPage selectDistance(String distance) {
+    public SettingsPage setDistance(String distance) {
         Select distance_select = new Select(distanceUnits_dropdown());
         switch (distance) {
-            case "METERS":
+            case "DEFAULT":
                 distance_select.selectByIndex(1);
                 ExtentReport.addTestCaseStep("Selected " + distance + " from the distance units dropdown list");
                 break;
-            case "FEET":
+            case "METERS":
                 distance_select.selectByIndex(2);
+                ExtentReport.addTestCaseStep("Selected " + distance + " from the distance units dropdown list");
+                break;
+            case "FEET":
+                distance_select.selectByIndex(3);
                 ExtentReport.addTestCaseStep("Selected " + distance + " from the distance units dropdown list");
                 break;
         }
         return this;
     }
 
-    public SettingsPage selectLanguage(String language) {
+    public SettingsPage setLanguage(String language) {
         Select language_select = new Select(language_dropdown());
         switch (language) {
-            case "CZECH":
+            case "DEFAULT":
                 language_select.selectByIndex(1);
                 ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
                 break;
-            case "DANISH":
+            case "CZECH":
                 language_select.selectByIndex(2);
                 ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
                 break;
-            case "GERMAN":
+            case "DANISH":
                 language_select.selectByIndex(3);
                 ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
                 break;
+            case "GERMAN":
+                language_select.selectByIndex(4);
+                ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
+                break;
             case "ENGLISH":
-                language_select.selectByIndex(5);
+                language_select.selectByIndex(6);
                 ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
                 break;
         }
         return this;
     }
 
-    public SettingsPage selectDate(String date) {
+    public SettingsPage setDate(String date) {
         Select date_dropdown = new Select(dateFormat_dropdown());
         switch (date) {
             case "DEFAULT":

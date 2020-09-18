@@ -24,7 +24,7 @@ public class FlirWebPage {
         ExtentReport.addTestCaseStep(msg);
     }
 
-    public void doubleClickAction(WebElement element,String msg){
+    public void doubleClickAction(WebElement element, String msg) {
         TestUtil.waitForElementToLoad(element);
         WebDriver driver = getDriver(browser);
         Actions actions = new Actions(driver);
@@ -51,12 +51,22 @@ public class FlirWebPage {
         ExtentReport.addTestCaseStep("Error message is displayed: " + error_Msg.getText());
     }
 
-    public void checkIfElementHasLoaded(WebElement element,String msg){
+    public void checkIfElementHasLoaded(WebElement element, String msg) {
         TestUtil.waitForElementToLoad(element);
         ExtentReport.addTestCaseStep(msg);
     }
 
-    public void assertElementIsEnabled(WebElement webElement,String msg){
+    public boolean checkIfElementIsLoaded(WebElement element) {
+        try {
+            if(element.isDisplayed()) return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public void assertElementIsEnabled(WebElement webElement, String msg) {
         assertTrue(webElement.isEnabled());
         ExtentReport.addTestCaseStep(msg);
     }
@@ -77,18 +87,18 @@ public class FlirWebPage {
         return null;
     }
 
-    public List<WebElement> getDropdownElements(WebElement dropdownList){
+    public List<WebElement> getDropdownElements(WebElement dropdownList) {
         Select dropdown = new Select(dropdownList);
         List<WebElement> dropdownElements = dropdown.getOptions();
         return dropdownElements;
     }
 
-    public String getSelectedElementFromDropdown(WebElement dropdownList){
+    public String getSelectedElementFromDropdown(WebElement dropdownList) {
         WebElement webElement;
         String selectedElement;
         Select dropdown = new Select(dropdownList);
         webElement = dropdown.getFirstSelectedOption();
-        selectedElement= webElement.getText();
+        selectedElement = webElement.getText();
         return selectedElement;
     }
 
