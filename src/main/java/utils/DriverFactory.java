@@ -41,7 +41,6 @@ public class DriverFactory {
             setupEventListener();
             eventListAlreadyInstantiated = true;
         }
-//        setupEventListener();
         return driver;
     }
 

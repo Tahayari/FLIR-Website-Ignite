@@ -1,26 +1,25 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="FLIR Tools - Multiple Page tests">
-    <listeners>
-        <listener class-name="utils.AnnotationTransformer"/>
-    </listeners>
-<!--    Valid browsers: chrome,firefox,edge-->
+<suite name="IGNITE - Multiple flows Test Suite">
+<!--    <listeners>-->
+<!--        <listener class-name="utils.AnnotationTransformer"/>-->
+<!--    </listeners>-->
+
     <parameter name="browserName" value="chrome"></parameter>
-
-<!--    Webrella env list: DEV,DEV-STG,FEATURE,FEATURE-STG,PROD,PROD-STG-->
+    <!--    Webrella env list: DEV,DEV-STG,FEATURE,FEATURE-STG,PROD,PROD-STG-->
     <parameter name="webrellaEnv" value="DEV"></parameter>
-
-<!--    SSO env list: LAB,PROD-->
+    <!--    SSO env list: LAB,PROD-->
     <parameter name="ssoEnv" value="LAB"></parameter>
-    <test name="Tools Web smoke test">
-<!--                <groups>-->
-<!--                    <run>-->
-<!--                        <include name="smoke"/>-->
-<!--                    </run>-->
-<!--                </groups>-->
+
+    <test name="SmokeTest">
         <classes>
-<!--            <class name="testCases.SignUpPageTest"></class>-->
-<!--            <class name="testCases.LoginPageTest"></class>-->
             <class name="testCases.SmokeTest"></class>
         </classes>
     </test>
+
+<!--    <test name="LoginPage">-->
+<!--        <classes>-->
+<!--            <class name="testCases.LoginPageTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
 </suite>

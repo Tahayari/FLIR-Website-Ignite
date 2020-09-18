@@ -36,6 +36,7 @@
 		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
 			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
 						<li class='waves-effect'><a href='#!' view='category-view' onclick="configureView(1)"><i class='material-icons'>label_outline</i></a></li>
+			<li class='waves-effect'><a href='#!' view='exception-view' onclick="configureView(2)"><i class='material-icons'>bug_report</i></a></li>
 			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
 		</ul>
 		<!-- report name -->
@@ -45,7 +46,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a href='#!'>
-			<span class='label blue darken-3 suite-start-time'>Sep 18, 2020 01:04:04 PM</span>
+			<span class='label blue darken-3 suite-start-time'>Sep 18, 2020 03:39:44 PM</span>
 			</a>
 		</ul>
 	</div>
@@ -60,7 +61,7 @@
 				<i class='material-icons'>warning</i> Status
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
-										<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+										<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -113,10 +114,10 @@
                     <canvas id='parent-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>1</span> test(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> test(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='100%'>1</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
                 </div>
             </div>
         </div>
@@ -127,10 +128,10 @@
                     <canvas id='child-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>1</span> step(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> step(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='100%'>1</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
                 </div>
             </div>
         </div>
@@ -148,17 +149,17 @@
 </div>	<div class='subview-left left'>
 		<div class='view-summary'>
 			<ul id='test-collection' class='test-collection'>
-				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='1'>
+				<li class='test displayed active has-leaf fail' status='fail' bdd='false' test-id='1'>
 					<div class='test-heading'>
 						<span class='test-name'>smokeTest1</span>
-						<span class='test-time'>Sep 18, 2020 01:04:12 PM</span>
-						<span class='test-status right pass'>pass</span>
+						<span class='test-time'>Sep 18, 2020 03:39:52 PM</span>
+						<span class='test-status right fail'>fail</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Sep 18, 2020 01:04:12 PM</span>
-	<span class='label end-time'>Sep 18, 2020 01:05:19 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 1m 7s+723ms</span>
+	<span class='label start-time'>Sep 18, 2020 03:39:52 PM</span>
+	<span class='label end-time'>Sep 18, 2020 03:40:14 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 22s+24ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
@@ -166,12 +167,12 @@
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf pass' status='pass' test-id='2'>
+	<li class='node level-1 leaf fail' status='fail' test-id='2'>
 		<div class='collapsible-header'>
 			<div class='node-name'>Upload image,change measurements</div>
-			<span class='node-time'>Sep 18, 2020 01:04:12 PM</span>
-			&middot; <span class='node-duration'>0h 1m 7s+723ms</span>
-			<span class='test-status right pass'>pass</span>
+			<span class='node-time'>Sep 18, 2020 03:39:52 PM</span>
+			&middot; <span class='node-duration'>0h 0m 22s+24ms</span>
+			<span class='test-status right fail'>fail</span>
 		</div>
 		<div class='collapsible-body'>
 			<div class='node-steps'>
@@ -186,7 +187,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:13 PM</td>
+							<td class='timestamp'>3:39:52 PM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -194,7 +195,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:13 PM</td>
+							<td class='timestamp'>3:39:52 PM</td>
 							<td class='step-details'>
 									Clicked on Login Button
 								
@@ -202,7 +203,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:16 PM</td>
+							<td class='timestamp'>3:39:56 PM</td>
 							<td class='step-details'>
 									Navigated to the Login page
 								
@@ -210,7 +211,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:16 PM</td>
+							<td class='timestamp'>3:39:56 PM</td>
 							<td class='step-details'>
 									Entered the following email: flirsmoketest@mailinator.com
 								
@@ -218,7 +219,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:17 PM</td>
+							<td class='timestamp'>3:39:56 PM</td>
 							<td class='step-details'>
 									Entered the following password: QAZxsw123
 								
@@ -226,7 +227,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:17 PM</td>
+							<td class='timestamp'>3:39:56 PM</td>
 							<td class='step-details'>
 									Clicked on SignIn Button
 								
@@ -234,7 +235,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:21 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Navigated to the Library page
 								
@@ -242,7 +243,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:21 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Clicked on User Menu
 								
@@ -250,7 +251,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Clicked on the Settings link from the menu dropdown
 								
@@ -258,7 +259,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Navigated to the Settings page
 								
@@ -266,7 +267,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Selected FAHRENHEIT from the temperature units dropdown list
 								
@@ -274,7 +275,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Selected FEET from the distance units dropdown list
 								
@@ -282,7 +283,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Selected ENGLISH from the Language dropdown list
 								
@@ -290,7 +291,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:22 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Selected MMDDYYYY from the Date Format dropdown list
 								
@@ -298,7 +299,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:23 PM</td>
+							<td class='timestamp'>3:40:00 PM</td>
 							<td class='step-details'>
 									Refreshed the page
 								
@@ -306,7 +307,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:24 PM</td>
+							<td class='timestamp'>3:40:01 PM</td>
 							<td class='step-details'>
 									Temperature settings remained the same after page was refreshed
 								
@@ -314,7 +315,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:24 PM</td>
+							<td class='timestamp'>3:40:01 PM</td>
 							<td class='step-details'>
 									Distance settings remained the same after page was refreshed
 								
@@ -322,7 +323,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:24 PM</td>
+							<td class='timestamp'>3:40:01 PM</td>
 							<td class='step-details'>
 									Language settings remained the same after page was refreshed
 								
@@ -330,7 +331,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:24 PM</td>
+							<td class='timestamp'>3:40:01 PM</td>
 							<td class='step-details'>
 									Date settings remained the same after page was refreshed
 								
@@ -338,7 +339,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:24 PM</td>
+							<td class='timestamp'>3:40:01 PM</td>
 							<td class='step-details'>
 									Clicked on User Menu
 								
@@ -346,7 +347,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:25 PM</td>
+							<td class='timestamp'>3:40:02 PM</td>
 							<td class='step-details'>
 									Clicked on Logout button
 								
@@ -354,7 +355,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:25 PM</td>
+							<td class='timestamp'>3:40:02 PM</td>
 							<td class='step-details'>
 									Successfully logged out
 								
@@ -362,7 +363,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:26 PM</td>
+							<td class='timestamp'>3:40:02 PM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -370,7 +371,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:26 PM</td>
+							<td class='timestamp'>3:40:02 PM</td>
 							<td class='step-details'>
 									Clicked on Login Button
 								
@@ -378,7 +379,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:27 PM</td>
+							<td class='timestamp'>3:40:03 PM</td>
 							<td class='step-details'>
 									Navigated to the Login page
 								
@@ -386,7 +387,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:28 PM</td>
+							<td class='timestamp'>3:40:03 PM</td>
 							<td class='step-details'>
 									Entered the following email: flirsmoketest@mailinator.com
 								
@@ -394,7 +395,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:28 PM</td>
+							<td class='timestamp'>3:40:03 PM</td>
 							<td class='step-details'>
 									Entered the following password: QAZxsw123
 								
@@ -402,7 +403,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:28 PM</td>
+							<td class='timestamp'>3:40:03 PM</td>
 							<td class='step-details'>
 									Clicked on SignIn Button
 								
@@ -410,7 +411,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:31 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Navigated to the Library page
 								
@@ -418,7 +419,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:31 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Clicked on User Menu
 								
@@ -426,7 +427,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:31 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Clicked on the Settings link from the menu dropdown
 								
@@ -434,7 +435,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:31 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Navigated to the Settings page
 								
@@ -442,7 +443,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:32 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Temperature settings remained the same after page was refreshed
 								
@@ -450,7 +451,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:32 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Distance settings remained the same after page was refreshed
 								
@@ -458,7 +459,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:32 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Language settings remained the same after page was refreshed
 								
@@ -466,7 +467,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:32 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Date settings remained the same after page was refreshed
 								
@@ -474,7 +475,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:32 PM</td>
+							<td class='timestamp'>3:40:06 PM</td>
 							<td class='step-details'>
 									Navigated to the Library page
 								
@@ -482,7 +483,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:33 PM</td>
+							<td class='timestamp'>3:40:07 PM</td>
 							<td class='step-details'>
 									Clicked on the New Folder button
 								
@@ -490,15 +491,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:33 PM</td>
+							<td class='timestamp'>3:40:07 PM</td>
 							<td class='step-details'>
-									Entered the name: 4muCRXP
+									Entered the name: zNd3E3m
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:33 PM</td>
+							<td class='timestamp'>3:40:07 PM</td>
 							<td class='step-details'>
 									Create button is enabled
 								
@@ -506,7 +507,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:33 PM</td>
+							<td class='timestamp'>3:40:07 PM</td>
 							<td class='step-details'>
 									Clicked on Create button
 								
@@ -514,7 +515,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:36 PM</td>
+							<td class='timestamp'>3:40:10 PM</td>
 							<td class='step-details'>
 									Closed the toast message
 								
@@ -522,7 +523,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:36 PM</td>
+							<td class='timestamp'>3:40:10 PM</td>
 							<td class='step-details'>
 									Clicked on the Uploaded(SortBy) button
 								
@@ -530,7 +531,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:38 PM</td>
+							<td class='timestamp'>3:40:12 PM</td>
 							<td class='step-details'>
 									Waited aprox.1.7999999999999998 seconds
 								
@@ -538,7 +539,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:38 PM</td>
+							<td class='timestamp'>3:40:12 PM</td>
 							<td class='step-details'>
 									File/Folder was created successfully
 								
@@ -546,430 +547,97 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:39 PM</td>
+							<td class='timestamp'>3:40:12 PM</td>
 							<td class='step-details'>
-									Double clicked on 4muCRXP
+									Double clicked on zNd3E3m
 								
 							</td>
 						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:45 PM</td>
+						<tr class='log' status='fail'>
+							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+							<td class='timestamp'>3:40:14 PM</td>
 							<td class='step-details'>
-									File measurements.jpg uploaded successfully
+									<span class='badge white-text red'>smokeTest1 - Test Case Failed</span>
 								
 							</td>
 						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:45 PM</td>
+						<tr class='log' status='fail'>
+							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+							<td class='timestamp'>3:40:14 PM</td>
 							<td class='step-details'>
-									Closed the toast message
+									<textarea disabled class="code-block">org.openqa.selenium.InvalidArgumentException: invalid argument: File not found : C:\Users\danla\IdeaProjects\ToolsWeb\src\main\java\testData\Images\measurements.jpg
+  (Session info: chrome=85.0.4183.102)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-9A6II86', ip: '192.168.1.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '13.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 85.0.4183.102, chrome: {chromedriverVersion: 85.0.4183.87 (cd6713ebf92fa..., userDataDir: C:\Users\danla\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58138}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b61e8aa63cc5312a358733b5ab8ded57
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:106)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
+	at com.sun.proxy.$Proxy13.sendKeys(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.sendKeys(EventFiringWebDriver.java:429)
+	at pages.LibraryPage.uploadFile(LibraryPage.java:185)
+	at testCases.SmokeTest.smokeTest1(SmokeTest.java:70)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
+	at org.testng.TestRunner.privateRun(TestRunner.java:766)
+	at org.testng.TestRunner.run(TestRunner.java:587)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
+	at org.testng.TestNG.runSuites(TestNG.java:1039)
+	at org.testng.TestNG.run(TestNG.java:1007)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
+</textarea>
 								
 							</td>
 						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:50 PM</td>
+						<tr class='log' status='fail'>
+							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+							<td class='timestamp'>3:40:14 PM</td>
 							<td class='step-details'>
-									File GPS.jpg uploaded successfully
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:50 PM</td>
-							<td class='step-details'>
-									Closed the toast message
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:50 PM</td>
-							<td class='step-details'>
-									Double clicked on GPS.jpg
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:50 PM</td>
-							<td class='step-details'>
-									Supported image file opened. Image details page is displayed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									Clicked on Show all button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									All of the temperature units are the ones set in Settings: FAHRENHEIT
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									All of the distance units are the ones set in Settings: FEET
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									Clicked on the Details tab
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									Details tab has loaded
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									Date displayed in has the same format as the one saved in Settings
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:51 PM</td>
-							<td class='step-details'>
-									Date displayed in has the same format as the one saved in Settings
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:52 PM</td>
-							<td class='step-details'>
-									Clicked on the Comments tab
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:04:52 PM</td>
-							<td class='step-details'>
-									Comments tab has loaded
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:02 PM</td>
-							<td class='step-details'>
-									Image does not have any notes/comments
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:02 PM</td>
-							<td class='step-details'>
-									Clicked on the Location tab
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:02 PM</td>
-							<td class='step-details'>
-									Location tab has loaded
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:03 PM</td>
-							<td class='step-details'>
-									Image has the following coordinates: 44.446338° N, 26.041148° E
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:03 PM</td>
-							<td class='step-details'>
-									Clicked on the Zoom In button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:03 PM</td>
-							<td class='step-details'>
-									Clicked on the Zoom In button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:03 PM</td>
-							<td class='step-details'>
-									Clicked on the Zoom Out button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:03 PM</td>
-							<td class='step-details'>
-									Clicked on the Zoom To Fit button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:04 PM</td>
-							<td class='step-details'>
-									Clicked on the Switch to DC button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:06 PM</td>
-							<td class='step-details'>
-									Switched to DC
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Clicked on the Switch to IR button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Switched to IR
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Clicked on the Enter Fullscreen button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Entered fullscreen
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Clicked on the Exit Fullscreen button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Exited fullscreen
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:07 PM</td>
-							<td class='step-details'>
-									Clicked on Next image button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:10 PM</td>
-							<td class='step-details'>
-									Navigated to the next image
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:10 PM</td>
-							<td class='step-details'>
-									Clicked on Previous image button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:11 PM</td>
-							<td class='step-details'>
-									Navigated to the prev image
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:11 PM</td>
-							<td class='step-details'>
-									Clicked on Back button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:11 PM</td>
-							<td class='step-details'>
-									Navigated to the Library page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:11 PM</td>
-							<td class='step-details'>
-									Clicked the All hyperlink in the breadcumbs bar
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:11 PM</td>
-							<td class='step-details'>
-									Navigated to the Library page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Clicked on the Switch to Grid View button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Switched to Grid View
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Clicked on the Switch to List View button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Switched to List View
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Selected item 4muCRXP
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:12 PM</td>
-							<td class='step-details'>
-									Clicked on the DELETE button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:13 PM</td>
-							<td class='step-details'>
-									Clicked on the Confirm Delete button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									Waited aprox.6.0 seconds
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									Folder 4muCRXP was deleted successfully
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									Clicked on User Menu
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									Clicked on Logout button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									Successfully logged out
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:05:19 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>smokeTest1 - Test Case PASSED</span>
+									Snapshot below :
 								
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<ul class='screenshots'>
+					<li><img class='r-img' onerror='this.style.display="none"' data-featherlight='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg' src='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg' data-src='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg'></li>
+				</ul>
 			</div>
 		</div>
 	</li>
@@ -1018,13 +686,13 @@
 					<div class='category-heading'>
 						<span class='category-name'>LANDING_PAGE</span>
 						<span class='category-status right'>
-						<span class='label pass'>1</span>
+						<span class='label fail'>1</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<span status="pass" class='label green accent-4 white-text'>Passed: 1</span>
 							
+							<span status="fail" class='label red lighten-1 white-text'>Failed: 1</span>
 							
 						</div>
 						<div class='category-tests'>
@@ -1038,9 +706,9 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Sep 18, 2020 01:04:12 PM</td>
+										<td>Sep 18, 2020 03:39:52 PM</td>
 										<td class='linked' test-id='1'>smokeTest1</td>
-										<td><span class='test-status pass'>pass</span></td>
+										<td><span class='test-status fail'>fail</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1056,7 +724,118 @@
 		</div>
 	</div>
 </div>
-<!-- category view --><!-- exception view --><div id='dashboard-view' class='view hide'>
+<!-- category view --><div id='exception-view' class='view hide'>
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+				<i class='material-icons'>search</i> Search
+				</a>
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+	<div class='subview-left left'>
+		<div class='view-summary'>
+			<ul id='exception-collection' class='exception-collection'>
+				<li class='exception displayed active'>
+					<div class='exception-heading'>
+						<span class='exception-name'>org.openqa.selenium.InvalidArgumentException</span>
+						<span class='exception-count right'><span class='label red lighten-1 white-text'>1</span></span>
+					</div>
+					<div class='exception-content hide'>
+						<div class='exception-tests'>
+							<table class='bordered table-results'>
+								<thead>
+									<tr>
+										<th>Timestamp</th>
+										<th>TestName</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Sep 18, 2020 03:39:52 PM</td>
+										<td class='linked' test-id='2'>smokeTest1.Upload image,change measurements</td>
+										<td>
+											<textarea disabled class="code-block">org.openqa.selenium.InvalidArgumentException: invalid argument: File not found : C:\Users\danla\IdeaProjects\ToolsWeb\src\main\java\testData\Images\measurements.jpg
+  (Session info: chrome=85.0.4183.102)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-9A6II86', ip: '192.168.1.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '13.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 85.0.4183.102, chrome: {chromedriverVersion: 85.0.4183.87 (cd6713ebf92fa..., userDataDir: C:\Users\danla\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58138}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b61e8aa63cc5312a358733b5ab8ded57
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:106)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
+	at com.sun.proxy.$Proxy13.sendKeys(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.sendKeys(EventFiringWebDriver.java:429)
+	at pages.LibraryPage.uploadFile(LibraryPage.java:185)
+	at testCases.SmokeTest.smokeTest1(SmokeTest.java:70)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
+	at org.testng.TestRunner.privateRun(TestRunner.java:766)
+	at org.testng.TestRunner.run(TestRunner.java:587)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
+	at org.testng.TestNG.runSuites(TestNG.java:1039)
+	at org.testng.TestNG.run(TestNG.java:1007)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
+</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<h5 class='exception-name'></h5>
+		</div>
+	</div>
+</div>
+<!-- exception view --><div id='dashboard-view' class='view hide'>
 	<div class='card-panel transparent np-v'>
 		<h5>Dashboard</h5>
 
@@ -1076,19 +855,19 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Sep 18, 2020 01:04:04 PM</div>
+					<div class='panel-lead'>Sep 18, 2020 03:39:44 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Sep 18, 2020 01:05:21 PM</div>
+			 		<div class='panel-lead'>Sep 18, 2020 03:40:15 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 1m 16s+616ms</div>
+					<div class='panel-lead'>0h 0m 30s+171ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -1110,11 +889,11 @@
 							</tr>
 							<tr>
 								<td>Java version</td>
-								<td>11.0.3</td>
+								<td>13.0.1</td>
 							</tr>
 							<tr>
 								<td>User Name</td>
-								<td>DHosman</td>
+								<td>danla</td>
 							</tr>
 							<tr>
 								<td>Environment</td>
@@ -1141,11 +920,11 @@
 						</tr>
 						<tr>
 							<td>LANDING_PAGE</td>
+							<td>0</td>
 							<td>1</td>
 							<td>0</td>
-							<td>0</td>
 							<td>
-									100%
+									0%
 							</td>
 						</tr>
 					</table>
@@ -1160,23 +939,23 @@
 		<script>
 			var statusGroup = {
                 parentCount: 1,
-				passParent: 1,
-				failParent: 0,
+				passParent: 0,
+				failParent: 1,
 				fatalParent: 0,
 				errorParent: 0,
 				warningParent: 0,
 				skipParent: 0,
-				exceptionsParent: 0,
+				exceptionsParent: 1,
 				childCount: 1,
-				passChild: 1,
-				failChild: 0,
+				passChild: 0,
+				failChild: 1,
 				fatalChild: 0,
 				errorChild: 0,
 				warningChild: 0,
 				skipChild: 0,
 				infoChild: 0,
 				debugChild: 0,
-				exceptionsChild: 0,
+				exceptionsChild: 1,
 				grandChildCount: 0,
 				passGrandChild: 0,
 				failGrandChild: 0,
@@ -1191,7 +970,7 @@
 		</script>
 		<script>
 			var timeline = {
-			        "smokeTest1":67.723
+			        "smokeTest1":22.024
 			};
 		</script>
 		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/b65cd69/v3html/js/extent.js' type='text/javascript'></script>

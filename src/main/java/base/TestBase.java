@@ -27,35 +27,16 @@ public class TestBase {
     protected static final Logger log = LogManager.getLogger(TestBase.class);
     public static String browser;
 
-    @BeforeSuite
-    @Parameters({"browserName"})
-    public void beforeSuite(String browserName) throws IOException {
-        log.info("Begin @BeforeSuite");
-        browser=browserName;
-        prop = loadProperties();
-        TestUtil.deleteFilesFromFolder(new File(testData.getProjectPath() + "\\test-output\\screenshots"));
-        log.info("End @BeforeSuite");
-    }
-
-    @BeforeClass
-    @Parameters({"browserName"})
-    public void startUpBrowser() {
-        log.info("Begin @BeforeClass");
-        driver = getDriver(browser);
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
-        log.info("End @BeforeClass");
-    }
-
     @BeforeMethod
-    @Parameters({"webrellaEnv","ssoEnv"})
-    public void goToLandingPage(String webrellaEnv,String ssoEnv) {
+    @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
+    public void goToLandingPage(String browserName, String webrellaEnv, String ssoEnv) throws IOException {
         log.info("Begin @BeforeMethod");
+        startUpBrowser(browserName);
+
+        prop = loadProperties();
         driver.get(prop.getProperty("url"));
-//        setAPI(prop.getProperty("webrella"), prop.getProperty("sso"));
-        setAPI(webrellaEnv,ssoEnv);
+        setAPI(webrellaEnv, ssoEnv);
+
         log.info("End @BeforeMethod");
     }
 
@@ -69,17 +50,8 @@ public class TestBase {
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             extentReport.logSuccess(result);
         }
+        closeDriver();
         log.info("End @AfterMethod");
-    }
-
-    @AfterClass
-    public void closeDriver() {
-        log.info("Begin @AfterClass");
-        if (driver != null) {
-            driver = quitDriver();
-            log.info("Closing the browser...");
-        }
-        log.info("End @AfterClass");
     }
 
     @AfterTest(alwaysRun = true)
@@ -135,4 +107,20 @@ public class TestBase {
         }
     }
 
+    public void startUpBrowser(String browser) {
+        driver = getDriver(browser);
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
+    }
+
+    public void closeDriver() {
+        log.info("Begin @AfterClass");
+        if (driver != null) {
+            driver = quitDriver();
+            log.info("Closing the browser...");
+        }
+        log.info("End @AfterClass");
+    }
 }
