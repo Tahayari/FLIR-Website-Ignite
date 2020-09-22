@@ -36,7 +36,6 @@
 		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
 			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
 						<li class='waves-effect'><a href='#!' view='category-view' onclick="configureView(1)"><i class='material-icons'>label_outline</i></a></li>
-			<li class='waves-effect'><a href='#!' view='exception-view' onclick="configureView(2)"><i class='material-icons'>bug_report</i></a></li>
 			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
 		</ul>
 		<!-- report name -->
@@ -46,7 +45,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a href='#!'>
-			<span class='label blue darken-3 suite-start-time'>Sep 18, 2020 03:39:44 PM</span>
+			<span class='label blue darken-3 suite-start-time'>Sep 21, 2020 05:22:52 PM</span>
 			</a>
 		</ul>
 	</div>
@@ -61,7 +60,8 @@
 				<i class='material-icons'>warning</i> Status
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
-										<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+										<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+					<li status='skip'><a href='#!'>Skip <i class='material-icons cyan-text'>redo</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -73,7 +73,7 @@
 				<i class='material-icons'>local_offer</i> Category
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
-					<li><a href='#'>LANDING_PAGE</a></li>
+					<li><a href='#'>LOGIN_PAGE</a></li>
 					<li class='divider'></li>
 					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
 				</ul>
@@ -114,10 +114,10 @@
                     <canvas id='parent-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> test(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='75%'><span class='strong'>6</span> test(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='100%'>1</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>2</span> others
                 </div>
             </div>
         </div>
@@ -128,10 +128,10 @@
                     <canvas id='child-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> step(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='75%'><span class='strong'>6</span> step(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='100%'>1</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='25%'>2</span> others
                 </div>
             </div>
         </div>
@@ -149,30 +149,30 @@
 </div>	<div class='subview-left left'>
 		<div class='view-summary'>
 			<ul id='test-collection' class='test-collection'>
-				<li class='test displayed active has-leaf fail' status='fail' bdd='false' test-id='1'>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>smokeTest1</span>
-						<span class='test-time'>Sep 18, 2020 03:39:52 PM</span>
-						<span class='test-status right fail'>fail</span>
+						<span class='test-name'>blankEmail_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:23:02 PM</span>
+						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Sep 18, 2020 03:39:52 PM</span>
-	<span class='label end-time'>Sep 18, 2020 03:40:14 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 22s+24ms</span>
+	<span class='label start-time'>Sep 21, 2020 05:23:02 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:23:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 6s+587ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>LANDING_PAGE</span>
+		<span class='category label'>LOGIN_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf fail' status='fail' test-id='2'>
+	<li class='node level-1 leaf pass' status='pass' test-id='2'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Upload image,change measurements</div>
-			<span class='node-time'>Sep 18, 2020 03:39:52 PM</span>
-			&middot; <span class='node-duration'>0h 0m 22s+24ms</span>
-			<span class='test-status right fail'>fail</span>
+			<div class='node-name'>Error message is displayed if the user logs in with a blank email field</div>
+			<span class='node-time'>Sep 21, 2020 05:23:02 PM</span>
+			&middot; <span class='node-duration'>0h 0m 6s+587ms</span>
+			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
 			<div class='node-steps'>
@@ -187,7 +187,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:52 PM</td>
+							<td class='timestamp'>5:23:04 PM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -195,7 +195,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:52 PM</td>
+							<td class='timestamp'>5:23:05 PM</td>
 							<td class='step-details'>
 									Clicked on Login Button
 								
@@ -203,7 +203,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:56 PM</td>
+							<td class='timestamp'>5:23:08 PM</td>
 							<td class='step-details'>
 									Navigated to the Login page
 								
@@ -211,23 +211,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:56 PM</td>
+							<td class='timestamp'>5:23:09 PM</td>
 							<td class='step-details'>
-									Entered the following email: flirsmoketest@mailinator.com
+									Entered the following email:
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:56 PM</td>
-							<td class='step-details'>
-									Entered the following password: QAZxsw123
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:39:56 PM</td>
+							<td class='timestamp'>5:23:09 PM</td>
 							<td class='step-details'>
 									Clicked on SignIn Button
 								
@@ -235,410 +227,716 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
+							<td class='timestamp'>5:23:09 PM</td>
 							<td class='step-details'>
-									Navigated to the Library page
+									Error message is displayed: Please enter your email
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
+							<td class='timestamp'>5:23:09 PM</td>
 							<td class='step-details'>
-									Clicked on User Menu
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Clicked on the Settings link from the menu dropdown
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Navigated to the Settings page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Selected FAHRENHEIT from the temperature units dropdown list
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Selected FEET from the distance units dropdown list
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Selected ENGLISH from the Language dropdown list
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Selected MMDDYYYY from the Date Format dropdown list
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:00 PM</td>
-							<td class='step-details'>
-									Refreshed the page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:01 PM</td>
-							<td class='step-details'>
-									Temperature settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:01 PM</td>
-							<td class='step-details'>
-									Distance settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:01 PM</td>
-							<td class='step-details'>
-									Language settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:01 PM</td>
-							<td class='step-details'>
-									Date settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:01 PM</td>
-							<td class='step-details'>
-									Clicked on User Menu
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:02 PM</td>
-							<td class='step-details'>
-									Clicked on Logout button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:02 PM</td>
-							<td class='step-details'>
-									Successfully logged out
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:02 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:02 PM</td>
-							<td class='step-details'>
-									Clicked on Login Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:03 PM</td>
-							<td class='step-details'>
-									Navigated to the Login page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:03 PM</td>
-							<td class='step-details'>
-									Entered the following email: flirsmoketest@mailinator.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:03 PM</td>
-							<td class='step-details'>
-									Entered the following password: QAZxsw123
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:03 PM</td>
-							<td class='step-details'>
-									Clicked on SignIn Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Navigated to the Library page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Clicked on User Menu
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Clicked on the Settings link from the menu dropdown
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Navigated to the Settings page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Temperature settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Distance settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Language settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Date settings remained the same after page was refreshed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:06 PM</td>
-							<td class='step-details'>
-									Navigated to the Library page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:07 PM</td>
-							<td class='step-details'>
-									Clicked on the New Folder button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:07 PM</td>
-							<td class='step-details'>
-									Entered the name: zNd3E3m
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:07 PM</td>
-							<td class='step-details'>
-									Create button is enabled
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:07 PM</td>
-							<td class='step-details'>
-									Clicked on Create button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:10 PM</td>
-							<td class='step-details'>
-									Closed the toast message
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:10 PM</td>
-							<td class='step-details'>
-									Clicked on the Uploaded(SortBy) button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:12 PM</td>
-							<td class='step-details'>
-									Waited aprox.1.7999999999999998 seconds
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:12 PM</td>
-							<td class='step-details'>
-									File/Folder was created successfully
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>3:40:12 PM</td>
-							<td class='step-details'>
-									Double clicked on zNd3E3m
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>3:40:14 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text red'>smokeTest1 - Test Case Failed</span>
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>3:40:14 PM</td>
-							<td class='step-details'>
-									<textarea disabled class="code-block">org.openqa.selenium.InvalidArgumentException: invalid argument: File not found : C:\Users\danla\IdeaProjects\ToolsWeb\src\main\java\testData\Images\measurements.jpg
-  (Session info: chrome=85.0.4183.102)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-9A6II86', ip: '192.168.1.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '13.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 85.0.4183.102, chrome: {chromedriverVersion: 85.0.4183.87 (cd6713ebf92fa..., userDataDir: C:\Users\danla\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58138}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
-Session ID: b61e8aa63cc5312a358733b5ab8ded57
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:106)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
-	at com.sun.proxy.$Proxy13.sendKeys(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.sendKeys(EventFiringWebDriver.java:429)
-	at pages.LibraryPage.uploadFile(LibraryPage.java:185)
-	at testCases.SmokeTest.smokeTest1(SmokeTest.java:70)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.testng.TestRunner.privateRun(TestRunner.java:766)
-	at org.testng.TestRunner.run(TestRunner.java:587)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
-	at org.testng.TestNG.runSuites(TestNG.java:1039)
-	at org.testng.TestNG.run(TestNG.java:1007)
-	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
-	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
-</textarea>
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>3:40:14 PM</td>
-							<td class='step-details'>
-									Snapshot below :
+									<span class='badge white-text green'>blankEmail_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<ul class='screenshots'>
-					<li><img class='r-img' onerror='this.style.display="none"' data-featherlight='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg' src='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg' data-src='C:\Users\danla\IdeaProjects\ToolsWeb\test-output\screenshots\smokeTest1_2020-09-18_15-40-14_.jpeg'></li>
-				</ul>
 			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>blankPassword_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:23:18 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:23:18 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:23:25 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 6s+575ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf pass' status='pass' test-id='4'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Error message is displayed if an incorrect password is entered</div>
+			<span class='node-time'>Sep 21, 2020 05:23:18 PM</span>
+			&middot; <span class='node-duration'>0h 0m 6s+575ms</span>
+			<span class='test-status right pass'>pass</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:20 PM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:21 PM</td>
+							<td class='step-details'>
+									Clicked on Login Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:24 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:24 PM</td>
+							<td class='step-details'>
+									Entered the following email: randomEmail@mail.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:25 PM</td>
+							<td class='step-details'>
+									Entered the following password:
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:25 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:25 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter your password
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:25 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>blankPassword_Test - Test Case PASSED</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='5'>
+					<div class='test-heading'>
+						<span class='test-name'>clickForgotPasswordLink_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:23:34 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:23:34 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:23:41 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 7s+54ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf pass' status='pass' test-id='6'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Clicking on the Forgot Password link redirects to Recover password page</div>
+			<span class='node-time'>Sep 21, 2020 05:23:34 PM</span>
+			&middot; <span class='node-duration'>0h 0m 7s+54ms</span>
+			<span class='test-status right pass'>pass</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:35 PM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:36 PM</td>
+							<td class='step-details'>
+									Clicked on Login Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:38 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:40 PM</td>
+							<td class='step-details'>
+									Clicked on Forgot Password link
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:41 PM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:41 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>clickForgotPasswordLink_Test - Test Case PASSED</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='7'>
+					<div class='test-heading'>
+						<span class='test-name'>clickSignUpLink_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:23:50 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:23:50 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:23:56 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 6s+671ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf pass' status='pass' test-id='8'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Clicking on the SignUp link redirects to Sign Up page</div>
+			<span class='node-time'>Sep 21, 2020 05:23:50 PM</span>
+			&middot; <span class='node-duration'>0h 0m 6s+671ms</span>
+			<span class='test-status right pass'>pass</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:51 PM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:52 PM</td>
+							<td class='step-details'>
+									Clicked on Login Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:55 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:56 PM</td>
+							<td class='step-details'>
+									Clicked on SignUp link
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:56 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:23:56 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>clickSignUpLink_Test - Test Case PASSED</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='9'>
+					<div class='test-heading'>
+						<span class='test-name'>incorrectPassword_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:24:05 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:24:05 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:24:13 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 7s+787ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf pass' status='pass' test-id='10'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Error message is displayed if an incorrect password is entered</div>
+			<span class='node-time'>Sep 21, 2020 05:24:05 PM</span>
+			&middot; <span class='node-duration'>0h 0m 7s+787ms</span>
+			<span class='test-status right pass'>pass</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:07 PM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:07 PM</td>
+							<td class='step-details'>
+									Clicked on Login Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:10 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:11 PM</td>
+							<td class='step-details'>
+									Entered the following email: flirtest1@mailinator.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:11 PM</td>
+							<td class='step-details'>
+									Entered the following password: thisIsNotTheCorrectPass
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:11 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:13 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password is incorrect.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:13 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>incorrectPassword_Test - Test Case PASSED</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf skip' status='skip' bdd='false' test-id='11'>
+					<div class='test-heading'>
+						<span class='test-name'>invalidEmail_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:24:22 PM</span>
+						<span class='test-status right skip'>skip</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:24:22 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:24:47 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 24s+729ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf skip' status='skip' test-id='12'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Error message is displayed if an invalid email address is entered</div>
+			<span class='node-time'>Sep 21, 2020 05:24:22 PM</span>
+			&middot; <span class='node-duration'>0h 0m 24s+729ms</span>
+			<span class='test-status right skip'>skip</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:24 PM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:24 PM</td>
+							<td class='step-details'>
+									Clicked on Login Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:27 PM</td>
+							<td class='step-details'>
+									Navigated to the Login page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:28 PM</td>
+							<td class='step-details'>
+									Entered the following email: #@%^%#$@#$@#.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Entered the following email: @example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:29 PM</td>
+							<td class='step-details'>
+									Entered the following email: Joe Smith <email@example.com>
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Entered the following email: email.example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:30 PM</td>
+							<td class='step-details'>
+									Entered the following email: email@example@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:31 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:31 PM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:31 PM</td>
+							<td class='step-details'>
+									Entered the following email: .email@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>5:24:31 PM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='skip'>
+							<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
+							<td class='timestamp'>5:24:47 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text orange'>invalidEmail_Test - Test Case Skipped</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf skip' status='skip' bdd='false' test-id='13'>
+					<div class='test-heading'>
+						<span class='test-name'>invalidEmail_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:25:49 PM</span>
+						<span class='test-status right skip'>skip</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:25:49 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:25:49 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+2ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf skip' status='skip' test-id='14'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Error message is displayed if an invalid email address is entered</div>
+			<span class='node-time'>Sep 21, 2020 05:25:49 PM</span>
+			&middot; <span class='node-duration'>0h 0m 0s+2ms</span>
+			<span class='test-status right skip'>skip</span>
+		</div>
+		<div class='collapsible-body'>
+			<div class='node-steps'>
+				<table class='bordered table-results'>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='log' status='skip'>
+							<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
+							<td class='timestamp'>5:25:49 PM</td>
+							<td class='step-details'>
+									<span class='badge white-text orange'>invalidEmail_Test - Test Case Skipped</span>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</li>
+</ul>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='15'>
+					<div class='test-heading'>
+						<span class='test-name'>invalidEmail_Test</span>
+						<span class='test-time'>Sep 21, 2020 05:25:49 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Sep 21, 2020 05:25:49 PM</span>
+	<span class='label end-time'>Sep 21, 2020 05:25:49 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
+</div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'>LOGIN_PAGE</span>
+	</div>
+</div>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+	<li class='node level-1 leaf pass' status='pass' test-id='16'>
+		<div class='collapsible-header'>
+			<div class='node-name'>Error message is displayed if an invalid email address is entered</div>
+			<span class='node-time'>Sep 21, 2020 05:25:49 PM</span>
+			&middot; <span class='node-duration'>0h 0m 0s+0ms</span>
+			<span class='test-status right pass'>pass</span>
 		</div>
 	</li>
 </ul>
@@ -684,16 +982,17 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 			<ul id='category-collection' class='category-collection'>
 				<li class='category displayed active'>
 					<div class='category-heading'>
-						<span class='category-name'>LANDING_PAGE</span>
+						<span class='category-name'>LOGIN_PAGE</span>
 						<span class='category-status right'>
-						<span class='label fail'>1</span>
+						<span class='label pass'>6</span>
+						<span class='label others'>2</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
+							<span status="pass" class='label green accent-4 white-text'>Passed: 6</span>
 							
-							<span status="fail" class='label red lighten-1 white-text'>Failed: 1</span>
-							
+							<span status="skip" class='label yellow darken-2 white-text'>Skipped: 2</span>
 						</div>
 						<div class='category-tests'>
 							<table class='bordered table-results'>
@@ -706,9 +1005,44 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 								</thead>
 								<tbody>
 									<tr>
-										<td>Sep 18, 2020 03:39:52 PM</td>
-										<td class='linked' test-id='1'>smokeTest1</td>
-										<td><span class='test-status fail'>fail</span></td>
+										<td>Sep 21, 2020 05:23:02 PM</td>
+										<td class='linked' test-id='1'>blankEmail_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:23:18 PM</td>
+										<td class='linked' test-id='3'>blankPassword_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:23:34 PM</td>
+										<td class='linked' test-id='5'>clickForgotPasswordLink_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:23:50 PM</td>
+										<td class='linked' test-id='7'>clickSignUpLink_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:24:05 PM</td>
+										<td class='linked' test-id='9'>incorrectPassword_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:24:22 PM</td>
+										<td class='linked' test-id='11'>invalidEmail_Test</td>
+										<td><span class='test-status skip'>skip</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:25:49 PM</td>
+										<td class='linked' test-id='13'>invalidEmail_Test</td>
+										<td><span class='test-status skip'>skip</span></td>
+									</tr>
+									<tr>
+										<td>Sep 21, 2020 05:25:49 PM</td>
+										<td class='linked' test-id='15'>invalidEmail_Test</td>
+										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -724,118 +1058,7 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 		</div>
 	</div>
 </div>
-<!-- category view --><div id='exception-view' class='view hide'>
-	<section id='controls'>
-		<div class='controls grey lighten-4'>
-			<!-- search -->
-			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
-				<a href="#" class='search-div'>
-				<i class='material-icons'>search</i> Search
-				</a>
-				<div class='input-field left hide'>
-					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
-				</div>
-			</div>
-			<!-- search -->
-		</div>
-	</section>
-	<div class='subview-left left'>
-		<div class='view-summary'>
-			<ul id='exception-collection' class='exception-collection'>
-				<li class='exception displayed active'>
-					<div class='exception-heading'>
-						<span class='exception-name'>org.openqa.selenium.InvalidArgumentException</span>
-						<span class='exception-count right'><span class='label red lighten-1 white-text'>1</span></span>
-					</div>
-					<div class='exception-content hide'>
-						<div class='exception-tests'>
-							<table class='bordered table-results'>
-								<thead>
-									<tr>
-										<th>Timestamp</th>
-										<th>TestName</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Sep 18, 2020 03:39:52 PM</td>
-										<td class='linked' test-id='2'>smokeTest1.Upload image,change measurements</td>
-										<td>
-											<textarea disabled class="code-block">org.openqa.selenium.InvalidArgumentException: invalid argument: File not found : C:\Users\danla\IdeaProjects\ToolsWeb\src\main\java\testData\Images\measurements.jpg
-  (Session info: chrome=85.0.4183.102)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-9A6II86', ip: '192.168.1.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '13.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 85.0.4183.102, chrome: {chromedriverVersion: 85.0.4183.87 (cd6713ebf92fa..., userDataDir: C:\Users\danla\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58138}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
-Session ID: b61e8aa63cc5312a358733b5ab8ded57
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:106)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
-	at com.sun.proxy.$Proxy13.sendKeys(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.sendKeys(EventFiringWebDriver.java:429)
-	at pages.LibraryPage.uploadFile(LibraryPage.java:185)
-	at testCases.SmokeTest.smokeTest1(SmokeTest.java:70)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.testng.TestRunner.privateRun(TestRunner.java:766)
-	at org.testng.TestRunner.run(TestRunner.java:587)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
-	at org.testng.TestNG.runSuites(TestNG.java:1039)
-	at org.testng.TestNG.run(TestNG.java:1007)
-	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
-	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
-</textarea>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class='subview-right left'>
-		<div class='view-summary'>
-			<h5 class='exception-name'></h5>
-		</div>
-	</div>
-</div>
-<!-- exception view --><div id='dashboard-view' class='view hide'>
+<!-- category view --><!-- exception view --><div id='dashboard-view' class='view hide'>
 	<div class='card-panel transparent np-v'>
 		<h5>Dashboard</h5>
 
@@ -843,31 +1066,31 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>1</div>
+					<div class='panel-lead'>8</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>1</div>
+					<div class='panel-lead'>8</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Sep 18, 2020 03:39:44 PM</div>
+					<div class='panel-lead'>Sep 21, 2020 05:22:52 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Sep 18, 2020 03:40:15 PM</div>
+			 		<div class='panel-lead'>Sep 21, 2020 05:25:50 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 30s+171ms</div>
+					<div class='panel-lead'>0h 2m 57s+612ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -889,11 +1112,11 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 							</tr>
 							<tr>
 								<td>Java version</td>
-								<td>13.0.1</td>
+								<td>11.0.3</td>
 							</tr>
 							<tr>
 								<td>User Name</td>
-								<td>danla</td>
+								<td>DHosman</td>
 							</tr>
 							<tr>
 								<td>Environment</td>
@@ -919,12 +1142,12 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 							<th>Passed %</th>
 						</tr>
 						<tr>
-							<td>LANDING_PAGE</td>
+							<td>LOGIN_PAGE</td>
+							<td>6</td>
 							<td>0</td>
-							<td>1</td>
 							<td>0</td>
 							<td>
-									0%
+									75%
 							</td>
 						</tr>
 					</table>
@@ -938,24 +1161,24 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 		<!-- container -->
 		<script>
 			var statusGroup = {
-                parentCount: 1,
-				passParent: 0,
-				failParent: 1,
+                parentCount: 8,
+				passParent: 6,
+				failParent: 0,
 				fatalParent: 0,
 				errorParent: 0,
 				warningParent: 0,
-				skipParent: 0,
-				exceptionsParent: 1,
-				childCount: 1,
-				passChild: 0,
-				failChild: 1,
+				skipParent: 2,
+				exceptionsParent: 2,
+				childCount: 8,
+				passChild: 6,
+				failChild: 0,
 				fatalChild: 0,
 				errorChild: 0,
 				warningChild: 0,
-				skipChild: 0,
+				skipChild: 2,
 				infoChild: 0,
 				debugChild: 0,
-				exceptionsChild: 1,
+				exceptionsChild: 2,
 				grandChildCount: 0,
 				passGrandChild: 0,
 				failGrandChild: 0,
@@ -970,7 +1193,7 @@ Session ID: b61e8aa63cc5312a358733b5ab8ded57
 		</script>
 		<script>
 			var timeline = {
-			        "smokeTest1":22.024
+			        "blankEmail_Test":6.587,"blankPassword_Test":6.575,"clickForgotPasswordLink_Test":7.054,"clickSignUpLink_Test":6.671,"incorrectPassword_Test":7.787,"invalidEmail_Test":24.729,"invalidEmail_Test":0.002,"invalidEmail_Test":0
 			};
 		</script>
 		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/b65cd69/v3html/js/extent.js' type='text/javascript'></script>
