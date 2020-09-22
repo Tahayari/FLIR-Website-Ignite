@@ -13,7 +13,11 @@
         <!--    browser list: chrome,edge,firefox-->
         <parameter name="browserName" value="firefox"></parameter>
         <classes>
-            <class name="testCases.LoginPageTest"></class>
+            <class name="testCases.LoginPageTest">
+                <methods>
+                    <include name="blankEmail_Test"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 

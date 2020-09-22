@@ -20,23 +20,33 @@ import static utils.DriverFactory.quitDriver;
 public class TestBase {
     protected WebDriver driver;
     public static Properties prop;
-    public ExtentReport extentReport = new ExtentReport();
+    public ExtentReport extentReport;
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
     public static String browser;
 
+    @BeforeTest
+    @Parameters({"browserName"})
+    public void initExtentReports(@Optional("chrome") String browserName){
+        extentReport = new ExtentReport(browserName);
+    }
+
     @BeforeMethod
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
-    public void goToLandingPage(@Optional("chrome") String browserName, @Optional("PROD") String webrellaEnv,
-                                @Optional("PROD") String ssoEnv) throws IOException {
+    public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
+                                @Optional("LAB") String ssoEnv) throws IOException {
         log.info("Begin @BeforeMethod");
         startUpBrowser(browserName);
 
         prop = loadProperties();
         driver.get(prop.getProperty("url"));
 
+        //set the Backend ENV
         Backend backend = new Backend(driver);
         backend.setAPI(webrellaEnv, ssoEnv);
+
+        //Append backend URL used into the Extent Report
+        extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
 
         log.info("End @BeforeMethod");
     }

@@ -23,7 +23,7 @@ public class ExtentReport {
     public static ExtentTest extentTestChild;
     public Properties prop;
 
-    public ExtentReport() {
+    public ExtentReport(String browserName) {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report"); // Title of the report
         htmlReporter.config().setReportName("Automated Tests Report"); // Name of the report
@@ -38,10 +38,10 @@ public class ExtentReport {
         }
         extent.setSystemInfo("Operating system name", System.getProperty("os.name"));
         extent.setSystemInfo("OS architecture", System.getProperty("os.arch").toUpperCase());
-        extent.setSystemInfo("Java version", System.getProperty("java.version"));
+//        extent.setSystemInfo("Java version", System.getProperty("java.version"));
         extent.setSystemInfo("User Name", System.getProperty("user.name"));
-        extent.setSystemInfo("Environment", prop.getProperty("url"));
-        extent.setSystemInfo("Browser used", prop.getProperty("browser").toUpperCase());
+        extent.setSystemInfo("Browser",browserName.toUpperCase());
+        extent.setSystemInfo("URL", prop.getProperty("url"));
     }
 
     public static void addTestCaseStep(String testCaseStep) {
@@ -79,7 +79,7 @@ public class ExtentReport {
         extentTestChild.log(Status.PASS, MarkupHelper.createLabel(result.getName() + " - Test Case PASSED", ExtentColor.GREEN));
     }
 
-    public void logSkip(ITestResult result) throws IOException{
+    public void logSkip(ITestResult result) {
         extentTestChild.log(Status.SKIP, MarkupHelper.createLabel(result.getName() + " - Test Case Skipped", ExtentColor.ORANGE));
     }
 
@@ -87,4 +87,9 @@ public class ExtentReport {
         extent.flush();
     }
 
+    public void setBackend(String webrellaAPI, String ssoAPI){
+        extent.setSystemInfo("---Backend API---","------");
+        extent.setSystemInfo("Webrella API",webrellaAPI);
+        extent.setSystemInfo("SSO API",ssoAPI);
+    }
 }
