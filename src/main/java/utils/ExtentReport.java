@@ -13,9 +13,7 @@ import org.testng.ITestResult;
 import java.io.IOException;
 import java.util.Properties;
 
-import static base.TestBase.browser;
 import static setup.ReadProperties.loadProperties;
-import static utils.DriverFactory.getDriver;
 
 public class ExtentReport {
     public static ExtentReports extent;
@@ -66,11 +64,12 @@ public class ExtentReport {
     }
 
     public void logFailure(ITestResult result) throws IOException {
-        WebDriver driver = getDriver(browser);
+        DriverFactory factory = DriverFactory.getInstance();
+        WebDriver driver = factory.getDriver();
         extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
         extentTestChild.log(Status.FAIL, result.getThrowable());
 
-        String screenshotPath = TestUtil.getScreenshot(driver, result.getName());
+        String screenshotPath = TestUtil.getScreenshot(factory.getDriver(), result.getName());
         System.out.println(screenshotPath);
         extentTestChild.fail("Snapshot below : ").addScreenCaptureFromPath(screenshotPath);
     }

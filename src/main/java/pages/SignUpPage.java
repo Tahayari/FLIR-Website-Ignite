@@ -10,16 +10,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
-import static utils.DriverFactory.getDriver;
 
 public class SignUpPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private SignUpPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
     public static SignUpPage getSignUpPage() {

@@ -4,21 +4,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import utils.ElementManager;
 
-import static base.TestBase.browser;
 import static pages.LibraryPage.getLibraryPage;
-import static utils.DriverFactory.getDriver;
 
 public class LoginPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private LoginPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
-    public static LoginPage getLoginPage() {
-        return new LoginPage();
-    }
+    public static LoginPage getLoginPage() { return new LoginPage(); }
     //--------------
 
 

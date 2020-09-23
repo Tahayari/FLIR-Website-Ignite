@@ -5,15 +5,12 @@ import org.openqa.selenium.WebElement;
 import utils.ElementManager;
 import utils.TestUtil;
 
-import static base.TestBase.browser;
-import static utils.DriverFactory.getDriver;
-
 public class LandingPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private LandingPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
     public static LandingPage getLandingPage() {

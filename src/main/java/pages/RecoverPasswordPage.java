@@ -7,16 +7,14 @@ import utils.ExtentReport;
 
 import java.util.NoSuchElementException;
 
-import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
-import static utils.DriverFactory.getDriver;
 
 public class RecoverPasswordPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private RecoverPasswordPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
     public static RecoverPasswordPage getRecoverPasswordPage() {

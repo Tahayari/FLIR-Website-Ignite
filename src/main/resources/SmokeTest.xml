@@ -13,18 +13,8 @@
         <!--    browser list: chrome,edge,firefox-->
         <parameter name="browserName" value="edge"></parameter>
         <classes>
-            <class name="testCases.SignUpPageTest">
-                <methods>
-                    <include name="registerNewAccount_Test"></include>
-                </methods>
-            </class>
+            <class name="testCases.SmokeTest"></class>
         </classes>
     </test>
-
-<!--    <test name="LoginPage">-->
-<!--        <classes>-->
-<!--            <class name="testCases.LoginPageTest"></class>-->
-<!--        </classes>-->
-<!--    </test>-->
 
 </suite>

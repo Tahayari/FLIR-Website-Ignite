@@ -50,7 +50,7 @@ public class SignUpPageTest extends TestBase {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent();
                 .clickOn_create_BTN();
         LibraryPage libraryPage = getLibraryPage();
         libraryPage.acceptTermsConditions()
@@ -75,7 +75,7 @@ public class SignUpPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = true,priority = 50)
+    @Test(enabled = true, priority = 50)
     public void expiredToken_Test() {
         executeSetup(TestCaseHeader.SIGNUPPAGE_EXPIREDTOKEN);
 

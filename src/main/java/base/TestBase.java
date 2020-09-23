@@ -7,6 +7,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import setup.Backend;
 import testData.TestData;
+import utils.DriverFactory;
 import utils.ExtentReport;
 
 import java.io.IOException;
@@ -14,10 +15,9 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static setup.ReadProperties.loadProperties;
-import static utils.DriverFactory.getDriver;
-import static utils.DriverFactory.quitDriver;
 
 public class TestBase {
+    protected DriverFactory factory;
     protected WebDriver driver;
     public static Properties prop;
     public ExtentReport extentReport;
@@ -36,6 +36,7 @@ public class TestBase {
     public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
                                 @Optional("LAB") String ssoEnv) throws IOException {
         log.info("Begin @BeforeMethod");
+        factory=DriverFactory.getInstance();
         startUpBrowser(browserName);
 
         prop = loadProperties();
@@ -73,7 +74,8 @@ public class TestBase {
     }
 
     public void startUpBrowser(String browser) {
-        driver = getDriver(browser);
+        factory.createDriver(browser);
+        driver = factory.getDriver();
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
@@ -83,7 +85,7 @@ public class TestBase {
     public void closeDriver() {
         log.info("Begin @AfterClass");
         if (driver != null) {
-            driver = quitDriver();
+            driver = factory.quitDriver();
             log.info("Closing the browser...");
         }
         log.info("End @AfterClass");

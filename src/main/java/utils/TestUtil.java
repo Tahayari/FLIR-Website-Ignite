@@ -18,19 +18,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
-import static base.TestBase.browser;
-import static utils.DriverFactory.getDriver;
-
 public class TestUtil {
-
-    public static WebDriver driver = getDriver(browser);
+    public static WebDriver driver = DriverFactory.getInstance().getDriver();
     public static TestData testData = new TestData();
 
     static Workbook book;
     static Sheet sheet;
 
     public static void waitForElementToLoad(WebElement webElementToWaitFor) {
-        WebDriver driver = getDriver(browser);
+        WebDriver driver = DriverFactory.getInstance().getDriver();
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
         try {
             wait.until(ExpectedConditions.visibilityOf(webElementToWaitFor));
@@ -102,6 +98,7 @@ public class TestUtil {
     }
 
     public static void waitForElementToBeClickable(WebElement webElement) {
+        WebDriver driver = DriverFactory.getInstance().getDriver();
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
 
         try {
