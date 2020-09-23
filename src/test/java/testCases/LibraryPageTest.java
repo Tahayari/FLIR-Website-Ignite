@@ -19,7 +19,7 @@ public class LibraryPageTest extends TestBase {
     LibraryPage libraryPage;
 
     // Test cases begin here------------------------------------------------------------
-    @Test
+    @Test(enabled = false)
     public void testing() {
         executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDER);
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());

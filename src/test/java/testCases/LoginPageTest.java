@@ -18,7 +18,6 @@ public class LoginPageTest extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
 
-    // Test cases begin here------------------------------------------------------------
     @Test(enabled = false) /*For testing purposes*/
     public void title_Test() {
         executeSetup(TestCaseHeader.LOGINPAGE_BLANKPASSWORD);

@@ -23,7 +23,7 @@ public class TestBase {
     public ExtentReport extentReport;
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
-    public static String browser;
+//    public static String browser;
 
     @BeforeTest
     @Parameters({"browserName"})

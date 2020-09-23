@@ -11,6 +11,7 @@ public enum TestCaseHeader {
     LOGINPAGE_CLICKFORGOTPASSLINK("Clicking on the Forgot Password link redirects to Recover password page"),
 
     SIGNUPPAGE_REGISTERNEWACCOUNT("Create new account(s)"),
+    SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT("Create a new random account"),
     SIGNUPPAGE_INVALIDEMAIL("Error message is displayed if the users enters an email that has an invalid format"),
     SIGNUPPAGE_INVALIDTOKEN("Error message is displayed if the user enters an invalid token"),
     SIGNUPPAGE_EXPIREDTOKEN("Error message is displayed when the user enters an expired token"),

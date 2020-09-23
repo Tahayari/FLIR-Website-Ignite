@@ -7,7 +7,6 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
 import java.io.IOException;
@@ -65,7 +64,6 @@ public class ExtentReport {
 
     public void logFailure(ITestResult result) throws IOException {
         DriverFactory factory = DriverFactory.getInstance();
-        WebDriver driver = factory.getDriver();
         extentTestChild.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
         extentTestChild.log(Status.FAIL, result.getThrowable());
 
