@@ -25,6 +25,7 @@ public class TestUtil {
     static Workbook book;
     static Sheet sheet;
 
+    //test
     public static void waitForElementToLoad(WebElement webElementToWaitFor) {
         WebDriver driver = DriverFactory.getInstance().getDriver();
         WebDriverWait wait = new WebDriverWait(driver, TestData.WAIT_FOR_ELEMENT_TIMEOUT);
