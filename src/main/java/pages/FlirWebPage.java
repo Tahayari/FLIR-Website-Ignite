@@ -6,17 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import utils.DriverFactory;
 import utils.ElementManager;
 import utils.ExtentReport;
 import utils.TestUtil;
 
 import java.util.List;
 
-import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
-import static utils.DriverFactory.getDriver;
 
 public class FlirWebPage {
+    DriverFactory factory = DriverFactory.getInstance();
 
     public void clickAction(WebElement element, String msg) {
         TestUtil.waitForElementToBeClickable(element);
@@ -26,7 +26,7 @@ public class FlirWebPage {
 
     public void doubleClickAction(WebElement element, String msg) {
         TestUtil.waitForElementToLoad(element);
-        WebDriver driver = getDriver(browser);
+        WebDriver driver = factory.getDriver();
         Actions actions = new Actions(driver);
         actions.doubleClick(element).perform();
         ExtentReport.addTestCaseStep(msg);

@@ -6,16 +6,14 @@ import org.openqa.selenium.support.ui.Select;
 import utils.ElementManager;
 import utils.ExtentReport;
 
-import static base.TestBase.browser;
 import static pages.LibraryPage.getLibraryPage;
-import static utils.DriverFactory.getDriver;
 
 public class SettingsPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private SettingsPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
     public static SettingsPage getSettingsPage() {

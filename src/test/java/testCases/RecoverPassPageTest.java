@@ -248,7 +248,6 @@ public class RecoverPassPageTest extends TestBase {
     }
 
     private void verifyEmail() {
-        //maybe put this in SignUpPage class instead?
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail())
                 .setVerificationCode_field(TestUtil.getTokenFromGmail())
                 .clickOn_verifyCode_BTN()

@@ -21,6 +21,11 @@ public class SignUpPageTest extends TestBase {
     LandingPage landingPage;
     SignUpPage signUpPage;
 
+    /*
+    For SSO-LAB API there consent field is NOT displayed in the SignUP page
+    For SSO-PROD API the field IS displayed
+    */
+
     // Test cases begin here------------------------------------------------------------
     @Test(enabled = false)
     public void forTesting() {
@@ -38,7 +43,7 @@ public class SignUpPageTest extends TestBase {
         return getDataFromExcel(fileName, testData.getNameOfFirstSheet());
     }
 
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = true)
+    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = false)
     public void registerNewAccount_Test(String email, String firstName, String lastName) {
         executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWACCOUNT);
 
@@ -50,7 +55,30 @@ public class SignUpPageTest extends TestBase {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent();
+                .clickOn_create_BTN();
+        LibraryPage libraryPage = getLibraryPage();
+        libraryPage.acceptTermsConditions()
+                .skipWelcomeScreen()
+                .logout();
+    }
+
+    @Test
+    public void registerNewRandomAccount_Test() {
+        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT);
+        String email = TestUtil.getRandomString(8);
+        String firstName = TestUtil.getRandomString(5);
+        String lastName = TestUtil.getRandomString( 5);
+
+        signUpPage.sendTokenToEmail(email + "@mailinator.com")
+                .setVerificationCode_field(Mailinator.getToken(email))
+                .clickOn_verifyCode_BTN()
+                .setNewPassword(testData.getValidAccountPasswd())
+                .setConfirmNewPassword(testData.getValidAccountPasswd())
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .selectRandomCountry()
+//                .selectRandomConsent();
                 .clickOn_create_BTN();
         LibraryPage libraryPage = getLibraryPage();
         libraryPage.acceptTermsConditions()
@@ -75,7 +103,7 @@ public class SignUpPageTest extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = true,priority = 50)
+    @Test(enabled = true, priority = 50)
     public void expiredToken_Test() {
         executeSetup(TestCaseHeader.SIGNUPPAGE_EXPIREDTOKEN);
 
@@ -160,8 +188,7 @@ public class SignUpPageTest extends TestBase {
         signUpPage.setFirstName(testData.getFirstName())
                 .setLastName(testData.getLastName())
                 .selectRandomCountry()
-                .selectRandomConsent()
-
+//                .selectRandomConsent()
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd() + "extra")
                 .clickOn_create_BTN()
@@ -177,7 +204,7 @@ public class SignUpPageTest extends TestBase {
                 .setLastName(testData.getLastName())
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
-                .selectRandomConsent()
+//                .selectRandomConsent()
                 .clickOn_create_BTN()
                 .checkErrMsgIsDisplayed(signUpPage.blankCountry_Msg());
     }
@@ -205,7 +232,7 @@ public class SignUpPageTest extends TestBase {
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent()
                 .clickOn_create_BTN()
                 .checkErrMsgIsDisplayed(signUpPage.requiredFieldMissing_Msg());
     }
@@ -219,7 +246,7 @@ public class SignUpPageTest extends TestBase {
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent()
                 .clickOn_create_BTN()
                 .checkErrMsgIsDisplayed(signUpPage.requiredFieldMissing_Msg());
     }
@@ -234,7 +261,7 @@ public class SignUpPageTest extends TestBase {
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent()
                 .clickOn_cancel_BTN();
         landingPage.verifyIfPageLoaded();
     }
@@ -252,7 +279,7 @@ public class SignUpPageTest extends TestBase {
                 .setFirstName(testData.getFirstName())
                 .setLastName(testData.getLastName())
                 .selectRandomCountry()
-                .selectRandomConsent()
+//                .selectRandomConsent()
                 .clickOn_create_BTN()
                 .checkErrMsgIsDisplayed(signUpPage.existingUserErr_Msg());
     }

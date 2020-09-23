@@ -2,60 +2,53 @@ package base;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import setup.Backend;
 import testData.TestData;
+import utils.DriverFactory;
 import utils.ExtentReport;
-import utils.TestUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static setup.ReadProperties.loadProperties;
-import static utils.DriverFactory.getDriver;
-import static utils.DriverFactory.quitDriver;
 
 public class TestBase {
+    protected DriverFactory factory;
     protected WebDriver driver;
     public static Properties prop;
-    public ExtentReport extentReport = new ExtentReport();
+    public ExtentReport extentReport;
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
-    public static String browser;
+//    public static String browser;
 
-    @BeforeSuite
+    @BeforeTest
     @Parameters({"browserName"})
-    public void beforeSuite(String browserName) throws IOException {
-        log.info("Begin @BeforeSuite");
-        browser=browserName;
-        prop = loadProperties();
-        TestUtil.deleteFilesFromFolder(new File(testData.getProjectPath() + "\\test-output\\screenshots"));
-        log.info("End @BeforeSuite");
-    }
-
-    @BeforeClass
-    @Parameters({"browserName"})
-    public void startUpBrowser() {
-        log.info("Begin @BeforeClass");
-        driver = getDriver(browser);
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
-        log.info("End @BeforeClass");
+    public void initExtentReports(@Optional("chrome") String browserName){
+        extentReport = new ExtentReport(browserName);
     }
 
     @BeforeMethod
-    @Parameters({"webrellaEnv","ssoEnv"})
-    public void goToLandingPage(String webrellaEnv,String ssoEnv) {
+    @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
+    public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
+                                @Optional("LAB") String ssoEnv) throws IOException {
         log.info("Begin @BeforeMethod");
+        factory=DriverFactory.getInstance();
+        startUpBrowser(browserName);
+
+        prop = loadProperties();
         driver.get(prop.getProperty("url"));
-//        setAPI(prop.getProperty("webrella"), prop.getProperty("sso"));
-        setAPI(webrellaEnv,ssoEnv);
+
+        //set the Backend ENV
+        Backend backend = new Backend(driver);
+        backend.setAPI(webrellaEnv, ssoEnv);
+
+        //Append backend URL used into the Extent Report
+        extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
+
         log.info("End @BeforeMethod");
     }
 
@@ -69,17 +62,8 @@ public class TestBase {
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             extentReport.logSuccess(result);
         }
+        closeDriver();
         log.info("End @AfterMethod");
-    }
-
-    @AfterClass
-    public void closeDriver() {
-        log.info("Begin @AfterClass");
-        if (driver != null) {
-            driver = quitDriver();
-            log.info("Closing the browser...");
-        }
-        log.info("End @AfterClass");
     }
 
     @AfterTest(alwaysRun = true)
@@ -89,50 +73,21 @@ public class TestBase {
         log.info("End @AfterTest");
     }
 
-    void setAPI(String webrellaURL, String ssoURL) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        switch (webrellaURL.trim()) {
-            case "DEV":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella-develop.azurewebsites.net"));
-                break;
-            case "DEV-STG":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella-develop-stage.azurewebsites.net"));
-                break;
-            case "FEATURE":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella-feature.azurewebsites.net"));
-                break;
-            case "FEATURE-STG":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella-feature-stage.azurewebsites.net"));
-                break;
-            case "PROD":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella.api-fs.com"));
-                break;
-            case "PROD-STG":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "webrella.api.url", "https://webrella-stage.azurewebsites.net"));
-                break;
-            default:
-                log.info("Enter a valid Webrella Environment! You've entered : " + webrellaURL);
-        }
-
-        switch (ssoURL.trim()) {
-            case "LAB":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "flir.sso.env", "flirb2clab"));
-                break;
-            case "PROD":
-                js.executeScript(String.format(
-                        "window.localStorage.setItem('%s','%s');", "flir.sso.env", "flirb2cprod"));
-                break;
-            default:
-                log.info("Enter a valid Webrella Environment! You've entered : " + ssoURL);
-        }
+    public void startUpBrowser(String browser) {
+        factory.createDriver(browser);
+        driver = factory.getDriver();
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
     }
 
+    public void closeDriver() {
+        log.info("Begin @AfterClass");
+        if (driver != null) {
+            driver = factory.quitDriver();
+            log.info("Closing the browser...");
+        }
+        log.info("End @AfterClass");
+    }
 }

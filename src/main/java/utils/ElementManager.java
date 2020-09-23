@@ -30,10 +30,10 @@ public enum ElementManager {
     LIBRARYPAGE_OPENFOLDER_BTN("//button[contains(text(),'Open')]"),
     LIBRARYPAGE_EMPTYFOLDER_MSG("//*[contains(text(),'There are no items in this folder.')]"),
     LIBRARYPAGE_CLOSENOTIFICATION_BTN("//button[@class='close']"),
-    LIBRARYPAGE_UPLOADED_BTN("","DateUploaded"),
+    LIBRARYPAGE_UPLOADED_BTN("", "DateUploaded"),
     LIBRARYPAGE_SWITCHTO_LIST_VIEW("//button[@title='Switch to list view']"),
     LIBRARYPAGE_SWITCHTO_GRID_VIEW("//button[@title='Switch to grid view']"),
-    LIBRARYPAGE_DELETE_BTN("","files-button-bar-delete"),
+    LIBRARYPAGE_DELETE_BTN("", "files-button-bar-delete"),
     LIBRARYPAGE_DELETE_CONFIRM_BTN("//div[@class='button-bar']//span[contains(text(),'Delete')]//ancestor::button"),
     LIBRARYPAGE_ALL_LINK("//a[contains(text(),'All')]"),
 
@@ -48,8 +48,8 @@ public enum ElementManager {
     IMAGEDETAILSPAGE_LOCATION_TITLE("//h2[contains(text(),'Location')]"),
     IMAGEDETAILSPAGE_TEMPERATURES_SECTION("//h3[contains(text(),'Temperatures')]"),
     IMAGEDETAILSPAGE_SHOWALL_BTN("//span[contains(text(),'Show all')]"),
-    IMAGEDETAILSPAGE_BACKTOLIBRARY_BTN("","","flir-breadcrumbs-item"),
-    IMAGEDETAILSPAGE_COMMENTS_TAB_NOTES("","","section-data"),
+    IMAGEDETAILSPAGE_BACKTOLIBRARY_BTN("", "", "flir-breadcrumbs-item"),
+    IMAGEDETAILSPAGE_COMMENTS_TAB_NOTES("", "", "section-data"),
     IMAGEDETAILSPAGE_DETAILS_TAB_CREATED("//dt[contains(text(),'Created')]//following::dd[1]"),
     IMAGEDETAILSPAGE_DETAILS_TAB_UPLOADED("//dt[contains(text(),'Uploaded')]//following::dd[1]"),
     IMAGEDETAILSPAGE_LOCATION_TAB_COORDINATES("//dt[contains(text(),'Coordinates')]//following::dd"),
@@ -94,8 +94,12 @@ public enum ElementManager {
     RECOVERPASSPAGE_INVALIDEMAIL_ERR("//p[contains(text(),'Please enter a valid email address.')]"),
     RECOVERPASSPAGE_TOOMANYINCORRECTATTEMPTS_ERR("", "email_fail_no_retry"),
     RECOVERPASSPAGE_REQUIREDFIELDMISSING_ERR("", "requiredFieldMissing"),
-    RECOVERPASSPAGE_INVALIDPASS_ERR("//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]"),
-    RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR("//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]"),
+    // Error for SSO PROD :
+    // RECOVERPASSPAGE_INVALIDPASS_ERR("//input[@id='newPassword']//preceding::p[contains(text(),'8-16 characters')]"),
+    // RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR("//input[@id='newPassword']//following::p[contains(text(),'8-16 characters')]"),
+    // Error for SSO LAB :
+    RECOVERPASSPAGE_INVALIDPASS_ERR("//input[@id='newPassword']//preceding::div[contains(text(),'3 of the following')]"),
+    RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR("//input[@id='newPassword']//following::div[contains(text(),'3 of the following')]"),
     RECOVERPASSPAGE_PASSWORDMISSMATCH_ERR("", "passwordEntryMismatch"),
 
     //SIGN UP PAGE

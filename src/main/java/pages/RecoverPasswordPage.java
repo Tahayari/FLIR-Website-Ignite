@@ -7,16 +7,14 @@ import utils.ExtentReport;
 
 import java.util.NoSuchElementException;
 
-import static base.TestBase.browser;
 import static org.testng.Assert.assertTrue;
-import static utils.DriverFactory.getDriver;
 
 public class RecoverPasswordPage extends FlirWebPage {
-    private final WebDriver driver;
+    private WebDriver driver;
 
     //Constructor
     private RecoverPasswordPage() {
-        driver = getDriver(browser);
+        driver = factory.getDriver();
     }
 
     public static RecoverPasswordPage getRecoverPasswordPage() {
@@ -174,7 +172,7 @@ public class RecoverPasswordPage extends FlirWebPage {
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
-        String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword1!"};
+        String[] invalidPass = {"passwordd", "Passwordd", "passwordd!!", "ThisIsAReallyReallyLongPassword"};
 
         for (String pass : invalidPass) {
             clearWebElement(passField);
@@ -183,7 +181,7 @@ public class RecoverPasswordPage extends FlirWebPage {
             if (passField.hashCode() == newPassword_field().hashCode()) {
                 checkIfElementHasLoaded(invalidPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
             } else if (passField.hashCode() == confNewPassword_field().hashCode()) {
-                checkIfElementHasLoaded(invalidConfirmPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
+                checkIfElementHasLoaded(invalidConfirmPass_Msg(),"Error message is displayed: " + invalidConfirmPass_Msg().getText());
             } else throw new NoSuchElementException();
         }
     }
