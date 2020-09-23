@@ -1,10 +1,8 @@
-package testCases;
+package testCases.signUpPage;
 
 import base.TestBase;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LandingPage;
-import pages.LibraryPage;
 import pages.SignUpPage;
 import utils.ExtentReport;
 import utils.TestUtil;
@@ -13,11 +11,10 @@ import utils.testCaseManager.TestCaseCategory;
 import utils.testCaseManager.TestCaseHeader;
 
 import static pages.LandingPage.getLandingPage;
-import static pages.LibraryPage.getLibraryPage;
 import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
-public class SignUpPageTest extends TestBase {
+public class SignUpPageNegativeTests extends TestBase {
     LandingPage landingPage;
     SignUpPage signUpPage;
 
@@ -25,66 +22,6 @@ public class SignUpPageTest extends TestBase {
     For SSO-LAB API there consent field is NOT displayed in the SignUP page
     For SSO-PROD API the field IS displayed
     */
-
-    // Test cases begin here------------------------------------------------------------
-    @Test(enabled = false)
-    public void forTesting() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_CANCELREGISTRATION);
-        String dummyEmail = TestUtil.getRandomString(6);
-        signUpPage.sendTokenToEmail(dummyEmail + "@mailinator.com")
-                .setVerificationCode_field(Mailinator.getToken(dummyEmail))
-                .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
-    }
-
-    @DataProvider
-    public Object[][] getTestData() {
-        String fileName = "Accounts";
-        return getDataFromExcel(fileName, testData.getNameOfFirstSheet());
-    }
-
-    @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = false)
-    public void registerNewAccount_Test(String email, String firstName, String lastName) {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWACCOUNT);
-
-        signUpPage.sendTokenToEmail(email + "@mailinator.com")
-                .setVerificationCode_field(Mailinator.getToken(email))
-                .clickOn_verifyCode_BTN()
-                .setNewPassword(testData.getValidAccountPasswd())
-                .setConfirmNewPassword(testData.getValidAccountPasswd())
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .selectRandomCountry()
-//                .selectRandomConsent();
-                .clickOn_create_BTN();
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.acceptTermsConditions()
-                .skipWelcomeScreen()
-                .logout();
-    }
-
-    @Test
-    public void registerNewRandomAccount_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT);
-        String email = TestUtil.getRandomString(8);
-        String firstName = TestUtil.getRandomString(5);
-        String lastName = TestUtil.getRandomString( 5);
-
-        signUpPage.sendTokenToEmail(email + "@mailinator.com")
-                .setVerificationCode_field(Mailinator.getToken(email))
-                .clickOn_verifyCode_BTN()
-                .setNewPassword(testData.getValidAccountPasswd())
-                .setConfirmNewPassword(testData.getValidAccountPasswd())
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .selectRandomCountry()
-//                .selectRandomConsent();
-                .clickOn_create_BTN();
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.acceptTermsConditions()
-                .skipWelcomeScreen()
-                .logout();
-    }
 
     @Test(groups = {"smoke"})
     public void invalidEmail_Test() {
@@ -327,7 +264,6 @@ public class SignUpPageTest extends TestBase {
     }
 
     private void verifyEmail() {
-        //maybe put this in SignUpPage class instead?
         signUpPage.sendTokenToEmail(testData.getGmailEmail())
                 .setVerificationCode_field(TestUtil.getTokenFromGmail())
                 .clickOn_verifyCode_BTN()

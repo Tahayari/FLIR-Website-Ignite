@@ -1,8 +1,10 @@
-package testCases;
+package testCases.loginPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.LandingPage;
+import pages.LibraryPage;
+import pages.LoginPage;
 import utils.ExtentReport;
 import utils.testCaseManager.TestCaseCategory;
 import utils.testCaseManager.TestCaseHeader;
@@ -10,11 +12,9 @@ import utils.testCaseManager.TestCaseHeader;
 import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
-import static pages.RecoverPasswordPage.getRecoverPasswordPage;
-import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
-public class LoginPageTest extends TestBase {
+public class LoginPageNegativeTests extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
 
@@ -75,39 +75,6 @@ public class LoginPageTest extends TestBase {
                 .clickOn_signInBTN();
 
         loginPage.checkErrMsgIsDisplayed(loginPage.nonExistingAccount_Msg());
-    }
-
-    @Test(groups = {"smoke"}) /*execute this TestCase last*/
-    public void loginWithValidCredentials_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_LOGINWITHVALIDCREDENTIALS);
-
-        loginPage.setEmail(testData.getEmailOfExistingAcc())
-                .setPass(testData.getPassOfExistingAcc())
-                .clickOn_signInBTN();
-
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.verifyIfPageLoaded()
-                .logout();
-        landingPage.verifyIfPageLoaded();
-    }
-
-    @Test(groups = {"smoke"})
-    public void clickSignUpLink_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_CLICKSIGNUPLINK);
-
-        loginPage.clickOn_signUpLink();
-
-        SignUpPage signUpPage = getSignUpPage();
-        signUpPage.verifyIfPageLoaded();
-    }
-
-    @Test(groups = {"smoke"})
-    public void clickForgotPasswordLink_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_CLICKFORGOTPASSLINK);
-
-        loginPage.clickOn_forgotPasswordLink();
-        RecoverPasswordPage recoverPasswordPage = getRecoverPasswordPage();
-        recoverPasswordPage.verifyIfPageLoaded();
     }
 
     //---

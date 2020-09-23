@@ -1,4 +1,4 @@
-package testCases;
+package testCases.libraryPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
@@ -13,12 +13,11 @@ import utils.testCaseManager.TestCaseHeader;
 import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
 
-public class LibraryPageTest extends TestBase {
+public class LibraryPageNegativeTests extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
     LibraryPage libraryPage;
 
-    // Test cases begin here------------------------------------------------------------
     @Test(enabled = false)
     public void testing() {
         executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDER);
@@ -26,7 +25,6 @@ public class LibraryPageTest extends TestBase {
 
         libraryPage.logout();
     }
-
 
     @Test
     public void createNewFolderWithBlankName_Test() {
@@ -82,18 +80,6 @@ public class LibraryPageTest extends TestBase {
 
         libraryPage.logout();
     }
-//
-//    @Test
-//    public void uploadValidFile_Test() {
-//        String testCaseTitle = "LIBRARY PAGE - uploadValidFile_Test";
-//        String testCaseDescription = "Successfully upload a valid file";
-//        String fileLocation = System.getProperty("user.dir") + "\\src\\main\\java\\testData\\Images\\validImage.jpg";
-//        createTestCase(testCaseTitle, testCaseDescription);
-//
-//        goToLibraryPage();
-//
-//        libraryPage.uploadFile(fileLocation);
-//    }
 
     //----
 

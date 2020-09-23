@@ -1,4 +1,4 @@
-package testCases;
+package testCases.recoverPassPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
@@ -17,20 +17,10 @@ import static pages.LoginPage.getLoginPage;
 import static pages.RecoverPasswordPage.getRecoverPasswordPage;
 import static utils.TestUtil.getDataFromExcel;
 
-public class RecoverPassPageTest extends TestBase {
+public class RecoverPassPageNegativeTests extends TestBase {
     LandingPage landingPage;
     LoginPage loginPage;
     RecoverPasswordPage recoverPasswordPage;
-
-    // Test cases begin here------------------------------------------------------------
-    @Test(enabled = false)
-    public void forTesting() {
-        executeSetup(TestCaseHeader.RECOVERPASSPAGE_INVALIDEMAIL);
-        recoverPasswordPage.setEmail("blabla@mail.com");
-        String token = TestUtil.getTokenFromGmail();
-        System.out.println(token);
-    }
-
 
     @Test
     public void invalidEmail_Test() {
@@ -160,21 +150,6 @@ public class RecoverPassPageTest extends TestBase {
                 .setConfirmNewPassword("")
                 .clickOn_continue_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.passMismatch_Msg());
-    }
-
-    @Test
-    public void changePassword_Test() {
-        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CHANGEPASSWORD);
-
-        goToChangePassScreen();
-
-        recoverPasswordPage.setNewPassword(testData.getPassOfExistingAcc())
-                .setConfirmNewPassword(testData.getPassOfExistingAcc())
-                .clickOn_continue_BTN();
-        LibraryPage libraryPage = getLibraryPage();
-        libraryPage.verifyIfPageLoaded();
-        libraryPage.logout();
-        landingPage.verifyIfPageLoaded();
     }
 
     @Test

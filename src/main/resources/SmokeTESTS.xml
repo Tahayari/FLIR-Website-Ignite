@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="IGNITE - Multiple flows Test Suite">
+<suite name="FLIR IGNITE - Tests">
     <listeners>
         <listener class-name="utils.AnnotationTransformer"/>
     </listeners>
@@ -16,5 +16,4 @@
             <class name="testCases.SmokeTest"></class>
         </classes>
     </test>
-
 </suite>

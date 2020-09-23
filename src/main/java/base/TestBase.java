@@ -20,22 +20,16 @@ public class TestBase {
     protected DriverFactory factory;
     protected WebDriver driver;
     public static Properties prop;
-    public ExtentReport extentReport;
+    public static ExtentReport extentReport;
     protected TestData testData = new TestData();
     protected static final Logger log = LogManager.getLogger(TestBase.class);
-//    public static String browser;
 
     @BeforeTest
-    @Parameters({"browserName"})
-    public void initExtentReports(@Optional("chrome") String browserName){
-        extentReport = new ExtentReport(browserName);
-    }
-
-    @BeforeMethod
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
-    public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
-                                @Optional("LAB") String ssoEnv) throws IOException {
-        log.info("Begin @BeforeMethod");
+    public void initExtentReports(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
+                                  @Optional("LAB") String ssoEnv) throws IOException{
+        extentReport = new ExtentReport(browserName);
+
         factory=DriverFactory.getInstance();
         startUpBrowser(browserName);
 
@@ -43,11 +37,24 @@ public class TestBase {
         driver.get(prop.getProperty("url"));
 
         //set the Backend ENV
-        Backend backend = new Backend(driver);
+        Backend backend = new Backend(factory.getDriver());
         backend.setAPI(webrellaEnv, ssoEnv);
 
         //Append backend URL used into the Extent Report
         extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
+    }
+
+    @BeforeMethod
+    @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
+    public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
+                                @Optional("LAB") String ssoEnv) throws IOException {
+        log.info("Begin @BeforeMethod");
+
+        factory=DriverFactory.getInstance();
+        startUpBrowser(browserName);
+
+        prop = loadProperties();
+        driver.get(prop.getProperty("url"));
 
         log.info("End @BeforeMethod");
     }
