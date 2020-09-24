@@ -2,29 +2,25 @@ package testCases.recoverPassPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.LandingPage;
 import pages.LibraryPage;
 import pages.LoginPage;
 import pages.RecoverPasswordPage;
-import utils.ExtentReport;
 import utils.TestUtil;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 import static pages.RecoverPasswordPage.getRecoverPasswordPage;
 
 public class RecoverPassPagePositiveTests extends TestBase {
-    LandingPage landingPage;
     LoginPage loginPage;
     RecoverPasswordPage recoverPasswordPage;
 
 
     @Test
     public void changePassword_Test() {
-        executeSetup(TestCaseHeader.RECOVERPASSPAGE_CHANGEPASSWORD);
+        executeSetup(TestCaseDesc.RECOVERPASSPAGE_CHANGEPASSWORD);
 
         goToChangePassScreen();
 
@@ -46,18 +42,16 @@ public class RecoverPassPagePositiveTests extends TestBase {
         recoverPasswordPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader) {
+    private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.RECOVERPASSWORD_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.RECOVERPASSWORD_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         loginPage = getLoginPage();
         recoverPasswordPage = getRecoverPasswordPage();
         goToRecoverPassPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void goToChangePassScreen() {

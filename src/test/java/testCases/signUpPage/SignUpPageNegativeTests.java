@@ -2,20 +2,16 @@ package testCases.signUpPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.LandingPage;
 import pages.SignUpPage;
-import utils.ExtentReport;
 import utils.TestUtil;
 import utils.emailManager.Mailinator;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class SignUpPageNegativeTests extends TestBase {
-    LandingPage landingPage;
     SignUpPage signUpPage;
 
     /*
@@ -25,14 +21,14 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test(groups = {"smoke"})
     public void invalidEmail_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_INVALIDEMAIL);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_INVALIDEMAIL);
 
         verifyListOfInvalidEmails();
     }
 
     @Test(groups = {"smoke"})
     public void invalidToken_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_INVALIDTOKEN);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_INVALIDTOKEN);
 
         signUpPage.sendTokenToEmail(testData.getRandomEmail())
                 .setVerificationCode_field(testData.getInvalidToken())
@@ -40,9 +36,9 @@ public class SignUpPageNegativeTests extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    @Test(enabled = true, priority = 50)
+    @Test()
     public void expiredToken_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_EXPIREDTOKEN);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_EXPIREDTOKEN);
 
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
         String token = TestUtil.getTokenFromGmail();
@@ -54,14 +50,14 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test()
     public void tooManyIncorrectAttemptsToken_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_TOOMANYINCORRECTTOKENATTEMPTS);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_TOOMANYINCORRECTTOKENATTEMPTS);
 
         verifyInvalidTokenTooManyTimes();
     }
 
     @Test(groups = {"smoke"})
     public void sendNewCode_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_SENDNEWCODE);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_SENDNEWCODE);
 
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
         String firstToken = TestUtil.getTokenFromGmail();
@@ -79,7 +75,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void resendToken_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_RESENDTOKEN);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_RESENDTOKEN);
 
         signUpPage.sendTokenToEmail(testData.getGmailEmail());
         String firstToken = TestUtil.getTokenFromGmail();
@@ -96,7 +92,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void resendEmail_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_RESENDEMAIL);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_RESENDEMAIL);
 
         verifyEmail();
         signUpPage.clickOn_changeEmail_BTN();
@@ -104,21 +100,21 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void incorrectPasswordFormat_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_INCORRECTPASSFORMAT);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_INCORRECTPASSFORMAT);
 
         signUpPage.tryIncorrectPasswords(signUpPage.newPassword_field());
     }
 
     @Test
     public void incorrectPasswordFormatConfirmPassField_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_INCORRECTCONFIRMPASSFORMAT);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_INCORRECTCONFIRMPASSFORMAT);
 
         signUpPage.tryIncorrectPasswords(signUpPage.confNewPassword_field());
     }
 
     @Test(groups = {"smoke"})
     public void mismatchingPasswords_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_MISSMATCHINGPASSWORDS);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_MISSMATCHINGPASSWORDS);
 
         verifyEmail();
 
@@ -134,7 +130,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void noCountrySelected_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_NOCOUNTRYSELECTED);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_NOCOUNTRYSELECTED);
 
         verifyEmail();
         signUpPage.setFirstName(testData.getFirstName())
@@ -148,7 +144,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test(groups = {"smoke"})
     public void noConsent_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_NOCONSENT);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_NOCONSENT);
 
         verifyEmail();
         signUpPage.setFirstName(testData.getFirstName())
@@ -162,7 +158,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void noFirstName_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_NOFIRSTNAME);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_NOFIRSTNAME);
 
         verifyEmail();
         signUpPage.setLastName(testData.getLastName())
@@ -176,7 +172,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void noLastName_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_NOLASTNAME);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_NOLASTNAME);
 
         verifyEmail();
         signUpPage.setFirstName(testData.getFirstName())
@@ -190,7 +186,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void cancelRegistration_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_CANCELREGISTRATION);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_CANCELREGISTRATION);
 
         verifyEmail();
         signUpPage.setFirstName(testData.getFirstName())
@@ -205,7 +201,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     @Test
     public void registerWithExistingEmail_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERWITHEXISTINGMAIL);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_REGISTERWITHEXISTINGMAIL);
 
         signUpPage.sendTokenToEmail(testData.getEmailOfExistingAcc())
                 .setVerificationCode_field(Mailinator.getToken(testData.getEmailOfExistingAcc().replaceAll("@.*", "")))
@@ -229,17 +225,15 @@ public class SignUpPageNegativeTests extends TestBase {
         signUpPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader) {
+    private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.SIGNUP_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.SIGNUP_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         signUpPage = getSignUpPage();
         goToSignUpPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void verifyListOfInvalidEmails() {

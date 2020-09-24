@@ -2,24 +2,24 @@ package testCases.loginPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.*;
-import utils.ExtentReport;
+import pages.LibraryPage;
+import pages.LoginPage;
+import pages.RecoverPasswordPage;
+import pages.SignUpPage;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 import static pages.RecoverPasswordPage.getRecoverPasswordPage;
 import static pages.SignUpPage.getSignUpPage;
 
 public class LoginPagePositiveTests extends TestBase {
-    LandingPage landingPage;
     LoginPage loginPage;
 
     @Test(groups = {"smoke"})
     public void loginWithValidCredentials_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_LOGINWITHVALIDCREDENTIALS);
+        executeSetup(TestCaseDesc.LOGINPAGE_LoginWithValidCredentials);
 
         loginPage.setEmail(testData.getEmailOfExistingAcc())
                 .setPass(testData.getPassOfExistingAcc())
@@ -33,7 +33,7 @@ public class LoginPagePositiveTests extends TestBase {
 
     @Test(groups = {"smoke"})
     public void clickSignUpLink_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_CLICKSIGNUPLINK);
+        executeSetup(TestCaseDesc.LOGINPAGE_ClickSignUpLink);
 
         loginPage.clickOn_signUpLink();
 
@@ -43,7 +43,7 @@ public class LoginPagePositiveTests extends TestBase {
 
     @Test(groups = {"smoke"})
     public void clickForgotPasswordLink_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_CLICKFORGOTPASSLINK);
+        executeSetup(TestCaseDesc.LOGINPAGE_ClickForgotPassLink);
 
         loginPage.clickOn_forgotPasswordLink();
         RecoverPasswordPage recoverPasswordPage = getRecoverPasswordPage();
@@ -57,18 +57,15 @@ public class LoginPagePositiveTests extends TestBase {
         loginPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader){
+    private void executeSetup(TestCaseDesc testCaseDesc){
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LOGIN_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.LOGIN_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         loginPage = getLoginPage();
         goToLoginPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
 }

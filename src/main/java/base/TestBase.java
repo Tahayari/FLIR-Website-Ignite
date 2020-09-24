@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.LandingPage;
 import setup.Backend;
 import testData.TestData;
 import utils.DriverFactory;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import static pages.LandingPage.getLandingPage;
 import static setup.ReadProperties.loadProperties;
 
 public class TestBase {
@@ -23,6 +25,7 @@ public class TestBase {
     public static ExtentReport extentReport;
     protected TestData testData = new TestData();
     protected Logger log = LogManager.getLogger(TestBase.class);
+    protected LandingPage landingPage;
 
     @BeforeTest
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
@@ -42,6 +45,7 @@ public class TestBase {
         startUpBrowser(browserName);
         configureBrowser();
         driver.get(getStartingURL());
+        landingPage = getLandingPage(); //All of the tests will have this page to start from;
 
         log.info("************************End @BeforeMethod*********************************");
     }
@@ -110,5 +114,10 @@ public class TestBase {
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
+    }
+
+    protected void createTestCase(String testCaseName,String testCaseDescription,String testCaseCategory){
+        ExtentReport.createTestCase(testCaseName, testCaseDescription);
+        ExtentReport.assignCategory(testCaseCategory);
     }
 }

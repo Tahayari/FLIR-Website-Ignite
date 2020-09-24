@@ -2,25 +2,21 @@ package testCases.loginPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.LandingPage;
 import pages.LibraryPage;
 import pages.LoginPage;
-import utils.ExtentReport;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
 import static pages.LoginPage.getLoginPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class LoginPageNegativeTests extends TestBase {
-    LandingPage landingPage;
     LoginPage loginPage;
 
     @Test(enabled = false) /*For testing purposes*/
     public void title_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_BLANKPASSWORD);
+        executeSetup(TestCaseDesc.LOGINPAGE_BlankPassword);
 
         loginPage.setEmail("flirtest2@mailinator.com")
                 .setPass("QAZxsw123")
@@ -31,7 +27,7 @@ public class LoginPageNegativeTests extends TestBase {
 
     @Test
     public void blankEmail_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_BLANKEMAIL);
+        executeSetup(TestCaseDesc.LOGINPAGE_BlankEmail);
 
         loginPage.setEmail("")
                 .clickOn_signInBTN();
@@ -41,14 +37,14 @@ public class LoginPageNegativeTests extends TestBase {
     @Test
     public void invalidEmail_Test() {
 //        https://jiracommercial.flir.com/browse/THAL-2555
-        executeSetup(TestCaseHeader.LOGINPAGE_INVALIDEMAIL);
+        executeSetup(TestCaseDesc.LOGINPAGE_InvalidEmail);
 
         verifyListOfInvalidEmails();
     }
 
     @Test
     public void blankPassword_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_BLANKPASSWORD);
+        executeSetup(TestCaseDesc.LOGINPAGE_BlankPassword);
 
         loginPage.setEmail(testData.getRandomEmail())
                 .setPass("")
@@ -58,7 +54,7 @@ public class LoginPageNegativeTests extends TestBase {
 
     @Test
     public void incorrectPassword_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_INCORRECTPASS);
+        executeSetup(TestCaseDesc.LOGINPAGE_IncorrectPass);
 
         loginPage.setEmail(testData.getEmailOfExistingAcc())
                 .setPass(testData.getIncorrectPass())
@@ -68,7 +64,7 @@ public class LoginPageNegativeTests extends TestBase {
 
     @Test(groups = {"smoke"})
     public void loginWithNonExistingAccount_Test() {
-        executeSetup(TestCaseHeader.LOGINPAGE_LOGINWITHNONEXISTINGACCOUNT);
+        executeSetup(TestCaseDesc.LOGINPAGE_LoginWithNonExistingAccount);
 
         loginPage.setEmail(testData.getRandomEmail())
                 .setPass(testData.getIncorrectPass())
@@ -84,17 +80,14 @@ public class LoginPageNegativeTests extends TestBase {
         loginPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader){
+    private void executeSetup(TestCaseDesc testCaseDesc){
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LOGIN_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.LOGIN_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         loginPage = getLoginPage();
         goToLoginPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void verifyListOfInvalidEmails() {

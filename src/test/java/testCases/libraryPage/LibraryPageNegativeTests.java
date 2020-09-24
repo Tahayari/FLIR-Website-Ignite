@@ -2,25 +2,21 @@ package testCases.libraryPage;
 
 import base.TestBase;
 import org.testng.annotations.Test;
-import pages.LandingPage;
 import pages.LibraryPage;
 import pages.LoginPage;
-import utils.ExtentReport;
 import utils.TestUtil;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
 
 public class LibraryPageNegativeTests extends TestBase {
-    LandingPage landingPage;
     LoginPage loginPage;
     LibraryPage libraryPage;
 
     @Test(enabled = false)
     public void testing() {
-        executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDER);
+        executeSetup(TestCaseDesc.LIBRARYPAGE_CREATENEWFOLDER);
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.logout();
@@ -28,7 +24,7 @@ public class LibraryPageNegativeTests extends TestBase {
 
     @Test
     public void createNewFolderWithBlankName_Test() {
-        executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDERWITHBLANKNAME);
+        executeSetup(TestCaseDesc.LIBRARYPAGE_CREATENEWFOLDERWITHBLANKNAME);
 
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getValidAccountPasswd());
 
@@ -43,7 +39,7 @@ public class LibraryPageNegativeTests extends TestBase {
 
     @Test
     public void createNewFolderWithReallyLongName_Test() {
-        executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDERWITHLONGNAME);
+        executeSetup(TestCaseDesc.LIBRARYPAGE_CREATENEWFOLDERWITHLONGNAME);
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.clickOn_createNewFolder_BTN()
@@ -56,7 +52,7 @@ public class LibraryPageNegativeTests extends TestBase {
 
     @Test
     public void createFolderWithIllegalCharacters_Test() {
-        executeSetup(TestCaseHeader.LIBRARYPAGE_CREATEFOLDERWITHILLEGALCHARACTERS);
+        executeSetup(TestCaseDesc.LIBRARYPAGE_CREATEFOLDERWITHILLEGALCHARACTERS);
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.clickOn_createNewFolder_BTN();
@@ -73,7 +69,7 @@ public class LibraryPageNegativeTests extends TestBase {
 
     @Test
     public void createNewFolder_Test() {
-        executeSetup(TestCaseHeader.LIBRARYPAGE_CREATENEWFOLDER);
+        executeSetup(TestCaseDesc.LIBRARYPAGE_CREATENEWFOLDER);
         libraryPage = loginPage.login(testData.getTestAccountEmail(), testData.getPassOfExistingAcc());
 
         libraryPage.createNewFolder(TestUtil.getRandomString(7));
@@ -83,17 +79,15 @@ public class LibraryPageNegativeTests extends TestBase {
 
     //----
 
-    private void executeSetup(TestCaseHeader testCaseHeader) {
+    private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LIBRARY_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.LIBRARY_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         loginPage = getLoginPage();
         goToLoginPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void goToLoginPage() {

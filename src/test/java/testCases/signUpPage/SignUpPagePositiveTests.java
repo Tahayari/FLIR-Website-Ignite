@@ -3,22 +3,18 @@ package testCases.signUpPage;
 import base.TestBase;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.LandingPage;
 import pages.LibraryPage;
 import pages.SignUpPage;
-import utils.ExtentReport;
 import utils.TestUtil;
 import utils.emailManager.Mailinator;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
-import static pages.LandingPage.getLandingPage;
 import static pages.LibraryPage.getLibraryPage;
 import static pages.SignUpPage.getSignUpPage;
 import static utils.TestUtil.getDataFromExcel;
 
 public class SignUpPagePositiveTests extends TestBase {
-    LandingPage landingPage;
     SignUpPage signUpPage;
 
     /*
@@ -34,7 +30,7 @@ public class SignUpPagePositiveTests extends TestBase {
 
     @Test(dataProvider = "getTestData", groups = {"smoke", "regression"}, priority = 100, enabled = false)
     public void registerNewAccount_Test(String email, String firstName, String lastName) {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWACCOUNT);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_REGISTERNEWACCOUNT);
 
         signUpPage.sendTokenToEmail(email + "@mailinator.com")
                 .setVerificationCode_field(Mailinator.getToken(email))
@@ -54,7 +50,7 @@ public class SignUpPagePositiveTests extends TestBase {
 
     @Test
     public void registerNewRandomAccount_Test() {
-        executeSetup(TestCaseHeader.SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT);
+        executeSetup(TestCaseDesc.SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT);
         String email = TestUtil.getRandomString(8);
         String firstName = TestUtil.getRandomString(5);
         String lastName = TestUtil.getRandomString(5);
@@ -83,16 +79,14 @@ public class SignUpPagePositiveTests extends TestBase {
         signUpPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader) {
+    private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.SIGNUP_PAGE));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.SIGNUP_PAGE);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         signUpPage = getSignUpPage();
         goToSignUpPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
     }
 }

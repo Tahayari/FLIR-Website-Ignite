@@ -6,20 +6,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.ImageDetailsPage;
+import pages.LibraryPage;
+import pages.LoginPage;
+import pages.SettingsPage;
 import utils.ExtentReport;
 import utils.TestUtil;
 import utils.testCaseManager.TestCaseCategory;
-import utils.testCaseManager.TestCaseHeader;
+import utils.testCaseManager.TestCaseDesc;
 
 import java.util.List;
 
 import static pages.ImageDetailsPage.getImageDetailsPage;
-import static pages.LandingPage.getLandingPage;
 import static pages.LoginPage.getLoginPage;
 
 public class SmokeTest extends TestBase {
-    LandingPage landingPage;
     LoginPage loginPage;
     LibraryPage libraryPage;
     SettingsPage settingsPage;
@@ -36,7 +37,7 @@ public class SmokeTest extends TestBase {
     @Test
     public void smokeTest1() {
 
-        executeSetup(TestCaseHeader.SMOKETEST_TEST1);
+        executeSetup(TestCaseDesc.SMOKETEST_TEST1);
 
         String temp = String.valueOf(Temperature.FAHRENHEIT);
         String dist = String.valueOf(Distance.FEET);
@@ -111,13 +112,12 @@ public class SmokeTest extends TestBase {
         loginPage.verifyIfPageLoaded();
     }
 
-    private void executeSetup(TestCaseHeader testCaseHeader) {
+    private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
         log.info("************************Begin test " + parentMethodName +"*********************************");
-        ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.SMOKETEST));
-
-        landingPage = getLandingPage();
+        String testCaseDescription = String.valueOf(testCaseDesc.description);
+        String testCaseCategory = String.valueOf(TestCaseCategory.SMOKETEST);
+        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
 
         loginPage = getLoginPage();
         goToLoginPage();
