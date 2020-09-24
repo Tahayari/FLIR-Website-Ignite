@@ -113,14 +113,15 @@ public class SmokeTest extends TestBase {
 
     private void executeSetup(TestCaseHeader testCaseHeader) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("----Begin to test " + parentMethodName + "----");
+        log.info("************************Begin test " + parentMethodName +"*********************************");
         ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
-        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LANDING_PAGE));
+        ExtentReport.assignCategory(String.valueOf(TestCaseCategory.SMOKETEST));
 
         landingPage = getLandingPage();
 
         loginPage = getLoginPage();
         goToLoginPage();
+        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private String getSelectedDate() {

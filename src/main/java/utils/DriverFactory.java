@@ -75,7 +75,7 @@ public class DriverFactory {
         options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
         options.addArguments("--disable-extensions"); // disabling extensions
 
-        driver.set(new ChromeDriver(options));
+        driver.set(new ChromeDriver());
     }
 
     private void firefoxSetup() {

@@ -48,7 +48,7 @@ public class RecoverPassPagePositiveTests extends TestBase {
 
     private void executeSetup(TestCaseHeader testCaseHeader) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("----Begin to test " + parentMethodName + "----");
+        log.info("************************Begin test " + parentMethodName +"*********************************");
         ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
         ExtentReport.assignCategory(String.valueOf(TestCaseCategory.RECOVERPASSWORD_PAGE));
 
@@ -57,6 +57,7 @@ public class RecoverPassPagePositiveTests extends TestBase {
         loginPage = getLoginPage();
         recoverPasswordPage = getRecoverPasswordPage();
         goToRecoverPassPage();
+        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void goToChangePassScreen() {

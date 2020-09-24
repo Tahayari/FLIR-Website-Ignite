@@ -22,34 +22,33 @@ public class TestBase {
     public static Properties prop;
     public static ExtentReport extentReport;
     protected TestData testData = new TestData();
-    protected static final Logger log = LogManager.getLogger(TestBase.class);
+    protected Logger log = LogManager.getLogger(TestBase.class);
 
     @BeforeTest
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
     public void initExtentReports(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
-                                  @Optional("LAB") String ssoEnv){
+                                  @Optional("LAB") String ssoEnv) {
 
         extentReport = new ExtentReport(browserName);
-        setupReports(browserName,webrellaEnv,ssoEnv);
+        setupReports(browserName, webrellaEnv, ssoEnv);
     }
 
     @BeforeMethod
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
     public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
                                 @Optional("LAB") String ssoEnv) {
-        log.info("Begin @BeforeMethod");
+        log.info("************************Begin @BeforeMethod*********************************");
 
-        factory=DriverFactory.getInstance();
         startUpBrowser(browserName);
+        configureBrowser();
+        driver.get(getStartingURL());
 
-        driver.get(prop.getProperty("url"));
-
-        log.info("End @BeforeMethod");
+        log.info("************************End @BeforeMethod*********************************");
     }
 
     @AfterMethod(alwaysRun = true)
     public void updateExtentReport(ITestResult result) throws IOException {
-        log.info("Begin @AfterMethod");
+        log.info("************************Begin @AfterMethod*********************************");
         if (result.getStatus() == ITestResult.FAILURE) {
             extentReport.logFailure(result);
         } else if (result.getStatus() == ITestResult.SKIP) {
@@ -58,36 +57,33 @@ public class TestBase {
             extentReport.logSuccess(result);
         }
         closeDriver();
-        log.info("End @AfterMethod");
+        log.info("************************End @AfterMethod*********************************");
     }
 
     @AfterTest(alwaysRun = true)
     public void endReport() {
-        log.info("Begin @AfterTest");
+        log.info("************************Begin @AfterTest*********************************");
         extentReport.endReport();
-        log.info("End @AfterTest");
+        log.info("************************End @AfterTest*********************************");
     }
 
     public void startUpBrowser(String browser) {
+        factory = DriverFactory.getInstance();
         factory.createDriver(browser);
         driver = factory.getDriver();
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
     }
 
     public void closeDriver() {
-        log.info("Begin @AfterClass");
+        log.info("************************Begin @AfterClass*********************************");
         if (driver != null) {
             driver = factory.quitDriver();
-            log.info("Closing the browser...");
+            log.info("************************Closed the current browser*********************************");
         }
-        log.info("End @AfterClass");
+        log.info("************************End @AfterClass*********************************");
     }
 
-    public void setupReports(String browserName,String webrellaEnv, String ssoEnv){
-        launchBrowser(browserName);
+    public void setupReports(String browserName, String webrellaEnv, String ssoEnv) {
+        startUpBrowser(browserName);
 
         driver.get(getStartingURL());
 
@@ -96,21 +92,23 @@ public class TestBase {
         backend.setAPI(webrellaEnv, ssoEnv);
 
         //Append backend URL used into the Extent Report
-        extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
+        extentReport.setBackend(backend.getWebrellaAPI(), backend.getSsoAPI());
         closeDriver();
     }
 
-    protected void launchBrowser(String browserName){
-        factory=DriverFactory.getInstance();
-        startUpBrowser(browserName);
-    }
-
-    protected String getStartingURL(){
+    protected String getStartingURL() {
         try {
             prop = loadProperties();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return prop.getProperty("url");
+    }
+
+    private void configureBrowser() {
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().pageLoadTimeout(TestData.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TestData.IMPLICIT_WAIT, TimeUnit.SECONDS);
     }
 }

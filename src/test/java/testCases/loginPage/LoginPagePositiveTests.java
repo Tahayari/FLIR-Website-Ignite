@@ -59,7 +59,8 @@ public class LoginPagePositiveTests extends TestBase {
 
     private void executeSetup(TestCaseHeader testCaseHeader){
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("----Begin to test " + parentMethodName + "----");
+        log.info("************************Begin test " + parentMethodName +"*********************************");
+
         ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
         ExtentReport.assignCategory(String.valueOf(TestCaseCategory.LOGIN_PAGE));
 
@@ -67,6 +68,7 @@ public class LoginPagePositiveTests extends TestBase {
 
         loginPage = getLoginPage();
         goToLoginPage();
+        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
 }

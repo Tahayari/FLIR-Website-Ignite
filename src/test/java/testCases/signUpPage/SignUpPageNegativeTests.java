@@ -231,7 +231,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     private void executeSetup(TestCaseHeader testCaseHeader) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("----Begin to test " + parentMethodName + "----");
+        log.info("************************Begin test " + parentMethodName +"*********************************");
         ExtentReport.createTestCase(parentMethodName, testCaseHeader.description);
         ExtentReport.assignCategory(String.valueOf(TestCaseCategory.SIGNUP_PAGE));
 
@@ -239,6 +239,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
         signUpPage = getSignUpPage();
         goToSignUpPage();
+        log.info("************************End test " + parentMethodName +"*********************************");
     }
 
     private void verifyListOfInvalidEmails() {
