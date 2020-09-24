@@ -60,7 +60,7 @@ public class DriverFactory {
     }
 
     private void chromeSetup(){
-        WebDriverManager.chromedriver().version("84.0.4147.30").setup();
+        WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-debugging-port=9222");

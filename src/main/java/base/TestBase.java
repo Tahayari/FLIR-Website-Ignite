@@ -27,33 +27,21 @@ public class TestBase {
     @BeforeTest
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
     public void initExtentReports(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
-                                  @Optional("LAB") String ssoEnv) throws IOException{
+                                  @Optional("LAB") String ssoEnv){
+
         extentReport = new ExtentReport(browserName);
-
-        factory=DriverFactory.getInstance();
-        startUpBrowser(browserName);
-
-        prop = loadProperties();
-        driver.get(prop.getProperty("url"));
-
-        //set the Backend ENV
-        Backend backend = new Backend(factory.getDriver());
-        backend.setAPI(webrellaEnv, ssoEnv);
-
-        //Append backend URL used into the Extent Report
-        extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
+        setupReports(browserName,webrellaEnv,ssoEnv);
     }
 
     @BeforeMethod
     @Parameters({"browserName", "webrellaEnv", "ssoEnv"})
     public void goToLandingPage(@Optional("chrome") String browserName, @Optional("DEV") String webrellaEnv,
-                                @Optional("LAB") String ssoEnv) throws IOException {
+                                @Optional("LAB") String ssoEnv) {
         log.info("Begin @BeforeMethod");
 
         factory=DriverFactory.getInstance();
         startUpBrowser(browserName);
 
-        prop = loadProperties();
         driver.get(prop.getProperty("url"));
 
         log.info("End @BeforeMethod");
@@ -96,5 +84,33 @@ public class TestBase {
             log.info("Closing the browser...");
         }
         log.info("End @AfterClass");
+    }
+
+    public void setupReports(String browserName,String webrellaEnv, String ssoEnv){
+        launchBrowser(browserName);
+
+        driver.get(getStartingURL());
+
+        //set the Backend ENV
+        Backend backend = new Backend(factory.getDriver());
+        backend.setAPI(webrellaEnv, ssoEnv);
+
+        //Append backend URL used into the Extent Report
+        extentReport.setBackend(backend.getWebrellaAPI(),backend.getSsoAPI());
+        closeDriver();
+    }
+
+    protected void launchBrowser(String browserName){
+        factory=DriverFactory.getInstance();
+        startUpBrowser(browserName);
+    }
+
+    protected String getStartingURL(){
+        try {
+            prop = loadProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return prop.getProperty("url");
     }
 }
