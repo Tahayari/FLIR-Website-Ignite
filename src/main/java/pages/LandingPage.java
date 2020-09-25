@@ -1,11 +1,12 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ElementManager;
+import pages.elements.ElementManager;
 import utils.TestUtil;
 
-public class LandingPage extends FlirWebPage {
+public class LandingPage extends WebPageBase {
     private WebDriver driver;
 
     //Constructor

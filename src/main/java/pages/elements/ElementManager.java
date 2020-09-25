@@ -1,4 +1,4 @@
-package utils;
+package pages.elements;
 
 public enum ElementManager {
 

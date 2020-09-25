@@ -1,15 +1,16 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ElementManager;
-import utils.ExtentReport;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 import utils.TestUtil;
 
 import static pages.LibraryPage.getLibraryPage;
 
-public class ImageDetailsPage extends FlirWebPage {
+public class ImageDetailsPage extends WebPageBase {
 
     private final WebDriver driver;
 

@@ -1,17 +1,17 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
+import base.WebPageBase;
 import org.openqa.selenium.WebElement;
-import utils.ElementManager;
+import pages.elements.ElementManager;
 
 import static pages.LibraryPage.getLibraryPage;
 
-public class LoginPage extends FlirWebPage {
-    private WebDriver driver;
+public class LoginPage extends WebPageBase {
+//    private WebDriver driver;
 
     //Constructor
     private LoginPage() {
-        driver = factory.getDriver();
+//        driver = factory.getDriver();
     }
 
     public static LoginPage getLoginPage() { return new LoginPage(); }
@@ -20,43 +20,43 @@ public class LoginPage extends FlirWebPage {
 
     //-----------GETTERS
     public WebElement email_field() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_EMAIL_FIELD);
+        return getWebElement(ElementManager.LOGINPAGE_EMAIL_FIELD);
     }
 
     public WebElement pass_field() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_PASSWORD_FIELD);
+        return getWebElement( ElementManager.LOGINPAGE_PASSWORD_FIELD);
     }
 
     public WebElement signIn_BTN() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_SIGNIN_BTN);
+        return getWebElement( ElementManager.LOGINPAGE_SIGNIN_BTN);
     }
 
     public WebElement invalidEmailError_Msg() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_INVALIDEMAIL_ERR);
+        return getWebElement( ElementManager.LOGINPAGE_INVALIDEMAIL_ERR);
     }
 
     public WebElement invalidPassError_Msg() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_INVALIDPASS_ERR);
+        return getWebElement( ElementManager.LOGINPAGE_INVALIDPASS_ERR);
     }
 
     public WebElement incorrectPassError_Msg() {
-        return getWebElement(driver, ElementManager.LOGINPAGE_INCORRECTPASS_ERR);
+        return getWebElement( ElementManager.LOGINPAGE_INCORRECTPASS_ERR);
     }
 
     public WebElement nonExistingAccount_Msg() {
-        return getWebElement(driver,ElementManager.LOGINPAGE_NONEXISTINGACC_ERR);
+        return getWebElement(ElementManager.LOGINPAGE_NONEXISTINGACC_ERR);
     }
 
     public WebElement blankEmailError_Msg() {
-        return getWebElement(driver,ElementManager.LOGINPAGE_BLANKEMAIL_ERR);
+        return getWebElement(ElementManager.LOGINPAGE_BLANKEMAIL_ERR);
     }
 
     public WebElement signUp_link() {
-        return getWebElement(driver,ElementManager.LOGINPAGE_SIGNUP_LINK);
+        return getWebElement(ElementManager.LOGINPAGE_SIGNUP_LINK);
     }
 
     public WebElement forgotPass_link() {
-        return getWebElement(driver,ElementManager.LOGINPAGE_FORGOTPASS_LINK);
+        return getWebElement(ElementManager.LOGINPAGE_FORGOTPASS_LINK);
     }
     //-----------
 

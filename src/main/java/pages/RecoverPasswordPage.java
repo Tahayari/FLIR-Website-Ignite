@@ -1,15 +1,16 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ElementManager;
-import utils.ExtentReport;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 
 import java.util.NoSuchElementException;
 
 import static org.testng.Assert.assertTrue;
 
-public class RecoverPasswordPage extends FlirWebPage {
+public class RecoverPasswordPage extends WebPageBase {
     private WebDriver driver;
 
     //Constructor

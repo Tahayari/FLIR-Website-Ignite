@@ -1,14 +1,15 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import utils.ElementManager;
-import utils.ExtentReport;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 
 import static pages.LibraryPage.getLibraryPage;
 
-public class SettingsPage extends FlirWebPage {
+public class SettingsPage extends WebPageBase {
     private WebDriver driver;
 
     //Constructor

@@ -1,16 +1,17 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.ElementManager;
-import utils.ExtentReport;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 import utils.TestUtil;
 
 import static pages.ImageDetailsPage.getImageDetailsPage;
 import static pages.SettingsPage.getSettingsPage;
 
-public class LibraryPage extends FlirWebPage {
+public class LibraryPage extends WebPageBase {
     private WebDriver driver;
 
     //Constructor

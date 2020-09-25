@@ -1,10 +1,11 @@
 package pages;
 
+import base.WebPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import utils.ElementManager;
-import utils.ExtentReport;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,7 +13,7 @@ import java.util.Random;
 
 import static org.testng.Assert.assertTrue;
 
-public class SignUpPage extends FlirWebPage {
+public class SignUpPage extends WebPageBase {
     private WebDriver driver;
 
     //Constructor
@@ -198,7 +199,7 @@ public class SignUpPage extends FlirWebPage {
 
     public SignUpPage selectRandomConsent() {
         Random random = new Random();
-        if (random.nextInt(1) % 2 == 0) {
+        if (random.nextInt(2) % 2 == 0) {
             consentNo().click();
             ExtentReport.addTestCaseStep("Selected randomly if I consented or not. Selected NO");
         } else {

@@ -1,4 +1,4 @@
-package pages;
+package base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -6,17 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import pages.elements.ElementManager;
+import reports.ExtentReport;
 import utils.DriverFactory;
-import utils.ElementManager;
-import utils.ExtentReport;
 import utils.TestUtil;
 
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class FlirWebPage {
-    DriverFactory factory = DriverFactory.getInstance();
+public class WebPageBase {
+    protected DriverFactory factory = DriverFactory.getInstance();
+    protected WebDriver driver;
 
     public void clickAction(WebElement element, String msg) {
         TestUtil.waitForElementToBeClickable(element);
@@ -26,7 +27,7 @@ public class FlirWebPage {
 
     public void doubleClickAction(WebElement element, String msg) {
         TestUtil.waitForElementToLoad(element);
-        WebDriver driver = factory.getDriver();
+        driver = factory.getDriver();
         Actions actions = new Actions(driver);
         actions.doubleClick(element).perform();
         ExtentReport.addTestCaseStep(msg);
@@ -87,10 +88,21 @@ public class FlirWebPage {
         return null;
     }
 
+    public WebElement getWebElement(ElementManager element) {
+        driver = factory.getDriver();
+        if (!element.xpath.equals(""))
+            return driver.findElement(By.xpath(element.xpath));
+        else if (!element.id.equals(""))
+            return driver.findElement(By.id(element.id));
+        else if (!element.className.equals(""))
+            return driver.findElement(By.className(element.className));
+        System.out.println("++++No identifier was defined");
+        return null;
+    }
+
     public List<WebElement> getDropdownElements(WebElement dropdownList) {
         Select dropdown = new Select(dropdownList);
-        List<WebElement> dropdownElements = dropdown.getOptions();
-        return dropdownElements;
+        return dropdown.getOptions();
     }
 
     public String getSelectedElementFromDropdown(WebElement dropdownList) {

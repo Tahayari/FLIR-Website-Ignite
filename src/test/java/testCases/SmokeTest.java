@@ -10,7 +10,7 @@ import pages.ImageDetailsPage;
 import pages.LibraryPage;
 import pages.LoginPage;
 import pages.SettingsPage;
-import utils.ExtentReport;
+import reports.ExtentReport;
 import utils.TestUtil;
 import utils.testCaseManager.TestCaseCategory;
 import utils.testCaseManager.TestCaseDesc;
@@ -27,11 +27,8 @@ public class SmokeTest extends TestBase {
     ImageDetailsPage imageDetailsPage;
 
     enum Temperature {DEFAULT,CELSIUS, FAHRENHEIT, KELVIN}
-
     enum Distance {DEFAULT,METERS, FEET}
-
     enum Language {DEFAULT,CZECH, DANISH, GERMAN, ENGLISH}
-
     enum Date {DEFAULT, MMDDYYYY, DDMMYYYY}
 
     @Test

@@ -6,10 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.LandingPage;
+import reports.ExtentReport;
 import setup.Backend;
 import testData.TestData;
 import utils.DriverFactory;
-import utils.ExtentReport;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -73,8 +73,7 @@ public class TestBase {
 
     public void startUpBrowser(String browser) {
         factory = DriverFactory.getInstance();
-        factory.createDriver(browser);
-        driver = factory.getDriver();
+        driver = factory.createDriver(browser);
     }
 
     public void closeDriver() {
