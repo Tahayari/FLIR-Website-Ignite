@@ -14,7 +14,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 public class DriverFactory {
 
     ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    private boolean eventListAlreadyInstantiated = false;
     private static DriverFactory instance = null;
 
     private DriverFactory(){
@@ -44,10 +43,8 @@ public class DriverFactory {
                 chromeSetup();
                 break;
         }
-        if (!eventListAlreadyInstantiated) {
-            setupEventListener();
-            eventListAlreadyInstantiated = true;
-        }
+
+        driver.set(setupEventListener());
         return driver.get();
     }
 
@@ -99,10 +96,11 @@ public class DriverFactory {
         driver.set(new EdgeDriver(options));
     }
 
-    private void setupEventListener() {
+    private WebDriver setupEventListener() {
         EventFiringWebDriver e_driver = new EventFiringWebDriver(driver.get());
         WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
         driver.set(e_driver);
+        return driver.get();
     }
 }
