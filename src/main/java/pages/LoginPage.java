@@ -7,16 +7,12 @@ import pages.elements.ElementManager;
 import static pages.LibraryPage.getLibraryPage;
 
 public class LoginPage extends WebPageBase {
-//    private WebDriver driver;
 
-    //Constructor
-    private LoginPage() {
-//        driver = factory.getDriver();
+    private LoginPage() { }
+
+    public static LoginPage getLoginPage() {
+        return new LoginPage();
     }
-
-    public static LoginPage getLoginPage() { return new LoginPage(); }
-    //--------------
-
 
     //-----------GETTERS
     public WebElement email_field() {
@@ -24,23 +20,23 @@ public class LoginPage extends WebPageBase {
     }
 
     public WebElement pass_field() {
-        return getWebElement( ElementManager.LOGINPAGE_PASSWORD_FIELD);
+        return getWebElement(ElementManager.LOGINPAGE_PASSWORD_FIELD);
     }
 
     public WebElement signIn_BTN() {
-        return getWebElement( ElementManager.LOGINPAGE_SIGNIN_BTN);
+        return getWebElement(ElementManager.LOGINPAGE_SIGNIN_BTN);
     }
 
     public WebElement invalidEmailError_Msg() {
-        return getWebElement( ElementManager.LOGINPAGE_INVALIDEMAIL_ERR);
+        return getWebElement(ElementManager.LOGINPAGE_INVALIDEMAIL_ERR);
     }
 
     public WebElement invalidPassError_Msg() {
-        return getWebElement( ElementManager.LOGINPAGE_INVALIDPASS_ERR);
+        return getWebElement(ElementManager.LOGINPAGE_INVALIDPASS_ERR);
     }
 
     public WebElement incorrectPassError_Msg() {
-        return getWebElement( ElementManager.LOGINPAGE_INCORRECTPASS_ERR);
+        return getWebElement(ElementManager.LOGINPAGE_INCORRECTPASS_ERR);
     }
 
     public WebElement nonExistingAccount_Msg() {

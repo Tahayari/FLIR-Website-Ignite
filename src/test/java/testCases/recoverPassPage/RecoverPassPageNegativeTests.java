@@ -31,7 +31,7 @@ public class RecoverPassPageNegativeTests extends TestBase {
         executeSetup(TestCaseDesc.RECOVERPASSPAGE_INVALIDTOKEN);
 
         recoverPasswordPage.sendTokenToEmail(testData.getRandomEmail())
-                .setVerificationCode_field(testData.getInvalidToken())
+                .setVerificationCode(testData.getInvalidToken())
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
     }
@@ -43,7 +43,7 @@ public class RecoverPassPageNegativeTests extends TestBase {
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
         String token = TestUtil.getTokenFromGmail();
         TestUtil.waitForSomeMinutes(testData.getMinForTokenToExpire());
-        recoverPasswordPage.setVerificationCode_field(token)
+        recoverPasswordPage.setVerificationCode(token)
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.expiredVerCode_Msg());
     }
@@ -63,11 +63,11 @@ public class RecoverPassPageNegativeTests extends TestBase {
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail());
         String secondToken = TestUtil.getTokenFromGmail();
 
-        recoverPasswordPage.setVerificationCode_field(firstToken)
+        recoverPasswordPage.setVerificationCode(firstToken)
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
 
-        recoverPasswordPage.setVerificationCode_field(secondToken)
+        recoverPasswordPage.setVerificationCode(secondToken)
                 .clickOn_verifyCode_BTN()
                 .changeEmail_BTN();
     }
@@ -80,11 +80,11 @@ public class RecoverPassPageNegativeTests extends TestBase {
         String firstToken = TestUtil.getTokenFromGmail();
         recoverPasswordPage.clickOn_sendNewCode_BTN();
         String secondToken = TestUtil.getTokenFromGmail();
-        recoverPasswordPage.setVerificationCode_field(firstToken)
+        recoverPasswordPage.setVerificationCode(firstToken)
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
 
-        recoverPasswordPage.setVerificationCode_field(secondToken)
+        recoverPasswordPage.setVerificationCode(secondToken)
                 .clickOn_verifyCode_BTN()
                 .changeEmail_BTN();
     }
@@ -208,20 +208,19 @@ public class RecoverPassPageNegativeTests extends TestBase {
         int timesToRetry = 2;
         recoverPasswordPage.sendTokenToEmail(testData.getRandomEmail());
         for (int i = 0; i < timesToRetry; i++) {
-            recoverPasswordPage.setVerificationCode_field(String.valueOf(i + 10000))
+            recoverPasswordPage.setVerificationCode(String.valueOf(i + 10000))
                     .clickOn_verifyCode_BTN()
                     .checkErrMsgIsDisplayed(recoverPasswordPage.incorrectVerCode_Msg());
         }
-        recoverPasswordPage.setVerificationCode_field("10002")
+        recoverPasswordPage.setVerificationCode("10002")
                 .clickOn_verifyCode_BTN()
                 .checkErrMsgIsDisplayed(recoverPasswordPage.tooManyAttempts_Msg());
     }
 
     private void verifyEmail() {
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail())
-                .setVerificationCode_field(TestUtil.getTokenFromGmail())
-                .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .setVerificationCode(TestUtil.getTokenFromGmail())
+                .clickOn_verifyCode_BTN();
     }
 
 }

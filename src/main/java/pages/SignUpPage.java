@@ -1,11 +1,11 @@
 package pages;
 
 import base.WebPageBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
+import utils.TestUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,11 +14,11 @@ import java.util.Random;
 import static org.testng.Assert.assertTrue;
 
 public class SignUpPage extends WebPageBase {
-    private WebDriver driver;
+//    private WebDriver driver;
 
     //Constructor
     private SignUpPage() {
-        driver = factory.getDriver();
+//        driver = factory.getDriver();
     }
 
     public static SignUpPage getSignUpPage() {
@@ -29,106 +29,108 @@ public class SignUpPage extends WebPageBase {
 
     //-----------GETTERS
     public WebElement email_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_EMAIL_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_EMAIL_FIELD);
     }
 
     public WebElement verificationCode_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_VERIFICATIONCODE_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_VERIFICATIONCODE_FIELD);
     }
 
     public WebElement sendVerCode_BTN() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_SENDVERIFICATIONCODE_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_SENDVERIFICATIONCODE_BTN);
     }
 
     public WebElement verifyCode_BTN() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_VERIFYCODE_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_VERIFYCODE_BTN);
     }
 
     public WebElement changeEmail_BTN() {
-        checkIfElementHasLoaded(getWebElement(driver, ElementManager.SIGNUPPAGE_CHANGEEMAIL_BTN),
+        checkIfElementHasLoaded(getWebElement(ElementManager.SIGNUPPAGE_CHANGEEMAIL_BTN),
                 "Token from email is validated; change E-mail button is displayed");
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CHANGEEMAIL_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_CHANGEEMAIL_BTN);
     }
 
     public WebElement sendNewCode_BTN() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_SENDNEWCODE_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_SENDNEWCODE_BTN);
     }
 
     public WebElement create_BTN() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CREATE_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_CREATE_BTN);
     }
 
     public WebElement cancel_BTN() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CANCEL_BTN);
+        return getWebElement(ElementManager.SIGNUPPAGE_CANCEL_BTN);
     }
 
     public WebElement incorrectVerCode_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_INCORRECTVERCODE_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_INCORRECTVERCODE_ERR);
     }
 
     public WebElement expiredVerCode_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_EXPIREDVERCODE_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_EXPIREDVERCODE_ERR);
     }
 
     public WebElement invalidEmail_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_INVALIDEMAIL_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_INVALIDEMAIL_ERR);
     }
 
     public WebElement invalidPass_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_INVALIDPASSWORD_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_INVALIDPASSWORD_ERR);
     }
 
     public WebElement invalidConfirmPass_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_INVALIDCONFIRMATIONPASSWORD_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_INVALIDCONFIRMATIONPASSWORD_ERR);
     }
 
     public WebElement existingUserErr_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_EXISTINGUSER_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_EXISTINGUSER_ERR);
     }
 
     public WebElement newPassword_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_NEWPASSWORD_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_NEWPASSWORD_FIELD);
     }
 
     public WebElement confNewPassword_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CONFIRMPASSWORD_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_CONFIRMPASSWORD_FIELD);
     }
 
     public WebElement firstName_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_FIRSTNAME_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_FIRSTNAME_FIELD);
     }
 
     public WebElement lastName_field() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_LASTNAME_FIELD);
+        return getWebElement(ElementManager.SIGNUPPAGE_LASTNAME_FIELD);
     }
 
     public WebElement country_dropdown() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_COUNTRY_DROPDOWN);
+        return getWebElement(ElementManager.SIGNUPPAGE_COUNTRY_DROPDOWN);
     }
 
-    public WebElement consentYes() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CONSENTYES_BTN);
+    public WebElement consentYes_BTN() {
+        return getWebElement(ElementManager.SIGNUPPAGE_CONSENTYES_BTN);
     }
 
-    public WebElement consentNo() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_CONSENTNO_BTN);
+    public WebElement consentNo_BTN() {
+        return getWebElement(ElementManager.SIGNUPPAGE_CONSENTNO_BTN);
     }
 
     public WebElement requiredFieldMissing_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_REQUIREDFIELD_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_REQUIREDFIELD_ERR);
     }
 
     public WebElement tooManyAttempts_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_TOOMANYATTEMPTS_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_TOOMANYATTEMPTS_ERR);
     }
 
     public WebElement mismatchingPass_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_PASSWORDMISSMATCH_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_PASSWORDMISSMATCH_ERR);
     }
 
     public WebElement blankCountry_Msg() {
-        return getWebElement(driver, ElementManager.SIGNUPPAGE_BLANKCOUNTRY_ERR);
+        return getWebElement(ElementManager.SIGNUPPAGE_BLANKCOUNTRY_ERR);
     }
+
+    public WebElement emailThrottled_Msg(){return getWebElement(ElementManager.SIGNUPPAGE_EMAILTHROTTLED_ERR);}
 
     //-----------
 
@@ -178,7 +180,19 @@ public class SignUpPage extends WebPageBase {
     public SignUpPage sendTokenToEmail(String email) {
         setEmail(email)
                 .clickOn_sendVerificationCode_BTN();
-        //TODO maybe verify here if the email has been used too many times...
+        try {
+            verificationCode_field().click();
+        } catch (Exception e) {
+            if (emailThrottled_Msg().isDisplayed()) {
+                double minutesToWait = 5;
+                ExtentReport.addTestCaseStep("Email throttled error message is displayed. Waiting" + minutesToWait + " and " +
+                        "will retry again.");
+                TestUtil.waitForSomeMinutes(5);
+                ExtentReport.addTestCaseStep("Retrying after " + minutesToWait + " minutes");
+                sendTokenToEmail(email);
+            }
+        }
+
         return this;
     }
 
@@ -200,10 +214,10 @@ public class SignUpPage extends WebPageBase {
     public SignUpPage selectRandomConsent() {
         Random random = new Random();
         if (random.nextInt(2) % 2 == 0) {
-            consentNo().click();
+            consentNo_BTN().click();
             ExtentReport.addTestCaseStep("Selected randomly if I consented or not. Selected NO");
         } else {
-            consentYes().click();
+            consentYes_BTN().click();
             ExtentReport.addTestCaseStep("Selected randomly if I consented or not. Selected YES");
         }
         return this;

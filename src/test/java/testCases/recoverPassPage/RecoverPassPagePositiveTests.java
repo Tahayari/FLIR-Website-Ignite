@@ -62,9 +62,8 @@ public class RecoverPassPagePositiveTests extends TestBase {
 
     private void verifyEmail() {
         recoverPasswordPage.sendTokenToEmail(testData.getGmailEmail())
-                .setVerificationCode_field(TestUtil.getTokenFromGmail())
-                .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .setVerificationCode(TestUtil.getTokenFromGmail())
+                .clickOn_verifyCode_BTN();
     }
 
 }

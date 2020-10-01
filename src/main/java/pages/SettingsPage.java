@@ -1,7 +1,6 @@
 package pages;
 
 import base.WebPageBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pages.elements.ElementManager;
@@ -10,11 +9,11 @@ import reports.ExtentReport;
 import static pages.LibraryPage.getLibraryPage;
 
 public class SettingsPage extends WebPageBase {
-    private WebDriver driver;
+//    private WebDriver driver;
 
     //Constructor
     private SettingsPage() {
-        driver = factory.getDriver();
+//        driver = factory.getDriver();
     }
 
     public static SettingsPage getSettingsPage() {
@@ -24,39 +23,39 @@ public class SettingsPage extends WebPageBase {
 
     //-----------GETTERS
     public WebElement account_tab() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_ACCOUNTTAB);
+        return getWebElement(ElementManager.SETTINGSPAGE_ACCOUNTTAB);
     }
 
     public WebElement sharing_tab() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_SHARINGTAB);
+        return getWebElement(ElementManager.SETTINGSPAGE_SHARINGTAB);
     }
 
     public WebElement profile_tab() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_PROFILETAB);
+        return getWebElement(ElementManager.SETTINGSPAGE_PROFILETAB);
     }
 
     public WebElement dataSecurity_tab() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_DATASECURITYTAB);
+        return getWebElement(ElementManager.SETTINGSPAGE_DATASECURITYTAB);
     }
 
     public WebElement temperatureUnits_dropdown() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_TEMPERATUREUNITS);
+        return getWebElement(ElementManager.SETTINGSPAGE_TEMPERATUREUNITS);
     }
 
     public WebElement distanceUnits_dropdown() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_DISTANCEUNITS);
+        return getWebElement(ElementManager.SETTINGSPAGE_DISTANCEUNITS);
     }
 
     public WebElement language_dropdown() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_LANGUAGE);
+        return getWebElement(ElementManager.SETTINGSPAGE_LANGUAGE);
     }
 
     public WebElement dateFormat_dropdown() {
-        return getWebElement(driver, ElementManager.SETTINGSPAGE_DATEFORMAT);
+        return getWebElement(ElementManager.SETTINGSPAGE_DATEFORMAT);
     }
 
     public WebElement library_link(){
-        return getWebElement(driver,ElementManager.SETTINGSPAGE_LIBRARY_LINK);
+        return getWebElement(ElementManager.SETTINGSPAGE_LIBRARY_LINK);
     }
 
     //-----------

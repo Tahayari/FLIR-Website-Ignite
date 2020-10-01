@@ -1,17 +1,16 @@
 package pages;
 
 import base.WebPageBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.elements.ElementManager;
 import utils.TestUtil;
 
 public class LandingPage extends WebPageBase {
-    private WebDriver driver;
+//    private WebDriver driver;
 
     //Constructor
     private LandingPage() {
-        driver = factory.getDriver();
+//        driver = factory.getDriver();
     }
 
     public static LandingPage getLandingPage() {
@@ -21,11 +20,11 @@ public class LandingPage extends WebPageBase {
 
     //-----------GETTERS
     public WebElement signIn_BTN() {
-        return getWebElement(driver,ElementManager.LANDINGPAGE_SIGNIN_BTN) ;
+        return getWebElement(ElementManager.LANDINGPAGE_SIGNIN_BTN);
     }
 
     public WebElement signUp_BTN() {
-        return getWebElement(driver,ElementManager.LANDINGPAGE_LOGIN_BTN) ;
+        return getWebElement(ElementManager.LANDINGPAGE_LOGIN_BTN);
     }
     //-----------
 
@@ -41,7 +40,7 @@ public class LandingPage extends WebPageBase {
     }
 
     public LandingPage verifyIfPageLoaded() {
-        checkIfElementHasLoaded(signIn_BTN(),"Navigated to the Landing page");
+        checkIfElementHasLoaded(signIn_BTN(), "Navigated to the Landing page");
         return this;
     }
     //-----------

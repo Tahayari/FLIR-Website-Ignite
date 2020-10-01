@@ -2,7 +2,6 @@ package pages;
 
 import base.WebPageBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
@@ -12,11 +11,11 @@ import static pages.ImageDetailsPage.getImageDetailsPage;
 import static pages.SettingsPage.getSettingsPage;
 
 public class LibraryPage extends WebPageBase {
-    private WebDriver driver;
+//    private WebDriver driver;
 
     //Constructor
     private LibraryPage() {
-        driver = factory.getDriver();
+//        driver = factory.getDriver();
     }
 
     public static LibraryPage getLibraryPage() {
@@ -26,111 +25,111 @@ public class LibraryPage extends WebPageBase {
 
     //-----------GETTERS
     public WebElement termsAndConditions() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_HEADER);
+        return getWebElement(ElementManager.LIBRARYPAGE_TERMSANDCOND_HEADER);
     }
 
     public WebElement uploadFiles_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_UPLOADFILES_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_UPLOADFILES_BTN);
     }
 
     public WebElement myFiles_LINK() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_MYFILES_LINK);
+        return getWebElement(ElementManager.LIBRARYPAGE_MYFILES_LINK);
     }
 
     public WebElement sharedWithMe_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_SHAREDWITHME_LINK);
+        return getWebElement(ElementManager.LIBRARYPAGE_SHAREDWITHME_LINK);
     }
 
     public WebElement newFolder_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_NEWFOLDER_BTN);
     }
 
     public WebElement library_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_LIBRARY_LINK);
+        return getWebElement(ElementManager.LIBRARYPAGE_LIBRARY_LINK);
     }
 
     public WebElement termsAndCondCheckbox() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_CHECKBOX);
+        return getWebElement(ElementManager.LIBRARYPAGE_TERMSANDCOND_CHECKBOX);
     }
 
     public WebElement termsAndCondAccept_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_ACCEPT_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_TERMSANDCOND_ACCEPT_BTN);
     }
 
     public WebElement termsAndCondDecline_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_TERMSANDCOND_DECLINE_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_TERMSANDCOND_DECLINE_BTN);
     }
 
     public WebElement welcomeScreenNext_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_WELCOMESCREEN_NEXT_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_WELCOMESCREEN_NEXT_BTN);
     }
 
     public WebElement welcomeScreenSkip_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_WELCOMESCREEN_SKIP_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_WELCOMESCREEN_SKIP_BTN);
     }
 
     public WebElement newFolderCancel_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_CANCEL_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_NEWFOLDER_CANCEL_BTN);
     }
 
     public WebElement newFolderCreate_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_CREATE_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_NEWFOLDER_CREATE_BTN);
     }
 
     public WebElement folderName_field() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_FOLDERNAME_INPUT);
+        return getWebElement(ElementManager.LIBRARYPAGE_FOLDERNAME_INPUT);
     }
 
     public WebElement folderNameError_Msg() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_NEWFOLDER_FOLDERNAME_ERR);
+        return getWebElement(ElementManager.LIBRARYPAGE_NEWFOLDER_FOLDERNAME_ERR);
     }
 
     public WebElement userMenu() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_USERMENU_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_USERMENU_BTN);
     }
 
     public WebElement logOut_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_USERMENU_LOGOUT_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_USERMENU_LOGOUT_BTN);
     }
 
     public WebElement settings_link() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_SETTINGS_LINK);
+        return getWebElement(ElementManager.LIBRARYPAGE_SETTINGS_LINK);
     }
 
     public WebElement All_link() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_ALL_LINK);
+        return getWebElement(ElementManager.LIBRARYPAGE_ALL_LINK);
     }
 
     public WebElement openCreatedFolder_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_OPENFOLDER_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_OPENFOLDER_BTN);
     }
 
     public WebElement emptyFolder_Msg() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_EMPTYFOLDER_MSG);
+        return getWebElement(ElementManager.LIBRARYPAGE_EMPTYFOLDER_MSG);
     }
 
     public WebElement closeNotification_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_CLOSENOTIFICATION_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_CLOSENOTIFICATION_BTN);
     }
 
     public WebElement uploaded_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_UPLOADED_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_UPLOADED_BTN);
     }
 
     public WebElement listView_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_SWITCHTO_LIST_VIEW);
+        return getWebElement(ElementManager.LIBRARYPAGE_SWITCHTO_LIST_VIEW);
     }
 
     public WebElement gridView_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_SWITCHTO_GRID_VIEW);
+        return getWebElement(ElementManager.LIBRARYPAGE_SWITCHTO_GRID_VIEW);
     }
 
     public WebElement delete_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_DELETE_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_DELETE_BTN);
     }
 
     public WebElement delete_confirm_BTN() {
-        return getWebElement(driver, ElementManager.LIBRARYPAGE_DELETE_CONFIRM_BTN);
+        return getWebElement(ElementManager.LIBRARYPAGE_DELETE_CONFIRM_BTN);
     }
     //--------------
 

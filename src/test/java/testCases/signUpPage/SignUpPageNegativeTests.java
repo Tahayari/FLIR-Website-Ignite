@@ -36,7 +36,7 @@ public class SignUpPageNegativeTests extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.incorrectVerCode_Msg());
     }
 
-    @Test()
+    @Test(enabled = false)
     public void expiredToken_Test() {
         executeSetup(TestCaseDesc.SIGNUPPAGE_EXPIREDTOKEN);
 
@@ -70,7 +70,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
         signUpPage.setVerificationCode_field(secondToken)
                 .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
         signUpPage.setVerificationCode_field(secondToken)
                 .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
     }
 
     @Test
@@ -142,7 +142,8 @@ public class SignUpPageNegativeTests extends TestBase {
                 .checkErrMsgIsDisplayed(signUpPage.blankCountry_Msg());
     }
 
-    @Test(groups = {"smoke"})
+    //Enable only on SSO Prod
+    @Test(groups = {"smoke"},enabled = false)
     public void noConsent_Test() {
         executeSetup(TestCaseDesc.SIGNUPPAGE_NOCONSENT);
 
@@ -206,7 +207,8 @@ public class SignUpPageNegativeTests extends TestBase {
         signUpPage.sendTokenToEmail(testData.getEmailOfExistingAcc())
                 .setVerificationCode_field(Mailinator.getToken(testData.getEmailOfExistingAcc().replaceAll("@.*", "")))
                 .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
+
         signUpPage.setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
                 .setFirstName(testData.getFirstName())
@@ -261,7 +263,6 @@ public class SignUpPageNegativeTests extends TestBase {
     private void verifyEmail() {
         signUpPage.sendTokenToEmail(testData.getGmailEmail())
                 .setVerificationCode_field(TestUtil.getTokenFromGmail())
-                .clickOn_verifyCode_BTN()
-                .changeEmail_BTN();
+                .clickOn_verifyCode_BTN();
     }
 }

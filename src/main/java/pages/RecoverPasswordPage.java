@@ -1,21 +1,18 @@
 package pages;
 
 import base.WebPageBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
+import utils.TestUtil;
 
 import java.util.NoSuchElementException;
 
 import static org.testng.Assert.assertTrue;
 
 public class RecoverPasswordPage extends WebPageBase {
-    private WebDriver driver;
 
-    //Constructor
     private RecoverPasswordPage() {
-        driver = factory.getDriver();
     }
 
     public static RecoverPasswordPage getRecoverPasswordPage() {
@@ -25,81 +22,85 @@ public class RecoverPasswordPage extends WebPageBase {
 
     //-----------GETTERS
     public WebElement emailAddress_field() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_EMAIL_FIELD);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_EMAIL_FIELD);
     }
 
     public WebElement sendVerCode_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_SENDVERIFICATIONCODE_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_SENDVERIFICATIONCODE_BTN);
     }
 
     public WebElement verificationCode_field() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_VERIFICATIONCODE_FIELD);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_VERIFICATIONCODE_FIELD);
     }
 
     public WebElement verifyCode_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_VERIFYCODE_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_VERIFYCODE_BTN);
     }
 
     public WebElement sendNewCode_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_SENDNEWCODE_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_SENDNEWCODE_BTN);
     }
 
     public WebElement changeEmail_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CHANGEEMAIL_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_CHANGEEMAIL_BTN);
     }
 
     public WebElement cancel_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CANCEL_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_CANCEL_BTN);
     }
 
     public WebElement continue_BTN() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CONTINUE_BTN);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_CONTINUE_BTN);
     }
 
     public WebElement incorrectVerCode_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INCORRECTVERCODE_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_INCORRECTVERCODE_ERR);
     }
 
     public WebElement invalidEmail_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDEMAIL_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_INVALIDEMAIL_ERR);
     }
 
     public WebElement expiredVerCode_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_EXPIREDVERCODE_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_EXPIREDVERCODE_ERR);
     }
 
     public WebElement tooManyAttempts_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_TOOMANYINCORRECTATTEMPTS_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_TOOMANYINCORRECTATTEMPTS_ERR);
     }
 
     public WebElement newPassword_field() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_NEWPASSWORD_FIELD);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_NEWPASSWORD_FIELD);
     }
 
     public WebElement confNewPassword_field() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_CONFIRMPASSWORD_FIELD);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_CONFIRMPASSWORD_FIELD);
     }
 
     public WebElement requiredFieldMissing_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_REQUIREDFIELDMISSING_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_REQUIREDFIELDMISSING_ERR);
     }
 
     public WebElement passMismatch_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_PASSWORDMISSMATCH_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_PASSWORDMISSMATCH_ERR);
     }
 
     public WebElement invalidPass_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDPASS_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_INVALIDPASS_ERR);
     }
 
     public WebElement invalidConfirmPass_Msg() {
-        return getWebElement(driver, ElementManager.RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR);
+        return getWebElement(ElementManager.RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR);
+    }
+
+    public WebElement emailThrottled_Msg() {
+        return getWebElement(ElementManager.RECOVERPASSPAGE_EMAILTHROTTLED_ERR);
     }
 
     //--------------
 
     //-----------SETTERS
-    public RecoverPasswordPage setVerificationCode_field(String code) {
+    public RecoverPasswordPage setVerificationCode(String code) {
         setField(verificationCode_field(), code, "Entered the following Verification Code: " + code);
         return this;
     }
@@ -130,16 +131,28 @@ public class RecoverPasswordPage extends WebPageBase {
     public RecoverPasswordPage sendTokenToEmail(String email) {
         setEmail(email)
                 .clickOn_sendVerificationCode_BTN();
-        //TODO maybe verify here if the email has been used too many times...
+
+        try {
+            verificationCode_field().click();
+        } catch (Exception e) {
+            if (emailThrottled_Msg().isDisplayed()) {
+                double minutesToWait = 5;
+                ExtentReport.addTestCaseStep("Email throttled error message is displayed. Waiting" + minutesToWait + " and " +
+                        "will retry again.");
+                TestUtil.waitForSomeMinutes(5);
+                ExtentReport.addTestCaseStep("Retrying after " + minutesToWait + " minutes");
+                sendTokenToEmail(email);
+            }
+        }
         return this;
     }
 
     public void clickOn_sendVerificationCode_BTN() {
-        clickAction(sendVerCode_BTN(),"Clicked on Send Verification Code button");
+        clickAction(sendVerCode_BTN(), "Clicked on Send Verification Code button");
     }
 
     public void clickOn_changeEmail_BTN() {
-        clickAction(changeEmail_BTN(),"Clicked on the Change e-mail button");
+        clickAction(changeEmail_BTN(), "Clicked on the Change e-mail button");
 
         assertTrue(sendVerCode_BTN().isDisplayed());
         assertTrue(sendVerCode_BTN().getAttribute("value").isEmpty());
@@ -147,29 +160,29 @@ public class RecoverPasswordPage extends WebPageBase {
     }
 
     public void clickOn_cancel_BTN() {
-        clickAction(cancel_BTN(),"Clicked on the Cancel button");
+        clickAction(cancel_BTN(), "Clicked on the Cancel button");
     }
 
     public void clickOn_sendNewCode_BTN() {
-        clickAction(sendNewCode_BTN(),"Clicked on the Send new code button");
+        clickAction(sendNewCode_BTN(), "Clicked on the Send new code button");
     }
 
     public RecoverPasswordPage clickOn_verifyCode_BTN() {
-        clickAction(verifyCode_BTN(),"Clicked on Verify Code button");
+        clickAction(verifyCode_BTN(), "Clicked on Verify Code button");
         return this;
     }
 
     public RecoverPasswordPage clickOn_continue_BTN() {
-        clickAction(continue_BTN(),"Clicked on the Continue button");
+        clickAction(continue_BTN(), "Clicked on the Continue button");
         return this;
     }
 
     public void verifyIfPageLoaded() {
-        checkIfElementHasLoaded(emailAddress_field(),"Navigated to the Recover Password page");
+        checkIfElementHasLoaded(emailAddress_field(), "Navigated to the Recover Password page");
     }
 
     public void verifyIfChangePassScreenLoaded() {
-        checkIfElementHasLoaded(newPassword_field(),"Navigated to the Set new Password page");
+        checkIfElementHasLoaded(newPassword_field(), "Navigated to the Set new Password page");
     }
 
     public void tryIncorrectPasswords(WebElement passField) {
@@ -177,12 +190,12 @@ public class RecoverPasswordPage extends WebPageBase {
 
         for (String pass : invalidPass) {
             clearWebElement(passField);
-            setField(passField,pass,"Entered the following password: " + pass);
+            setField(passField, pass, "Entered the following password: " + pass);
 
             if (passField.hashCode() == newPassword_field().hashCode()) {
-                checkIfElementHasLoaded(invalidPass_Msg(),"Error message is displayed: " + invalidPass_Msg().getText());
+                checkIfElementHasLoaded(invalidPass_Msg(), "Error message is displayed: " + invalidPass_Msg().getText());
             } else if (passField.hashCode() == confNewPassword_field().hashCode()) {
-                checkIfElementHasLoaded(invalidConfirmPass_Msg(),"Error message is displayed: " + invalidConfirmPass_Msg().getText());
+                checkIfElementHasLoaded(invalidConfirmPass_Msg(), "Error message is displayed: " + invalidConfirmPass_Msg().getText());
             } else throw new NoSuchElementException();
         }
     }

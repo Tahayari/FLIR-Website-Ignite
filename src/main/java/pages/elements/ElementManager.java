@@ -101,6 +101,7 @@ public enum ElementManager {
     RECOVERPASSPAGE_INVALIDPASS_ERR("//input[@id='newPassword']//preceding::div[contains(text(),'3 of the following')]"),
     RECOVERPASSPAGE_INVALIDCONFIRMPASS_ERR("//input[@id='newPassword']//following::div[contains(text(),'3 of the following')]"),
     RECOVERPASSPAGE_PASSWORDMISSMATCH_ERR("", "passwordEntryMismatch"),
+    RECOVERPASSPAGE_EMAILTHROTTLED_ERR("","email_fail_throttled"),
 
     //SIGN UP PAGE
     SIGNUPPAGE_EMAIL_FIELD("", "email"),
@@ -128,6 +129,7 @@ public enum ElementManager {
     SIGNUPPAGE_TOOMANYATTEMPTS_ERR("", "email_fail_no_retry"),
     SIGNUPPAGE_PASSWORDMISSMATCH_ERR("", "passwordEntryMismatch"),
     SIGNUPPAGE_EXISTINGUSER_ERR("//div[@id='claimVerificationServerError'][contains(text(),'user with the specified ID already exists')]"),
+    SIGNUPPAGE_EMAILTHROTTLED_ERR("","email_fail_throttled"),
 
     SETTINGSPAGE_ACCOUNTTAB("//a[contains(text(),'Account')]"),
     SETTINGSPAGE_SHARINGTAB("//a[contains(text(),'Sharing')]"),

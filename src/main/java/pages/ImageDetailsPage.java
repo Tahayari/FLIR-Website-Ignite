@@ -2,7 +2,6 @@ package pages;
 
 import base.WebPageBase;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
@@ -12,116 +11,121 @@ import static pages.LibraryPage.getLibraryPage;
 
 public class ImageDetailsPage extends WebPageBase {
 
-    private final WebDriver driver;
-
-    //Constructor
     private ImageDetailsPage() {
-        driver = factory.getDriver();
     }
 
     public static ImageDetailsPage getImageDetailsPage() {
         return new ImageDetailsPage();
     }
-    //--------------
 
     //-----------GETTERS
     public WebElement measurements_TAB() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_MEASUREMENTS_TAB);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_MEASUREMENTS_TAB);
     }
 
     public WebElement comments_TAB() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_COMMENTS_TAB);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_COMMENTS_TAB);
     }
 
     public WebElement details_TAB() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB);
     }
 
     public WebElement location_TAB() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_LOCATION_TAB);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_LOCATION_TAB);
     }
 
     public WebElement measurements_title() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_MEASUREMENTS_TITLE);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_MEASUREMENTS_TITLE);
     }
 
     public WebElement comments_title() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_COMMENTS_TITLE);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_COMMENTS_TITLE);
     }
 
     public WebElement details_title() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_DETAILS_TITLE);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_DETAILS_TITLE);
     }
 
     public WebElement location_title() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_LOCATION_TITLE);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_LOCATION_TITLE);
     }
 
     public WebElement temperatures() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_TEMPERATURES_SECTION);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_TEMPERATURES_SECTION);
     }
 
     public WebElement showAll_BTN() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_SHOWALL_BTN);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_SHOWALL_BTN);
     }
 
     public WebElement backToLibrary_BTN() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_BACKTOLIBRARY_BTN);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_BACKTOLIBRARY_BTN);
     }
 
     public WebElement notes() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_COMMENTS_TAB_NOTES);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_COMMENTS_TAB_NOTES);
     }
 
     public WebElement created() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB_CREATED);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB_CREATED);
     }
 
     public WebElement uploaded() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB_UPLOADED);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_DETAILS_TAB_UPLOADED);
     }
 
     public WebElement coordinates() {
-        return getWebElement(driver, ElementManager.IMAGEDETAILSPAGE_LOCATION_TAB_COORDINATES);
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_LOCATION_TAB_COORDINATES);
     }
 
-    public WebElement zoomIn_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_ZOOM_IN);
+    public WebElement zoomIn_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_ZOOM_IN);
     }
 
-    public WebElement zoomOut_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_ZOOM_OUT);
+    public WebElement zoomOut_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_ZOOM_OUT);
     }
 
-    public WebElement zoomToFit_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_ZOOM_TO_FIT);
+    public WebElement zoomToFit_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_ZOOM_TO_FIT);
     }
 
-    public WebElement enterFullscreen_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_ENTER_FULLSCREEN);
+    public WebElement enterFullscreen_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_ENTER_FULLSCREEN);
     }
 
-    public WebElement exitFullscreen_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_EXIT_FULSCREEN);
+    public WebElement exitFullscreen_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_EXIT_FULSCREEN);
     }
 
-    public WebElement toggleDC_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_TOGGLE_DC);
+    public WebElement toggleDC_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_TOGGLE_DC);
     }
 
-    public WebElement toggleIR_BTN(){
-        return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_TOGGLE_IR);
+    public WebElement toggleIR_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_TOGGLE_IR);
     }
 
-    public WebElement IR_image(){return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_IR_IMAGE);}
+    public WebElement IR_image() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_IR_IMAGE);
+    }
 
-    public WebElement DC_image(){return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_DC_IMAGE);}
+    public WebElement DC_image() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_DC_IMAGE);
+    }
 
-    public WebElement nextImage_BTN(){return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_NEXT_IMAGE);}
+    public WebElement nextImage_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_NEXT_IMAGE);
+    }
 
-    public WebElement prevImage_BTN(){return getWebElement(driver,ElementManager.IMAGEDETAILSPAGE_PREV_IMAGE);}
+    public WebElement prevImage_BTN() {
+        return getWebElement(ElementManager.IMAGEDETAILSPAGE_PREV_IMAGE);
+    }
 
-    public WebElement download_BTN(){return getWebElement(driver,ElementManager.IMAGEDEATILSPAGE_DOWNLOAD_BTN);}
+    public WebElement download_BTN() {
+        return getWebElement(ElementManager.IMAGEDEATILSPAGE_DOWNLOAD_BTN);
+    }
 
     //--------------
 
@@ -165,61 +169,62 @@ public class ImageDetailsPage extends WebPageBase {
         libraryPage.verifyIfPageLoaded();
     }
 
-    public ImageDetailsPage clickOn_zoomOut_BTN(){
-        clickAction(zoomOut_BTN(),"Clicked on the Zoom Out button");
+    public ImageDetailsPage clickOn_zoomOut_BTN() {
+        clickAction(zoomOut_BTN(), "Clicked on the Zoom Out button");
         return this;
     }
 
-    public ImageDetailsPage clickOn_zoomIn_BTN(){
-        clickAction(zoomIn_BTN(),"Clicked on the Zoom In button");
+    public ImageDetailsPage clickOn_zoomIn_BTN() {
+        clickAction(zoomIn_BTN(), "Clicked on the Zoom In button");
         return this;
     }
 
-    public ImageDetailsPage clickOn_enterFullscreen_BTN(){
-        clickAction(enterFullscreen_BTN(),"Clicked on the Enter Fullscreen button");
-        checkIfElementHasLoaded(exitFullscreen_BTN(),"Entered fullscreen");
+    public ImageDetailsPage clickOn_enterFullscreen_BTN() {
+        clickAction(enterFullscreen_BTN(), "Clicked on the Enter Fullscreen button");
+        checkIfElementHasLoaded(exitFullscreen_BTN(), "Entered fullscreen");
         return this;
     }
 
-    public ImageDetailsPage clickOn_exitFullscreen_BTN(){
-        clickAction(exitFullscreen_BTN(),"Clicked on the Exit Fullscreen button");
-        checkIfElementHasLoaded(enterFullscreen_BTN(),"Exited fullscreen");
+    public ImageDetailsPage clickOn_exitFullscreen_BTN() {
+        clickAction(exitFullscreen_BTN(), "Clicked on the Exit Fullscreen button");
+        checkIfElementHasLoaded(enterFullscreen_BTN(), "Exited fullscreen");
         return this;
     }
-    public ImageDetailsPage clickOn_zoomToFit_BTN(){
-        clickAction(zoomToFit_BTN(),"Clicked on the Zoom To Fit button");
+
+    public ImageDetailsPage clickOn_zoomToFit_BTN() {
+        clickAction(zoomToFit_BTN(), "Clicked on the Zoom To Fit button");
         return this;
     }
-    public ImageDetailsPage clickOn_toggleDC_BTN(){
-        clickAction(toggleDC_BTN(),"Clicked on the Switch to DC button");
-        checkIfElementHasLoaded(DC_image(),"Switched to DC");
+
+    public ImageDetailsPage clickOn_toggleDC_BTN() {
+        clickAction(toggleDC_BTN(), "Clicked on the Switch to DC button");
+        checkIfElementHasLoaded(DC_image(), "Switched to DC");
         TestUtil.waitForElementToBeClickable(toggleIR_BTN());
         return this;
     }
-    public ImageDetailsPage clickOn_toggleIR_BTN(){
-        clickAction(toggleIR_BTN(),"Clicked on the Switch to IR button");
-        checkIfElementHasLoaded(IR_image(),"Switched to IR");
+
+    public ImageDetailsPage clickOn_toggleIR_BTN() {
+        clickAction(toggleIR_BTN(), "Clicked on the Switch to IR button");
+        checkIfElementHasLoaded(IR_image(), "Switched to IR");
         TestUtil.waitForElementToBeClickable(toggleDC_BTN());
         return this;
     }
 
-    public ImageDetailsPage clickOn_nextImage_BTN(){
-        clickAction(nextImage_BTN(),"Clicked on Next image button");
+    public ImageDetailsPage clickOn_nextImage_BTN() {
+        clickAction(nextImage_BTN(), "Clicked on Next image button");
         try {
             checkIfElementHasLoaded(IR_image(), "Navigated to the next image");
-        }
-        catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             checkIfElementHasLoaded(DC_image(), "Navigated to the next image");
         }
         return this;
     }
 
-    public ImageDetailsPage clickOn_prevImage_BTN(){
-        clickAction(nextImage_BTN(),"Clicked on Previous image button");
+    public ImageDetailsPage clickOn_prevImage_BTN() {
+        clickAction(nextImage_BTN(), "Clicked on Previous image button");
         try {
             checkIfElementHasLoaded(IR_image(), "Navigated to the prev image");
-        }
-        catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             checkIfElementHasLoaded(DC_image(), "Navigated to the prev image");
         }
         return this;
@@ -251,7 +256,7 @@ public class ImageDetailsPage extends WebPageBase {
     }
 
     public ImageDetailsPage verifyIfPageLoaded() {
-            checkIfElementHasLoaded(zoomIn_BTN(), "Supported image file opened. Image details page is displayed");
+        checkIfElementHasLoaded(zoomIn_BTN(), "Supported image file opened. Image details page is displayed");
         return this;
     }
 
