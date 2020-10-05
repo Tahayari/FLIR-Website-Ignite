@@ -26,10 +26,13 @@ public class SmokeTest extends TestBase {
     SettingsPage settingsPage;
     ImageDetailsPage imageDetailsPage;
 
-    enum Temperature {DEFAULT,CELSIUS, FAHRENHEIT, KELVIN}
-    enum Distance {DEFAULT,METERS, FEET}
-    enum Language {DEFAULT,CZECH, DANISH, GERMAN, ENGLISH}
-    enum Date {DEFAULT, MMDDYYYY, DDMMYYYY}
+    enum Temperature {DEFAULT, CELSIUS, FAHRENHEIT, KELVIN}
+
+    enum Distance {DEFAULT, METERS, FEET}
+
+    enum Language {DEFAULT, CZECH, DANISH, GERMAN, ENGLISH}
+
+    enum DateFormat {LANGUAGE_DEFAULT_LONG, LANGUAGE_DEFAULT_SHORT, ISO8601_LONG, ISO8601_SHORT}
 
     @Test
     public void smokeTest1() {
@@ -39,7 +42,7 @@ public class SmokeTest extends TestBase {
         String temp = String.valueOf(Temperature.FAHRENHEIT);
         String dist = String.valueOf(Distance.FEET);
         String lang = String.valueOf(Language.ENGLISH);
-        String date = String.valueOf(Date.MMDDYYYY);
+        String date = String.valueOf(DateFormat.ISO8601_LONG);
 
         libraryPage = loginPage.login(testData.getSmokeTestAccount(), testData.getPassOfExistingAcc());
 
@@ -51,14 +54,14 @@ public class SmokeTest extends TestBase {
 
         TestUtil.refreshPage();
 
-        checkIfValuesAreSaved(temp,dist,lang,date);
+        checkIfValuesAreSaved(temp, dist, lang, date);
 
         libraryPage.logout();
 
         goToLoginPage();
         libraryPage = loginPage.login(testData.getSmokeTestAccount(), testData.getPassOfExistingAcc());
         settingsPage = libraryPage.goToSettingsPage();
-        checkIfValuesAreSaved(temp,dist,lang,date);
+        checkIfValuesAreSaved(temp, dist, lang, date);
 
         settingsPage.goToLibraryPage();
 
@@ -111,31 +114,28 @@ public class SmokeTest extends TestBase {
 
     private void executeSetup(TestCaseDesc testCaseDesc) {
         String parentMethodName = new Throwable().fillInStackTrace().getStackTrace()[1].getMethodName();
-        log.info("************************Begin test " + parentMethodName +"*********************************");
+        log.info("************************Begin test " + parentMethodName + "*********************************");
         String testCaseDescription = String.valueOf(testCaseDesc.description);
         String testCaseCategory = String.valueOf(TestCaseCategory.SMOKETEST);
-        createTestCase(parentMethodName,testCaseDescription,testCaseCategory);
+        createTestCase(parentMethodName, testCaseDescription, testCaseCategory);
 
         loginPage = getLoginPage();
         goToLoginPage();
-        log.info("************************End test " + parentMethodName +"*********************************");
+        log.info("************************End test " + parentMethodName + "*********************************");
     }
 
     private String getSelectedDate() {
-        String selectedDate = null;
+        String selectedDate;
         Select select = new Select(settingsPage.dateFormat_dropdown());
         WebElement currElement = select.getFirstSelectedOption();
-        switch (currElement.getText()) {
-            case "Jan 1, 1970 3:53 PM (Automatic)":
-                selectedDate = Date.DEFAULT.toString();
-                break;
-            case "1 Jan 1970, 15:53":
-                selectedDate = Date.DDMMYYYY.toString();
-                break;
-            case "January 1, 1970, 3:53 pm":
-                selectedDate = Date.MMDDYYYY.toString();
-                break;
-        }
+
+        if (currElement.getText().contains("Language Default"))
+            selectedDate = DateFormat.LANGUAGE_DEFAULT_LONG.toString();
+        else if (currElement.getText().contains("1970")) {
+            if (currElement.getText().contains("13"))
+                selectedDate = DateFormat.ISO8601_LONG.toString();
+            else selectedDate = DateFormat.ISO8601_SHORT.toString();
+        } else selectedDate = DateFormat.LANGUAGE_DEFAULT_SHORT.toString();
         return selectedDate;
     }
 
@@ -172,8 +172,10 @@ public class SmokeTest extends TestBase {
             ExtentReport.addTestCaseStep("All of the temperature units are the ones set in Settings: " + temp);
         }
 
-        WebElement distance = driver.findElement(By.xpath("//h4[contains(text(),'Distance')]//following::span[1]"));
-        String distUnit = distance.getText().substring(distance.getText().length() - 2, distance.getText().length() - 1).toUpperCase();
+        TestUtil.waitForElementToLoad(imageDetailsPage.parameters_distance());
+        String distanceValue = imageDetailsPage.parameters_distance().getText();
+
+        String distUnit = distanceValue.substring(distanceValue.length() - 2, distanceValue.length() - 1).toUpperCase();
         Assert.assertTrue(dist.contains(distUnit));
         ExtentReport.addTestCaseStep("All of the distance units are the ones set in Settings: " + dist);
 
@@ -183,16 +185,18 @@ public class SmokeTest extends TestBase {
     }
 
     private void checkDateSettings(WebElement webElement, String savedDateFromSettings) {
+        //this will work only for English(US) !!!
         String format;
         String date = webElement.getText();
         long count = date.chars().filter(ch -> ch == ',').count();
-        if (count == 2) {
-            format = String.valueOf(Date.MMDDYYYY);
-        } else if (date.contains("AM") || date.contains("PM")) {
-            format = String.valueOf(Date.DEFAULT);
-        } else {
-            format = String.valueOf(Date.DDMMYYYY);
-        }
+
+        if (count == 2)
+            format = String.valueOf(DateFormat.LANGUAGE_DEFAULT_LONG);
+        else if (date.contains("AM") || date.contains("PM"))
+            format = String.valueOf(DateFormat.LANGUAGE_DEFAULT_SHORT);
+        else if (date.contains(" "))
+            format = String.valueOf(DateFormat.ISO8601_LONG);
+        else format = String.valueOf(DateFormat.ISO8601_SHORT);
 
         Assert.assertEquals(format, savedDateFromSettings);
         ExtentReport.addTestCaseStep("Date displayed in has the same format as the one saved in Settings");

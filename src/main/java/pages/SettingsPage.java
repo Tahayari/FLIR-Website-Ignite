@@ -5,15 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
+import utils.TestUtil;
 
 import static pages.LibraryPage.getLibraryPage;
 
 public class SettingsPage extends WebPageBase {
-//    private WebDriver driver;
 
-    //Constructor
     private SettingsPage() {
-//        driver = factory.getDriver();
     }
 
     public static SettingsPage getSettingsPage() {
@@ -104,6 +102,7 @@ public class SettingsPage extends WebPageBase {
                 ExtentReport.addTestCaseStep("Selected " + distance + " from the distance units dropdown list");
                 break;
         }
+        TestUtil.waitForSomeMinutes(0.025);
         return this;
     }
 
@@ -131,25 +130,31 @@ public class SettingsPage extends WebPageBase {
                 ExtentReport.addTestCaseStep("Selected " + language + " from the Language dropdown list");
                 break;
         }
+        TestUtil.waitForSomeMinutes(0.025);
         return this;
     }
 
     public SettingsPage setDate(String date) {
         Select date_dropdown = new Select(dateFormat_dropdown());
         switch (date) {
-            case "DEFAULT":
+            case "LANGUAGE_DEFAULT_LONG":
                 date_dropdown.selectByIndex(1);
                 ExtentReport.addTestCaseStep("Selected " + date + " from the Date Format dropdown list");
                 break;
-            case "MMDDYYYY":
+            case "LANGUAGE_DEFAULT_SHORT":
                 date_dropdown.selectByIndex(2);
                 ExtentReport.addTestCaseStep("Selected " + date + " from the Date Format dropdown list");
                 break;
-            case "DDMMYYYY":
+            case "ISO8601_LONG":
                 date_dropdown.selectByIndex(3);
                 ExtentReport.addTestCaseStep("Selected " + date + " from the Date Format dropdown list");
                 break;
+            case "ISO8601_SHORT":
+                date_dropdown.selectByIndex(4);
+                ExtentReport.addTestCaseStep("Selected " + date + " from the Date Format dropdown list");
+                break;
         }
+        TestUtil.waitForSomeMinutes(0.025);
         return this;
     }
 

@@ -65,6 +65,7 @@ public enum ElementManager {
     IMAGEDETAILSPAGE_NEXT_IMAGE("//a[@class='next-image']"),
     IMAGEDETAILSPAGE_PREV_IMAGE("//a[@class='prev-image']"),
     IMAGEDEATILSPAGE_DOWNLOAD_BTN("//span[contains(text(),'Download')]//ancestor::button"),
+    IMAGEDEATILSPAGE_PARAMETERS_DISTANCE("//h4[contains(text(),'Distance')]//following::span[1]"),
 
     //LOGIN PAGE
     LOGINPAGE_EMAIL_FIELD("", "logonIdentifier"),

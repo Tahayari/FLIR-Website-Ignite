@@ -127,6 +127,8 @@ public class ImageDetailsPage extends WebPageBase {
         return getWebElement(ElementManager.IMAGEDEATILSPAGE_DOWNLOAD_BTN);
     }
 
+    public WebElement parameters_distance() {return getWebElement(ElementManager.IMAGEDEATILSPAGE_PARAMETERS_DISTANCE);}
+
     //--------------
 
     //-----------SETTERS
