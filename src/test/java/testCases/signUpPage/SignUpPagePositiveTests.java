@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import pages.LibraryPage;
 import pages.SignUpPage;
 import utils.TestUtil;
-import utils.emailManager.Mailinator;
+import utils.emailManager.NewMailinator;
 import utils.testCaseManager.TestCaseCategory;
 import utils.testCaseManager.TestCaseDesc;
 
@@ -16,6 +16,7 @@ import static utils.TestUtil.getDataFromExcel;
 
 public class SignUpPagePositiveTests extends TestBase {
     SignUpPage signUpPage;
+    NewMailinator mailinator = new NewMailinator();
 
     /*
     For SSO-LAB API there consent field is NOT displayed in the SignUP page
@@ -33,7 +34,7 @@ public class SignUpPagePositiveTests extends TestBase {
         executeSetup(TestCaseDesc.SIGNUPPAGE_REGISTERNEWACCOUNT);
 
         signUpPage.sendTokenToEmail(email + "@mailinator.com")
-                .setVerificationCode_field(Mailinator.getToken(email))
+                .setVerificationCode_field(mailinator.getToken(email))
                 .clickOn_verifyCode_BTN()
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())
@@ -56,7 +57,7 @@ public class SignUpPagePositiveTests extends TestBase {
         String lastName = TestUtil.getRandomString(5);
 
         signUpPage.sendTokenToEmail(email + "@mailinator.com")
-                .setVerificationCode_field(Mailinator.getToken(email))
+                .setVerificationCode_field(mailinator.getToken(email))
                 .clickOn_verifyCode_BTN()
                 .setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())

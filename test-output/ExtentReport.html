@@ -36,7 +36,6 @@
 		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
 			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
 						<li class='waves-effect'><a href='#!' view='category-view' onclick="configureView(1)"><i class='material-icons'>label_outline</i></a></li>
-			<li class='waves-effect'><a href='#!' view='exception-view' onclick="configureView(2)"><i class='material-icons'>bug_report</i></a></li>
 			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
 		</ul>
 		<!-- report name -->
@@ -46,7 +45,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a href='#!'>
-			<span class='label blue darken-3 suite-start-time'>Oct 1, 2020 01:06:18 PM</span>
+			<span class='label blue darken-3 suite-start-time'>Oct 5, 2020 10:49:54 AM</span>
 			</a>
 		</ul>
 	</div>
@@ -62,8 +61,6 @@
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
 										<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
-					<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
-					<li status='skip'><a href='#!'>Skip <i class='material-icons cyan-text'>redo</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -75,7 +72,7 @@
 				<i class='material-icons'>local_offer</i> Category
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
-					<li><a href='#'>SIGNUP_PAGE</a></li>
+					<li><a href='#'>RECOVERPASSWORD_PAGE</a></li>
 					<li class='divider'></li>
 					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
 				</ul>
@@ -116,10 +113,10 @@
                     <canvas id='parent-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='78.947%'><span class='strong'>15</span> test(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>14</span> test(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='5.263%'>1</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>3</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
                 </div>
             </div>
         </div>
@@ -130,10 +127,10 @@
                     <canvas id='child-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='78.947%'><span class='strong'>15</span> step(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>14</span> step(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='5.263%'>1</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='15.789%'>3</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
                 </div>
             </div>
         </div>
@@ -153,27 +150,27 @@
 			<ul id='test-collection' class='test-collection'>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>registerNewRandomAccount_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:06:35 PM</span>
+						<span class='test-name'>changePassword_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:50:23 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:06:35 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:07:01 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 25s+248ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:50:23 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:50:52 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 29s+292ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='2'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Create a new random account</div>
-			<span class='node-time'>Oct 1, 2020 01:06:35 PM</span>
-			&middot; <span class='node-duration'>0h 0m 25s+248ms</span>
+			<div class='node-name'>Successfully change the password to an existing account</div>
+			<span class='node-time'>Oct 5, 2020 10:50:23 AM</span>
+			&middot; <span class='node-duration'>0h 0m 29s+292ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -189,7 +186,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:37 PM</td>
+							<td class='timestamp'>10:50:24 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -197,31 +194,39 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:37 PM</td>
+							<td class='timestamp'>10:50:24 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:40 PM</td>
+							<td class='timestamp'>10:50:28 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:40 PM</td>
+							<td class='timestamp'>10:50:30 AM</td>
 							<td class='step-details'>
-									Entered the following email: 334gD2pn@mailinator.com
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:40 PM</td>
+							<td class='timestamp'>10:50:30 AM</td>
+							<td class='step-details'>
+									Entered the following email: flirAutomationTest@gmail.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:50:31 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -229,15 +234,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:50 PM</td>
+							<td class='timestamp'>10:50:43 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 260299
+									Entered the following Verification Code: 477414
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:50 PM</td>
+							<td class='timestamp'>10:50:43 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -245,7 +250,23 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:50 PM</td>
+							<td class='timestamp'>10:50:44 AM</td>
+							<td class='step-details'>
+									Clicked on the Continue button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:50:45 AM</td>
+							<td class='step-details'>
+									Navigated to the Set new Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:50:45 AM</td>
 							<td class='step-details'>
 									Entered the following password: QAZxsw123
 								
@@ -253,7 +274,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:50 PM</td>
+							<td class='timestamp'>10:50:45 AM</td>
 							<td class='step-details'>
 									Entered the following password in the Confirm password field: QAZxsw123
 								
@@ -261,71 +282,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:51 PM</td>
+							<td class='timestamp'>10:50:45 AM</td>
 							<td class='step-details'>
-									Entered a first name: URVMh
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:51 PM</td>
-							<td class='step-details'>
-									Entered a last name: 8eT78
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:52 PM</td>
-							<td class='step-details'>
-									Selected a random country from the dropdown list: Chad
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:52 PM</td>
-							<td class='step-details'>
-									Clicked on the Create button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:59 PM</td>
-							<td class='step-details'>
-									Ticked the T&C checkbox
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:59 PM</td>
-							<td class='step-details'>
-									The Accept button is now enabled
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:06:59 PM</td>
-							<td class='step-details'>
-									Clicked on the Accept button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:00 PM</td>
-							<td class='step-details'>
-									Clicked on SKIP button from the Welcome screen, Library page is displayed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:00 PM</td>
+							<td class='timestamp'>10:50:50 AM</td>
 							<td class='step-details'>
 									Navigated to the Library page
 								
@@ -333,7 +298,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:00 PM</td>
+							<td class='timestamp'>10:50:50 AM</td>
 							<td class='step-details'>
 									Clicked on User Menu
 								
@@ -341,7 +306,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:01 PM</td>
+							<td class='timestamp'>10:50:51 AM</td>
 							<td class='step-details'>
 									Clicked on Logout button
 								
@@ -349,7 +314,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:01 PM</td>
+							<td class='timestamp'>10:50:51 AM</td>
 							<td class='step-details'>
 									Successfully logged out
 								
@@ -357,9 +322,17 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:01 PM</td>
+							<td class='timestamp'>10:50:52 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>registerNewRandomAccount_Test - Test Case PASSED</span>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:50:52 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>changePassword_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -373,27 +346,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='3'>
 					<div class='test-heading'>
-						<span class='test-name'>cancelRegistration_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:07:10 PM</span>
+						<span class='test-name'>blankPass_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:51:02 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:07:10 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:07:27 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 17s+174ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:51:02 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:51:18 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 16s+353ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='4'>
 		<div class='collapsible-header'>
-			<div class='node-name'>SignUp Flow is cancelled and user is redirected to the landing page</div>
-			<span class='node-time'>Oct 1, 2020 01:07:10 PM</span>
-			&middot; <span class='node-duration'>0h 0m 17s+174ms</span>
+			<div class='node-name'>Error message is displayed if password field is left blank and user clicks on Continue button</div>
+			<span class='node-time'>Oct 5, 2020 10:51:02 AM</span>
+			&middot; <span class='node-duration'>0h 0m 16s+353ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -409,7 +382,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:11 PM</td>
+							<td class='timestamp'>10:51:03 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -417,23 +390,31 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:11 PM</td>
+							<td class='timestamp'>10:51:04 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:14 PM</td>
+							<td class='timestamp'>10:51:06 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:14 PM</td>
+							<td class='timestamp'>10:51:08 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:51:08 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -441,7 +422,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:15 PM</td>
+							<td class='timestamp'>10:51:08 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -449,15 +430,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:22 PM</td>
+							<td class='timestamp'>10:51:16 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 400588
+									Entered the following Verification Code: 095680
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:23 PM</td>
+							<td class='timestamp'>10:51:17 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -465,65 +446,49 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:23 PM</td>
+							<td class='timestamp'>10:51:17 AM</td>
 							<td class='step-details'>
-									Entered a first name: firstName
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:23 PM</td>
+							<td class='timestamp'>10:51:18 AM</td>
 							<td class='step-details'>
-									Entered a last name: lastName
+									Navigated to the Set new Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:23 PM</td>
+							<td class='timestamp'>10:51:18 AM</td>
 							<td class='step-details'>
-									Entered the following password: QAZxsw123
+									Entered the following password:
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:23 PM</td>
+							<td class='timestamp'>10:51:18 AM</td>
 							<td class='step-details'>
-									Entered the following password in the Confirm password field: QAZxsw123
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:26 PM</td>
+							<td class='timestamp'>10:51:18 AM</td>
 							<td class='step-details'>
-									Selected a random country from the dropdown list: New Caledonia
+									Error message is displayed: A required field is missing. Please fill out all required fields and try again.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:27 PM</td>
+							<td class='timestamp'>10:51:18 AM</td>
 							<td class='step-details'>
-									Clicked on the Cancel button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:27 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:27 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>cancelRegistration_Test - Test Case PASSED</span>
+									<span class='badge white-text green'>blankPass_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -537,27 +502,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='5'>
 					<div class='test-heading'>
-						<span class='test-name'>expiredToken_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:07:37 PM</span>
+						<span class='test-name'>cancelRecoverPass_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:51:28 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:07:37 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:12:56 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 5m 19s+700ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:51:28 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:51:48 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 20s+334ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='6'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed when the user enters an expired token</div>
-			<span class='node-time'>Oct 1, 2020 01:07:37 PM</span>
-			&middot; <span class='node-duration'>0h 5m 19s+700ms</span>
+			<div class='node-name'>Clicking on the Cancel button redirects the user to the index page</div>
+			<span class='node-time'>Oct 5, 2020 10:51:28 AM</span>
+			&middot; <span class='node-duration'>0h 0m 20s+334ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -573,7 +538,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:38 PM</td>
+							<td class='timestamp'>10:51:29 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -581,23 +546,31 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:38 PM</td>
+							<td class='timestamp'>10:51:29 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:40 PM</td>
+							<td class='timestamp'>10:51:33 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:41 PM</td>
+							<td class='timestamp'>10:51:34 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:51:35 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -605,7 +578,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:07:41 PM</td>
+							<td class='timestamp'>10:51:35 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -613,23 +586,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:12:55 PM</td>
+							<td class='timestamp'>10:51:47 AM</td>
 							<td class='step-details'>
-									Waited aprox.300.0 seconds
+									Entered the following Verification Code: 390307
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:12:55 PM</td>
-							<td class='step-details'>
-									Entered the following Verification Code: 557339
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:12:55 PM</td>
+							<td class='timestamp'>10:51:47 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -637,17 +602,25 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:12:56 PM</td>
+							<td class='timestamp'>10:51:48 AM</td>
 							<td class='step-details'>
-									Error message is displayed: That code is expired. Please request a new code.
+									Clicked on the Cancel button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:12:56 PM</td>
+							<td class='timestamp'>10:51:48 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>expiredToken_Test - Test Case PASSED</span>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:51:48 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>cancelRecoverPass_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -661,27 +634,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='7'>
 					<div class='test-heading'>
-						<span class='test-name'>incorrectPasswordFormatConfirmPassField_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:13:06 PM</span>
+						<span class='test-name'>cancelUpdatingPassword_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:51:58 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:13:06 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:13:11 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+515ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:51:58 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:52:24 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 26s+609ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='8'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if an invalid password is entered (Confirm password field)</div>
-			<span class='node-time'>Oct 1, 2020 01:13:06 PM</span>
-			&middot; <span class='node-duration'>0h 0m 5s+515ms</span>
+			<div class='node-name'>Old password is still functional if the user cancels the recover password flow in the last step</div>
+			<span class='node-time'>Oct 5, 2020 10:51:58 AM</span>
+			&middot; <span class='node-duration'>0h 0m 26s+609ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -697,7 +670,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:06 PM</td>
+							<td class='timestamp'>10:51:58 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -705,121 +678,185 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:07 PM</td>
+							<td class='timestamp'>10:51:59 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:09 PM</td>
+							<td class='timestamp'>10:52:02 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:03 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:04 AM</td>
 							<td class='step-details'>
-									Entered the following password: passwordd
+									Entered the following email: flirAutomationTest@gmail.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:04 AM</td>
 							<td class='step-details'>
-									Error message is displayed:
+									Clicked on Send Verification Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:13 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Entered the following Verification Code: 434260
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:13 AM</td>
 							<td class='step-details'>
-									Entered the following password: Passwordd
+									Clicked on Verify Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:10 PM</td>
+							<td class='timestamp'>10:52:13 AM</td>
 							<td class='step-details'>
-									Error message is displayed:
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:14 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Navigated to the Set new Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:15 AM</td>
 							<td class='step-details'>
-									Entered the following password: passwordd!!
+									Entered the following password: QAZxsw123123
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:15 AM</td>
 							<td class='step-details'>
-									Error message is displayed:
+									Entered the following password in the Confirm password field: QAZxsw123123
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:16 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Clicked on the Cancel button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:16 AM</td>
 							<td class='step-details'>
-									Entered the following password: ThisIsAReallyReallyLongPassword
+									Navigated to the Landing page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:16 AM</td>
 							<td class='step-details'>
-									Error message is displayed:
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:11 PM</td>
+							<td class='timestamp'>10:52:17 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>incorrectPasswordFormatConfirmPassField_Test - Test Case PASSED</span>
+									Entered the following email: flirAutomationTest@gmail.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:18 AM</td>
+							<td class='step-details'>
+									Entered the following password: QAZxsw123
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:18 AM</td>
+							<td class='step-details'>
+									Clicked on SignIn Button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:22 AM</td>
+							<td class='step-details'>
+									Navigated to the Library page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:23 AM</td>
+							<td class='step-details'>
+									Clicked on User Menu
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:23 AM</td>
+							<td class='step-details'>
+									Clicked on Logout button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:23 AM</td>
+							<td class='step-details'>
+									Successfully logged out
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:24 AM</td>
+							<td class='step-details'>
+									Navigated to the Landing page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:52:24 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>cancelUpdatingPassword_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -833,27 +870,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='9'>
 					<div class='test-heading'>
-						<span class='test-name'>incorrectPasswordFormat_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:13:20 PM</span>
+						<span class='test-name'>changeEmail_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:52:33 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:13:20 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:13:25 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+408ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:52:33 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:52:47 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+89ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='10'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if an invalid password is entered</div>
-			<span class='node-time'>Oct 1, 2020 01:13:20 PM</span>
-			&middot; <span class='node-duration'>0h 0m 5s+408ms</span>
+			<div class='node-name'>Clicking on the Change e-mail button resets the previously set email</div>
+			<span class='node-time'>Oct 5, 2020 10:52:33 AM</span>
+			&middot; <span class='node-duration'>0h 0m 14s+89ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -869,7 +906,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:21 PM</td>
+							<td class='timestamp'>10:52:34 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -877,137 +914,81 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:21 PM</td>
+							<td class='timestamp'>10:52:35 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:24 PM</td>
+							<td class='timestamp'>10:52:38 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:24 PM</td>
+							<td class='timestamp'>10:52:39 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:24 PM</td>
+							<td class='timestamp'>10:52:39 AM</td>
 							<td class='step-details'>
-									Entered the following password: passwordd
+									Entered the following email: flirAutomationTest@gmail.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:24 PM</td>
+							<td class='timestamp'>10:52:40 AM</td>
 							<td class='step-details'>
-									Error message is displayed: Your password must have at least 3 of the following:
-  - a lowercase letter
-  - an uppercase letter
-  - a number
-  - a symbol
+									Clicked on Send Verification Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:24 PM</td>
+							<td class='timestamp'>10:52:47 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Entered the following Verification Code: 265314
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
+							<td class='timestamp'>10:52:47 AM</td>
 							<td class='step-details'>
-									Entered the following password: Passwordd
+									Clicked on Verify Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
+							<td class='timestamp'>10:52:47 AM</td>
 							<td class='step-details'>
-									Error message is displayed: Your password must have at least 3 of the following:
-  - a lowercase letter
-  - an uppercase letter
-  - a number
-  - a symbol
+									Clicked on the Change e-mail button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
+							<td class='timestamp'>10:52:47 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Email field is now empty
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
+							<td class='timestamp'>10:52:47 AM</td>
 							<td class='step-details'>
-									Entered the following password: passwordd!!
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Your password must have at least 3 of the following:
-  - a lowercase letter
-  - an uppercase letter
-  - a number
-  - a symbol
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
-							<td class='step-details'>
-									Entered the following password: ThisIsAReallyReallyLongPassword
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Your password must have at least 3 of the following:
-  - a lowercase letter
-  - an uppercase letter
-  - a number
-  - a symbol
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:25 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>incorrectPasswordFormat_Test - Test Case PASSED</span>
+									<span class='badge white-text green'>changeEmail_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -1021,27 +1002,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='11'>
 					<div class='test-heading'>
-						<span class='test-name'>invalidEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:13:35 PM</span>
+						<span class='test-name'>expiredToken_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:52:57 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:13:35 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:13:45 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 9s+961ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:52:57 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:58:13 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 5m 16s+66ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='12'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if the users enters an email that has an invalid format</div>
-			<span class='node-time'>Oct 1, 2020 01:13:35 PM</span>
-			&middot; <span class='node-duration'>0h 0m 9s+961ms</span>
+			<div class='node-name'>Error message is displayed when the user enters an expired token</div>
+			<span class='node-time'>Oct 5, 2020 10:52:57 AM</span>
+			&middot; <span class='node-duration'>0h 5m 16s+66ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -1057,7 +1038,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:36 PM</td>
+							<td class='timestamp'>10:52:58 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -1065,409 +1046,81 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:37 PM</td>
+							<td class='timestamp'>10:52:59 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:39 PM</td>
+							<td class='timestamp'>10:53:01 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:40 PM</td>
+							<td class='timestamp'>10:53:03 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:53:03 AM</td>
 							<td class='step-details'>
-									Entered the following email: #@%^%#$@#$@#.com
+									Entered the following email: flirAutomationTest@gmail.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:53:03 AM</td>
 							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
+									Clicked on Send Verification Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:58:12 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Waited aprox.300.0 seconds
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:58:12 AM</td>
 							<td class='step-details'>
-									Entered the following email: @example.com
+									Entered the following Verification Code: 247379
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:58:12 AM</td>
 							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
+									Clicked on Verify Code button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:58:13 AM</td>
 							<td class='step-details'>
-									Cleared the field
+									Error message is displayed: That code is expired. Please request a new code.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
+							<td class='timestamp'>10:58:13 AM</td>
 							<td class='step-details'>
-									Entered the following email: Joe Smith <email@example.com>
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:41 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Entered the following email: email.example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Entered the following email: email@example@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Entered the following email: .email@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Entered the following email: email.@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:42 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Entered the following email: email..email@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Entered the following email: あいうえお@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Entered the following email: email@example.com (Joe Smith)
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:43 PM</td>
-							<td class='step-details'>
-									Entered the following email: email@-example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Entered the following email: email@example..com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Entered the following email: Abc..123@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Entered the following email: ”(),:;<>[\]@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:44 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									Entered the following email: just”not”right@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									Cleared the field
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									Entered the following email: this\ is"really"not\allowed@example.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									Error message is displayed: Please enter a valid email address.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:45 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>invalidEmail_Test - Test Case PASSED</span>
+									<span class='badge white-text green'>expiredToken_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -1481,27 +1134,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='13'>
 					<div class='test-heading'>
-						<span class='test-name'>invalidToken_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:13:54 PM</span>
+						<span class='test-name'>incorrectPasswordFormatConfirmPassField_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:58:23 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:13:54 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:14:03 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 9s+297ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:58:23 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:58:37 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+517ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='14'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if the user enters an invalid token</div>
-			<span class='node-time'>Oct 1, 2020 01:13:54 PM</span>
-			&middot; <span class='node-duration'>0h 0m 9s+297ms</span>
+			<div class='node-name'>Error message is displayed if an invalid password is entered (Confirm password field)</div>
+			<span class='node-time'>Oct 5, 2020 10:58:23 AM</span>
+			&middot; <span class='node-duration'>0h 0m 14s+517ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -1517,7 +1170,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:55 PM</td>
+							<td class='timestamp'>10:58:24 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -1525,31 +1178,39 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:55 PM</td>
+							<td class='timestamp'>10:58:24 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:58 PM</td>
+							<td class='timestamp'>10:58:27 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:59 PM</td>
+							<td class='timestamp'>10:58:28 AM</td>
 							<td class='step-details'>
-									Entered the following email: randomEmail@mail.com
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:13:59 PM</td>
+							<td class='timestamp'>10:58:28 AM</td>
+							<td class='step-details'>
+									Entered the following email: flirAutomationTest@gmail.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:29 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -1557,15 +1218,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:03 PM</td>
+							<td class='timestamp'>10:58:34 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 000000
+									Entered the following Verification Code: 276731
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:03 PM</td>
+							<td class='timestamp'>10:58:35 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -1573,17 +1234,137 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:03 PM</td>
+							<td class='timestamp'>10:58:35 AM</td>
 							<td class='step-details'>
-									Error message is displayed: That code is incorrect. Please try again.
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:03 PM</td>
+							<td class='timestamp'>10:58:36 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>invalidToken_Test - Test Case PASSED</span>
+									Navigated to the Set new Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:36 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Entered the following password: passwordd
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Entered the following password: Passwordd
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Entered the following password: passwordd!!
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Entered the following password: ThisIsAReallyReallyLongPassword
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:37 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>incorrectPasswordFormatConfirmPassField_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -1597,27 +1378,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='15'>
 					<div class='test-heading'>
-						<span class='test-name'>mismatchingPasswords_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:14:13 PM</span>
+						<span class='test-name'>incorrectPasswordFormat_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:58:46 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:14:13 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:14:31 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 17s+791ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:58:46 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:59:01 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+499ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='16'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if the passwords are not identical</div>
-			<span class='node-time'>Oct 1, 2020 01:14:13 PM</span>
-			&middot; <span class='node-duration'>0h 0m 17s+791ms</span>
+			<div class='node-name'>Error message is displayed if an invalid password is entered</div>
+			<span class='node-time'>Oct 5, 2020 10:58:46 AM</span>
+			&middot; <span class='node-duration'>0h 0m 14s+499ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -1633,7 +1414,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:14 PM</td>
+							<td class='timestamp'>10:58:47 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -1641,23 +1422,31 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:15 PM</td>
+							<td class='timestamp'>10:58:48 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:17 PM</td>
+							<td class='timestamp'>10:58:51 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:17 PM</td>
+							<td class='timestamp'>10:58:52 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:58:52 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -1665,7 +1454,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:17 PM</td>
+							<td class='timestamp'>10:58:52 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -1673,15 +1462,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:27 PM</td>
+							<td class='timestamp'>10:58:58 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 159670
+									Entered the following Verification Code: 432345
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:27 PM</td>
+							<td class='timestamp'>10:58:58 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -1689,65 +1478,137 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:27 PM</td>
+							<td class='timestamp'>10:58:59 AM</td>
 							<td class='step-details'>
-									Entered a first name: firstName
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:28 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Entered a last name: lastName
+									Navigated to the Set new Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:30 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Selected a random country from the dropdown list: Samoa
+									Cleared the field
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:30 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Entered the following password: QAZxsw123
+									Entered the following password: passwordd
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:31 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Entered the following password in the Confirm password field: QAZxsw123extra
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:31 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Clicked on the Create button
+									Cleared the field
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:31 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									Error message is displayed: The password entry fields do not match. Please enter the same password in both fields and try again.
+									Entered the following password: Passwordd
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:31 PM</td>
+							<td class='timestamp'>10:59:00 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>mismatchingPasswords_Test - Test Case PASSED</span>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:00 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									Entered the following password: passwordd!!
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									Cleared the field
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									Entered the following password: ThisIsAReallyReallyLongPassword
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Your password must have at least 3 of the following:
+  - a lowercase letter
+  - an uppercase letter
+  - a number
+  - a symbol
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:01 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>incorrectPasswordFormat_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -1761,27 +1622,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='17'>
 					<div class='test-heading'>
-						<span class='test-name'>noCountrySelected_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:14:40 PM</span>
+						<span class='test-name'>invalidEmail_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:59:10 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:14:40 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:14:55 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+444ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:59:10 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:59:20 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 10s+185ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='18'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if no country is selected from the dropdown list</div>
-			<span class='node-time'>Oct 1, 2020 01:14:40 PM</span>
-			&middot; <span class='node-duration'>0h 0m 14s+444ms</span>
+			<div class='node-name'>Error message is displayed after entering an invalid email</div>
+			<span class='node-time'>Oct 5, 2020 10:59:10 AM</span>
+			&middot; <span class='node-duration'>0h 0m 10s+185ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -1797,7 +1658,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:41 PM</td>
+							<td class='timestamp'>10:59:11 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -1805,105 +1666,289 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:42 PM</td>
+							<td class='timestamp'>10:59:11 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:44 PM</td>
+							<td class='timestamp'>10:59:14 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:44 PM</td>
+							<td class='timestamp'>10:59:15 AM</td>
 							<td class='step-details'>
-									Entered the following email: flirAutomationTest@gmail.com
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:45 PM</td>
+							<td class='timestamp'>10:59:16 AM</td>
 							<td class='step-details'>
-									Clicked on Send Verification Code button
+									Entered the following email: #@%^%#$@#$@#.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:53 PM</td>
+							<td class='timestamp'>10:59:16 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 605264
+									Error message is displayed: Please enter a valid email address.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:53 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Clicked on Verify Code button
+									Entered the following email: @example.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:53 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Entered a first name: firstName
+									Error message is displayed: Please enter a valid email address.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:53 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Entered a last name: lastName
+									Entered the following email: Joe Smith <email@example.com>
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:54 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Entered the following password: QAZxsw123
+									Error message is displayed: Please enter a valid email address.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:54 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Entered the following password in the Confirm password field: QAZxsw123
+									Entered the following email: email.example.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:54 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Clicked on the Create button
+									Error message is displayed: Please enter a valid email address.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:55 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									Error message is displayed: Missing required element: Country/Region
+									Entered the following email: email@example@example.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:14:55 PM</td>
+							<td class='timestamp'>10:59:17 AM</td>
 							<td class='step-details'>
-									<span class='badge white-text green'>noCountrySelected_Test - Test Case PASSED</span>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:17 AM</td>
+							<td class='step-details'>
+									Entered the following email: .email@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Entered the following email: email.@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Entered the following email: email..email@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Entered the following email: あいうえお@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:18 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Entered the following email: email@example.com (Joe Smith)
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Entered the following email: email@-example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Entered the following email: email@example..com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Entered the following email: Abc..123@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:19 AM</td>
+							<td class='step-details'>
+									Entered the following email: ”(),:;<>[\]@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									Entered the following email: just”not”right@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									Entered the following email: this\ is"really"not\allowed@example.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									Error message is displayed: Please enter a valid email address.
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:20 AM</td>
+							<td class='step-details'>
+									<span class='badge white-text green'>invalidEmail_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -1917,27 +1962,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='19'>
 					<div class='test-heading'>
-						<span class='test-name'>noFirstName_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:15:04 PM</span>
+						<span class='test-name'>invalidToken_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:59:30 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:15:04 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:15:18 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+937ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:59:30 AM</span>
+	<span class='label end-time'>Oct 5, 2020 10:59:38 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 8s+509ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='20'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if the first Name field is left blank</div>
-			<span class='node-time'>Oct 1, 2020 01:15:04 PM</span>
-			&middot; <span class='node-duration'>0h 0m 14s+937ms</span>
+			<div class='node-name'>Error message is displayed when the user enters an invalid/incorrect token</div>
+			<span class='node-time'>Oct 5, 2020 10:59:30 AM</span>
+			&middot; <span class='node-duration'>0h 0m 8s+509ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -1953,7 +1998,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:05 PM</td>
+							<td class='timestamp'>10:59:31 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -1961,31 +2006,39 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:05 PM</td>
+							<td class='timestamp'>10:59:31 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:08 PM</td>
+							<td class='timestamp'>10:59:35 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:08 PM</td>
+							<td class='timestamp'>10:59:36 AM</td>
 							<td class='step-details'>
-									Entered the following email: flirAutomationTest@gmail.com
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:08 PM</td>
+							<td class='timestamp'>10:59:36 AM</td>
+							<td class='step-details'>
+									Entered the following email: randomEmail@mail.com
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:36 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -1993,15 +2046,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:15 PM</td>
+							<td class='timestamp'>10:59:37 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 427833
+									Entered the following Verification Code: 000000
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:15 PM</td>
+							<td class='timestamp'>10:59:38 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -2009,57 +2062,17 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:16 PM</td>
+							<td class='timestamp'>10:59:38 AM</td>
 							<td class='step-details'>
-									Entered a last name: lastName
+									Error message is displayed: That code is incorrect. Please try again.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:16 PM</td>
+							<td class='timestamp'>10:59:38 AM</td>
 							<td class='step-details'>
-									Entered the following password: QAZxsw123
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:16 PM</td>
-							<td class='step-details'>
-									Entered the following password in the Confirm password field: QAZxsw123
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:18 PM</td>
-							<td class='step-details'>
-									Selected a random country from the dropdown list: Northern Mariana Islands
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:18 PM</td>
-							<td class='step-details'>
-									Clicked on the Create button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:18 PM</td>
-							<td class='step-details'>
-									Error message is displayed: A required field is missing. Please fill out all required fields and try again.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:18 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>noFirstName_Test - Test Case PASSED</span>
+									<span class='badge white-text green'>invalidToken_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -2073,27 +2086,27 @@
 				</li>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='21'>
 					<div class='test-heading'>
-						<span class='test-name'>noLastName_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:15:28 PM</span>
+						<span class='test-name'>mismatchingPasswords_Test</span>
+						<span class='test-time'>Oct 5, 2020 10:59:47 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:15:28 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:15:40 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 12s+171ms</span>
+	<span class='label start-time'>Oct 5, 2020 10:59:47 AM</span>
+	<span class='label end-time'>Oct 5, 2020 11:00:01 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 14s+287ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<li class='node level-1 leaf pass' status='pass' test-id='22'>
 		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed if the last Name field is left blank</div>
-			<span class='node-time'>Oct 1, 2020 01:15:28 PM</span>
-			&middot; <span class='node-duration'>0h 0m 12s+171ms</span>
+			<div class='node-name'>Error message is displayed if the passwords are not identical</div>
+			<span class='node-time'>Oct 5, 2020 10:59:47 AM</span>
+			&middot; <span class='node-duration'>0h 0m 14s+287ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -2109,7 +2122,7 @@
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:29 PM</td>
+							<td class='timestamp'>10:59:48 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -2117,23 +2130,31 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:29 PM</td>
+							<td class='timestamp'>10:59:48 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:31 PM</td>
+							<td class='timestamp'>10:59:52 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:32 PM</td>
+							<td class='timestamp'>10:59:53 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>10:59:53 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -2141,7 +2162,7 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:32 PM</td>
+							<td class='timestamp'>10:59:54 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -2149,15 +2170,15 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:38 PM</td>
+							<td class='timestamp'>10:59:59 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 802479
+									Entered the following Verification Code: 086434
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:38 PM</td>
+							<td class='timestamp'>10:59:59 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -2165,15 +2186,23 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:38 PM</td>
+							<td class='timestamp'>11:00:00 AM</td>
 							<td class='step-details'>
-									Entered a first name: firstName
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:38 PM</td>
+							<td class='timestamp'>11:00:01 AM</td>
+							<td class='step-details'>
+									Navigated to the Set new Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>11:00:01 AM</td>
 							<td class='step-details'>
 									Entered the following password: QAZxsw123
 								
@@ -2181,41 +2210,33 @@
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:38 PM</td>
+							<td class='timestamp'>11:00:01 AM</td>
 							<td class='step-details'>
-									Entered the following password in the Confirm password field: QAZxsw123
+									Entered the following password in the Confirm password field:
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:40 PM</td>
+							<td class='timestamp'>11:00:01 AM</td>
 							<td class='step-details'>
-									Selected a random country from the dropdown list: Georgia
+									Clicked on the Continue button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:40 PM</td>
+							<td class='timestamp'>11:00:01 AM</td>
 							<td class='step-details'>
-									Clicked on the Create button
+									Error message is displayed: The password entry fields do not match. Please enter the same password in both fields and try again.
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:40 PM</td>
+							<td class='timestamp'>11:00:01 AM</td>
 							<td class='step-details'>
-									Error message is displayed: A required field is missing. Please fill out all required fields and try again.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:40 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>noLastName_Test - Test Case PASSED</span>
+									<span class='badge white-text green'>mismatchingPasswords_Test - Test Case PASSED</span>
 								
 							</td>
 						</tr>
@@ -2227,562 +2248,29 @@
 </ul>
 					</div>
 				</li>
-				<li class='test displayed active has-leaf skip' status='skip' bdd='false' test-id='23'>
-					<div class='test-heading'>
-						<span class='test-name'>registerWithExistingEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:15:49 PM</span>
-						<span class='test-status right skip'>skip</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:15:49 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:15:54 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+61ms</span>
-</div>
-<div class='test-attributes'>
-	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
-	</div>
-</div>
-<ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf skip' status='skip' test-id='24'>
-		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed when signing up with an email associated to an existing account</div>
-			<span class='node-time'>Oct 1, 2020 01:15:49 PM</span>
-			&middot; <span class='node-duration'>0h 0m 5s+61ms</span>
-			<span class='test-status right skip'>skip</span>
-		</div>
-		<div class='collapsible-body'>
-			<div class='node-steps'>
-				<table class='bordered table-results'>
-					<thead>
-						<tr>
-							<th>Status</th>
-							<th>Timestamp</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:50 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:51 PM</td>
-							<td class='step-details'>
-									Clicked on SignUp Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:53 PM</td>
-							<td class='step-details'>
-									Navigated to the Login page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:53 PM</td>
-							<td class='step-details'>
-									Entered the following email: flirtest1@mailinator.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:15:53 PM</td>
-							<td class='step-details'>
-									Clicked on Send Verification Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='skip'>
-							<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
-							<td class='timestamp'>1:15:54 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text orange'>registerWithExistingEmail_Test - Test Case Skipped</span>
-								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</li>
-</ul>
-					</div>
-				</li>
-				<li class='test displayed active has-leaf skip' status='skip' bdd='false' test-id='25'>
-					<div class='test-heading'>
-						<span class='test-name'>registerWithExistingEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:16:03 PM</span>
-						<span class='test-status right skip'>skip</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:16:03 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:16:09 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+682ms</span>
-</div>
-<div class='test-attributes'>
-	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
-	</div>
-</div>
-<ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf skip' status='skip' test-id='26'>
-		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed when signing up with an email associated to an existing account</div>
-			<span class='node-time'>Oct 1, 2020 01:16:03 PM</span>
-			&middot; <span class='node-duration'>0h 0m 5s+682ms</span>
-			<span class='test-status right skip'>skip</span>
-		</div>
-		<div class='collapsible-body'>
-			<div class='node-steps'>
-				<table class='bordered table-results'>
-					<thead>
-						<tr>
-							<th>Status</th>
-							<th>Timestamp</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:04 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:05 PM</td>
-							<td class='step-details'>
-									Clicked on SignUp Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:08 PM</td>
-							<td class='step-details'>
-									Navigated to the Login page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:08 PM</td>
-							<td class='step-details'>
-									Entered the following email: flirtest1@mailinator.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:08 PM</td>
-							<td class='step-details'>
-									Clicked on Send Verification Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='skip'>
-							<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
-							<td class='timestamp'>1:16:09 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text orange'>registerWithExistingEmail_Test - Test Case Skipped</span>
-								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</li>
-</ul>
-					</div>
-				</li>
-				<li class='test displayed active has-leaf fail' status='fail' bdd='false' test-id='27'>
-					<div class='test-heading'>
-						<span class='test-name'>registerWithExistingEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:16:19 PM</span>
-						<span class='test-status right fail'>fail</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:16:19 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:16:24 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+488ms</span>
-</div>
-<div class='test-attributes'>
-	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
-	</div>
-</div>
-<ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf fail' status='fail' test-id='28'>
-		<div class='collapsible-header'>
-			<div class='node-name'>Error message is displayed when signing up with an email associated to an existing account</div>
-			<span class='node-time'>Oct 1, 2020 01:16:19 PM</span>
-			&middot; <span class='node-duration'>0h 0m 5s+488ms</span>
-			<span class='test-status right fail'>fail</span>
-		</div>
-		<div class='collapsible-body'>
-			<div class='node-steps'>
-				<table class='bordered table-results'>
-					<thead>
-						<tr>
-							<th>Status</th>
-							<th>Timestamp</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:20 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:20 PM</td>
-							<td class='step-details'>
-									Clicked on SignUp Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:23 PM</td>
-							<td class='step-details'>
-									Navigated to the Login page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:23 PM</td>
-							<td class='step-details'>
-									Entered the following email: flirtest1@mailinator.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:23 PM</td>
-							<td class='step-details'>
-									Clicked on Send Verification Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>1:16:24 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text red'>registerWithExistingEmail_Test - Test Case Failed</span>
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>1:16:24 PM</td>
-							<td class='step-details'>
-									<textarea disabled class="code-block">org.openqa.selenium.NoSuchSessionException: Session ID is null. Using WebDriver after calling quit()?
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'ARNA-01335-L', ip: '192.168.56.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.3'
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:125)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:489)
-	at utils.emailManager.Mailinator.navigateToMailinator(Mailinator.java:64)
-	at utils.emailManager.Mailinator.getToken(Mailinator.java:24)
-	at testCases.signUpPage.SignUpPageNegativeTests.registerWithExistingEmail_Test(SignUpPageNegativeTests.java:208)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
-	at org.testng.internal.TestInvoker.retryFailed(TestInvoker.java:213)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:58)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)
-	at org.testng.TestRunner.privateRun(TestRunner.java:766)
-	at org.testng.TestRunner.run(TestRunner.java:587)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
-	at org.testng.TestNG.runSuites(TestNG.java:1039)
-	at org.testng.TestNG.run(TestNG.java:1007)
-	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
-	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
-</textarea>
-								
-							</td>
-						</tr>
-						<tr class='log' status='fail'>
-							<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-							<td class='timestamp'>1:16:24 PM</td>
-							<td class='step-details'>
-									Snapshot below :
-								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<ul class='screenshots'>
-					<li><img class='r-img' onerror='this.style.display="none"' data-featherlight='C:\Users\dhosman\IdeaProjects\ToolsWeb\test-output\screenshots\registerWithExistingEmail_Test_2020-10-01_13-16-24_.jpeg' src='C:\Users\dhosman\IdeaProjects\ToolsWeb\test-output\screenshots\registerWithExistingEmail_Test_2020-10-01_13-16-24_.jpeg' data-src='C:\Users\dhosman\IdeaProjects\ToolsWeb\test-output\screenshots\registerWithExistingEmail_Test_2020-10-01_13-16-24_.jpeg'></li>
-				</ul>
-			</div>
-		</div>
-	</li>
-</ul>
-					</div>
-				</li>
-				<li class='test displayed active has-leaf skip' status='skip' bdd='false' test-id='29'>
-					<div class='test-heading'>
-						<span class='test-name'>resendEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:16:34 PM</span>
-						<span class='test-status right skip'>skip</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:16:34 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:16:45 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 11s+356ms</span>
-</div>
-<div class='test-attributes'>
-	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
-	</div>
-</div>
-<ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf skip' status='skip' test-id='30'>
-		<div class='collapsible-header'>
-			<div class='node-name'>Change the email after validating the token</div>
-			<span class='node-time'>Oct 1, 2020 01:16:34 PM</span>
-			&middot; <span class='node-duration'>0h 0m 11s+356ms</span>
-			<span class='test-status right skip'>skip</span>
-		</div>
-		<div class='collapsible-body'>
-			<div class='node-steps'>
-				<table class='bordered table-results'>
-					<thead>
-						<tr>
-							<th>Status</th>
-							<th>Timestamp</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:35 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:35 PM</td>
-							<td class='step-details'>
-									Clicked on SignUp Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='skip'>
-							<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
-							<td class='timestamp'>1:16:45 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text orange'>resendEmail_Test - Test Case Skipped</span>
-								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</li>
-</ul>
-					</div>
-				</li>
-				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='31'>
-					<div class='test-heading'>
-						<span class='test-name'>resendEmail_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:16:54 PM</span>
-						<span class='test-status right pass'>pass</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:16:54 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:17:12 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 17s+464ms</span>
-</div>
-<div class='test-attributes'>
-	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
-	</div>
-</div>
-<ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf pass' status='pass' test-id='32'>
-		<div class='collapsible-header'>
-			<div class='node-name'>Change the email after validating the token</div>
-			<span class='node-time'>Oct 1, 2020 01:16:54 PM</span>
-			&middot; <span class='node-duration'>0h 0m 17s+464ms</span>
-			<span class='test-status right pass'>pass</span>
-		</div>
-		<div class='collapsible-body'>
-			<div class='node-steps'>
-				<table class='bordered table-results'>
-					<thead>
-						<tr>
-							<th>Status</th>
-							<th>Timestamp</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:55 PM</td>
-							<td class='step-details'>
-									Navigated to the Landing page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:56 PM</td>
-							<td class='step-details'>
-									Clicked on SignUp Button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:59 PM</td>
-							<td class='step-details'>
-									Navigated to the Login page
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:59 PM</td>
-							<td class='step-details'>
-									Entered the following email: flirAutomationTest@gmail.com
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:16:59 PM</td>
-							<td class='step-details'>
-									Clicked on Send Verification Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:11 PM</td>
-							<td class='step-details'>
-									Entered the following Verification Code: 568197
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:11 PM</td>
-							<td class='step-details'>
-									Clicked on Verify Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:11 PM</td>
-							<td class='step-details'>
-									Token from email is validated; change E-mail button is displayed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:11 PM</td>
-							<td class='step-details'>
-									Clicked on the Change e-mail button.
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:12 PM</td>
-							<td class='step-details'>
-									Email field is now empty
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:12 PM</td>
-							<td class='step-details'>
-									<span class='badge white-text green'>resendEmail_Test - Test Case PASSED</span>
-								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</li>
-</ul>
-					</div>
-				</li>
-				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='33'>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='23'>
 					<div class='test-heading'>
 						<span class='test-name'>resendToken_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:17:20 PM</span>
+						<span class='test-time'>Oct 5, 2020 11:00:10 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:17:20 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:17:41 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 20s+107ms</span>
+	<span class='label start-time'>Oct 5, 2020 11:00:10 AM</span>
+	<span class='label end-time'>Oct 5, 2020 11:00:40 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 30s+19ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf pass' status='pass' test-id='34'>
+	<li class='node level-1 leaf pass' status='pass' test-id='24'>
 		<div class='collapsible-header'>
 			<div class='node-name'>Clicking on the Send new token button will generate a new token. The old token is not valid anymore</div>
-			<span class='node-time'>Oct 1, 2020 01:17:20 PM</span>
-			&middot; <span class='node-duration'>0h 0m 20s+107ms</span>
+			<span class='node-time'>Oct 5, 2020 11:00:10 AM</span>
+			&middot; <span class='node-duration'>0h 0m 30s+19ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -2798,7 +2286,7 @@ Driver info: driver.version: RemoteWebDriver
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:21 PM</td>
+							<td class='timestamp'>11:00:11 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -2806,23 +2294,31 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:22 PM</td>
+							<td class='timestamp'>11:00:12 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:24 PM</td>
+							<td class='timestamp'>11:00:15 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:24 PM</td>
+							<td class='timestamp'>11:00:16 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>11:00:16 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -2830,7 +2326,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:24 PM</td>
+							<td class='timestamp'>11:00:16 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -2838,7 +2334,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:32 PM</td>
+							<td class='timestamp'>11:00:29 AM</td>
 							<td class='step-details'>
 									Clicked on the Send new code button
 								
@@ -2846,15 +2342,15 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:39 PM</td>
+							<td class='timestamp'>11:00:39 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 132143
+									Entered the following Verification Code: 795804
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:39 PM</td>
+							<td class='timestamp'>11:00:39 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -2862,7 +2358,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:40 PM</td>
+							<td class='timestamp'>11:00:40 AM</td>
 							<td class='step-details'>
 									Error message is displayed: That code is incorrect. Please try again.
 								
@@ -2870,15 +2366,15 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:40 PM</td>
+							<td class='timestamp'>11:00:40 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 784928
+									Entered the following Verification Code: 511955
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:40 PM</td>
+							<td class='timestamp'>11:00:40 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -2886,15 +2382,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:41 PM</td>
-							<td class='step-details'>
-									Token from email is validated; change E-mail button is displayed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:41 PM</td>
+							<td class='timestamp'>11:00:40 AM</td>
 							<td class='step-details'>
 									<span class='badge white-text green'>resendToken_Test - Test Case PASSED</span>
 								
@@ -2908,29 +2396,29 @@ Driver info: driver.version: RemoteWebDriver
 </ul>
 					</div>
 				</li>
-				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='35'>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='25'>
 					<div class='test-heading'>
 						<span class='test-name'>sendNewCode_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:17:50 PM</span>
+						<span class='test-time'>Oct 5, 2020 11:00:50 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:17:50 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:18:09 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 18s+938ms</span>
+	<span class='label start-time'>Oct 5, 2020 11:00:50 AM</span>
+	<span class='label end-time'>Oct 5, 2020 11:01:22 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 31s+318ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf pass' status='pass' test-id='36'>
+	<li class='node level-1 leaf pass' status='pass' test-id='26'>
 		<div class='collapsible-header'>
 			<div class='node-name'>Resend the token and validate the new one</div>
-			<span class='node-time'>Oct 1, 2020 01:17:50 PM</span>
-			&middot; <span class='node-duration'>0h 0m 18s+938ms</span>
+			<span class='node-time'>Oct 5, 2020 11:00:50 AM</span>
+			&middot; <span class='node-duration'>0h 0m 31s+318ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -2946,7 +2434,7 @@ Driver info: driver.version: RemoteWebDriver
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:51 PM</td>
+							<td class='timestamp'>11:00:52 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -2954,39 +2442,31 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:52 PM</td>
+							<td class='timestamp'>11:00:53 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:54 PM</td>
+							<td class='timestamp'>11:00:57 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:54 PM</td>
+							<td class='timestamp'>11:00:59 AM</td>
 							<td class='step-details'>
-									Entered the following email: flirAutomationTest@gmail.com
+									Navigated to the Recover Password page
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:17:54 PM</td>
-							<td class='step-details'>
-									Clicked on Send Verification Code button
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:02 PM</td>
+							<td class='timestamp'>11:00:59 AM</td>
 							<td class='step-details'>
 									Entered the following email: flirAutomationTest@gmail.com
 								
@@ -2994,7 +2474,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:02 PM</td>
+							<td class='timestamp'>11:00:59 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -3002,15 +2482,31 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:07 PM</td>
+							<td class='timestamp'>11:01:09 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 627253
+									Entered the following email: flirAutomationTest@gmail.com
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:07 PM</td>
+							<td class='timestamp'>11:01:09 AM</td>
+							<td class='step-details'>
+									Clicked on Send Verification Code button
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>11:01:21 AM</td>
+							<td class='step-details'>
+									Entered the following Verification Code: 074914
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>11:01:21 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -3018,7 +2514,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:08 PM</td>
+							<td class='timestamp'>11:01:21 AM</td>
 							<td class='step-details'>
 									Error message is displayed: That code is incorrect. Please try again.
 								
@@ -3026,15 +2522,15 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:08 PM</td>
+							<td class='timestamp'>11:01:21 AM</td>
 							<td class='step-details'>
-									Entered the following Verification Code: 705334
+									Entered the following Verification Code: 264876
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:08 PM</td>
+							<td class='timestamp'>11:01:22 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -3042,15 +2538,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:09 PM</td>
-							<td class='step-details'>
-									Token from email is validated; change E-mail button is displayed
-								
-							</td>
-						</tr>
-						<tr class='log' status='pass'>
-							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:09 PM</td>
+							<td class='timestamp'>11:01:22 AM</td>
 							<td class='step-details'>
 									<span class='badge white-text green'>sendNewCode_Test - Test Case PASSED</span>
 								
@@ -3064,29 +2552,29 @@ Driver info: driver.version: RemoteWebDriver
 </ul>
 					</div>
 				</li>
-				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='37'>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='false' test-id='27'>
 					<div class='test-heading'>
 						<span class='test-name'>tooManyIncorrectAttemptsToken_Test</span>
-						<span class='test-time'>Oct 1, 2020 01:18:18 PM</span>
+						<span class='test-time'>Oct 5, 2020 11:01:31 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Oct 1, 2020 01:18:18 PM</span>
-	<span class='label end-time'>Oct 1, 2020 01:18:27 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 8s+295ms</span>
+	<span class='label start-time'>Oct 5, 2020 11:01:31 AM</span>
+	<span class='label end-time'>Oct 5, 2020 11:01:41 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 9s+996ms</span>
 </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'>SIGNUP_PAGE</span>
+		<span class='category label'>RECOVERPASSWORD_PAGE</span>
 	</div>
 </div>
 <ul class='collapsible node-list' data-collapsible='accordion'>
-	<li class='node level-1 leaf pass' status='pass' test-id='38'>
+	<li class='node level-1 leaf pass' status='pass' test-id='28'>
 		<div class='collapsible-header'>
 			<div class='node-name'>Error message is displayed if an incorrect token is submitted more than 3 times</div>
-			<span class='node-time'>Oct 1, 2020 01:18:18 PM</span>
-			&middot; <span class='node-duration'>0h 0m 8s+295ms</span>
+			<span class='node-time'>Oct 5, 2020 11:01:31 AM</span>
+			&middot; <span class='node-duration'>0h 0m 9s+996ms</span>
 			<span class='test-status right pass'>pass</span>
 		</div>
 		<div class='collapsible-body'>
@@ -3102,7 +2590,7 @@ Driver info: driver.version: RemoteWebDriver
 					<tbody>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:20 PM</td>
+							<td class='timestamp'>11:01:32 AM</td>
 							<td class='step-details'>
 									Navigated to the Landing page
 								
@@ -3110,23 +2598,31 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:20 PM</td>
+							<td class='timestamp'>11:01:32 AM</td>
 							<td class='step-details'>
-									Clicked on SignUp Button
+									Clicked on Login Button
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:23 PM</td>
+							<td class='timestamp'>11:01:36 AM</td>
 							<td class='step-details'>
-									Navigated to the Login page
+									Clicked on Forgot Password link
 								
 							</td>
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:23 PM</td>
+							<td class='timestamp'>11:01:37 AM</td>
+							<td class='step-details'>
+									Navigated to the Recover Password page
+								
+							</td>
+						</tr>
+						<tr class='log' status='pass'>
+							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+							<td class='timestamp'>11:01:37 AM</td>
 							<td class='step-details'>
 									Entered the following email: randomEmail@mail.com
 								
@@ -3134,7 +2630,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:24 PM</td>
+							<td class='timestamp'>11:01:37 AM</td>
 							<td class='step-details'>
 									Clicked on Send Verification Code button
 								
@@ -3142,7 +2638,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:24 PM</td>
+							<td class='timestamp'>11:01:39 AM</td>
 							<td class='step-details'>
 									Entered the following Verification Code: 10000
 								
@@ -3150,7 +2646,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:25 PM</td>
+							<td class='timestamp'>11:01:39 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -3158,7 +2654,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:25 PM</td>
+							<td class='timestamp'>11:01:39 AM</td>
 							<td class='step-details'>
 									Error message is displayed: That code is incorrect. Please try again.
 								
@@ -3166,7 +2662,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:25 PM</td>
+							<td class='timestamp'>11:01:40 AM</td>
 							<td class='step-details'>
 									Entered the following Verification Code: 10001
 								
@@ -3174,7 +2670,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:25 PM</td>
+							<td class='timestamp'>11:01:40 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -3182,7 +2678,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:26 PM</td>
+							<td class='timestamp'>11:01:40 AM</td>
 							<td class='step-details'>
 									Error message is displayed: That code is incorrect. Please try again.
 								
@@ -3190,7 +2686,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:26 PM</td>
+							<td class='timestamp'>11:01:40 AM</td>
 							<td class='step-details'>
 									Entered the following Verification Code: 10002
 								
@@ -3198,7 +2694,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:26 PM</td>
+							<td class='timestamp'>11:01:40 AM</td>
 							<td class='step-details'>
 									Clicked on Verify Code button
 								
@@ -3206,7 +2702,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:27 PM</td>
+							<td class='timestamp'>11:01:41 AM</td>
 							<td class='step-details'>
 									Error message is displayed: You've made too many incorrect attempts. Please try again later.
 								
@@ -3214,7 +2710,7 @@ Driver info: driver.version: RemoteWebDriver
 						</tr>
 						<tr class='log' status='pass'>
 							<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-							<td class='timestamp'>1:18:27 PM</td>
+							<td class='timestamp'>11:01:41 AM</td>
 							<td class='step-details'>
 									<span class='badge white-text green'>tooManyIncorrectAttemptsToken_Test - Test Case PASSED</span>
 								
@@ -3268,18 +2764,16 @@ Driver info: driver.version: RemoteWebDriver
 			<ul id='category-collection' class='category-collection'>
 				<li class='category displayed active'>
 					<div class='category-heading'>
-						<span class='category-name'>SIGNUP_PAGE</span>
+						<span class='category-name'>RECOVERPASSWORD_PAGE</span>
 						<span class='category-status right'>
-						<span class='label pass'>15</span>
-						<span class='label fail'>1</span>
-						<span class='label others'>3</span>
+						<span class='label pass'>14</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<span status="pass" class='label green accent-4 white-text'>Passed: 15</span>
-							<span status="fail" class='label red lighten-1 white-text'>Failed: 1</span>
-							<span status="skip" class='label yellow darken-2 white-text'>Skipped: 3</span>
+							<span status="pass" class='label green accent-4 white-text'>Passed: 14</span>
+							
+							
 						</div>
 						<div class='category-tests'>
 							<table class='bordered table-results'>
@@ -3292,98 +2786,73 @@ Driver info: driver.version: RemoteWebDriver
 								</thead>
 								<tbody>
 									<tr>
-										<td>Oct 1, 2020 01:06:35 PM</td>
-										<td class='linked' test-id='1'>registerNewRandomAccount_Test</td>
+										<td>Oct 5, 2020 10:50:23 AM</td>
+										<td class='linked' test-id='1'>changePassword_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:07:10 PM</td>
-										<td class='linked' test-id='3'>cancelRegistration_Test</td>
+										<td>Oct 5, 2020 10:51:02 AM</td>
+										<td class='linked' test-id='3'>blankPass_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:07:37 PM</td>
-										<td class='linked' test-id='5'>expiredToken_Test</td>
+										<td>Oct 5, 2020 10:51:28 AM</td>
+										<td class='linked' test-id='5'>cancelRecoverPass_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:13:06 PM</td>
-										<td class='linked' test-id='7'>incorrectPasswordFormatConfirmPassField_Test</td>
+										<td>Oct 5, 2020 10:51:58 AM</td>
+										<td class='linked' test-id='7'>cancelUpdatingPassword_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:13:20 PM</td>
-										<td class='linked' test-id='9'>incorrectPasswordFormat_Test</td>
+										<td>Oct 5, 2020 10:52:33 AM</td>
+										<td class='linked' test-id='9'>changeEmail_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:13:35 PM</td>
-										<td class='linked' test-id='11'>invalidEmail_Test</td>
+										<td>Oct 5, 2020 10:52:57 AM</td>
+										<td class='linked' test-id='11'>expiredToken_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:13:54 PM</td>
-										<td class='linked' test-id='13'>invalidToken_Test</td>
+										<td>Oct 5, 2020 10:58:23 AM</td>
+										<td class='linked' test-id='13'>incorrectPasswordFormatConfirmPassField_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:14:13 PM</td>
-										<td class='linked' test-id='15'>mismatchingPasswords_Test</td>
+										<td>Oct 5, 2020 10:58:46 AM</td>
+										<td class='linked' test-id='15'>incorrectPasswordFormat_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:14:40 PM</td>
-										<td class='linked' test-id='17'>noCountrySelected_Test</td>
+										<td>Oct 5, 2020 10:59:10 AM</td>
+										<td class='linked' test-id='17'>invalidEmail_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:15:04 PM</td>
-										<td class='linked' test-id='19'>noFirstName_Test</td>
+										<td>Oct 5, 2020 10:59:30 AM</td>
+										<td class='linked' test-id='19'>invalidToken_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:15:28 PM</td>
-										<td class='linked' test-id='21'>noLastName_Test</td>
+										<td>Oct 5, 2020 10:59:47 AM</td>
+										<td class='linked' test-id='21'>mismatchingPasswords_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:15:49 PM</td>
-										<td class='linked' test-id='23'>registerWithExistingEmail_Test</td>
-										<td><span class='test-status skip'>skip</span></td>
-									</tr>
-									<tr>
-										<td>Oct 1, 2020 01:16:03 PM</td>
-										<td class='linked' test-id='25'>registerWithExistingEmail_Test</td>
-										<td><span class='test-status skip'>skip</span></td>
-									</tr>
-									<tr>
-										<td>Oct 1, 2020 01:16:19 PM</td>
-										<td class='linked' test-id='27'>registerWithExistingEmail_Test</td>
-										<td><span class='test-status fail'>fail</span></td>
-									</tr>
-									<tr>
-										<td>Oct 1, 2020 01:16:34 PM</td>
-										<td class='linked' test-id='29'>resendEmail_Test</td>
-										<td><span class='test-status skip'>skip</span></td>
-									</tr>
-									<tr>
-										<td>Oct 1, 2020 01:16:54 PM</td>
-										<td class='linked' test-id='31'>resendEmail_Test</td>
+										<td>Oct 5, 2020 11:00:10 AM</td>
+										<td class='linked' test-id='23'>resendToken_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:17:20 PM</td>
-										<td class='linked' test-id='33'>resendToken_Test</td>
+										<td>Oct 5, 2020 11:00:50 AM</td>
+										<td class='linked' test-id='25'>sendNewCode_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 									<tr>
-										<td>Oct 1, 2020 01:17:50 PM</td>
-										<td class='linked' test-id='35'>sendNewCode_Test</td>
-										<td><span class='test-status pass'>pass</span></td>
-									</tr>
-									<tr>
-										<td>Oct 1, 2020 01:18:18 PM</td>
-										<td class='linked' test-id='37'>tooManyIncorrectAttemptsToken_Test</td>
+										<td>Oct 5, 2020 11:01:31 AM</td>
+										<td class='linked' test-id='27'>tooManyIncorrectAttemptsToken_Test</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
@@ -3400,100 +2869,7 @@ Driver info: driver.version: RemoteWebDriver
 		</div>
 	</div>
 </div>
-<!-- category view --><div id='exception-view' class='view hide'>
-	<section id='controls'>
-		<div class='controls grey lighten-4'>
-			<!-- search -->
-			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
-				<a href="#" class='search-div'>
-				<i class='material-icons'>search</i> Search
-				</a>
-				<div class='input-field left hide'>
-					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
-				</div>
-			</div>
-			<!-- search -->
-		</div>
-	</section>
-	<div class='subview-left left'>
-		<div class='view-summary'>
-			<ul id='exception-collection' class='exception-collection'>
-				<li class='exception displayed active'>
-					<div class='exception-heading'>
-						<span class='exception-name'>org.openqa.selenium.NoSuchSessionException</span>
-						<span class='exception-count right'><span class='label red lighten-1 white-text'>1</span></span>
-					</div>
-					<div class='exception-content hide'>
-						<div class='exception-tests'>
-							<table class='bordered table-results'>
-								<thead>
-									<tr>
-										<th>Timestamp</th>
-										<th>TestName</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Oct 1, 2020 01:16:19 PM</td>
-										<td class='linked' test-id='28'>registerWithExistingEmail_Test.Error message is displayed when signing up with an email associated to an existing account</td>
-										<td>
-											<textarea disabled class="code-block">org.openqa.selenium.NoSuchSessionException: Session ID is null. Using WebDriver after calling quit()?
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'ARNA-01335-L', ip: '192.168.56.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.3'
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:125)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:489)
-	at utils.emailManager.Mailinator.navigateToMailinator(Mailinator.java:64)
-	at utils.emailManager.Mailinator.getToken(Mailinator.java:24)
-	at testCases.signUpPage.SignUpPageNegativeTests.registerWithExistingEmail_Test(SignUpPageNegativeTests.java:208)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
-	at org.testng.internal.TestInvoker.retryFailed(TestInvoker.java:213)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:58)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)
-	at org.testng.TestRunner.privateRun(TestRunner.java:766)
-	at org.testng.TestRunner.run(TestRunner.java:587)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
-	at org.testng.TestNG.runSuites(TestNG.java:1039)
-	at org.testng.TestNG.run(TestNG.java:1007)
-	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
-	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
-</textarea>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class='subview-right left'>
-		<div class='view-summary'>
-			<h5 class='exception-name'></h5>
-		</div>
-	</div>
-</div>
-<!-- exception view --><div id='dashboard-view' class='view hide'>
+<!-- category view --><!-- exception view --><div id='dashboard-view' class='view hide'>
 	<div class='card-panel transparent np-v'>
 		<h5>Dashboard</h5>
 
@@ -3501,31 +2877,31 @@ Driver info: driver.version: RemoteWebDriver
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>19</div>
+					<div class='panel-lead'>14</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>19</div>
+					<div class='panel-lead'>14</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Oct 1, 2020 01:06:18 PM</div>
+					<div class='panel-lead'>Oct 5, 2020 10:49:54 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Oct 1, 2020 01:18:28 PM</div>
+			 		<div class='panel-lead'>Oct 5, 2020 11:01:42 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 12m 9s+427ms</div>
+					<div class='panel-lead'>0h 11m 48s+370ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -3585,12 +2961,12 @@ Driver info: driver.version: RemoteWebDriver
 							<th>Passed %</th>
 						</tr>
 						<tr>
-							<td>SIGNUP_PAGE</td>
-							<td>15</td>
-							<td>1</td>
+							<td>RECOVERPASSWORD_PAGE</td>
+							<td>14</td>
+							<td>0</td>
 							<td>0</td>
 							<td>
-									78.947%
+									100%
 							</td>
 						</tr>
 					</table>
@@ -3604,24 +2980,24 @@ Driver info: driver.version: RemoteWebDriver
 		<!-- container -->
 		<script>
 			var statusGroup = {
-                parentCount: 19,
-				passParent: 15,
-				failParent: 1,
+                parentCount: 14,
+				passParent: 14,
+				failParent: 0,
 				fatalParent: 0,
 				errorParent: 0,
 				warningParent: 0,
-				skipParent: 3,
-				exceptionsParent: 4,
-				childCount: 19,
-				passChild: 15,
-				failChild: 1,
+				skipParent: 0,
+				exceptionsParent: 0,
+				childCount: 14,
+				passChild: 14,
+				failChild: 0,
 				fatalChild: 0,
 				errorChild: 0,
 				warningChild: 0,
-				skipChild: 3,
+				skipChild: 0,
 				infoChild: 0,
 				debugChild: 0,
-				exceptionsChild: 4,
+				exceptionsChild: 0,
 				grandChildCount: 0,
 				passGrandChild: 0,
 				failGrandChild: 0,
@@ -3636,7 +3012,7 @@ Driver info: driver.version: RemoteWebDriver
 		</script>
 		<script>
 			var timeline = {
-			        "registerNewRandomAccount_Test":25.248,"cancelRegistration_Test":17.174,"expiredToken_Test":319.7,"incorrectPasswordFormatConfirmPassField_Test":5.515,"incorrectPasswordFormat_Test":5.408,"invalidEmail_Test":9.961,"invalidToken_Test":9.297,"mismatchingPasswords_Test":17.791,"noCountrySelected_Test":14.444,"noFirstName_Test":14.937,"noLastName_Test":12.171,"registerWithExistingEmail_Test":5.061,"registerWithExistingEmail_Test":5.682,"registerWithExistingEmail_Test":5.488,"resendEmail_Test":11.356,"resendEmail_Test":17.464,"resendToken_Test":20.107,"sendNewCode_Test":18.938,"tooManyIncorrectAttemptsToken_Test":8.295
+			        "changePassword_Test":29.292,"blankPass_Test":16.353,"cancelRecoverPass_Test":20.334,"cancelUpdatingPassword_Test":26.609,"changeEmail_Test":14.089,"expiredToken_Test":316.066,"incorrectPasswordFormatConfirmPassField_Test":14.517,"incorrectPasswordFormat_Test":14.499,"invalidEmail_Test":10.185,"invalidToken_Test":8.509,"mismatchingPasswords_Test":14.287,"resendToken_Test":30.019,"sendNewCode_Test":31.318,"tooManyIncorrectAttemptsToken_Test":9.996
 			};
 		</script>
 		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/b65cd69/v3html/js/extent.js' type='text/javascript'></script>
