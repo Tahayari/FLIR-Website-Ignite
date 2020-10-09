@@ -12,14 +12,11 @@
     <test name="SignUpPage - ALL Flows">
         <parameter name="browserName" value="edge"><!--browser list: chrome,edge,firefox--></parameter>
         <classes>
-            <class name="testCases.signUpPage.SignUpPagePositiveTests"></class>
+<!--            <class name="testCases.signUpPage.SignUpPagePositiveTests"></class>-->
             <class name="testCases.signUpPage.SignUpPageNegativeTests">
-<!--                <methods>-->
-<!--                    <include name="mismatchingPasswords_Test"></include>-->
-<!--                    <include name="noLastName_Test"></include>-->
-<!--                    <include name="noFirstName_Test"></include>-->
-<!--                    <include name="registerWithExistingEmail_Test"></include>-->
-<!--                </methods>-->
+                <methods>
+                    <include name="invalidEmail_Test"></include>
+                </methods>
             </class>
         </classes>
     </test>

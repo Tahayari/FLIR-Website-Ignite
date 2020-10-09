@@ -241,7 +241,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
     private void verifyListOfInvalidEmails() {
         Object[][] invalidEmailsList = getDataFromExcel(testData.getNameOfInvalidEmailsFile(), testData.getNameOfFirstSheet());
-        for (int i = 1; i < invalidEmailsList.length; i++) {
+        for (int i = 0; i < invalidEmailsList.length; i++) {
             signUpPage.clearField(signUpPage.email_field())
                     .setEmail(invalidEmailsList[i][0].toString())
                     .checkErrMsgIsDisplayed(signUpPage.invalidEmail_Msg());
