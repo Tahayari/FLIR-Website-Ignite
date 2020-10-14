@@ -71,7 +71,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
         signUpPage.setVerificationCode_field(secondToken)
                 .clickOn_verifyCode_BTN()
-                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
+                .checkIfElementHasLoaded(signUpPage.changeEmail_BTN(),"Token validated. Change email button has loaded");
     }
 
     @Test
@@ -88,7 +88,7 @@ public class SignUpPageNegativeTests extends TestBase {
 
         signUpPage.setVerificationCode_field(secondToken)
                 .clickOn_verifyCode_BTN()
-                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
+                .checkIfElementHasLoaded(signUpPage.changeEmail_BTN(),"Token validated. Change email button has loaded");
     }
 
     @Test
@@ -208,7 +208,7 @@ public class SignUpPageNegativeTests extends TestBase {
         signUpPage.sendTokenToEmail(testData.getEmailOfExistingAcc())
                 .setVerificationCode_field(mailinator.getToken(testData.getEmailOfExistingAcc().replaceAll("@.*", "")))
                 .clickOn_verifyCode_BTN()
-                .checkIfElementIsLoaded(signUpPage.changeEmail_BTN());
+                .checkIfElementHasLoaded(signUpPage.changeEmail_BTN(),"Token validated. Change email button has loaded");
 
         signUpPage.setNewPassword(testData.getValidAccountPasswd())
                 .setConfirmNewPassword(testData.getValidAccountPasswd())

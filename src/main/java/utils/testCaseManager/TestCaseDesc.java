@@ -1,6 +1,7 @@
 package utils.testCaseManager;
 
 public enum TestCaseDesc {
+    //******************LOGIN PAGE*********************
     LOGINPAGE_BlankPassword("Error message is displayed if a blank password is entered"),
     LOGINPAGE_BlankEmail("Error message is displayed if the user logs in with a blank email field"),
     LOGINPAGE_InvalidEmail("Error message is displayed if an invalid email address is entered"),
@@ -11,6 +12,7 @@ public enum TestCaseDesc {
     LOGINPAGE_ClickSignUpLink("Clicking on the SignUp link redirects to Sign Up page"),
     LOGINPAGE_ClickForgotPassLink("Clicking on the Forgot Password link redirects to Recover password page"),
 
+    //******************SIGNUP PAGE*********************
     SIGNUPPAGE_REGISTERNEWACCOUNT("Create new account(s)"),
     SIGNUPPAGE_REGISTERNEWRANDOMACCOUNT("Create a new random account"),
     SIGNUPPAGE_INVALIDEMAIL("Error message is displayed if the users enters an email that has an invalid format"),
@@ -34,6 +36,7 @@ public enum TestCaseDesc {
     SIGNUPPAGE_REGISTERWITHEXISTINGMAIL("Error message is displayed when signing up with an email associated " +
             "to an existing account"),
 
+    //******************RECOVER PASSWORD PAGE*********************
     RECOVERPASSPAGE_INVALIDEMAIL("Error message is displayed after entering an invalid email"),
     RECOVERPASSPAGE_INVALIDTOKEN("Error message is displayed when the user enters an invalid/incorrect token"),
     RECOVERPASSPAGE_EXPIREDTOKEN("Error message is displayed when the user enters an expired token"),
@@ -54,13 +57,21 @@ public enum TestCaseDesc {
     RECOVERPASSPAGE_CANCELUPDATINGPASSWORD("Old password is still functional if the user cancels the " +
             "recover password flow in the last step"),
 
+    //******************LIBRARY PAGE*********************
     LIBRARYPAGE_CREATENEWFOLDERWITHBLANKNAME("Error message is displayed when the user creates a new folder " +
             "that has a blank name"),
     LIBRARYPAGE_CREATENEWFOLDERWITHLONGNAME("Error message is displayed when the user creates a new folder " +
-            "that has a more than 256 characters"),
+            "that has a more than 255 characters"),
     LIBRARYPAGE_CREATENEWFOLDER("Successfully create a new folder"),
-    LIBRARYPAGE_CREATEFOLDERWITHILLEGALCHARACTERS("Error message is displayed if the name of the folder " +
+    LIBRARYPAGE_CreateFolderWithIllegalCharacters("Error message is displayed if the name of the folder " +
             "contains an illegal character"),
+    LIBRARYPAGE_CancelButtonClosesCreateNewFolderModal("Clicking on the Close button closes the create " +
+            "new folder modal"),
+    LIBRARYPAGE_CreateFolderWithFileSuffix("Create a new folder whose name has a file-like suffix"),
+    LIBRARYPAGE_CreateFolderWhoseNameIsTakenByAnotherFolder("Create a folder whose name is already taken by " +
+            "another folder"),
+    LIBRARYPAGE_CreateFolderWhoseNameIsTakenByAnotherFile("Create a folder whose name is already taken by " +
+            "another file"),
 
     SMOKETEST_TEST1("https://jiracommercial.flir.com/secure/Tests.jspa#/testCase/THAL-T477");
 

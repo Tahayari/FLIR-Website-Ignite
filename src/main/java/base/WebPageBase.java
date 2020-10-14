@@ -57,7 +57,7 @@ public class WebPageBase {
         ExtentReport.addTestCaseStep(msg);
     }
 
-    public boolean checkIfElementIsLoaded(WebElement element) {
+    public boolean checkIfElementIsDisplayed(WebElement element) {
         try {
             if(element.isDisplayed()) return true;
         }

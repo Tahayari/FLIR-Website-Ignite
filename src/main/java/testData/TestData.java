@@ -1,13 +1,11 @@
 package testData;
 
-import utils.TestUtil;
-
 public class TestData {
     private final String randomEmail = "randomEmail@mail.com";
     private final String nameOfInvalidEmailsFile = "InvalidEmails";
     private final String nameOfFirstSheet = "Sheet1";
     private final String emailOfExistingAcc = "flirtest1@mailinator.com";
-    private final String testAccountEmail = "flirtest10@mailinator.com";
+    private final String testAccountEmail = "flirtest7@mailinator.com";
     private final String smokeTestAccount = "flirsmoketest@mailinator.com";
     private final String passOfExistingAcc = "QAZxsw123";
     private final String incorrectPass = "thisIsNotTheCorrectPass";
@@ -71,10 +69,6 @@ public class TestData {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getLongName() {
-        return TestUtil.getRandomString(256);
     }
 
     public String getTestAccountEmail(){

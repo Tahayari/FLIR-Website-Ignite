@@ -13,7 +13,8 @@
         <parameter name="browserName" value="edge"><!--browser list: chrome,edge,firefox--></parameter>
         <classes>
             <class name="testCases.libraryPage.LibraryPagePositiveTests"></class>
-            <class name="testCases.libraryPage.LibraryPageNegativeTests"></class>
+            <class name="testCases.libraryPage.LibraryPageNegativeTests">
+            </class>
         </classes>
     </test>
 </suite>

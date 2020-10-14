@@ -36,6 +36,7 @@ public enum ElementManager {
     LIBRARYPAGE_DELETE_BTN("", "files-button-bar-delete"),
     LIBRARYPAGE_DELETE_CONFIRM_BTN("//div[@class='button-bar']//span[contains(text(),'Delete')]//ancestor::button"),
     LIBRARYPAGE_ALL_LINK("//a[contains(text(),'All')]"),
+    LIBRARYPAGE_FOLDERALREADY_EXISTS_MSG("//span[contains(text(),'already exists')]"),
 
     //IMAGE DETAILS PAGE
     IMAGEDETAILSPAGE_MEASUREMENTS_TAB("//li[@title='Measurements']"),

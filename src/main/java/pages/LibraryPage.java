@@ -2,6 +2,7 @@ package pages;
 
 import base.WebPageBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import pages.elements.ElementManager;
 import reports.ExtentReport;
@@ -11,17 +12,13 @@ import static pages.ImageDetailsPage.getImageDetailsPage;
 import static pages.SettingsPage.getSettingsPage;
 
 public class LibraryPage extends WebPageBase {
-//    private WebDriver driver;
 
-    //Constructor
     private LibraryPage() {
-//        driver = factory.getDriver();
     }
 
     public static LibraryPage getLibraryPage() {
         return new LibraryPage();
     }
-    //--------------
 
     //-----------GETTERS
     public WebElement termsAndConditions() {
@@ -82,6 +79,10 @@ public class LibraryPage extends WebPageBase {
 
     public WebElement folderNameError_Msg() {
         return getWebElement(ElementManager.LIBRARYPAGE_NEWFOLDER_FOLDERNAME_ERR);
+    }
+
+    public WebElement folderAlreadyExistsError_Msg(){
+        return getWebElement(ElementManager.LIBRARYPAGE_FOLDERALREADY_EXISTS_MSG);
     }
 
     public WebElement userMenu() {
@@ -155,8 +156,9 @@ public class LibraryPage extends WebPageBase {
         return this;
     }
 
-    public LibraryPage clickOn_createNewFolder_BTN() {
+    public LibraryPage clickOn_newFolder_BTN() {
         clickAction(newFolder_BTN(), "Clicked on the New Folder button");
+        checkIfElementHasLoaded(newFolderCancel_BTN(), "Create a new folder module is displayed");
         return this;
     }
 
@@ -167,11 +169,11 @@ public class LibraryPage extends WebPageBase {
     }
 
     public LibraryPage createNewFolder(String folderName) {
-        clickOn_createNewFolder_BTN();
+        clickOn_newFolder_BTN();
         setField(folderName_field(), folderName, "Entered the name: " + folderName);
         assertElementIsEnabled(newFolderCreate_BTN(), "Create button is enabled");
         clickOn_newFolderCreate_BTN();
-        closeToastMessage();
+//        closeToastMessage();
         checkIfFileWasCreated(folderName);
         return this;
     }
@@ -204,6 +206,15 @@ public class LibraryPage extends WebPageBase {
 
     public LibraryPage clickOn_newFolderCancel_BTN() {
         clickAction(newFolderCancel_BTN(), "Clicked on Cancel button");
+
+        try {
+            newFolderCancel_BTN().isDisplayed();
+            ExtentReport.extentTestChild.skip("Element" + newFolderCancel_BTN().getText() + "is still displayed");
+
+        } catch (NoSuchElementException e) {
+            ExtentReport.addTestCaseStep("Create a new folder modal has closed");
+        }
+
         return this;
     }
 
@@ -246,11 +257,6 @@ public class LibraryPage extends WebPageBase {
     public void logout() {
         clickOn_userMenu();
         clickOn_logout_BTN();
-//        try {
-//            Thread.sleep(6000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         ExtentReport.addTestCaseStep("Successfully logged out");
     }
 
@@ -309,7 +315,7 @@ public class LibraryPage extends WebPageBase {
 
         //wait for element to Unload
         TestUtil.waitForSomeMinutes(0.1); //6 seconds
-        if (!checkIfElementIsLoaded(item))
+        if (!checkIfElementIsDisplayed(item))
             ExtentReport.addTestCaseStep("Folder " + folderName + " was deleted successfully");
         else ExtentReport.addTestCaseStep("Folder " + folderName + " WASN'T deleted successfully");
         return this;
@@ -320,7 +326,7 @@ public class LibraryPage extends WebPageBase {
             clickOn_uploaded_BTN();
             checkIfElementHasLoaded(driver.findElement(By.xpath("//a[contains(text(),'" + fileName + "')]//ancestor::li")),
                     "File/Folder was created successfully");
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             clickOn_uploaded_BTN();
             checkIfElementHasLoaded(driver.findElement(By.xpath("//a[contains(text(),'" + fileName + "')]//ancestor::li")),
                     "File/Folder was created successfully");
